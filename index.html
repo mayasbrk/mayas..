@@ -13,12 +13,17 @@
     
     <!-- STYLES -->
     <style>
+        /* ------------------------- */
+        /* VARIABLES & THEMES     */
+        /* ------------------------- */
         :root {
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --font-cairo: 'Cairo', var(--font-sans);
             --transition-speed: 0.4s;
             --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+
+        /* Dark Theme (Default) */
         body {
             --bg-color: #121212;
             --surface-color: #1E1E1E;
@@ -28,8 +33,10 @@
             --primary-color: #FFFFFF; 
             --primary-text-color: #121212;
             --primary-hover: #E0E0E0;
-            --overlay-color: rgba(0, 0, 0, 0.5);
+            --overlay-color: rgba(0, 0, 0, 0.6);
         }
+        
+        /* Light Theme */
         body.light-mode {
             --bg-color: #F5F5F5;
             --surface-color: #FFFFFF;
@@ -39,12 +46,20 @@
             --primary-color: #1E1E1E;
             --primary-text-color: #FFFFFF;
             --primary-hover: #000000;
-            --overlay-color: rgba(0, 0, 0, 0.4);
+            --overlay-color: rgba(0, 0, 0, 0.5);
         }
+
+        /* GLOBAL STYLES */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: var(--font-sans); background-color: var(--bg-color); color: var(--text-color); line-height: 1.7; transition: background-color var(--transition-speed), color var(--transition-speed); }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
         html[lang="ar"] body { font-family: var(--font-cairo); }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; }
         .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); margin-bottom: 3rem; text-align: center; font-weight: 700; color: var(--text-color);}
@@ -52,6 +67,8 @@
         .btn:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(128, 128, 128, 0.1); }
         .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* HEADER */
         .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: rgba(18, 18, 18, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed); }
         body.light-mode .header { background-color: rgba(245, 245, 245, 0.7); }
         .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-color); text-decoration: none; }
@@ -60,6 +77,8 @@
         .main-nav a:hover, .main-nav a.active { color: var(--text-color); }
         .menu-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.8rem; padding: 0.5rem; transition: transform var(--transition-speed); z-index: 1002; }
         .menu-toggle:hover { transform: scale(1.1); }
+        
+        /* SIDE MENU & OVERLAY */
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--overlay-color); z-index: 1000; opacity: 0; transition: opacity var(--transition-speed); pointer-events: none; }
         .overlay.active { opacity: 1; pointer-events: auto; }
         .side-menu { position: fixed; top: 0; width: 280px; height: 100%; background-color: var(--surface-color); z-index: 1001; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: transform var(--transition-speed) var(--ease-out-quart); border-left: 1px solid var(--border-color); }
@@ -72,19 +91,27 @@
         .side-menu-actions { position: absolute; bottom: 2rem; display: flex; gap: 1rem; align-items: center; }
         .side-menu-actions .theme-toggle, .side-menu-actions .lang-toggle { background: none; border: 1px solid var(--border-color); color: var(--subtle-text-color); cursor: pointer; font-size: 1.5rem; padding: 0.75rem; transition: color var(--transition-speed), transform var(--transition-speed); border-radius: 8px; }
         .side-menu-actions .lang-toggle { font-size: 1rem; font-weight: 600; padding: 0.85rem 1rem; }
+
+        /* HERO */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
         .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color);}
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
+
+        /* ABOUT & FOUNDER */
         #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; }
         .founder-content { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
         .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center; flex-shrink: 0; border: 3px solid var(--border-color); }
         .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
         .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
+
+        /* SERVICES */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
         .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
         .service-card .icon { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1; }
         .service-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-color); }
+        
+        /* WEBSITE TEST */
         .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; }
         .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
         .test-question-item:last-child { border-bottom: none; }
@@ -95,6 +122,8 @@
         .test-result { text-align: center; margin-top: 2rem; padding: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
         .test-result.good { background-color: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #28a745; }
         .test-result.bad { background-color: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; color: #dc3545; }
+
+        /* FAQ */
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item { background-color: var(--surface-color); margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; }
         .faq-question { padding: 1.25rem 1.5rem; font-weight: 600; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
@@ -102,26 +131,46 @@
         .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); color: var(--text-color); }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease; }
         .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--subtle-text-color); }
+        
+        /* CONTACT */
         #contact-form { max-width: 600px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.5rem; }
         #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
         #contact-form input:focus, #contact-form textarea:focus { border-color: var(--text-color); box-shadow: 0 0 0 3px rgba(128,128,128, 0.2); outline: none; }
         #contact-form textarea { resize: vertical; min-height: 150px; }
         #form-status { text-align: center; margin-top: 1.5rem; font-weight: 500; min-height: 1.6em; }
+
+        /* MODAL */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1002; display: flex; align-items: center; justify-content: center; background-color: var(--overlay-color); opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); }
+        .modal.active { opacity: 1; visibility: visible; }
+        .modal-content { background-color: var(--surface-color); padding: 2rem; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; transform: scale(0.95); transition: transform var(--transition-speed); }
+        .modal.active .modal-content { transform: scale(1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem; }
+        .modal-title { font-size: 1.5rem; color: var(--text-color); }
+        .modal-close { background: none; border: none; font-size: 2rem; color: var(--subtle-text-color); cursor: pointer; }
+        .modal-body p { margin-bottom: 1rem; }
+        .modal-body h4 { margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--text-color); }
+
+        /* FOOTER */
         .footer { background-color: var(--surface-color); border-top: 1px solid var(--border-color); padding: 3rem 0; text-align: center; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
         .footer-nav, .footer-legal, .footer-social { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
-        .footer-nav a, .footer-legal a { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); font-weight: 500;}
-        .footer-nav a:hover, .footer-legal a:hover { color: var(--text-color); }
+        .footer-legal button { background: none; border: none; color: var(--subtle-text-color); cursor: pointer; font-family: inherit; font-size: 1em; font-weight: 500; }
+        .footer-nav a, .footer-legal button { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); font-weight: 500;}
+        .footer-nav a:hover, .footer-legal button:hover { color: var(--text-color); }
         .footer-social a { color: var(--subtle-text-color); transition: color var(--transition-speed), transform var(--transition-speed); }
         .footer-social a:hover { color: var(--text-color); transform: scale(1.1); }
         .footer-copy { margin-top: 2rem; font-size: 0.9rem; color: #777; }
+        
+        /* SCROLL TO TOP */
         #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed), background-color var(--transition-speed); pointer-events: none; border-radius: 50%; }
         html[dir="rtl"] #scrollTopBtn { left: 20px; }
         html[dir="ltr"] #scrollTopBtn { right: 20px; }
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
         #scrollTopBtn:hover { background-color: var(--border-color); }
+        
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .main-nav { display: none; }
+            .main-nav, .header-actions { display: none; }
             .menu-toggle { display: block; }
         }
     </style>
@@ -130,13 +179,10 @@
     <div class="overlay" id="overlay"></div>
     <header class="header">
         <a href="#hero" class="logo">solu_tion.dev</a>
-        <nav>
-            <ul class="main-nav">
-                <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
-                <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
-                <li><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
-            </ul>
-        </nav>
+        <div class="header-actions">
+            <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme"></button>
+            <button class="lang-toggle" id="header-lang-toggle" aria-label="Change language">AR</button>
+        </div>
         <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu"></button>
     </header>
 
@@ -158,7 +204,6 @@
     </aside>
 
     <main>
-
         <section id="hero" class="hero">
             <div class="hero-content reveal">
                 <h1 data-lang-key="heroTitle"></h1>
@@ -229,13 +274,32 @@
                 </a>
             </div>
             <div class="footer-legal">
-                <a href="#" data-lang-key="footerPrivacy"></a>
-                <a href="#" data-lang-key="footerTerms"></a>
+                <button data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
+                <button data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
             </div>
             <p class="footer-copy">&copy; 2025 solu_tion.dev. <span data-lang-key="footerRights"></span></p>
         </div>
     </footer>
     
+    <div class="modal" id="privacy-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="privacyTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="privacyContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="terms-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="termsTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="termsContent"></div>
+        </div>
+    </div>
+
     <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">
         <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>
     </button>
@@ -261,7 +325,9 @@
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
                     formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
-                    footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerRights: "جميع الحقوق محفوظة."
+                    footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerRights: "جميع الحقوق محفوظة.",
+                    privacyTitle: "سياسة الخصوصية", privacyContent: "<h4>جمع المعلومات</h4><p>نقوم بجمع المعلومات التي تقدمها مباشرة عبر نموذج التواصل، مثل الاسم والبريد الإلكتروني، وذلك بهدف الرد على استفساراتك وتقديم خدماتنا.</p><h4>استخدام المعلومات</h4><p>تستخدم المعلومات التي نجمعها فقط للتواصل معك بخصوص طلباتك ولتحسين خدماتنا. نحن لا نشارك بياناتك الشخصية مع أي طرف ثالث دون موافقتك الصريحة.</p>",
+                    termsTitle: "شروط الخدمة", termsContent: "<h4>الاستخدام</h4><p>باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. نحتفظ بالحق في تعديل هذه الشروط في أي وقت.</p><h4>الخدمات</h4><p>يتم الاتفاق على تفاصيل الخدمات المقدمة، بما في ذلك النطاق والتكلفة والجداول الزمنية، بشكل رسمي قبل بدء أي عمل. حجز استشارة لا يشكل عقداً ملزماً.</p>"
                 },
                 en: {
                     navHome: "Home", navAbout: "About", navServices: "Services", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact",
@@ -273,7 +339,9 @@
                     faqTitle: "Frequently Asked Questions", faqQ1: "How long to build a website?", faqA1: "A simple site usually takes 1-2 weeks, depending on the project scope.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start, and the rest upon final delivery.", faqQ4: "Do you build websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need for your business.",
                     contactTitle: "Contact Us", formName: "Full Name", formEmail: "Email Address", formMessage: "Your Message...", formSubmit: "Send Message",
                     formSending: "Sending...", formSuccess: "Thank you! Your message was sent.", formError: "Sorry, an error occurred.",
-                    footerPrivacy: "Privacy", footerTerms: "Terms", footerRights: "All rights reserved."
+                    footerPrivacy: "Privacy", footerTerms: "Terms", footerRights: "All rights reserved.",
+                    privacyTitle: "Privacy Policy", privacyContent: "<h4>Information Collection</h4><p>We collect information that you provide directly through the contact form, such as name and email, to respond to your inquiries and provide our services.</p><h4>Use of Information</h4><p>The information we collect is used solely to communicate with you regarding your requests and to improve our services. We do not share your personal data with any third parties without your explicit consent.</p>",
+                    termsTitle: "Terms of Service", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these Terms of Service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Details of the services provided, including scope, cost, and timelines, are formally agreed upon before any work begins. A consultation does not constitute a binding contract.</p>"
                 },
                 fr: {
                     navHome: "Accueil", navAbout: "À propos", navServices: "Services", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact",
@@ -285,7 +353,9 @@
                     faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.", faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
                     contactTitle: "Contactez-Nous", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer",
                     formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
-                    footerPrivacy: "Confidentialité", footerTerms: "Termes", footerRights: "Tous droits réservés."
+                    footerPrivacy: "Confidentialité", footerTerms: "Termes", footerRights: "Tous droits réservés.",
+                    privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
+                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>"
                 }
             };
             
@@ -301,13 +371,13 @@
             const themeToggles = document.querySelectorAll('.theme-toggle');
             const langToggles = document.querySelectorAll('.lang-toggle');
             const founderAvatar = document.getElementById('founder-avatar');
+            const modalTriggers = document.querySelectorAll('[data-modal-target]');
             
             const founderImageBase64 = "data:image/jpeg;base64,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";
             if (founderAvatar) {
                 founderAvatar.style.backgroundImage = `url(${founderImageBase64})`;
             }
 
-            // --- EVENT LISTENERS ---
             menuToggle.addEventListener('click', () => {
                 sideMenu.classList.toggle('active');
                 overlay.classList.toggle('active');
@@ -331,7 +401,29 @@
             window.addEventListener('scroll', handleScroll);
             if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
 
-            // --- FUNCTIONS ---
+            modalTriggers.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modalId = button.dataset.modalTarget;
+                    const modal = document.getElementById(modalId);
+                    if (modal) modal.classList.add('active');
+                });
+            });
+
+            document.querySelectorAll('.modal .modal-close').forEach(button => {
+                button.addEventListener('click', () => {
+                    button.closest('.modal').classList.remove('active');
+                });
+            });
+
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+
+
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
                 document.documentElement.lang = langCode;
@@ -339,15 +431,17 @@
                 
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
-                    if (langData[key]) el.innerHTML = langData[key];
+                    if (langData && langData[key]) el.innerHTML = langData[key];
                 });
                 
                 document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-lang-placeholder');
-                    if(langData[key]) el.placeholder = langData[key];
+                    if(langData && langData[key]) el.placeholder = langData[key];
                 });
                 
-                langToggles.forEach(toggle => toggle.textContent = langCode.toUpperCase());
+                langToggles.forEach(toggle => {
+                    if (toggle) toggle.textContent = langCode.toUpperCase();
+                });
                 
                 createFAQ();
                 createTestQuestions();
@@ -365,11 +459,16 @@
             }
 
             function updateThemeIcons(isLight) {
-                themeToggles.forEach(toggle => toggle.innerHTML = isLight ? icons.moon : icons.sun);
+                themeToggles.forEach(toggle => {
+                    if (toggle) toggle.innerHTML = isLight ? icons.moon : icons.sun;
+                });
             }
 
             function handleScroll() {
-                scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
+                if (scrollTopBtn) {
+                    scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
+                }
+
                 let currentSection = 'hero';
                 document.querySelectorAll('section[id]').forEach(section => {
                     if (pageYOffset >= section.offsetTop - 70) currentSection = section.id;
@@ -473,7 +572,7 @@
                 updateThemeIcons(savedTheme === 'light');
                 menuToggle.innerHTML = icons.menu;
                 updateLanguage('ar');
-                handleScroll(); // For initial reveal
+                handleScroll();
             }
 
             init();
