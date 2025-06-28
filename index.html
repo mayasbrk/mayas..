@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-lang-key="siteTitleAr">sitelek | تصميم مواقع احترافية</title>
     <meta name="description" content="تقدم sitelek خدمات تصميم مواقع سريعة، عصرية، وبأسعار معقولة للشركات والأفراد في الجزائر. حلول ويب متكاملة لعلامتك التجارية.">
-    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, sitelek, تطوير مواقع, متاجر الكترونية">
+    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, sitelek, تطوير مواقع, متاجر الكترونية, conception web, algérie">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
 
     <style>
@@ -61,7 +61,7 @@
         .container { max-width: 1120px; margin-left: 1.5rem; margin-right: 1.5rem; }
         .section { padding: 4.5rem 0 2rem; }
         .section-title { font-size: var(--h1-font-size); text-align: center; margin-bottom: 3rem; }
-        .btn { display: inline-block; background-color: var(--first-color); color: #fff; padding: 1rem 1.75rem; border-radius: .5rem; font-weight: var(--font-medium); transition: background-color .3s, transform .3s; }
+        .btn { display: inline-block; background-color: var(--first-color); color: #fff; padding: 1rem 1.75rem; border-radius: .5rem; font-weight: var(--font-medium); transition: background-color .3s, transform .3s; text-align: center; }
         .btn:hover { background-color: var(--first-color-alt); transform: translateY(-2px); }
         .header { position: fixed; top: 0; left: 0; width: 100%; background-color: transparent; z-index: var(--z-fixed); transition: background-color .4s, box-shadow .4s; }
         .nav-container { height: var(--header-height); display: flex; justify-content: space-between; align-items: center; }
@@ -71,39 +71,75 @@
         .theme-toggle, .nav-toggle { font-size: 1.25rem; color: var(--title-color); cursor: pointer; transition: transform .3s, color .3s; }
         .theme-toggle:hover, .nav-toggle:hover { transform: scale(1.1); color: var(--first-color); }
         .lang-switcher button { background: none; border: none; color: var(--title-color); cursor: pointer; font-size: var(--normal-font-size); font-weight: var(--font-medium); font-family: var(--body-font); }
-        .nav-menu { transition: right .4s; }
+        .nav-menu { transition: right .4s, left .4s; }
         .nav-list { display: flex; flex-direction: column; text-align: center; padding-top: 4rem; gap: 2.5rem; }
         .nav-link { color: var(--title-color); font-weight: var(--font-medium); transition: color .3s; }
         .nav-link:hover { color: var(--first-color); }
-        .nav-close { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; color: var(--title-color); cursor: pointer; }
-        .show-menu { right: 0; }
+        .nav-close { position: absolute; top: 1rem; font-size: 1.5rem; color: var(--title-color); cursor: pointer; }
+        html[dir="rtl"] .nav-close { right: 1.5rem; }
+        html[dir="ltr"] .nav-close { left: 1.5rem; }
+        html[dir="rtl"] .show-menu { right: 0; }
+        html[dir="ltr"] .show-menu { left: 0; }
         .scroll-header { background-color: var(--body-color); box-shadow: 0 1px 4px hsla(228, 4%, 15%, .1); }
         .light-theme .scroll-header { box-shadow: 0 1px 4px hsla(228, 4%, 15%, .1); }
         .active-link { color: var(--first-color); }
-        @media screen and (max-width: 767px) { .nav-menu { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background-color: hsla(228, 15%, 8%, .2); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: right .4s; } }
+        @media screen and (max-width: 767px) { 
+            .nav-menu { position: fixed; top: 0; width: 100%; height: 100%; background-color: hsla(228, 15%, 8%, .2); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+            html[dir="rtl"] .nav-menu { right: -100%; }
+            html[dir="ltr"] .nav-menu { left: -100%; }
+        }
         @media screen and (min-width: 768px) { .nav-menu { width: initial; } .nav-list { flex-direction: row; gap: 2.5rem; padding-top: 0; } .nav-toggle, .nav-close { display: none; } }
         .hero-container { padding-top: 2rem; text-align: center; }
         .hero-title { font-size: var(--biggest-font-size); margin-bottom: 1rem; min-height: calc(var(--biggest-font-size) * 1.2); }
         .hero-description { max-width: 600px; margin: 0 auto 2rem; }
+        
+        /* Portfolio Section */
+        .portfolio-grid { display: grid; gap: 2rem; }
+        .portfolio-card { background: var(--container-color); border-radius: .75rem; overflow: hidden; }
+        .portfolio-card-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+        .portfolio-card-content { padding: 1.5rem; }
+        .portfolio-card-title { font-size: var(--h3-font-size); margin-bottom: .5rem; }
+        .portfolio-card-desc { margin-bottom: 1rem; }
+        .portfolio-card-link { font-weight: var(--font-medium); }
+        
+        /* Pricing Section */
+        .pricing-grid { display: grid; gap: 1.5rem; align-items: center; }
+        .pricing-card { background-color: var(--container-color); border: 2px solid var(--border-color); padding: 2.5rem 2rem; border-radius: .75rem; text-align: center; transition: transform .3s, border-color .3s; }
+        .pricing-card:hover { transform: translateY(-.5rem); }
+        .pricing-card.highlight { border-color: var(--first-color); transform: scale(1.05); }
+        .pricing-popular { display: inline-block; background-color: var(--first-color); color: #fff; font-size: var(--small-font-size); padding: .25rem .75rem; border-radius: 1rem; margin-bottom: 1rem; }
+        .pricing-title { font-size: var(--h3-font-size); margin-bottom: .5rem; }
+        .pricing-price { font-size: var(--h1-font-size); font-weight: var(--font-semi-bold); color: var(--title-color); margin-bottom: .5rem; }
+        .pricing-price span { font-size: var(--normal-font-size); font-weight: var(--font-medium); color: var(--text-color); }
+        .pricing-features { list-style: none; margin: 2rem 0; display: flex; flex-direction: column; gap: 1rem; }
+        .pricing-features li { display: flex; align-items: center; gap: .5rem; }
+        html[dir="rtl"] .pricing-features li { justify-content: flex-start; }
+        html[dir="ltr"] .pricing-features li { justify-content: flex-start; }
+        .pricing-features li i { color: var(--first-color); }
+
         .services-grid { display: grid; gap: 1.5rem; }
         .service-card { background-color: var(--container-color); border: 1px solid var(--border-color); padding: 2.5rem 2rem; border-radius: .75rem; text-align: center; transition: transform .3s; }
         .service-card:hover { transform: translateY(-.5rem); }
         .card-icon { color: var(--first-color); margin-bottom: 1rem; }
         .card-title { font-size: var(--h3-font-size); margin-bottom: .5rem; }
-        .timeline { position: relative; padding-left: 2rem; }
-        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background-color: var(--first-color); }
-        html[dir="rtl"] .timeline { padding-left: 0; padding-right: 2rem; }
-        html[dir="rtl"] .timeline::before { left: auto; right: 0; }
+        .timeline { position: relative; }
+        html[dir="rtl"] .timeline { padding-right: 2rem; }
+        html[dir="ltr"] .timeline { padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; top: 0; bottom: 0; width: 2px; background-color: var(--first-color); }
+        html[dir="rtl"] .timeline::before { right: 0; }
+        html[dir="ltr"] .timeline::before { left: 0; }
         .timeline-item { position: relative; margin-bottom: 2.5rem; }
         .timeline-item:last-child { margin-bottom: 0; }
-        .timeline-dot { position: absolute; left: -12px; top: 0px; width: 24px; height: 24px; background-color: var(--first-color); border: 3px solid var(--body-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8rem; color: #fff; font-weight: 600; }
-        html[dir="rtl"] .timeline-dot { left: auto; right: -12px; }
+        .timeline-dot { position: absolute; top: 0px; width: 24px; height: 24px; background-color: var(--first-color); border: 3px solid var(--body-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8rem; color: #fff; font-weight: 600; }
+        html[dir="rtl"] .timeline-dot { right: -12px; }
+        html[dir="ltr"] .timeline-dot { left: -12px; }
         .contact-container { display: grid; gap: 2rem; }
         .info-item { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
         .form-group { position: relative; margin-bottom: 2rem; }
         .form-input { width: 100%; padding: 1rem; border: 1px solid var(--border-color); background-color: var(--container-color); border-radius: .5rem; color: var(--text-color); }
-        .form-label { position: absolute; top: -0.75rem; left: 1rem; background-color: var(--container-color); padding: 0 .5rem; font-size: var(--small-font-size); color: var(--text-color); }
-        html[dir="rtl"] .form-label { left: auto; right: 1rem; }
+        .form-label { position: absolute; top: -0.75rem; background-color: var(--body-color); padding: 0 .5rem; font-size: var(--small-font-size); color: var(--text-color); }
+        html[dir="rtl"] .form-label { right: 1rem; }
+        html[dir="ltr"] .form-label { left: 1rem; }
         textarea.form-input { resize: vertical; min-height: 120px; }
         .footer { padding: 3rem 0 2rem; border-top: 1px solid var(--border-color); margin-top: 2rem;}
         .footer-container { text-align: center; }
@@ -117,19 +153,33 @@
         .show-scroll { bottom: 3rem; }
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: var(--z-modal); display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
         .modal.active { opacity: 1; visibility: visible; }
-        .modal-content { text-align: right; position: relative; background-color: var(--body-color); padding: 2.5rem; border-radius: .75rem; max-width: 500px; width: 100%; }
+        .modal-content { position: relative; background-color: var(--body-color); padding: 2.5rem; border-radius: .75rem; max-width: 500px; width: 100%; }
+        html[dir="rtl"] .modal-content { text-align: right; }
         html[dir="ltr"] .modal-content { text-align: left; }
         .modal-content h2 { font-size: var(--h2-font-size); margin-bottom: 1rem; text-align: center; }
         .modal-content p { margin-bottom: 1rem; }
-        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; color: var(--title-color); cursor: pointer; }
-        html[dir="rtl"] .modal-close { right: auto; left: 1.5rem; }
+        .modal-close { position: absolute; top: 1.5rem; font-size: 1.5rem; color: var(--title-color); cursor: pointer; }
+        html[dir="rtl"] .modal-close { left: 1.5rem; }
+        html[dir="ltr"] .modal-close { right: 1.5rem; }
         .reveal { opacity: 0; transform: translateY(50px); transition: opacity .8s ease-out, transform .8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .typing-cursor { border-right: 3px solid var(--title-color); animation: blink .7s step-end infinite; }
         @keyframes blink { from, to { border-color: transparent; } 50% { border-color: var(--title-color); } }
-        @media screen and (min-width: 576px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media screen and (min-width: 768px) { .contact-container { grid-template-columns: repeat(2, 1fr); } }
-        @media screen and (min-width: 1024px) { .container { margin-left: auto; margin-right: auto; } .section { padding: 6.5rem 0 2rem; } .services-grid { grid-template-columns: repeat(3, 1fr); } .timeline { padding-left: 5rem; } html[dir="rtl"] .timeline { padding-right: 5rem; } }
+        
+        @media screen and (min-width: 576px) { 
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media screen and (min-width: 768px) { 
+            .contact-container { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media screen and (min-width: 1024px) { 
+            .container { margin-left: auto; margin-right: auto; } 
+            .section { padding: 6.5rem 0 2rem; } 
+            .services-grid { grid-template-columns: repeat(3, 1fr); } 
+            .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+        }
     </style>
 </head>
 <body>
@@ -139,10 +189,12 @@
             <a href="#" class="logo">sitelek.</a>
             <nav class="nav-menu" id="nav-menu">
                 <ul class="nav-list">
-                    <li class="nav-item"><a href="#hero" class="nav-link active-link" data-lang-key="navHome">الرئيسية</a></li>
-                    <li class="nav-item"><a href="#services" class="nav-link" data-lang-key="navServices">خدماتنا</a></li>
-                    <li class="nav-item"><a href="#how-we-work" class="nav-link" data-lang-key="navHowWeWork">كيف نعمل</a></li>
-                    <li class="nav-item"><a href="#contact" class="nav-link" data-lang-key="navContact">اتصل بنا</a></li>
+                    <li class="nav-item"><a href="#hero" class="nav-link active-link" data-lang-key="navHome"></a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
+                    <li class="nav-item"><a href="#portfolio" class="nav-link" data-lang-key="navPortfolio"></a></li>
+                    <li class="nav-item"><a href="#pricing" class="nav-link" data-lang-key="navPricing"></a></li>
+                    <li class="nav-item"><a href="#how-we-work" class="nav-link" data-lang-key="navHowWeWork"></a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
                 </ul>
                 <div class="nav-close" id="nav-close">
                     <i class="icon-lucide" data-lucide="x"></i>
@@ -178,6 +230,82 @@
                     <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="layout-template"></i><h3 class="card-title" data-lang-key="service1Title"></h3><p class="card-description" data-lang-key="service1Desc"></p></div>
                     <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="shopping-cart"></i><h3 class="card-title" data-lang-key="service2Title"></h3><p class="card-description" data-lang-key="service2Desc"></p></div>
                     <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="shield-check"></i><h3 class="card-title" data-lang-key="service3Title"></h3><p class="card-description" data-lang-key="service3Desc"></p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio section" id="portfolio">
+            <div class="container">
+                <h2 class="section-title" data-lang-key="portfolioTitle"></h2>
+                <div class="portfolio-grid">
+                    <article class="portfolio-card reveal">
+                        <img src="https://placehold.co/600x400/222/FFF?text=Projet+Un" alt="Image du projet un" class="portfolio-card-img">
+                        <div class="portfolio-card-content">
+                            <h3 class="portfolio-card-title" data-lang-key="project1Title"></h3>
+                            <p class="portfolio-card-desc" data-lang-key="project1Desc"></p>
+                            <a href="#" target="_blank" class="portfolio-card-link"><span data-lang-key="visitWebsite"></span> <i class="icon-lucide" data-lucide="external-link" style="width:1em; height:1em; vertical-align: middle;"></i></a>
+                        </div>
+                    </article>
+                    <article class="portfolio-card reveal">
+                        <img src="https://placehold.co/600x400/111/FFF?text=Projet+Deux" alt="Image du projet deux" class="portfolio-card-img">
+                        <div class="portfolio-card-content">
+                            <h3 class="portfolio-card-title" data-lang-key="project2Title"></h3>
+                            <p class="portfolio-card-desc" data-lang-key="project2Desc"></p>
+                            <a href="#" target="_blank" class="portfolio-card-link"><span data-lang-key="visitWebsite"></span> <i class="icon-lucide" data-lucide="external-link" style="width:1em; height:1em; vertical-align: middle;"></i></a>
+                        </div>
+                    </article>
+                    <article class="portfolio-card reveal">
+                        <img src="https://placehold.co/600x400/333/FFF?text=Projet+Trois" alt="Image du projet trois" class="portfolio-card-img">
+                        <div class="portfolio-card-content">
+                            <h3 class="portfolio-card-title" data-lang-key="project3Title"></h3>
+                            <p class="portfolio-card-desc" data-lang-key="project3Desc"></p>
+                            <a href="#" target="_blank" class="portfolio-card-link"><span data-lang-key="visitWebsite"></span> <i class="icon-lucide" data-lucide="external-link" style="width:1em; height:1em; vertical-align: middle;"></i></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing section" id="pricing">
+            <div class="container">
+                <h2 class="section-title" data-lang-key="pricingTitle"></h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card reveal">
+                        <h3 class="pricing-title" data-lang-key="plan1Title"></h3>
+                        <div class="pricing-price" data-lang-key="plan1Price"></div>
+                        <ul class="pricing-features">
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featurePages1"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureResponsive"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureContactForm"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSupport1"></span></li>
+                        </ul>
+                        <a href="#contact" class="btn" data-lang-key="choosePlan"></a>
+                    </div>
+                    <div class="pricing-card highlight reveal">
+                        <div class="pricing-popular" data-lang-key="mostPopular"></div>
+                        <h3 class="pricing-title" data-lang-key="plan2Title"></h3>
+                        <div class="pricing-price" data-lang-key="plan2Price"></div>
+                        <ul class="pricing-features">
+                             <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featurePages2"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureResponsive"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSeo"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureContactForm"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSupport2"></span></li>
+                        </ul>
+                        <a href="#contact" class="btn" data-lang-key="choosePlan"></a>
+                    </div>
+                    <div class="pricing-card reveal">
+                        <h3 class="pricing-title" data-lang-key="plan3Title"></h3>
+                        <div class="pricing-price" data-lang-key="plan3Price"></div>
+                        <ul class="pricing-features">
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featurePages3"></span></li>
+                             <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureResponsive"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureEcommerce"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSeo"></span></li>
+                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSupport3"></span></li>
+                        </ul>
+                        <a href="#contact" class="btn" data-lang-key="choosePlan"></a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -243,33 +371,17 @@
     
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        /*----- تحديد كل العناصر -----*/
-        const body = document.body;
-        const header = document.getElementById('header');
-        const navMenu = document.getElementById('nav-menu');
-        const navToggle = document.getElementById('nav-toggle');
-        const navClose = document.getElementById('nav-close');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const themeToggle = document.getElementById('theme-toggle');
-        const langBtn = document.getElementById('lang-btn');
-        const scrollUp = document.getElementById('scroll-up');
-        const sections = document.querySelectorAll('section[id]');
-        const revealElements = document.querySelectorAll('.reveal');
-        const contactForm = document.getElementById('contact-form');
-        const modalBtns = document.querySelectorAll('.modal-btn');
-        const modals = document.querySelectorAll('.modal');
-        const thanksModal = document.getElementById('thanks-modal');
-        const heroTitleEl = document.getElementById('hero-title');
-
-        /*----- قاموس الترجمة -----*/
         const translations = {
             ar: {
                 siteTitleAr: "sitelek | تصميم مواقع احترافية",
-                navHome: "الرئيسية", navServices: "خدماتنا", navHowWeWork: "كيف نعمل", navContact: "اتصل بنا",
+                navHome: "الرئيسية", navServices: "خدماتنا", navPortfolio: "أعمالنا", navPricing: "الأسعار", navHowWeWork: "كيف نعمل", navContact: "اتصل بنا",
                 heroTitle: ["موقعك، هويتك الرقمية.", "نصمم المستقبل الرقمي.", "حلول ويب مبتكرة."],
                 heroDescription: "نصمم مواقع ويب عصرية، سريعة، وآمنة للشركات الناشئة، المستقلين، والعلامات التجارية في الجزائر.",
                 heroButton: "احجز استشارة مجانية",
                 servicesTitle: "خدمات متكاملة لتلبية احتياجاتك", service1Title: "تصميم وتطوير المواقع", service1Desc: "نصمم مواقع جذابة ومتجاوبة بالكامل مع التركيز على تجربة المستخدم.", service2Title: "متاجر إلكترونية", service2Desc: "حلول تجارة إلكترونية قوية وآمنة لمساعدتك على بيع منتجاتك عبر الإنترنت.", service3Title: "صيانة ودعم فني", service3Desc: "نضمن بقاء موقعك محدثاً وآمناً ويعمل بأفضل أداء على مدار الساعة.",
+                portfolioTitle: "من أعمالنا", project1Title: "اسم المشروع الأول", project1Desc: "وصف موجز للمشروع والتقنيات المستخدمة. مثلاً: موقع تعريفي لشركة استشارات.", project2Title: "اسم المشروع الثاني", project2Desc: "وصف موجز للمشروع والتقنيات المستخدمة. مثلاً: متجر إلكتروني لبيع منتجات محلية.", project3Title: "اسم المشروع الثالث", project3Desc: "وصف موجز للمشروع والتقنيات المستخدمة. مثلاً: مدونة شخصية احترافية.", visitWebsite: "زيارة الموقع",
+                pricingTitle: "اختر الباقة التي تناسبك", mostPopular: "الأكثر طلباً", plan1Title: "الباقة الأساسية", plan1Price: "3,000 د.ج", plan2Title: "باقة الأعمال", plan2Price: "5,000 د.ج", plan3Title: "الباقة المميزة", plan3Price: "8,000 د.ج", choosePlan: "اختر الباقة",
+                featurePages1: "صفحة واحدة احترافية", featurePages2: "حتى 5 صفحات", featurePages3: "متجر إلكتروني + صفحات غير محدودة", featureResponsive: "تصميم متجاوب (موبايل وكمبيوتر)", featureContactForm: "نموذج تواصل", featureSupport1: "دعم فني أساسي", featureSupport2: "دعم فني أولوية", featureSupport3: "دعم فني متقدم + تدريب", featureSeo: "تهيئة أساسية لمحركات البحث (SEO)", featureEcommerce: "وظائف متجر إلكتروني كاملة",
                 howWeWorkTitle: "منهجية عملنا", step1Title: "الاستشارة", step1Desc: "نبدأ بجلسة استماع لفهم أهدافك، جمهورك، ومتطلبات مشروعك بدقة.", step2Title: "التصميم والتخطيط", step2Desc: "نقوم بإنشاء تصميم أولي وتخطيط هيكل الموقع لضمان تجربة مستخدم سلسة.", step3Title: "التطوير والمراجعة", step3Desc: "نحول التصميم إلى موقع حقيقي، مع إتاحة الفرصة لك للمراجعة وتقديم الملاحظات.", step4Title: "الإطلاق والدعم", step4Desc: "بعد موافقتك النهائية، نطلق الموقع ونوفر الدعم الفني لضمان استقراره.",
                 contactTitle: "تواصل معنا الآن", getInTouch: "كن على تواصل", contactDescription: "هل لديك سؤال أو مشروع؟ املأ النموذج وسنتواصل معك في أقرب وقت ممكن.", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك", formSubmit: "إرسال الرسالة",
                 footerPrivacy: "سياسة الخصوصية", footerTerms: "شروط الخدمة", footerRights: "مصمم من قبل sitelek.dz © 2025",
@@ -279,55 +391,69 @@
             },
             en: {
                 siteTitleAr: "sitelek | Professional Web Design",
-                navHome: "Home", navServices: "Services", navHowWeWork: "How We Work", navContact: "Contact Us",
+                navHome: "Home", navServices: "Services", navPortfolio: "Portfolio", navPricing: "Pricing", navHowWeWork: "How We Work", navContact: "Contact Us",
                 heroTitle: ["Your Website, Your Identity.", "Designing the Digital Future.", "Innovative Web Solutions."],
                 heroDescription: "We design modern, fast, and secure websites for startups, freelancers, and brands in Algeria.",
                 heroButton: "Book a Free Consultation",
                 servicesTitle: "Comprehensive Services to Meet Your Needs", service1Title: "Website Design & Development", service1Desc: "We design attractive, fully responsive websites with a focus on user experience.", service2Title: "E-commerce Stores", service2Desc: "Powerful and secure e-commerce solutions to help you sell your products online.", service3Title: "Maintenance & Support", service3Desc: "We ensure your site stays updated, secure, and performing at its best around the clock.",
+                portfolioTitle: "Our Work", project1Title: "Project Name One", project1Desc: "Brief description of the project. e.g., a portfolio website for a consulting firm.", project2Title: "Project Name Two", project2Desc: "Brief description of the project. e.g., an e-commerce store for local products.", project3Title: "Project Name Three", project3Desc: "Brief description of the project. e.g., a professional personal blog.", visitWebsite: "Visit Website",
+                pricingTitle: "Choose the Plan That's Right for You", mostPopular: "Most Popular", plan1Title: "Basic Plan", plan1Price: "$250", plan2Title: "Business Plan", plan2Price: "$450", plan3Title: "Premium Plan", plan3Price: "$700", choosePlan: "Choose Plan",
+                featurePages1: "Professional 1-Page Website", featurePages2: "Up to 5 Pages", featurePages3: "E-commerce + Unlimited Pages", featureResponsive: "Responsive Design (Mobile & Desktop)", featureContactForm: "Contact Form", featureSupport1: "Basic Technical Support", featureSupport2: "Priority Technical Support", featureSupport3: "Advanced Support + Training", featureSeo: "Basic SEO Setup", featureEcommerce: "Full E-commerce Functionality",
                 howWeWorkTitle: "Our Work Process", step1Title: "Consultation", step1Desc: "We start with a listening session to understand your goals, audience, and project requirements.", step2Title: "Design & Planning", step2Desc: "We create an initial design and plan the site structure to ensure a smooth user experience.", step3Title: "Development & Review", step3Desc: "We turn the design into a real website, giving you the opportunity to review and provide feedback.", step4Title: "Launch & Support", step4Desc: "After your final approval, we launch the site and provide technical support to ensure its stability.",
                 contactTitle: "Contact Us Now", getInTouch: "Get in Touch", contactDescription: "Have a question or a project? Fill out the form, and we will contact you as soon as possible.", formName: "Full Name", formEmail: "Email Address", formMessage: "Your Message", formSubmit: "Send Message",
                 footerPrivacy: "Privacy Policy", footerTerms: "Terms of Service", footerRights: "Designed by sitelek.dz © 2025",
                 privacyContent: `<p>sitelek ("us", "we", or "our") operates this website (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service.</p><p>When using the contact form, we may ask you to provide us with certain personally identifiable information such as your name and email address. We use this data solely to respond to your inquiries and provide our services to you, and we do not share it with any third parties without your consent.</p>`,
                 termsContent: `<p>By accessing this website, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, then you are prohibited from using this website.</p><p>sitelek provides web design and development services. The project scope, timeline, and cost will be detailed in a separate quote or official contract. Booking a consultation does not constitute a formal agreement to start work.</p>`,
                 thanksTitle: "Thank You!", thanksMessage: "We have received your message and will get back to you as soon as possible.", thanksClose: "Close",
+            },
+            fr: {
+                siteTitleAr: "sitelek | Conception de sites web professionnels",
+                navHome: "Accueil", navServices: "Services", navPortfolio: "Portfolio", navPricing: "Tarifs", navHowWeWork: "Méthodologie", navContact: "Contact",
+                heroTitle: ["Votre Site, Votre Identité.", "Concevons l'Avenir Numérique.", "Solutions Web Innovantes."],
+                heroDescription: "Nous concevons des sites web modernes, rapides et sécurisés pour les startups, les indépendants et les marques en Algérie.",
+                heroButton: "Réserver une consultation gratuite",
+                servicesTitle: "Des Services Complets Pour Répondre à Vos Besoins", service1Title: "Conception & Développement de Sites", service1Desc: "Nous créons des sites web attrayants et entièrement responsives en mettant l'accent sur l'expérience utilisateur.", service2Title: "Boutiques E-commerce", service2Desc: "Des solutions e-commerce robustes et sécurisées pour vous aider à vendre vos produits en ligne.", service3Title: "Maintenance & Support Technique", service3Desc: "Nous veillons à ce que votre site reste à jour, sécurisé et performant 24h/24.",
+                portfolioTitle: "Nos Réalisations", project1Title: "Nom du Projet Un", project1Desc: "Brève description du projet. Ex: un site vitrine pour une société de conseil.", project2Title: "Nom du Projet Deux", project2Desc: "Brève description du projet. Ex: une boutique en ligne pour des produits locaux.", project3Title: "Nom du Projet Trois", project3Desc: "Brève description du projet. Ex: un blog personnel professionnel.", visitWebsite: "Visiter le site",
+                pricingTitle: "Choisissez le Forfait Qui Vous Convient", mostPopular: "Le plus populaire", plan1Title: "Forfait Essentiel", plan1Price: "3,000 DA", plan2Title: "Forfait Affaires", plan2Price: "5,000 DA", plan3Title: "Forfait Premium", plan3Price: "8,000 DA", choosePlan: "Choisir ce forfait",
+                featurePages1: "Site one-page professionnel", featurePages2: "Jusqu'à 5 pages", featurePages3: "E-commerce + pages illimitées", featureResponsive: "Design responsive (Mobile & Ordinateur)", featureContactForm: "Formulaire de contact", featureSupport1: "Support technique de base", featureSupport2: "Support technique prioritaire", featureSupport3: "Support avancé + Formation", featureSeo: "Optimisation SEO de base", featureEcommerce: "Fonctionnalités E-commerce complètes",
+                howWeWorkTitle: "Notre Méthodologie", step1Title: "Consultation", step1Desc: "Nous commençons par une session d'écoute pour comprendre vos objectifs, votre public et les exigences de votre projet.", step2Title: "Conception & Planification", step2Desc: "Nous créons un design initial et planifions la structure du site pour garantir une expérience utilisateur fluide.", step3Title: "Développement & Révision", step3Desc: "Nous transformons le design en un site web réel, en vous donnant la possibilité de réviser et de fournir des commentaires.", step4Title: "Lancement & Support", step4Desc: "Après votre approbation finale, nous lançons le site et fournissons un support technique pour garantir sa stabilité.",
+                contactTitle: "Contactez-Nous Maintenant", getInTouch: "Restez en contact", contactDescription: "Vous avez une question ou un projet ? Remplissez le formulaire et nous vous contacterons dans les plus brefs délais.", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message", formSubmit: "Envoyer le message",
+                footerPrivacy: "Politique de confidentialité", footerTerms: "Conditions d'utilisation", footerRights: "Conçu par sitelek.dz © 2025",
+                privacyContent: `<p>sitelek ("nous", "notre") exploite ce site web (le "Service"). Cette page vous informe de nos politiques concernant la collecte, l'utilisation et la divulgation des données personnelles lorsque vous utilisez notre Service.</p><p>Lors de l'utilisation du formulaire de contact, nous pouvons vous demander de nous fournir certaines informations personnelles identifiables telles que votre nom et votre adresse e-mail. Nous utilisons ces données uniquement pour répondre à vos demandes et vous fournir nos services, et nous ne les partageons avec aucun tiers sans votre consentement.</p>`,
+                termsContent: `<p>En accédant à ce site web, vous acceptez d'être lié par ces Conditions d'utilisation. Si vous n'êtes pas d'accord avec une partie des conditions, il vous est interdit d'utiliser ce site.</p><p>sitelek fournit des services de conception et de développement web. La portée du projet, le calendrier et le coût seront détaillés dans un devis ou un contrat officiel distinct. La réservation d'une consultation ne constitue pas un accord formel pour commencer le travail.</p>`,
+                thanksTitle: "Merci !", thanksMessage: "Nous avons bien reçu votre message et nous vous répondrons dans les plus brefs délais.", thanksClose: "Fermer",
             }
         };
-        let currentLang = 'ar';
-        let typingTimeout;
 
-        /*----- الوظائف الرئيسية -----*/
+        const availableLangs = ['ar', 'en', 'fr'];
+        let currentLangIndex = 0;
+
+        const body = document.body;
+        const langBtn = document.getElementById('lang-btn');
+        const heroTitleEl = document.getElementById('hero-title');
+        let typingTimeout;
         
-        // وظيفة تفعيل الأيقونات
-        const initIcons = () => {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            } else {
-                console.error("Lucide library not loaded.");
-            }
-        };
-        
-        // وظيفة تحديث النصوص حسب اللغة
         const updateContent = () => {
-            const lang = translations[currentLang];
+            const langCode = availableLangs[currentLangIndex];
+            const langData = translations[langCode];
+            
             document.querySelectorAll('[data-lang-key]').forEach(el => {
                 const key = el.getAttribute('data-lang-key');
-                if (key && lang[key] && !Array.isArray(lang[key])) {
-                    el.innerHTML = lang[key];
+                if (key && langData[key] && !Array.isArray(langData[key])) {
+                    el.innerHTML = langData[key];
                 }
             });
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            langBtn.textContent = currentLang.toUpperCase();
+
+            document.documentElement.lang = langCode;
+            document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
+            langBtn.textContent = langCode.toUpperCase();
             startTypingEffect();
         };
 
-        // وظيفة تأثير الكتابة
         const startTypingEffect = () => {
-            const phrases = translations[currentLang].heroTitle;
+            const phrases = translations[availableLangs[currentLangIndex]].heroTitle;
             if (!heroTitleEl || !phrases) return;
-            let phraseIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
+            let phraseIndex = 0, charIndex = 0, isDeleting = false;
             clearTimeout(typingTimeout);
 
             function type() {
@@ -348,90 +474,77 @@
             type();
         };
 
-        /*----- ربط الأحداث -----*/
+        langBtn.addEventListener('click', () => {
+            currentLangIndex = (currentLangIndex + 1) % availableLangs.length;
+            updateContent();
+        });
+        
+        // --- The rest of the functionalities ---
+        const initIcons = () => lucide.createIcons();
+        const header = document.getElementById('header');
+        const navMenu = document.getElementById('nav-menu');
+        const navToggle = document.getElementById('nav-toggle');
+        const navClose = document.getElementById('nav-close');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const themeToggle = document.getElementById('theme-toggle');
+        const scrollUp = document.getElementById('scroll-up');
+        const sections = document.querySelectorAll('section[id]');
+        const revealElements = document.querySelectorAll('.reveal');
+        const contactForm = document.getElementById('contact-form');
+        const modalBtns = document.querySelectorAll('.modal-btn');
+        const modals = document.querySelectorAll('.modal');
+        const thanksModal = document.getElementById('thanks-modal');
 
-        // قائمة الهاتف
         if (navToggle) navToggle.addEventListener('click', () => navMenu.classList.add('show-menu'));
         if (navClose) navClose.addEventListener('click', () => navMenu.classList.remove('show-menu'));
         navLinks.forEach(link => link.addEventListener('click', () => navMenu.classList.remove('show-menu')));
 
-        // تبديل الثيم (الوضع المظلم)
-        if (themeToggle) {
-            const savedTheme = localStorage.getItem('selected-theme') || 'dark';
-            body.classList.toggle('light-theme', savedTheme === 'light');
-            themeToggle.setAttribute('data-lucide', savedTheme === 'light' ? 'moon' : 'sun');
-            
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-theme');
-                const isLight = body.classList.contains('light-theme');
-                localStorage.setItem('selected-theme', isLight ? 'light' : 'dark');
-                themeToggle.setAttribute('data-lucide', isLight ? 'moon' : 'sun');
-                initIcons();
-            });
-        }
-        
-        // تبديل اللغة
-        if (langBtn) langBtn.addEventListener('click', () => {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            updateContent();
+        const savedTheme = localStorage.getItem('selected-theme') || 'dark';
+        body.classList.toggle('light-theme', savedTheme === 'light');
+        themeToggle.setAttribute('data-lucide', savedTheme === 'light' ? 'moon' : 'sun');
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            const isLight = body.classList.contains('light-theme');
+            localStorage.setItem('selected-theme', isLight ? 'light' : 'dark');
+            themeToggle.setAttribute('data-lucide', isLight ? 'moon' : 'sun');
+            initIcons();
         });
 
-        // أحداث التمرير (scroll events)
         window.addEventListener('scroll', () => {
-            // شريط التنقل العلوي
-            if (header) header.classList.toggle('scroll-header', window.scrollY >= 50);
-
-            // زر الصعود للأعلى
-            if (scrollUp) scrollUp.classList.toggle('show-scroll', window.scrollY >= 350);
-
-            // تفعيل الرابط الحالي في القائمة
+            header.classList.toggle('scroll-header', window.scrollY >= 50);
+            scrollUp.classList.toggle('show-scroll', window.scrollY >= 350);
             const scrollY = window.pageYOffset;
             sections.forEach(current => {
-                const sectionHeight = current.offsetHeight, sectionTop = current.offsetTop - 58, sectionId = current.getAttribute('id');
-                const link = document.querySelector('.nav-link[href*=' + sectionId + ']');
-                if (link) link.classList.toggle('active-link', scrollY > sectionTop && scrollY <= sectionTop + sectionHeight);
+                const sectionTop = current.offsetTop - 58;
+                const link = document.querySelector('.nav-link[href*=' + current.id + ']');
+                if(link) link.classList.toggle('active-link', scrollY > sectionTop && scrollY <= sectionTop + current.offsetHeight);
             });
         });
 
-        // إظهار العناصر عند التمرير
         const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => entry.target.classList.toggle('active', entry.isIntersecting));
         }, { threshold: 0.1 });
-        if (revealElements) revealElements.forEach(el => revealObserver.observe(el));
-
-        // النوافذ المنبثقة (Modals)
-        modalBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const modal = document.getElementById(btn.dataset.modalTarget);
-                if (modal) modal.classList.add('active');
-            });
-        });
+        revealElements.forEach(el => revealObserver.observe(el));
+        
+        modalBtns.forEach(btn => btn.addEventListener('click', () => document.getElementById(btn.dataset.modalTarget)?.classList.add('active')));
         modals.forEach(modal => {
-            const closeBtn = modal.querySelector('.modal-close, .modal-close-btn');
-            if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => {
-                if(e.target === modal) modal.classList.remove('active');
-            });
+            modal.querySelector('.modal-close, .modal-close-btn')?.addEventListener('click', () => modal.classList.remove('active'));
+            modal.addEventListener('click', e => { if(e.target === modal) modal.classList.remove('active'); });
         });
 
-        // نموذج التواصل
-        if (contactForm) contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            fetch(this.action, {
-                method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    if(thanksModal) thanksModal.classList.add('active');
+            fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' }})
+            .then(res => {
+                if (res.ok) {
+                    thanksModal?.classList.add('active');
                     this.reset();
                 } else {
-                    alert('An error occurred. Please try again.');
+                    alert('An error occurred.');
                 }
-            }).catch(() => alert('An error occurred. Please try again.'));
+            }).catch(() => alert('An error occurred.'));
         });
 
-        /*----- التشغيل عند تحميل الصفحة -----*/
         updateContent();
         initIcons();
     });
