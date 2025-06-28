@@ -295,7 +295,6 @@
                             <i class="icon-lucide" data-lucide="mail"></i>
                             <span>sitelekdz@gmail.com</span>
                         </div>
-                        <!-- التعديل: إضافة رقم الهاتف -->
                         <div class="info-item">
                             <i class="icon-lucide" data-lucide="phone"></i>
                             <span style="direction: ltr; display: inline-block;">0542 51 15 48</span>
@@ -305,8 +304,8 @@
                             <span data-lang-key="location">برج بوعريريج، الجزائر</span>
                         </div>
                     </div>
-                    <!-- التعديل: تغيير رابط Formspree -->
-                    <form action="https://formspree.io/f/YOUR_UNIQUE_ID_HERE" method="POST" class="contact-form reveal" id="contact-form">
+                    <!-- ✅ التعديل: تم وضع رابط Formspree الخاص بك هنا -->
+                    <form action="https://formspree.io/f/xblyqala" method="POST" class="contact-form reveal" id="contact-form">
                          <div class="form-group">
                             <label for="name" class="form-label" data-lang-key="formName">الاسم الكامل</label>
                             <input type="text" id="name" name="name" class="form-input" required>
@@ -338,7 +337,6 @@
                 <button class="modal-btn" data-modal-target="terms-modal" data-lang-key="footerTerms">شروط الخدمة</button>
             </div>
              <div class="footer-socials">
-                <!-- التعديل: إبقاء الانستجرام فقط -->
                 <a href="https://instagram.com/sitelek.dz" target="_blank" class="social-link"><i class="icon-lucide" data-lucide="instagram"></i></a>
             </div>
             <p class="footer-copy" data-lang-key="footerRights">&copy; 2025 سايتلك. جميع الحقوق محفوظة.</p>
@@ -487,7 +485,7 @@
                 
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.dataset.langKey;
-                    if (langData[lang][key]) el.innerHTML = langData[lang][key];
+                    if (langData[lang] && langData[lang][key]) el.innerHTML = langData[lang][key];
                 });
                 
                 if (lang === 'ar') document.title = langData.ar.siteTitleAr;
