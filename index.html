@@ -88,12 +88,11 @@
         .card-title { font-size: var(--h3-font-size); margin-bottom: .5rem; }
         .timeline { position: relative; padding-left: 3rem; }
         html[dir="rtl"] .timeline { padding-left: 0; padding-right: 3rem; }
-        .timeline::before { content: ''; position: absolute; left: 11px; top: 0; bottom: 0; width: 2px; background-color: var(--first-color); }
+        .timeline::before { content: ''; position: absolute; left: 11px; top: 12px; bottom: 12px; width: 2px; background-color: var(--first-color); }
         html[dir="rtl"] .timeline::before { left: auto; right: 11px; }
-        .timeline-item { position: relative; margin-bottom: 2.5rem; }
+        .timeline-item { display: flex; align-items: flex-start; gap: 1.5rem; position: relative; margin-bottom: 2rem; }
         .timeline-item:last-child { margin-bottom: 0; }
-        .timeline-dot { position: absolute; left: 0px; top: -2px; width: 24px; height: 24px; background-color: var(--first-color); border: 3px solid var(--body-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8rem; color: #fff; font-weight: 600; }
-        html[dir="rtl"] .timeline-dot { left: auto; right: 0px; }
+        .timeline-dot { flex-shrink: 0; width: 24px; height: 24px; background-color: var(--first-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8rem; color: #fff; font-weight: 600; z-index: 2; }
         .contact-container { display: grid; gap: 2rem; }
         .info-item { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
         .form-group { position: relative; margin-bottom: 2rem; }
@@ -125,7 +124,7 @@
         @keyframes blink { from, to { border-color: transparent; } 50% { border-color: var(--title-color); } }
         @media screen and (min-width: 576px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
         @media screen and (min-width: 768px) { .contact-container { grid-template-columns: repeat(2, 1fr); } }
-        @media screen and (min-width: 1024px) { .container { margin-left: auto; margin-right: auto; } .section { padding: 6.5rem 0 2rem; } .services-grid { grid-template-columns: repeat(3, 1fr); } .timeline { padding-left: 5rem; } html[dir="rtl"] .timeline { padding-right: 5rem; } }
+        @media screen and (min-width: 1024px) { .container { margin-left: auto; margin-right: auto; } .section { padding: 6.5rem 0 2rem; } .services-grid { grid-template-columns: repeat(3, 1fr); } }
     </style>
 </head>
 <body>
@@ -135,23 +134,17 @@
             <a href="#" class="logo">Sitelek</a>
             <nav class="nav-menu" id="nav-menu">
                 <ul class="nav-list">
-                    <li class="nav-item"><a href="#hero" class="nav-link active-link" data-lang-key="navHome"></a></li>
-                    <li class="nav-item"><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
-                    <li class="nav-item"><a href="#how-we-work" class="nav-link" data-lang-key="navHowWeWork"></a></li>
-                    <li class="nav-item"><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
+                    <li class="nav-item"><a href="#hero" class="nav-link active-link" data-lang-key="navHome">الرئيسية</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link" data-lang-key="navServices">خدماتنا</a></li>
+                    <li class="nav-item"><a href="#how-we-work" class="nav-link" data-lang-key="navHowWeWork">كيف نعمل</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link" data-lang-key="navContact">اتصل بنا</a></li>
                 </ul>
-                <div class="nav-close" id="nav-close">
-                    <i class="icon-lucide" data-lucide="x"></i>
-                </div>
+                <div class="nav-close" id="nav-close"><i class="icon-lucide" data-lucide="x"></i></div>
             </nav>
             <div class="nav-actions">
                 <i class="icon-lucide theme-toggle" id="theme-toggle"></i>
-                <div class="lang-switcher">
-                    <button id="lang-btn">AR</button>
-                </div>
-                <div class="nav-toggle" id="nav-toggle">
-                    <i class="icon-lucide" data-lucide="menu"></i>
-                </div>
+                <div class="lang-switcher"><button id="lang-btn">AR</button></div>
+                <div class="nav-toggle" id="nav-toggle"><i class="icon-lucide" data-lucide="menu"></i></div>
             </div>
         </div>
     </header>
@@ -160,51 +153,51 @@
         <section class="hero section" id="hero">
             <div class="container hero-container">
                 <div class="hero-content">
-                    <h1 class="hero-title" id="hero-title" data-lang-key="heroTitle"></h1>
-                    <p class="hero-description reveal" data-lang-key="heroDescription"></p>
-                    <a href="#contact" class="btn reveal" data-lang-key="heroButton"></a>
+                    <h1 class="hero-title" id="hero-title" data-lang-key="heroTitle">موقعك الإلكتروني، هويتك الرقمية.</h1>
+                    <p class="hero-description reveal" data-lang-key="heroDescription">نصمم مواقع ويب عصرية، سريعة، وآمنة للشركات الناشئة، المستقلين، والعلامات التجارية في الجزائر.</p>
+                    <a href="#contact" class="btn reveal" data-lang-key="heroButton">احجز استشارة مجانية</a>
                 </div>
             </div>
         </section>
 
         <section class="services section" id="services">
             <div class="container">
-                <h2 class="section-title" data-lang-key="servicesTitle"></h2>
+                <h2 class="section-title" data-lang-key="servicesTitle">خدمات متكاملة لتلبية احتياجاتك</h2>
                 <div class="services-grid">
-                    <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="layout-template"></i><h3 class="card-title" data-lang-key="service1Title"></h3><p class="card-description" data-lang-key="service1Desc"></p></div>
-                    <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="shopping-cart"></i><h3 class="card-title" data-lang-key="service2Title"></h3><p class="card-description" data-lang-key="service2Desc"></p></div>
-                    <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="shield-check"></i><h3 class="card-title" data-lang-key="service3Title"></h3><p class="card-description" data-lang-key="service3Desc"></p></div>
+                    <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="layout-template"></i><h3 class="card-title" data-lang-key="service1Title">تصميم وتطوير المواقع</h3><p class="card-description" data-lang-key="service1Desc">نصمم مواقع جذابة ومتجاوبة بالكامل مع التركيز على تجربة المستخدم.</p></div>
+                    <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="shopping-cart"></i><h3 class="card-title" data-lang-key="service2Title">متاجر إلكترونية</h3><p class="card-description" data-lang-key="service2Desc">حلول تجارة إلكترونية قوية وآمنة لمساعدتك على بيع منتجاتك عبر الإنترنت.</p></div>
+                    <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="shield-check"></i><h3 class="card-title" data-lang-key="service3Title">صيانة ودعم فني</h3><p class="card-description" data-lang-key="service3Desc">نضمن بقاء موقعك محدثاً وآمناً ويعمل بأفضل أداء على مدار الساعة.</p></div>
                 </div>
             </div>
         </section>
         
         <section class="how-we-work section" id="how-we-work">
             <div class="container">
-                <h2 class="section-title" data-lang-key="howWeWorkTitle"></h2>
+                <h2 class="section-title" data-lang-key="howWeWorkTitle">منهجية عملنا</h2>
                 <div class="timeline">
-                    <div class="timeline-item reveal"><div class="timeline-dot">1</div><div class="timeline-content"><h3 data-lang-key="step1Title"></h3><p data-lang-key="step1Desc"></p></div></div>
-                    <div class="timeline-item reveal"><div class="timeline-dot">2</div><div class="timeline-content"><h3 data-lang-key="step2Title"></h3><p data-lang-key="step2Desc"></p></div></div>
-                    <div class="timeline-item reveal"><div class="timeline-dot">3</div><div class="timeline-content"><h3 data-lang-key="step3Title"></h3><p data-lang-key="step3Desc"></p></div></div>
-                    <div class="timeline-item reveal"><div class="timeline-dot">4</div><div class="timeline-content"><h3 data-lang-key="step4Title"></h3><p data-lang-key="step4Desc"></p></div></div>
+                    <div class="timeline-item reveal"><div class="timeline-dot">1</div><div class="timeline-content"><h3 data-lang-key="step1Title">الاستشارة</h3><p data-lang-key="step1Desc">نبدأ بجلسة استماع لفهم أهدافك، جمهورك، ومتطلبات مشروعك بدقة.</p></div></div>
+                    <div class="timeline-item reveal"><div class="timeline-dot">2</div><div class="timeline-content"><h3 data-lang-key="step2Title">التصميم والتخطيط</h3><p data-lang-key="step2Desc">نقوم بإنشاء تصميم أولي وتخطيط هيكل الموقع لضمان تجربة مستخدم سلسة.</p></div></div>
+                    <div class="timeline-item reveal"><div class="timeline-dot">3</div><div class="timeline-content"><h3 data-lang-key="step3Title">التطوير والمراجعة</h3><p data-lang-key="step3Desc">نحول التصميم إلى موقع حقيقي، مع إتاحة الفرصة لك للمراجعة وتقديم الملاحظات.</p></div></div>
+                    <div class="timeline-item reveal"><div class="timeline-dot">4</div><div class="timeline-content"><h3 data-lang-key="step4Title">الإطلاق والدعم</h3><p data-lang-key="step4Desc">بعد موافقتك النهائية، نطلق الموقع ونوفر الدعم الفني لضمان استقراره.</p></div></div>
                 </div>
             </div>
         </section>
         
         <section class="contact section" id="contact">
             <div class="container">
-                <h2 class="section-title" data-lang-key="contactTitle"></h2>
+                <h2 class="section-title" data-lang-key="contactTitle">تواصل معنا الآن</h2>
                  <div class="contact-container">
                     <div class="contact-info reveal">
-                        <h3 data-lang-key="getInTouch"></h3>
-                        <p data-lang-key="contactDescription"></p>
+                        <h3 data-lang-key="getInTouch">كن على تواصل</h3>
+                        <p data-lang-key="contactDescription">هل لديك سؤال أو مشروع؟ املأ النموذج وسنتواصل معك في أقرب وقت ممكن.</p>
                         <div class="info-item"><i class="icon-lucide" data-lucide="mail"></i><span>sitelekdz@gmail.com</span></div>
                         <div class="info-item"><i class="icon-lucide" data-lucide="phone"></i><span style="direction: ltr; display: inline-block;">0542 51 15 48</span></div>
                     </div>
                     <form action="https://formspree.io/f/xblyqala" method="POST" class="contact-form reveal" id="contact-form">
-                         <div class="form-group"><label for="name" class="form-label" data-lang-key="formName"></label><input type="text" id="name" name="name" class="form-input" required></div>
-                         <div class="form-group"><label for="email" class="form-label" data-lang-key="formEmail"></label><input type="email" id="email" name="email" class="form-input" required></div>
-                         <div class="form-group"><label for="message" class="form-label" data-lang-key="formMessage"></label><textarea id="message" name="message" rows="5" class="form-input" required></textarea></div>
-                         <button type="submit" class="btn" data-lang-key="formSubmit"></button>
+                         <div class="form-group"><label for="name" class="form-label" data-lang-key="formName">الاسم الكامل</label><input type="text" id="name" name="name" class="form-input" required></div>
+                         <div class="form-group"><label for="email" class="form-label" data-lang-key="formEmail">البريد الإلكتروني</label><input type="email" id="email" name="email" class="form-input" required></div>
+                         <div class="form-group"><label for="message" class="form-label" data-lang-key="formMessage">رسالتك</label><textarea id="message" name="message" rows="5" class="form-input" required></textarea></div>
+                         <button type="submit" class="btn" data-lang-key="formSubmit">إرسال الرسالة</button>
                     </form>
                  </div>
             </div>
@@ -216,10 +209,10 @@
             <div class="footer-content"><a href="#" class="logo">Sitelek</a></div>
              <div class="footer-socials"><a href="https://instagram.com/sitelek.dz" target="_blank" class="social-link"><i class="icon-lucide" data-lucide="instagram"></i></a></div>
              <div class="footer-links">
-                <button class="modal-btn" data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
-                <button class="modal-btn" data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
+                <button class="modal-btn" data-modal-target="privacy-modal" data-lang-key="footerPrivacy">سياسة الخصوصية</button>
+                <button class="modal-btn" data-modal-target="terms-modal" data-lang-key="footerTerms">شروط الخدمة</button>
              </div>
-            <p class="footer-copy" data-lang-key="footerRights"></p>
+            <p class="footer-copy" data-lang-key="footerRights">مصمم من قبل sitelek.dz &copy; 2025</p>
         </div>
     </footer>
     
@@ -234,7 +227,8 @@
         document.addEventListener('DOMContentLoaded', function(){
             const langData = {
                 ar: {
-                    siteTitleAr: "Sitelek | تصميم مواقع احترافية", navHome: "الرئيسية", navServices: "خدماتنا", navHowWeWork: "كيف نعمل", navContact: "اتصل بنا",
+                    siteTitleAr: "Sitelek | تصميم مواقع احترافية",
+                    navHome: "الرئيسية", navServices: "خدماتنا", navHowWeWork: "كيف نعمل", navContact: "اتصل بنا",
                     heroTitle: "موقعك الإلكتروني، هويتك الرقمية.", heroDescription: "نصمم مواقع ويب عصرية، سريعة، وآمنة للشركات الناشئة، والمستقلين، والعلامات التجارية في الجزائر.", heroButton: "احجز استشارة مجانية",
                     servicesTitle: "خدمات متكاملة لتلبية احتياجاتك", service1Title: "تصميم وتطوير المواقع", service1Desc: "نصمم مواقع جذابة ومتجاوبة بالكامل مع التركيز على تجربة المستخدم.", service2Title: "متاجر إلكترونية", service2Desc: "حلول تجارة إلكترونية قوية وآمنة لمساعدتك على بيع منتجاتك عبر الإنترنت.", service3Title: "صيانة ودعم فني", service3Desc: "نضمن بقاء موقعك محدثاً وآمناً ويعمل بأفضل أداء على مدار الساعة.",
                     howWeWorkTitle: "منهجية عملنا", step1Title: "الاستشارة", step1Desc: "نبدأ بجلسة استماع لفهم أهدافك، جمهورك، ومتطلبات مشروعك بدقة.", step2Title: "التصميم والتخطيط", step2Desc: "نقوم بإنشاء تصميم أولي وتخطيط هيكل الموقع لضمان تجربة مستخدم سلسة.", step3Title: "التطوير والمراجعة", step3Desc: "نحول التصميم إلى موقع حقيقي، مع إتاحة الفرصة لك للمراجعة وتقديم الملاحظات.", step4Title: "الإطلاق والدعم", step4Desc: "بعد موافقتك النهائية، نطلق الموقع ونوفر الدعم الفني لضمان استقراره.",
@@ -245,7 +239,8 @@
                     thanksTitle: "شكراً لك!", thanksMessage: "لقد تم استلام رسالتك بنجاح. سنتواصل معك في أقرب وقت ممكن.", thanksClose: "إغلاق"
                 },
                 en: {
-                    siteTitleEn: "Sitelek | Professional Web Design", navHome: "Home", navServices: "Services", navHowWeWork: "How We Work", navContact: "Contact",
+                    siteTitleEn: "Sitelek | Professional Web Design",
+                    navHome: "Home", navServices: "Services", navHowWeWork: "How We Work", navContact: "Contact",
                     heroTitle: "Your Website, Your Digital Identity.", heroDescription: "We design modern, fast, and secure websites for startups, freelancers, and brands in Algeria.", heroButton: "Book a Free Consultation",
                     servicesTitle: "Comprehensive Services", service1Title: "Web Design & Development", service1Desc: "We design attractive and fully responsive websites focusing on user experience.", service2Title: "E-commerce Stores", service2Desc: "Powerful e-commerce solutions to help you sell your products online.", service3Title: "Maintenance & Support", service3Desc: "We ensure your site stays updated, secure, and performing at its best.",
                     howWeWorkTitle: "How We Work", step1Title: "Consultation", step1Desc: "We start by understanding your goals, audience, and project requirements.", step2Title: "Design & Planning", step2Desc: "We create an initial design and plan the site structure for a seamless user experience.", step3Title: "Development & Revision", step3Desc: "We turn the design into a real website and allow you to provide feedback.", step4Title: "Launch & Support", step4Desc: "After your final approval, we launch the site and provide technical support.",
@@ -256,14 +251,15 @@
                     thanksTitle: "Thank You!", thanksMessage: "Your message has been received successfully. We will contact you as soon as possible.", thanksClose: "Close"
                 },
                 fr: {
-                    siteTitleFr: "Sitelek | Conception Web Professionnelle", navHome: "Accueil", navServices: "Services", navHowWeWork: "Notre Méthode", navContact: "Contact",
+                    siteTitleFr: "Sitelek | Conception Web Professionnelle",
+                    navHome: "Accueil", navServices: "Services", navHowWeWork: "Notre Méthode", navContact: "Contact",
                     heroTitle: "Votre Site Web, Votre Identité Numérique.", heroDescription: "Nous concevons des sites web modernes, rapides et sécurisés pour les startups, freelances et marques en Algérie.", heroButton: "Réservez une Consultation",
                     servicesTitle: "Services Complets", service1Title: "Conception et Développement Web", service1Desc: "Nous concevons des sites attractifs et responsives en nous concentrant sur l'expérience utilisateur.", service2Title: "Boutiques E-commerce", service2Desc: "Solutions e-commerce puissantes pour vous aider à vendre vos produits.", service3Title: "Maintenance et Support", service3Desc: "Nous veillons à ce que votre site reste à jour, sécurisé et performant.",
                     howWeWorkTitle: "Notre Méthode de Travail", step1Title: "Consultation", step1Desc: "Nous comprenons vos objectifs, votre public et les exigences de votre projet.", step2Title: "Conception et Planification", step2Desc: "Nous créons un design initial et planifions la structure du site pour une expérience fluide.", step3Title: "Développement et Révision", step3Desc: "Nous transformons le design en site web réel et vous permettons de donner votre avis.", step4Title: "Lancement et Support", step4Desc: "Après votre approbation finale, nous lançons le site et fournissons un support technique.",
                     contactTitle: "Contactez-nous", getInTouch: "Restez en Contact", contactDescription: "Une question ou un projet ? Remplissez le formulaire et nous vous répondrons.", formName: "Nom Complet", formEmail: "Adresse E-mail", formMessage: "Votre Message", formSubmit: "Envoyer le Message",
                     footerPrivacy: "Politique de Confidentialité", footerTerms: "Conditions d'Utilisation", footerRights: "Conçu par sitelek.dz &copy; 2025",
-                    privacyContent1: "<strong>1. Introduction :</strong> Sitelek ('nous', 'notre') exploite ce site web (le 'Service'). Cette politique explique comment nous collectons, utilisons et protégeons vos informations personnelles.", privacyContent2: "<strong>2. Informations que nous collectons :</strong> Lorsque vous utilisez notre formulaire de contact, nous collectons les données que vous fournissez volontairement, telles que le nom, l'e-mail et le numéro de téléphone. Nous pouvons également collecter des données d'utilisation non personnelles pour améliorer le service.", privacyContent3: "<strong>3. Comment nous utilisons vos informations :</strong> Nous utilisons vos informations personnelles uniquement pour répondre à vos demandes, planifier des rendez-vous et fournir les services que vous avez demandés. Nous ne partageons pas vos données avec des tiers sans votre consentement.",
-                    termsContent1: "<strong>1. Acceptation des conditions :</strong> En accédant à ce site web, vous acceptez d'être lié par ces conditions d'utilisation et toutes les lois applicables. Si vous n'êtes pas d'accord, n'utilisez pas ce site.", termsContent2: "<strong>2. Étendue du service :</strong> Sitelek fournit des services de conception et de développement web. Les détails de chaque projet (portée, calendrier, coût) seront précisés dans un contrat formel distinct.", termsContent3: "<strong>3. Propriété intellectuelle :</strong> Tout le contenu de ce site, y compris les textes, les designs et les logos, est la propriété de Sitelek et est protégé par les lois sur le droit d'auteur.",
+                    privacyContent1: "<strong>1. Introduction :</strong> Sitelek ('nous', 'notre') exploite ce site web (le 'Service'). Cette politique explique comment nous collectons, utilisons et protégeons vos informations personnelles.", privacyContent2: "<strong>2. Informations que nous collectons :</strong> Lorsque vous utilisez notre formulaire de contact, nous collectons les données que vous fournissez volontairement, telles que le nom, l'e-mail et le numéro de téléphone.", privacyContent3: "<strong>3. Comment nous utilisons vos informations :</strong> Nous utilisons vos informations personnelles uniquement pour répondre à vos demandes, planifier des rendez-vous et fournir les services que vous avez demandés. Nous ne partageons pas vos données avec des tiers sans votre consentement.",
+                    termsContent1: "<strong>1. Acceptation des conditions :</strong> En accédant à ce site, vous acceptez d'être lié par ces conditions d'utilisation. Si vous n'êtes pas d'accord, il vous est interdit d'utiliser ce site.", termsContent2: "<strong>2. Étendue du service :</strong> Sitelek fournit des services de conception web. Les détails de chaque projet (portée, calendrier, coût) seront précisés dans un contrat formel distinct.", termsContent3: "<strong>3. Propriété intellectuelle :</strong> Tout le contenu de ce site, y compris les textes, les designs et les logos, est la propriété de Sitelek et est protégé par les lois sur le droit d'auteur.",
                     thanksTitle: "Merci !", thanksMessage: "Votre message a été reçu avec succès. Nous vous contacterons dès que possible.", thanksClose: "Fermer"
                 }
             };
@@ -272,20 +268,20 @@
                 let i = 0;
                 element.innerHTML = "";
                 element.classList.add('typing-cursor');
-                const typing = () => {
+                function type() {
                     if (i < text.length) {
                         element.innerHTML += text.charAt(i);
                         i++;
-                        setTimeout(typing, speed);
+                        setTimeout(type, speed);
                     } else {
                         element.classList.remove('typing-cursor');
                     }
-                };
-                typing();
+                }
+                type();
             };
 
             let typingObserver;
-            const setupTypingAnimations = (lang) => {
+            function setupTypingAnimations(lang) {
                 if(typingObserver) typingObserver.disconnect();
                 const titlesToAnimate = document.querySelectorAll('.section-title, .hero-title');
                 titlesToAnimate.forEach(title => {
@@ -304,9 +300,9 @@
                     });
                 }, { threshold: 0.6 });
                 titlesToAnimate.forEach(title => typingObserver.observe(title));
-            };
+            }
 
-            const setLanguage = (lang) => {
+            function setLanguage(lang) {
                 document.documentElement.lang = lang;
                 document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
                 document.getElementById('lang-btn').textContent = lang.toUpperCase();
@@ -328,12 +324,13 @@
             const langBtn = document.getElementById('lang-btn');
             const langOrder = ['ar', 'en', 'fr'];
             let currentLangIndex = langOrder.indexOf(localStorage.getItem('sitelek-lang') || 'ar');
-            setLanguage(langOrder[currentLangIndex]);
-
+            
             langBtn.addEventListener('click', () => {
                 currentLangIndex = (currentLangIndex + 1) % langOrder.length;
                 setLanguage(langOrder[currentLangIndex]);
             });
+            
+            setLanguage(langOrder[currentLangIndex]);
 
             const modalBtns = document.querySelectorAll('.modal-btn');
             const modals = document.querySelectorAll('.modal');
@@ -346,31 +343,27 @@
             
             document.getElementById('contact-form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                const form = this;
-                const submitButton = form.querySelector('button[type="submit"]');
-                const originalButtonText = submitButton.innerHTML;
+                const form = this, submitButton = form.querySelector('button[type="submit"]'), originalButtonText = submitButton.innerHTML;
                 submitButton.innerHTML = '...';
                 submitButton.disabled = true;
 
-                fetch(form.action, {
-                    method: 'POST',
-                    body: new FormData(form),
-                    headers: { 'Accept': 'application/json' }
-                }).then(response => {
-                    if (response.ok) {
-                        form.reset();
-                        document.getElementById('thanks-modal').classList.add('active');
-                        lucide.createIcons();
-                    } else {
-                        alert('Oops! There was a problem.');
-                    }
-                }).catch(() => {
-                    alert('Oops! There was a problem.');
-                }).finally(() => {
-                    submitButton.innerHTML = originalButtonText;
-                    submitButton.disabled = false;
-                });
+                fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }})
+                    .then(response => {
+                        if (response.ok) {
+                            form.reset();
+                            document.getElementById('thanks-modal').classList.add('active');
+                            lucide.createIcons();
+                        } else { alert('Oops! There was a problem.'); }
+                    })
+                    .catch(() => alert('Oops! There was a problem.'))
+                    .finally(() => {
+                        submitButton.innerHTML = originalButtonText;
+                        submitButton.disabled = false;
+                    });
             });
+
+            // Initialize on first load
+            lucide.createIcons();
         });
     </script>
 </body>
