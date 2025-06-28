@@ -20,7 +20,9 @@
             --primary-color: #007BFF;
             --primary-hover: #0056b3;
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --transition-speed: 0.3s;
+            --font-cairo: 'Cairo', var(--font-sans);
+            --transition-speed: 0.4s;
+            --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         /* Dark Theme (Default) */
@@ -41,21 +43,10 @@
             --border-color: #E0E0E0;
         }
 
-        /* ------------------------- */
-        /* GLOBAL STYLES        */
-        /* ------------------------- */
+        /* GLOBAL STYLES */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: var(--font-sans);
             background-color: var(--bg-color);
@@ -63,160 +54,83 @@
             line-height: 1.7;
             transition: background-color var(--transition-speed), color var(--transition-speed);
         }
+        html[lang="ar"] body { font-family: var(--font-cairo); }
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; }
+        .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); margin-bottom: 3rem; text-align: center; font-weight: 700; }
+        .btn { display: inline-block; background-color: var(--primary-color); color: #fff; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); border: none; cursor: pointer; }
+        .btn:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2); }
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* HEADER */
+        .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: rgba(18, 18, 18, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed); }
+        body.light-mode .header { background-color: rgba(245, 245, 245, 0.7); }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-color); text-decoration: none; }
+        .main-nav { list-style: none; display: flex; gap: 2rem; }
+        .main-nav a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color var(--transition-speed); }
+        .main-nav a:hover, .main-nav a.active { color: var(--text-color); }
+        .menu-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.8rem; padding: 0.5rem; transition: transform var(--transition-speed); z-index: 1002; }
+        .menu-toggle:hover { transform: scale(1.1); }
         
-        html[lang="ar"] body {
-            font-family: 'Cairo', var(--font-sans);
-        }
+        /* SIDE MENU (Full Navigation) */
+        .side-menu { position: fixed; top: 0; width: 280px; height: 100vh; background-color: var(--surface-color); z-index: 1001; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: transform var(--transition-speed) var(--ease-out-quart); }
+        html[dir="rtl"] .side-menu { right: 0; transform: translateX(100%); }
+        html[dir="ltr"] .side-menu { left: 0; transform: translateX(-100%); }
+        .side-menu.active { transform: translateX(0); }
+        .side-menu-nav { list-style: none; text-align: center; }
+        .side-menu-nav li { margin-bottom: 2rem; }
+        .side-menu-nav a { color: var(--text-color); text-decoration: none; font-size: 1.2rem; font-weight: 600; }
+        .side-menu-actions { position: absolute; bottom: 2rem; display: flex; gap: 1rem; }
+        .side-menu-actions .theme-toggle, .side-menu-actions .lang-toggle { background: none; border: 1px solid var(--border-color); color: var(--subtle-text-color); cursor: pointer; font-size: 1.5rem; padding: 0.75rem; transition: color var(--transition-speed), transform var(--transition-speed); border-radius: 8px; }
+        .side-menu-actions .lang-toggle { font-size: 1rem; font-weight: 600; padding: 0.85rem 1rem; }
 
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed);
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
-        }
-        
-        /* Animation on Scroll */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ------------------------- */
-        /* HEADER            */
-        /* ------------------------- */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem 5%;
-            background-color: rgba(18, 18, 18, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color var(--transition-speed);
-        }
-        body.light-mode .header {
-             background-color: rgba(255, 255, 255, 0.7);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-        
-        .nav-links { list-style: none; display: flex; gap: 2rem; }
-        .nav-links a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color var(--transition-speed); }
-        .nav-links a:hover, .nav-links a.active { color: var(--text-color); }
-        
-        .header-actions { display: flex; align-items: center; gap: 1rem; }
-        .theme-toggle, .lang-toggle, .menu-toggle { background: none; border: none; color: var(--subtle-text-color); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; transition: color var(--transition-speed), transform var(--transition-speed); }
-        .theme-toggle:hover, .lang-toggle:hover { color: var(--text-color); transform: scale(1.1); }
-        
-        .lang-toggle { font-size: 1rem; font-weight: 600; border: 1px solid var(--border-color); border-radius: 6px; }
-
-        .menu-toggle { display: none; }
-
-        /* ------------------------- */
-        /* HERO SECTION       */
-        /* ------------------------- */
+        /* HERO */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
         .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
 
-        /* ------------------------- */
-        /* ABOUT & FOUNDER SECTION  */
-        /* ------------------------- */
+        /* ABOUT & FOUNDER */
         #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; }
-        #about p { text-align: center; font-size: 1.1rem; max-width: 750px; margin: 0 auto; color: var(--subtle-text-color); }
         .founder-content { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
         .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(145deg, var(--primary-color), #00c6ff); flex-shrink: 0; }
-        .founder-bio { flex-basis: 60%; min-width: 300px; }
-        .founder-bio p { font-size: 1.1rem; color: var(--subtle-text-color); text-align: center; }
+        .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
 
-        /* ------------------------- */
-        /* SERVICES SECTION      */
-        /* ------------------------- */
+        /* SERVICES */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
         .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
         .service-card .icon { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1; }
         .service-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; }
-
-        /* ------------------------- */
-        /* WEBSITE TEST SECTION    */
-        /* ------------------------- */
+        
+        /* WEBSITE TEST */
         .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; }
         .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
         .test-question-item:last-child { border-bottom: none; }
         .test-question-item p { margin: 0; flex-grow: 1; font-weight: 500; }
         .test-question-item .answers { display: flex; gap: 0.5rem; flex-shrink: 0; }
-        .test-question-item .answers button { background: var(--border-color); border: 1px solid transparent; color: var(--text-color); padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background-color var(--transition-speed), border-color var(--transition-speed); }
+        .test-question-item .answers button { background: var(--border-color); border: 1px solid transparent; color: var(--text-color); padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background-color var(--transition-speed); }
         .test-question-item .answers button.selected { background: var(--primary-color); }
         .test-result { text-align: center; margin-top: 2rem; padding: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
         .test-result.good { background-color: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #28a745; }
         .test-result.bad { background-color: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; color: #dc3545; }
 
-        /* ------------------------- */
-        /* FAQ SECTION        */
-        /* ------------------------- */
+        /* FAQ */
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item { background-color: var(--surface-color); margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; }
         .faq-question { padding: 1.25rem 1.5rem; font-weight: 600; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .faq-question .faq-icon { font-size: 1.5rem; transition: transform var(--transition-speed) ease; }
         .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease, padding var(--transition-speed) ease; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease; }
         .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--subtle-text-color); }
         
-        /* ------------------------- */
-        /* CONTACT SECTION      */
-        /* ------------------------- */
+        /* CONTACT */
         #contact-form { max-width: 600px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.5rem; }
-        #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
+        #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
         #contact-form input:focus, #contact-form textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); outline: none; }
         #contact-form textarea { resize: vertical; min-height: 150px; }
         #form-status { text-align: center; margin-top: 1.5rem; font-weight: 500; min-height: 1.6em; }
 
-        /* ------------------------- */
-        /* FOOTER           */
-        /* ------------------------- */
+        /* FOOTER */
         .footer { background-color: var(--surface-color); border-top: 1px solid var(--border-color); padding: 3rem 0; text-align: center; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
         .footer-nav, .footer-legal, .footer-social { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
@@ -225,71 +139,53 @@
         .footer-social a { color: var(--subtle-text-color); transition: color var(--transition-speed), transform var(--transition-speed); }
         .footer-social a:hover { color: var(--primary-color); transform: scale(1.1); }
         .footer-copy { margin-top: 2rem; font-size: 0.9rem; color: #777; }
-
-        /* ------------------------- */
-        /* SCROLL TO TOP BUTTON    */
-        /* ------------------------- */
-        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--primary-color); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 99; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed); pointer-events: none; }
+        
+        /* SCROLL TO TOP */
+        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--primary-color); border: none; border-radius: 50%; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed); pointer-events: none; }
         html[dir="rtl"] #scrollTopBtn { left: 20px; }
         html[dir="ltr"] #scrollTopBtn { right: 20px; }
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
         
-        /* ------------------------- */
-        /* RESPONSIVE DESIGN     */
-        /* ------------------------- */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .nav-links { position: fixed; top: 0; width: 70%; height: 100vh; background-color: var(--surface-color); flex-direction: column; align-items: center; justify-content: center; transition: transform var(--transition-speed) ease-in-out; }
-            html[dir="rtl"] .nav-links { right: 0; transform: translateX(100%);}
-            html[dir="ltr"] .nav-links { left: 0; transform: translateX(-100%);}
-            html[dir="rtl"] .nav-links.active { transform: translateX(0); }
-            html[dir="ltr"] .nav-links.active { transform: translateX(0); }
-            
-            .menu-toggle { display: block; z-index: 101; }
-            .header-actions .theme-toggle, .header-actions .lang-toggle { display: none; } /* Hide in header, show in menu */
-            .nav-links .mobile-only-actions { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-top: 2rem; }
-            .nav-links .theme-toggle, .nav-links .lang-toggle { display: block; }
-
-            .hero-content h1 { font-size: 2.2rem; }
-            .section-title { font-size: 2.2rem; }
-            .founder-content { gap: 1.5rem; }
+            .main-nav { display: none; }
+            .menu-toggle { display: block; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ==================== -->
-    <!--       HEADER         -->
-    <!-- ==================== -->
     <header class="header">
         <a href="#hero" class="logo">Sitelek.</a>
-        <div class="header-actions">
-            <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme">
-                <!-- SVG icon will be injected by JS -->
-            </button>
-            <button class="lang-toggle" id="header-lang-toggle" aria-label="Change language">AR</button>
-            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
-                <!-- SVG icon will be injected by JS -->
-            </button>
-        </div>
         <nav>
-            <ul class="nav-links" id="nav-links">
+            <ul class="main-nav">
                 <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
-                <li><a href="#about" class="nav-link" data-lang-key="navAbout"></a></li>
                 <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
-                <li><a href="#website-test" class="nav-link" data-lang-key="navTest"></a></li>
-                <li><a href="#faq" class="nav-link" data-lang-key="navFAQ"></a></li>
                 <li><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
-                 <li class="mobile-only-actions">
-                    <button class="theme-toggle" id="menu-theme-toggle" aria-label="Toggle theme"></button>
-                    <button class="lang-toggle" id="menu-lang-toggle" aria-label="Change language">AR</button>
-                </li>
             </ul>
         </nav>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu"></button>
     </header>
+
+    <aside class="side-menu" id="side-menu">
+        <nav>
+            <ul class="side-menu-nav">
+                <li><a href="#hero" class="side-nav-link" data-lang-key="navHome"></a></li>
+                <li><a href="#about" class="side-nav-link" data-lang-key="navAbout"></a></li>
+                <li><a href="#services" class="side-nav-link" data-lang-key="navServices"></a></li>
+                <li><a href="#website-test" class="side-nav-link" data-lang-key="navTest"></a></li>
+                <li><a href="#faq" class="side-nav-link" data-lang-key="navFAQ"></a></li>
+                <li><a href="#contact" class="side-nav-link" data-lang-key="navContact"></a></li>
+            </ul>
+        </nav>
+        <div class="side-menu-actions">
+            <button class="theme-toggle" id="menu-theme-toggle" aria-label="Toggle theme"></button>
+            <button class="lang-toggle" id="menu-lang-toggle" aria-label="Change language">AR</button>
+        </div>
+    </aside>
 
     <main>
 
-        <!-- HERO SECTION -->
         <section id="hero" class="hero">
             <div class="hero-content reveal">
                 <h1 data-lang-key="heroTitle"></h1>
@@ -298,10 +194,8 @@
             </div>
         </section>
 
-        <!-- ABOUT & FOUNDER SECTION -->
         <section id="about" class="container reveal">
             <h2 class="section-title" data-lang-key="aboutTitle"></h2>
-            <p data-lang-key="aboutText"></p>
             <div class="founder-content">
                 <div class="founder-avatar"></div>
                 <div class="founder-bio">
@@ -310,7 +204,6 @@
             </div>
         </section>
 
-        <!-- SERVICES SECTION -->
         <section id="services" class="container">
             <h2 class="section-title reveal" data-lang-key="servicesTitle"></h2>
             <div class="services-grid">
@@ -323,7 +216,6 @@
             </div>
         </section>
 
-        <!-- WEBSITE TEST SECTION -->
         <section id="website-test" class="container">
              <h2 class="section-title reveal" data-lang-key="testTitle"></h2>
              <div class="website-test-tool reveal">
@@ -332,18 +224,13 @@
              </div>
         </section>
 
-        <!-- FAQ SECTION -->
         <section id="faq" class="container">
             <h2 class="section-title reveal" data-lang-key="faqTitle"></h2>
             <div class="faq-container reveal"></div>
         </section>
 
-        <!-- CONTACT SECTION -->
         <section id="contact" class="container reveal">
             <h2 class="section-title" data-lang-key="contactTitle"></h2>
-            <!-- ======================================================== -->
-            <!--   !!!  تعديل مهم: تم وضع الرابط الصحيح هنا   !!!   -->
-            <!-- ======================================================== -->
             <form id="contact-form" action="https://formspree.io/f/xblyqala" method="POST">
                 <input type="text" name="name" required data-lang-placeholder="formName">
                 <input type="email" name="email" required data-lang-placeholder="formEmail">
@@ -355,7 +242,6 @@
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-nav">
@@ -376,18 +262,13 @@
         </div>
     </footer>
     
-    <!-- SCROLL TO TOP BUTTON -->
     <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">
         <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" transform="rotate(-90 12 12)"></path></svg>
     </button>
 
-    <!-- MAIN SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
     
-            // -------------------------
-            // --- ICON DEFINITIONS ---
-            // -------------------------
             const icons = {
                 sun: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06z"></path></svg>`,
                 moon: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M9.37 5.51A7.35 7.35 0 009 6c0 4.42 3.58 8 8 8.01 1.07 0 2.09-.23 3-.64.42-.18.88.08 1.06.5.18.42-.08.88-.5 1.06-1.18.5-2.49.77-3.87.77-5.52 0-10-4.48-10-10 0-1.38.27-2.69.77-3.87.18-.42.64-.68 1.06-.5.42.18.68.64.5 1.06z"></path></svg>`,
@@ -395,101 +276,84 @@
                 close: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
             };
 
-            // -------------------------
-            // --- TRANSLATIONS DATA ---
-            // -------------------------
             const translations = {
                 ar: {
                     navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا",
-                    heroTitle: "نصمم لك هوية رقمية احترافية", heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت من خلال مواقع ويب عصرية وسريعة وبأسعار معقولة.", heroCTA: "اطلب استشارة مجانية",
-                    aboutTitle: "من نحن؟", aboutText: "Sitelek هو شريكك التقني في الجزائر. نحن نؤمن بأن كل فكرة رائعة تستحق موقعًا إلكترونيًا احترافيًا. مهمتنا هي تمكين رواد الأعمال والمستقلين الجزائريين من خلال تزويدهم بمواقع ويب عالية الجودة وبأسعار تنافسية، مما يساعدهم على النمو والنجاح في العالم الرقمي.",
-                    founderText: "أنا مبدع جزائري شغوف، أساعد الأفراد والشركات الصغيرة على بناء مواقع ويب جميلة وبأسعار معقولة. هدفي هو تمكين الناس من خلال منحهم حضورًا احترافيًا عبر الإنترنت باستخدام تصميم حديث وتطوير سريع - كل ذلك بأسعار في المتناول.",
+                    heroTitle: "نصمم لك هوية رقمية احترافية", heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
+                    aboutTitle: "شريكك الرقمي في الجزائر", founderText: "أنا مبدع جزائري شغوف، أساعد الأفراد والشركات الصغيرة على بناء مواقع ويب جميلة وبأسعار معقولة. هدفي هو تمكين الناس من خلال منحهم حضورًا احترافيًا عبر الإنترنت.",
                     servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
                     testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
-                    testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك - اتصل بنا الآن!</a>",
-                    faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع إلكتروني؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم الفني بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد استلام الموقع؟", faqA3: "نعتمد نظام دفع مرن يتضمن دفعة أولى عند بدء العمل والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل مع اتجاه الكتابة من اليمين لليسار.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك، مثل أنظمة الحجز أو المدونات.",
+                    testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
+                    faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
-                    formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ. يرجى المحاولة مرة أخرى.",
-                    footerPrivacy: "سياسة الخصوصية", footerTerms: "شروط الخدمة", footerRights: "جميع الحقوق محفوظة."
+                    formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
+                    footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerRights: "جميع الحقوق محفوظة."
                 },
                 en: {
-                    navHome: "Home", navAbout: "About Us", navServices: "Services", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact",
-                    heroTitle: "We Design Your Professional Digital Identity", heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence through modern, fast, and affordable websites.", heroCTA: "Request a Free Consultation",
-                    aboutTitle: "About Us", aboutText: "Sitelek is your technical partner in Algeria. We believe every great idea deserves a professional website. Our mission is to empower Algerian entrepreneurs and freelancers with high-quality, competitively-priced websites, helping them grow and succeed in the digital world.",
-                    founderText: "I’m a passionate Algerian creative who helps individuals and small businesses build beautiful and affordable websites. My goal is to empower people with a professional online presence using modern design and fast development — all at accessible prices.",
-                    servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-page Websites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolio Sites",
-                    testTitle: "Is Your Current Website Good?", testQ1: "Is your website mobile-friendly?", testQ2: "Does your website load quickly?", testQ3: "Is your content easy to navigate?", testQ4: "Does your site look professional?", testQ5: "Is your contact information clear?",
-                    testResultGood: "Great! Your site seems to be performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help — contact us now!</a>",
-                    faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to create a website?", faqA1: "It depends on the project scope, but a simple website usually takes one to two weeks.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period after delivery to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system, including a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic with right-to-left direction.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need to meet your business requirements, like booking systems or blogs.",
+                    navHome: "Home", navAbout: "About", navServices: "Services", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact",
+                    heroTitle: "Professional Digital Identity, Designed for You", heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Get a Free Consultation",
+                    aboutTitle: "Your Digital Partner in Algeria", founderText: "I’m a passionate Algerian creative who helps individuals and small businesses build beautiful and affordable websites. My goal is to empower people with a professional online presence.",
+                    servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-page Sites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolios",
+                    testTitle: "Is Your Website Good Enough?", testQ1: "Is your website mobile-friendly?", testQ2: "Does your site load fast?", testQ3: "Is your content easy to navigate?", testQ4: "Does your site look professional?", testQ5: "Is your contact info clear?",
+                    testResultGood: "Great! Your site seems to be performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
+                    faqTitle: "Frequently Asked Questions", faqQ1: "How long to build a website?", faqA1: "A simple site usually takes 1-2 weeks, depending on the project scope.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start, and the rest upon final delivery.", faqQ4: "Do you build websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need for your business.",
                     contactTitle: "Contact Us", formName: "Full Name", formEmail: "Email Address", formMessage: "Your Message...", formSubmit: "Send Message",
-                    formSending: "Sending...", formSuccess: "Thank you! Your message has been sent successfully.", formError: "Sorry, an error occurred. Please try again.",
-                    footerPrivacy: "Privacy Policy", footerTerms: "Terms of Service", footerRights: "All rights reserved."
+                    formSending: "Sending...", formSuccess: "Thank you! Your message was sent.", formError: "Sorry, an error occurred.",
+                    footerPrivacy: "Privacy", footerTerms: "Terms", footerRights: "All rights reserved."
                 },
                 fr: {
                     navHome: "Accueil", navAbout: "À propos", navServices: "Services", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact",
-                    heroTitle: "Nous Créons Votre Identité Numérique Professionnelle", heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne avec des sites web modernes, rapides et abordables.", heroCTA: "Demander une consultation gratuite",
-                    aboutTitle: "À Propos de Nous", aboutText: "Sitelek est votre partenaire technique en Algérie. Nous croyons que chaque grande idée mérite un site web professionnel. Notre mission est d'autonomiser les entrepreneurs et indépendants algériens avec des sites de haute qualité à des prix compétitifs, pour les aider à croître et réussir dans le monde numérique.",
-                    founderText: "Je suis un créatif algérien passionné qui aide les particuliers et les petites entreprises à créer des sites web magnifiques et abordables. Mon objectif est de leur offrir une présence en ligne professionnelle grâce à un design moderne et un développement rapide, le tout à des prix accessibles.",
-                    servicesTitle: "Nos Services", service1: "Pages de Destination", service2: "Sites Multi-pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Sites Portfolio",
-                    testTitle: "Votre Site Actuel est-il Performant ?", testQ1: "Votre site est-il compatible mobile ?", testQ2: "Votre site se charge-t-il rapidement ?", testQ3: "Votre contenu est-il facile à naviguer ?", testQ4: "Le design de votre site est-il professionnel ?", testQ5: "Vos informations de contact sont-elles claires ?",
-                    testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider - contactez-nous !</a>",
-                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site web ?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous utilisons un système de paiement flexible, avec un acompte pour commencer et le solde à la livraison finale.", faqQ4: "Proposez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe avec une direction de droite à gauche.", faqQ5: "Puis-je demander des fonctionnalités supplémentaires ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin, comme des systèmes de réservation ou des blogs.",
-                    contactTitle: "Contactez-Nous", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer le Message",
-                    formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue. Veuillez réessayer.",
-                    footerPrivacy: "Politique de confidentialité", footerTerms: "Conditions d'utilisation", footerRights: "Tous droits réservés."
+                    heroTitle: "Votre Identité Numérique Professionnelle, Conçue pour Vous", heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Consultation Gratuite",
+                    aboutTitle: "Votre Partenaire Digital en Algérie", founderText: "Je suis un créatif algérien passionné qui aide les particuliers et les petites entreprises à créer des sites web magnifiques et abordables. Mon objectif est de leur offrir une présence en ligne professionnelle.",
+                    servicesTitle: "Nos Services", service1: "Pages de Destination", service2: "Sites Multi-pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolios",
+                    testTitle: "Votre Site est-il Performant ?", testQ1: "Votre site est-il compatible mobile ?", testQ2: "Votre site se charge-t-il rapidement ?", testQ3: "Votre contenu est-il facile à naviguer ?", testQ4: "Le design est-il professionnel ?", testQ5: "Vos coordonnées sont-elles claires ?",
+                    testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider !</a>",
+                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.", faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
+                    contactTitle: "Contactez-Nous", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer",
+                    formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
+                    footerPrivacy: "Confidentialité", footerTerms: "Termes", footerRights: "Tous droits réservés."
                 }
             };
             
             const langCycle = ['ar', 'en', 'fr'];
             let currentLangIndex = 0;
 
-            // ----------------------------------
-            // --- ELEMENTS & EVENT LISTENERS ---
-            // ----------------------------------
             const menuToggle = document.getElementById('menu-toggle');
-            const navLinks = document.getElementById('nav-links');
+            const sideMenu = document.getElementById('side-menu');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
-            const themeToggles = [document.getElementById('header-theme-toggle'), document.getElementById('menu-theme-toggle')];
-            const langToggles = [document.getElementById('header-lang-toggle'), document.getElementById('menu-lang-toggle')];
+            const themeToggles = document.querySelectorAll('.theme-toggle');
+            const langToggles = document.querySelectorAll('.lang-toggle');
 
-            menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
-            navLinks.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
-            scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            menuToggle.addEventListener('click', () => {
+                sideMenu.classList.toggle('active');
+                menuToggle.innerHTML = sideMenu.classList.contains('active') ? icons.close : icons.menu;
+            });
+            document.querySelectorAll('.side-nav-link').forEach(link => link.addEventListener('click', () => {
+                sideMenu.classList.remove('active');
+                menuToggle.innerHTML = icons.menu;
+            }));
             
             themeToggles.forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
             langToggles.forEach(toggle => toggle.addEventListener('click', handleLangToggle));
-            
+            scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             window.addEventListener('scroll', handleScroll);
             contactForm.addEventListener("submit", handleFormSubmit);
-
-            // -------------------------
-            // ---      LOGIC        ---
-            // -------------------------
 
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
                 document.documentElement.lang = langCode;
                 document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
-
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
-                    if (langData[key]) {
-                        el.innerHTML = langData[key];
-                    }
+                    if (langData[key]) el.innerHTML = langData[key];
                 });
-
                 document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-lang-placeholder');
-                    if(langData[key]){
-                        el.placeholder = langData[key];
-                    }
+                    if(langData[key]) el.placeholder = langData[key];
                 });
-                
                 langToggles.forEach(toggle => toggle.textContent = langCode.toUpperCase());
-                
-                // Re-initialize dynamic content
                 createFAQ();
                 createTestQuestions();
             }
@@ -510,43 +374,26 @@
             }
 
             function handleScroll() {
-                // Scroll to top button
                 scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
-
-                // Active nav link
                 let currentSection = '';
                 document.querySelectorAll('section[id]').forEach(section => {
-                    if (pageYOffset >= section.offsetTop - 70) {
-                        currentSection = section.id;
-                    }
+                    if (pageYOffset >= section.offsetTop - 70) currentSection = section.id;
                 });
-                document.querySelectorAll('.nav-link').forEach(a => {
+                document.querySelectorAll('.main-nav a').forEach(a => {
                     a.classList.toggle('active', a.getAttribute('href') === '#' + currentSection);
                 });
-                
-                // Reveal on scroll
-                 document.querySelectorAll('.reveal').forEach(el => {
-                    const elTop = el.getBoundingClientRect().top;
-                    if(elTop < window.innerHeight - 100) {
-                        el.classList.add('visible');
-                    }
-                 });
+                document.querySelectorAll('.reveal').forEach(el => {
+                    if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('visible');
+                });
             }
             
             async function handleFormSubmit(event) {
                 event.preventDefault();
                 const lang = langCycle[currentLangIndex];
-                
                 formStatus.textContent = translations[lang].formSending;
                 formStatus.style.color = 'var(--subtle-text-color)';
-                
-                const data = new FormData(event.target);
                 try {
-                    const response = await fetch(event.target.action, {
-                        method: contactForm.method,
-                        body: data,
-                        headers: { 'Accept': 'application/json' }
-                    });
+                    const response = await fetch(event.target.action, { method: contactForm.method, body: new FormData(event.target), headers: { 'Accept': 'application/json' } });
                     if (response.ok) {
                         formStatus.textContent = translations[lang].formSuccess;
                         formStatus.style.color = "#28a745";
@@ -565,38 +412,23 @@
                 const lang = langCycle[currentLangIndex];
                 const faqContainer = document.querySelector('.faq-container');
                 faqContainer.innerHTML = '';
-                
-                const faqKeys = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
-                faqKeys.forEach(key => {
+                ['Q1','Q2','Q3','Q4','Q5'].forEach(key => {
                      const faqItem = document.createElement('div');
                      faqItem.classList.add('faq-item');
-                     faqItem.innerHTML = `
-                        <div class="faq-question">
-                           ${translations[lang]['faq'+key]}
-                           <span class="faq-icon">+</span>
-                        </div>
-                        <div class="faq-answer"><p>${translations[lang]['faqA'+key.substring(1)]}</p></div>
-                     `;
+                     faqItem.innerHTML = `<div class="faq-question"><span>${translations[lang]['faq'+key]}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${translations[lang]['faqA'+key.substring(1)]}</p></div>`;
                      faqContainer.appendChild(faqItem);
                 });
-
                 faqContainer.addEventListener('click', (e) => {
                     const question = e.target.closest('.faq-question');
                     if (!question) return;
-
                     const faqItem = question.parentElement;
                     const answer = faqItem.querySelector('.faq-answer');
-
-                    if (faqItem.classList.contains('active')) {
-                        faqItem.classList.remove('active');
-                        answer.style.maxHeight = '0';
-                    } else {
-                        // Close other items
-                        faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
-                            item.classList.remove('active');
-                            item.querySelector('.faq-answer').style.maxHeight = '0';
-                        });
-                        // Open current item
+                    const isActive = faqItem.classList.contains('active');
+                    faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
+                        item.classList.remove('active');
+                        item.querySelector('.faq-answer').style.maxHeight = '0';
+                    });
+                    if (!isActive) {
                         faqItem.classList.add('active');
                         answer.style.maxHeight = answer.scrollHeight + 'px';
                     }
@@ -605,68 +437,41 @@
             
             function createTestQuestions() {
                 const lang = langCycle[currentLangIndex];
-                const questionsContainer = document.querySelector('.test-questions-container');
-                const testResultEl = document.getElementById('test-result');
-                questionsContainer.innerHTML = '';
-                testResultEl.style.display = 'none';
-                
-                const userAnswers = {};
-                const qKeys = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
-                
-                qKeys.forEach((key, index) => {
-                    const questionItem = document.createElement('div');
-                    questionItem.classList.add('test-question-item');
-                    questionItem.innerHTML = `
-                        <p>${translations[lang]['test'+key]}</p>
-                        <div class="answers" data-question-id="q${index+1}">
-                            <button value="yes">${lang === 'ar' ? 'نعم' : (lang === 'en' ? 'Yes' : 'Oui')}</button>
-                            <button value="no">${lang === 'ar' ? 'لا' : (lang === 'en' ? 'No' : 'Non')}</button>
-                        </div>
-                    `;
-                    questionsContainer.appendChild(questionItem);
+                const container = document.querySelector('.test-questions-container');
+                const resultEl = document.getElementById('test-result');
+                container.innerHTML = '';
+                resultEl.style.display = 'none';
+                const answers = {};
+                const qKeys = ['Q1','Q2','Q3','Q4','Q5'];
+                qKeys.forEach((key, i) => {
+                    const item = document.createElement('div');
+                    item.classList.add('test-question-item');
+                    item.innerHTML = `<p>${translations[lang]['test'+key]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${translations.ar.formName=="الاسم الكامل"&&lang=="ar"?"نعم":"Yes"}</button><button value="no">${lang=="ar"?"لا":"No"}</button></div>`;
+                    if (lang=="fr") {item.querySelector(`[value="yes"]`).textContent="Oui";item.querySelector(`[value="no"]`).textContent="Non";}
+                    container.appendChild(item);
                 });
-                
-                 questionsContainer.addEventListener('click', (e) => {
-                    if (e.target.tagName === 'BUTTON') {
-                        const questionId = e.target.parentElement.dataset.questionId;
-                        userAnswers[questionId] = e.target.value;
-                        
-                        const buttons = e.target.parentElement.querySelectorAll('button');
-                        buttons.forEach(btn => btn.classList.remove('selected'));
-                        e.target.classList.add('selected');
-
-                        if (Object.keys(userAnswers).length === qKeys.length) {
-                           let yesCount = Object.values(userAnswers).filter(ans => ans === 'yes').length;
-                           testResultEl.style.display = 'block';
-                           if (yesCount >= 4) {
-                               testResultEl.innerHTML = translations[lang].testResultGood;
-                               testResultEl.className = 'test-result good';
-                           } else {
-                               testResultEl.innerHTML = translations[lang].testResultBad;
-                               testResultEl.className = 'test-result bad';
-                           }
-                        }
+                container.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'BUTTON') return;
+                    const qId = e.target.parentElement.dataset.id;
+                    answers[qId] = e.target.value;
+                    e.target.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+                    e.target.classList.add('selected');
+                    if (Object.keys(answers).length === qKeys.length) {
+                       let yes = Object.values(answers).filter(a => a === 'yes').length;
+                       resultEl.style.display = 'block';
+                       resultEl.innerHTML = translations[lang][yes >= 4 ? 'testResultGood' : 'testResultBad'];
+                       resultEl.className = `test-result ${yes >= 4 ? 'good' : 'bad'}`;
                     }
                 });
             }
 
-            // ----------------------------------
-            // --- INITIALIZATION & SETUP ---
-            // ----------------------------------
-            
-            // Set initial theme
+            // --- INITIALIZATION ---
             const savedTheme = localStorage.getItem('theme') || 'dark';
             document.body.classList.toggle('light-mode', savedTheme === 'light');
             updateThemeIcons(savedTheme === 'light');
-
-            // Set initial icons
             menuToggle.innerHTML = icons.menu;
-            
-            // Initial language setup and content load
             updateLanguage('ar');
-            
-            // Trigger initial scroll animations
-            handleScroll();
+            handleScroll(); // For initial reveal
         });
     </script>
 </body>
