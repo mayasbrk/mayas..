@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- ----------------- -->
-    <!--     META TAGS     -->
-    <!-- ----------------- -->
+    <!-- META TAGS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="نوفر خدمات تصميم مواقع احترافية في الجزائر للمستقلين والشركات بأسعار معقولة.">
-    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, sitelek, مستقل, freelance">
-
-    <!-- ----------------- -->
-    <!--  TITLE & FAVICON  -->
-    <!-- ----------------- -->
-    <title>Sitelek | Web Design in Algeria</title>
+    <meta name="description" content="Sitelek - تصميم مواقع احترافية وسريعة في الجزائر للشركات والأفراد بأسعار معقولة.">
+    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, sitelek, تطوير ويب, مبرمج, مستقل">
+    
+    <!-- TITLE & FAVICON -->
+    <title>Sitelek | تصميم مواقع احترافية</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
-
-    <!-- ----------------- -->
-    <!--       STYLES      -->
-    <!-- ----------------- -->
+    
+    <!-- STYLES -->
     <style>
-        /* ----- VARIABLES & GLOBAL STYLES ----- */
+        /* ------------------------- */
+        /* VARIABLES & THEMES     */
+        /* ------------------------- */
         :root {
-            --bg-color: #0d0d0d;
-            --surface-color: #1a1a1a;
-            --primary-color: #3b82f6;
-            --text-color: #f0f0f0;
-            --subtle-text-color: #a0a0a0;
-            --border-color: #333;
+            --primary-color: #007BFF;
+            --primary-hover: #0056b3;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --transition-speed: 0.3s;
         }
 
-        /* Basic Reset */
+        /* Dark Theme (Default) */
+        body {
+            --bg-color: #121212;
+            --surface-color: #1E1E1E;
+            --text-color: #E0E0E0;
+            --subtle-text-color: #A0A0A0;
+            --border-color: #333333;
+        }
+        
+        /* Light Theme */
+        body.light-mode {
+            --bg-color: #F5F5F5;
+            --surface-color: #FFFFFF;
+            --text-color: #121212;
+            --subtle-text-color: #555555;
+            --border-color: #E0E0E0;
+        }
+
+        /* ------------------------- */
+        /* GLOBAL STYLES        */
+        /* ------------------------- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -41,53 +57,71 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: var(--font-sans);
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
+            line-height: 1.7;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+        
+        html[lang="ar"] body {
+            font-family: 'Cairo', var(--font-sans);
         }
 
-        /* ----- LAYOUT & HELPERS ----- */
         .container {
             width: 90%;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 4rem 0;
+            padding: 5rem 0;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
             text-align: center;
-            color: var(--text-color);
+            font-weight: 700;
         }
 
         .btn {
             display: inline-block;
             background-color: var(--primary-color);
             color: #fff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 500;
-            transition: transform 0.2s, background-color 0.2s;
+            font-weight: 600;
+            transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed);
             border: none;
             cursor: pointer;
         }
 
         .btn:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+        }
+        
+        /* Animation on Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* ----- HEADER ----- */
+        /* ------------------------- */
+        /* HEADER            */
+        /* ------------------------- */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             padding: 1rem 5%;
-            background-color: rgba(13, 13, 13, 0.8);
+            background-color: rgba(18, 18, 18, 0.7);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             z-index: 100;
@@ -95,374 +129,129 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition-speed);
+        }
+        body.light-mode .header {
+             background-color: rgba(255, 255, 255, 0.7);
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: var(--subtle-text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--text-color);
-        }
-
-        .menu-toggle {
-            display: none;
             font-size: 1.8rem;
-            background: none;
-            border: none;
+            font-weight: 700;
             color: var(--text-color);
-            cursor: pointer;
-        }
-
-        /* ----- HERO SECTION ----- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: var(--subtle-text-color);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        /* ----- ABOUT SECTION ----- */
-        #about p {
-            text-align: center;
-            font-size: 1.1rem;
-            max-width: 750px;
-            margin: 0 auto;
-            color: var(--subtle-text-color);
-        }
-
-        /* ----- MEET THE FOUNDER SECTION ----- */
-        .founder-section {
-            background-color: var(--surface-color);
-            border-radius: 8px;
-            padding: 2.5rem;
-        }
-        .founder-content {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .founder-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background-color: var(--border-color);
-            flex-shrink: 0;
-        }
-        .founder-bio {
-            flex-basis: 60%;
-            min-width: 300px;
-            text-align: center;
-        }
-        .founder-bio p {
-            font-size: 1.1rem;
-            color: var(--subtle-text-color);
-        }
-
-
-        /* ----- SERVICES SECTION ----- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .service-card {
-            background-color: var(--surface-color);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .service-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* ----- WEBSITE TEST SECTION ----- */
-        .website-test-tool {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--surface-color);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-        .test-question-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .test-question-item:last-child {
-            border-bottom: none;
-        }
-        .test-question-item p {
-            margin: 0;
-            flex-grow: 1;
-        }
-        .test-question-item .answers {
-            display: flex;
-            gap: 0.5rem;
-            flex-shrink: 0;
-        }
-        .test-question-item .answers button {
-            background: var(--border-color);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .test-question-item .answers button.selected {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        .test-result {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            display: none; /* Hidden by default */
-        }
-        .test-result.good {
-            background-color: rgba(40, 167, 69, 0.1);
-            border: 1px solid #28a745;
-            color: #28a745;
-        }
-        .test-result.bad {
-            background-color: rgba(220, 53, 69, 0.1);
-            border: 1px solid #dc3545;
-            color: #dc3545;
-        }
-
-
-        /* ----- FAQ SECTION ----- */
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .faq-item {
-            background-color: var(--surface-color);
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-        }
-        .faq-question {
-            padding: 1rem 1.5rem;
-            font-weight: 500;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .faq-question::after {
-            content: '+';
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        .faq-item.active .faq-question::after {
-            transform: rotate(45deg);
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-        }
-        .faq-answer p {
-            padding: 0 1.5rem 1.5rem;
-            color: var(--subtle-text-color);
-        }
-
-        /* ----- CONTACT SECTION ----- */
-        #contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        #contact-form input,
-        #contact-form textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-color);
-            font-size: 1rem;
-        }
-
-        #contact-form textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        #form-status {
-            text-align: center;
-            margin-top: 1rem;
-            font-weight: 500;
-            min-height: 1.6em;
-        }
-
-        /* ----- FOOTER ----- */
-        .footer {
-            background-color: var(--surface-color);
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .footer-nav, .footer-legal, .footer-social {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-
-        .footer-nav a, .footer-legal a, .footer-social a {
-            color: var(--subtle-text-color);
             text-decoration: none;
-            transition: color 0.2s;
         }
+        
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color var(--transition-speed); }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-color); }
+        
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .theme-toggle, .lang-toggle, .menu-toggle { background: none; border: none; color: var(--subtle-text-color); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; transition: color var(--transition-speed), transform var(--transition-speed); }
+        .theme-toggle:hover, .lang-toggle:hover { color: var(--text-color); transform: scale(1.1); }
+        
+        .lang-toggle { font-size: 1rem; font-weight: 600; border: 1px solid var(--border-color); border-radius: 6px; }
 
-        .footer-nav a:hover, .footer-legal a:hover, .footer-social a:hover {
-            color: var(--text-color);
-        }
+        .menu-toggle { display: none; }
 
-        .footer-social a {
-            font-size: 1.5rem;
-        }
+        /* ------------------------- */
+        /* HERO SECTION       */
+        /* ------------------------- */
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; }
+        .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
 
-        .footer-copy {
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #777;
-        }
+        /* ------------------------- */
+        /* ABOUT & FOUNDER SECTION  */
+        /* ------------------------- */
+        #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; }
+        #about p { text-align: center; font-size: 1.1rem; max-width: 750px; margin: 0 auto; color: var(--subtle-text-color); }
+        .founder-content { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
+        .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(145deg, var(--primary-color), #00c6ff); flex-shrink: 0; }
+        .founder-bio { flex-basis: 60%; min-width: 300px; }
+        .founder-bio p { font-size: 1.1rem; color: var(--subtle-text-color); text-align: center; }
 
-        /* ----- SCROLL-TO-TOP BUTTON ----- */
-        #scrollTopBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: none; /* Hidden by default */
-            align-items: center;
-            justify-content: center;
-            z-index: 99;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-        }
+        /* ------------------------- */
+        /* SERVICES SECTION      */
+        /* ------------------------- */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
+        .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
+        .service-card .icon { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1; }
+        .service-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; }
 
-        #scrollTopBtn.show {
-            display: flex;
-            opacity: 1;
-        }
+        /* ------------------------- */
+        /* WEBSITE TEST SECTION    */
+        /* ------------------------- */
+        .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; }
+        .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
+        .test-question-item:last-child { border-bottom: none; }
+        .test-question-item p { margin: 0; flex-grow: 1; font-weight: 500; }
+        .test-question-item .answers { display: flex; gap: 0.5rem; flex-shrink: 0; }
+        .test-question-item .answers button { background: var(--border-color); border: 1px solid transparent; color: var(--text-color); padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background-color var(--transition-speed), border-color var(--transition-speed); }
+        .test-question-item .answers button.selected { background: var(--primary-color); }
+        .test-result { text-align: center; margin-top: 2rem; padding: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
+        .test-result.good { background-color: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #28a745; }
+        .test-result.bad { background-color: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; color: #dc3545; }
 
-        #scrollTopBtn:hover {
-            transform: scale(1.1);
-        }
+        /* ------------------------- */
+        /* FAQ SECTION        */
+        /* ------------------------- */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background-color: var(--surface-color); margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; }
+        .faq-question { padding: 1.25rem 1.5rem; font-weight: 600; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question .faq-icon { font-size: 1.5rem; transition: transform var(--transition-speed) ease; }
+        .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease, padding var(--transition-speed) ease; }
+        .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--subtle-text-color); }
+        
+        /* ------------------------- */
+        /* CONTACT SECTION      */
+        /* ------------------------- */
+        #contact-form { max-width: 600px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.5rem; }
+        #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
+        #contact-form input:focus, #contact-form textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); outline: none; }
+        #contact-form textarea { resize: vertical; min-height: 150px; }
+        #form-status { text-align: center; margin-top: 1.5rem; font-weight: 500; min-height: 1.6em; }
 
-        /* ----- RESPONSIVE DESIGN ----- */
+        /* ------------------------- */
+        /* FOOTER           */
+        /* ------------------------- */
+        .footer { background-color: var(--surface-color); border-top: 1px solid var(--border-color); padding: 3rem 0; text-align: center; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+        .footer-nav, .footer-legal, .footer-social { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
+        .footer-nav a, .footer-legal a { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); font-weight: 500;}
+        .footer-nav a:hover, .footer-legal a:hover { color: var(--text-color); }
+        .footer-social a { color: var(--subtle-text-color); transition: color var(--transition-speed), transform var(--transition-speed); }
+        .footer-social a:hover { color: var(--primary-color); transform: scale(1.1); }
+        .footer-copy { margin-top: 2rem; font-size: 0.9rem; color: #777; }
+
+        /* ------------------------- */
+        /* SCROLL TO TOP BUTTON    */
+        /* ------------------------- */
+        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--primary-color); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 99; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed); pointer-events: none; }
+        html[dir="rtl"] #scrollTopBtn { left: 20px; }
+        html[dir="ltr"] #scrollTopBtn { right: 20px; }
+        #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        
+        /* ------------------------- */
+        /* RESPONSIVE DESIGN     */
+        /* ------------------------- */
         @media (max-width: 768px) {
-            html[dir="rtl"] .nav-links {
-                right: -100%;
-            }
-            html[dir="rtl"] .nav-links.active {
-                right: 0;
-            }
+            .nav-links { position: fixed; top: 0; width: 70%; height: 100vh; background-color: var(--surface-color); flex-direction: column; align-items: center; justify-content: center; transition: transform var(--transition-speed) ease-in-out; }
+            html[dir="rtl"] .nav-links { right: 0; transform: translateX(100%);}
+            html[dir="ltr"] .nav-links { left: 0; transform: translateX(-100%);}
+            html[dir="rtl"] .nav-links.active { transform: translateX(0); }
+            html[dir="ltr"] .nav-links.active { transform: translateX(0); }
             
-            .nav-links {
-                position: fixed;
-                top: 0;
-                width: 70%;
-                height: 100vh;
-                background-color: var(--surface-color);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: right 0.4s ease-in-out, left 0.4s ease-in-out;
-            }
+            .menu-toggle { display: block; z-index: 101; }
+            .header-actions .theme-toggle, .header-actions .lang-toggle { display: none; } /* Hide in header, show in menu */
+            .nav-links .mobile-only-actions { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-top: 2rem; }
+            .nav-links .theme-toggle, .nav-links .lang-toggle { display: block; }
 
-            .menu-toggle {
-                display: block;
-                z-index: 101;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            
-            .founder-content {
-                gap: 1.5rem;
-            }
+            .hero-content h1 { font-size: 2.2rem; }
+            .section-title { font-size: 2.2rem; }
+            .founder-content { gap: 1.5rem; }
         }
     </style>
 </head>
@@ -473,224 +262,322 @@
     <!-- ==================== -->
     <header class="header">
         <a href="#hero" class="logo">Sitelek.</a>
+        <div class="header-actions">
+            <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme">
+                <!-- SVG icon will be injected by JS -->
+            </button>
+            <button class="lang-toggle" id="header-lang-toggle" aria-label="Change language">AR</button>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                <!-- SVG icon will be injected by JS -->
+            </button>
+        </div>
         <nav>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#hero" class="nav-link active">الرئيسية</a></li>
-                <li><a href="#about" class="nav-link">من نحن</a></li>
-                <li><a href="#services" class="nav-link">خدماتنا</a></li>
-                <li><a href="#website-test" class="nav-link">اختبر موقعك</a></li>
-                <li><a href="#faq" class="nav-link">أسئلة شائعة</a></li>
-                <li><a href="#contact" class="nav-link">اتصل بنا</a></li>
+                <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
+                <li><a href="#about" class="nav-link" data-lang-key="navAbout"></a></li>
+                <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
+                <li><a href="#website-test" class="nav-link" data-lang-key="navTest"></a></li>
+                <li><a href="#faq" class="nav-link" data-lang-key="navFAQ"></a></li>
+                <li><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
+                 <li class="mobile-only-actions">
+                    <button class="theme-toggle" id="menu-theme-toggle" aria-label="Toggle theme"></button>
+                    <button class="lang-toggle" id="menu-lang-toggle" aria-label="Change language">AR</button>
+                </li>
             </ul>
         </nav>
-        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">☰</button>
     </header>
 
     <main>
 
-        <!-- ==================== -->
-        <!--     HERO SECTION     -->
-        <!-- ==================== -->
+        <!-- HERO SECTION -->
         <section id="hero" class="hero">
-            <div class="hero-content">
-                <h1>نصمم لك هوية رقمية احترافية</h1>
-                <p>في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت من خلال مواقع ويب عصرية وسريعة وبأسعار معقولة.</p>
-                <a href="#contact" class="btn">اطلب استشارة مجانية</a>
+            <div class="hero-content reveal">
+                <h1 data-lang-key="heroTitle"></h1>
+                <p data-lang-key="heroSubtitle"></p>
+                <a href="#contact" class="btn" data-lang-key="heroCTA"></a>
             </div>
         </section>
 
-        <!-- ==================== -->
-        <!--    ABOUT SECTION     -->
-        <!-- ==================== -->
-        <section id="about" class="container">
-            <h2 class="section-title">من نحن؟</h2>
-            <p>
-                Sitelek هو شريكك التقني في الجزائر. نحن نؤمن بأن كل فكرة رائعة تستحق موقعًا إلكترونيًا احترافيًا. مهمتنا هي تمكين رواد الأعمال والمستقلين الجزائريين من خلال تزويدهم بمواقع ويب عالية الجودة وبأسعار تنافسية، مما يساعدهم على النمو والنجاح في العالم الرقمي.
-            </p>
-        </section>
-        
-        <!-- ==================== -->
-        <!-- MEET THE FOUNDER SECTION -->
-        <!-- ==================== -->
-        <section id="founder" class="container founder-section">
-            <h2 class="section-title">تعرف على المؤسس</h2>
+        <!-- ABOUT & FOUNDER SECTION -->
+        <section id="about" class="container reveal">
+            <h2 class="section-title" data-lang-key="aboutTitle"></h2>
+            <p data-lang-key="aboutText"></p>
             <div class="founder-content">
                 <div class="founder-avatar"></div>
                 <div class="founder-bio">
-                    <p>
-                        أنا مبدع جزائري شغوف، أساعد الأفراد والشركات الصغيرة على بناء مواقع ويب جميلة وبأسعار معقولة. هدفي هو تمكين الناس من خلال منحهم حضورًا احترافيًا عبر الإنترنت باستخدام تصميم حديث وتطوير سريع - كل ذلك بأسعار في المتناول.
-                    </p>
+                    <p data-lang-key="founderText"></p>
                 </div>
             </div>
         </section>
 
-
-        <!-- ==================== -->
-        <!--   SERVICES SECTION   -->
-        <!-- ==================== -->
+        <!-- SERVICES SECTION -->
         <section id="services" class="container">
-            <h2 class="section-title">خدماتنا</h2>
+            <h2 class="section-title reveal" data-lang-key="servicesTitle"></h2>
             <div class="services-grid">
-                <div class="service-card"><div class="icon">📄</div><h3>صفحات الهبوط</h3></div>
-                <div class="service-card"><div class="icon">📑</div><h3>مواقع متعددة الصفحات</h3></div>
-                <div class="service-card"><div class="icon">🛒</div><h3>متاجر إلكترونية</h3></div>
-                <div class="service-card"><div class="icon">✍️</div><h3>إضافة مدونة</h3></div>
-                <div class="service-card"><div class="icon">📅</div><h3>أنظمة الحجز</h3></div>
-                <div class="service-card"><div class="icon">🖼️</div><h3>معرض أعمال (Portfolio)</h3></div>
+                <div class="service-card reveal"><div class="icon">📄</div><h3 data-lang-key="service1"></h3></div>
+                <div class="service-card reveal"><div class="icon">📑</div><h3 data-lang-key="service2"></h3></div>
+                <div class="service-card reveal"><div class="icon">🛒</div><h3 data-lang-key="service3"></h3></div>
+                <div class="service-card reveal"><div class="icon">✍️</div><h3 data-lang-key="service4"></h3></div>
+                <div class="service-card reveal"><div class="icon">📅</div><h3 data-lang-key="service5"></h3></div>
+                <div class="service-card reveal"><div class="icon">🖼️</div><h3 data-lang-key="service6"></h3></div>
             </div>
         </section>
 
-        <!-- ==================== -->
         <!-- WEBSITE TEST SECTION -->
-        <!-- ==================== -->
         <section id="website-test" class="container">
-             <h2 class="section-title">هل موقعك الحالي جيد؟</h2>
-             <div class="website-test-tool">
-                <div class="test-questions-container">
-                    <!-- Questions will be injected by JavaScript -->
-                </div>
+             <h2 class="section-title reveal" data-lang-key="testTitle"></h2>
+             <div class="website-test-tool reveal">
+                <div class="test-questions-container"></div>
                 <div id="test-result" class="test-result"></div>
              </div>
         </section>
 
-
-        <!-- ==================== -->
-        <!--      FAQ SECTION     -->
-        <!-- ==================== -->
+        <!-- FAQ SECTION -->
         <section id="faq" class="container">
-            <h2 class="section-title">أسئلة شائعة</h2>
-            <div class="faq-container">
-                <!-- FAQ items will be injected by JavaScript -->
-            </div>
+            <h2 class="section-title reveal" data-lang-key="faqTitle"></h2>
+            <div class="faq-container reveal"></div>
         </section>
-        
 
-        <!-- ==================== -->
-        <!--   CONTACT SECTION    -->
-        <!-- ==================== -->
-        <section id="contact" class="container">
-            <h2 class="section-title">تواصل معنا</h2>
-            <form id="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_CODE" method="POST">
-                <input type="text" name="name" placeholder="الاسم الكامل" required>
-                <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-                <textarea name="message" placeholder="رسالتك..." required></textarea>
-                <button type="submit" class="btn">إرسال الرسالة</button>
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="container reveal">
+            <h2 class="section-title" data-lang-key="contactTitle"></h2>
+            <!-- ======================================================== -->
+            <!--   !!!  تعديل مهم: تم وضع الرابط الصحيح هنا   !!!   -->
+            <!-- ======================================================== -->
+            <form id="contact-form" action="https://formspree.io/f/xblyqala" method="POST">
+                <input type="text" name="name" required data-lang-placeholder="formName">
+                <input type="email" name="email" required data-lang-placeholder="formEmail">
+                <textarea name="message" required data-lang-placeholder="formMessage"></textarea>
+                <button type="submit" class="btn" data-lang-key="formSubmit"></button>
             </form>
             <p id="form-status"></p>
         </section>
 
     </main>
 
-    <!-- ==================== -->
-    <!--        FOOTER        -->
-    <!-- ==================== -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-nav">
-                <a href="#hero">الرئيسية</a>
-                <a href="#services">خدماتنا</a>
-                <a href="#contact">اتصل بنا</a>
+                <a href="#hero" data-lang-key="navHome"></a>
+                <a href="#services" data-lang-key="navServices"></a>
+                <a href="#contact" data-lang-key="navContact"></a>
             </div>
             <div class="footer-social">
                 <a href="https://instagram.com/sitelek.dz" target="_blank" aria-label="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg>
                 </a>
             </div>
             <div class="footer-legal">
-                <a href="#">سياسة الخصوصية</a>
-                <a href="#">شروط الخدمة</a>
+                <a href="#" data-lang-key="footerPrivacy"></a>
+                <a href="#" data-lang-key="footerTerms"></a>
             </div>
-            <p class="footer-copy">&copy; 2025 Sitelek. جميع الحقوق محفوظة.</p>
+            <p class="footer-copy">&copy; 2025 Sitelek. <span data-lang-key="footerRights"></span></p>
         </div>
     </footer>
     
-    <!-- ==================== -->
     <!-- SCROLL TO TOP BUTTON -->
-    <!-- ==================== -->
-    <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">↑</button>
+    <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">
+        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" transform="rotate(-90 12 12)"></path></svg>
+    </button>
 
-    <!-- ==================== -->
-    <!--      MAIN SCRIPT     -->
-    <!-- ==================== -->
+    <!-- MAIN SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
     
-            // --- Mobile Menu Toggle ---
+            // -------------------------
+            // --- ICON DEFINITIONS ---
+            // -------------------------
+            const icons = {
+                sun: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06z"></path></svg>`,
+                moon: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M9.37 5.51A7.35 7.35 0 009 6c0 4.42 3.58 8 8 8.01 1.07 0 2.09-.23 3-.64.42-.18.88.08 1.06.5.18.42-.08.88-.5 1.06-1.18.5-2.49.77-3.87.77-5.52 0-10-4.48-10-10 0-1.38.27-2.69.77-3.87.18-.42.64-.68 1.06-.5.42.18.68.64.5 1.06z"></path></svg>`,
+                menu: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>`,
+                close: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
+            };
+
+            // -------------------------
+            // --- TRANSLATIONS DATA ---
+            // -------------------------
+            const translations = {
+                ar: {
+                    navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا",
+                    heroTitle: "نصمم لك هوية رقمية احترافية", heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت من خلال مواقع ويب عصرية وسريعة وبأسعار معقولة.", heroCTA: "اطلب استشارة مجانية",
+                    aboutTitle: "من نحن؟", aboutText: "Sitelek هو شريكك التقني في الجزائر. نحن نؤمن بأن كل فكرة رائعة تستحق موقعًا إلكترونيًا احترافيًا. مهمتنا هي تمكين رواد الأعمال والمستقلين الجزائريين من خلال تزويدهم بمواقع ويب عالية الجودة وبأسعار تنافسية، مما يساعدهم على النمو والنجاح في العالم الرقمي.",
+                    founderText: "أنا مبدع جزائري شغوف، أساعد الأفراد والشركات الصغيرة على بناء مواقع ويب جميلة وبأسعار معقولة. هدفي هو تمكين الناس من خلال منحهم حضورًا احترافيًا عبر الإنترنت باستخدام تصميم حديث وتطوير سريع - كل ذلك بأسعار في المتناول.",
+                    servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
+                    testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
+                    testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك - اتصل بنا الآن!</a>",
+                    faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع إلكتروني؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم الفني بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد استلام الموقع؟", faqA3: "نعتمد نظام دفع مرن يتضمن دفعة أولى عند بدء العمل والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل مع اتجاه الكتابة من اليمين لليسار.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك، مثل أنظمة الحجز أو المدونات.",
+                    contactTitle: "تواصل معنا", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
+                    formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ. يرجى المحاولة مرة أخرى.",
+                    footerPrivacy: "سياسة الخصوصية", footerTerms: "شروط الخدمة", footerRights: "جميع الحقوق محفوظة."
+                },
+                en: {
+                    navHome: "Home", navAbout: "About Us", navServices: "Services", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact",
+                    heroTitle: "We Design Your Professional Digital Identity", heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence through modern, fast, and affordable websites.", heroCTA: "Request a Free Consultation",
+                    aboutTitle: "About Us", aboutText: "Sitelek is your technical partner in Algeria. We believe every great idea deserves a professional website. Our mission is to empower Algerian entrepreneurs and freelancers with high-quality, competitively-priced websites, helping them grow and succeed in the digital world.",
+                    founderText: "I’m a passionate Algerian creative who helps individuals and small businesses build beautiful and affordable websites. My goal is to empower people with a professional online presence using modern design and fast development — all at accessible prices.",
+                    servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-page Websites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolio Sites",
+                    testTitle: "Is Your Current Website Good?", testQ1: "Is your website mobile-friendly?", testQ2: "Does your website load quickly?", testQ3: "Is your content easy to navigate?", testQ4: "Does your site look professional?", testQ5: "Is your contact information clear?",
+                    testResultGood: "Great! Your site seems to be performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help — contact us now!</a>",
+                    faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to create a website?", faqA1: "It depends on the project scope, but a simple website usually takes one to two weeks.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period after delivery to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system, including a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic with right-to-left direction.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need to meet your business requirements, like booking systems or blogs.",
+                    contactTitle: "Contact Us", formName: "Full Name", formEmail: "Email Address", formMessage: "Your Message...", formSubmit: "Send Message",
+                    formSending: "Sending...", formSuccess: "Thank you! Your message has been sent successfully.", formError: "Sorry, an error occurred. Please try again.",
+                    footerPrivacy: "Privacy Policy", footerTerms: "Terms of Service", footerRights: "All rights reserved."
+                },
+                fr: {
+                    navHome: "Accueil", navAbout: "À propos", navServices: "Services", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact",
+                    heroTitle: "Nous Créons Votre Identité Numérique Professionnelle", heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne avec des sites web modernes, rapides et abordables.", heroCTA: "Demander une consultation gratuite",
+                    aboutTitle: "À Propos de Nous", aboutText: "Sitelek est votre partenaire technique en Algérie. Nous croyons que chaque grande idée mérite un site web professionnel. Notre mission est d'autonomiser les entrepreneurs et indépendants algériens avec des sites de haute qualité à des prix compétitifs, pour les aider à croître et réussir dans le monde numérique.",
+                    founderText: "Je suis un créatif algérien passionné qui aide les particuliers et les petites entreprises à créer des sites web magnifiques et abordables. Mon objectif est de leur offrir une présence en ligne professionnelle grâce à un design moderne et un développement rapide, le tout à des prix accessibles.",
+                    servicesTitle: "Nos Services", service1: "Pages de Destination", service2: "Sites Multi-pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Sites Portfolio",
+                    testTitle: "Votre Site Actuel est-il Performant ?", testQ1: "Votre site est-il compatible mobile ?", testQ2: "Votre site se charge-t-il rapidement ?", testQ3: "Votre contenu est-il facile à naviguer ?", testQ4: "Le design de votre site est-il professionnel ?", testQ5: "Vos informations de contact sont-elles claires ?",
+                    testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider - contactez-nous !</a>",
+                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site web ?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous utilisons un système de paiement flexible, avec un acompte pour commencer et le solde à la livraison finale.", faqQ4: "Proposez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe avec une direction de droite à gauche.", faqQ5: "Puis-je demander des fonctionnalités supplémentaires ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin, comme des systèmes de réservation ou des blogs.",
+                    contactTitle: "Contactez-Nous", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer le Message",
+                    formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue. Veuillez réessayer.",
+                    footerPrivacy: "Politique de confidentialité", footerTerms: "Conditions d'utilisation", footerRights: "Tous droits réservés."
+                }
+            };
+            
+            const langCycle = ['ar', 'en', 'fr'];
+            let currentLangIndex = 0;
+
+            // ----------------------------------
+            // --- ELEMENTS & EVENT LISTENERS ---
+            // ----------------------------------
             const menuToggle = document.getElementById('menu-toggle');
             const navLinks = document.getElementById('nav-links');
-
-            if (menuToggle && navLinks) {
-                menuToggle.addEventListener('click', () => {
-                    navLinks.classList.toggle('active');
-                });
-
-                // Close menu when a link is clicked
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navLinks.classList.remove('active');
-                    });
-                });
-            }
-
-            // --- Active Nav Link on Scroll ---
-            const sections = document.querySelectorAll('section[id]');
-            const navLinkElements = document.querySelectorAll('.nav-links a');
-            
-            const activateNavLink = () => {
-                let current = 'hero'; // Default to hero
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 70) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLinkElements.forEach(a => {
-                    a.classList.remove('active');
-                    if (a.getAttribute('href') === '#' + current) {
-                        a.classList.add('active');
-                    }
-                });
-            };
-            window.addEventListener('scroll', activateNavLink);
-
-            // --- Scroll-to-Top Button ---
             const scrollTopBtn = document.getElementById('scrollTopBtn');
-            if (scrollTopBtn) {
-                window.addEventListener('scroll', () => {
-                    if (window.pageYOffset > 300) {
-                        scrollTopBtn.classList.add('show');
-                    } else {
-                        scrollTopBtn.classList.remove('show');
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            const themeToggles = [document.getElementById('header-theme-toggle'), document.getElementById('menu-theme-toggle')];
+            const langToggles = [document.getElementById('header-lang-toggle'), document.getElementById('menu-lang-toggle')];
+
+            menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+            scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            
+            themeToggles.forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
+            langToggles.forEach(toggle => toggle.addEventListener('click', handleLangToggle));
+            
+            window.addEventListener('scroll', handleScroll);
+            contactForm.addEventListener("submit", handleFormSubmit);
+
+            // -------------------------
+            // ---      LOGIC        ---
+            // -------------------------
+
+            function updateLanguage(langCode) {
+                const langData = translations[langCode];
+                document.documentElement.lang = langCode;
+                document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
+
+                document.querySelectorAll('[data-lang-key]').forEach(el => {
+                    const key = el.getAttribute('data-lang-key');
+                    if (langData[key]) {
+                        el.innerHTML = langData[key];
                     }
                 });
 
-                scrollTopBtn.addEventListener('click', () => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-lang-placeholder');
+                    if(langData[key]){
+                        el.placeholder = langData[key];
+                    }
                 });
+                
+                langToggles.forEach(toggle => toggle.textContent = langCode.toUpperCase());
+                
+                // Re-initialize dynamic content
+                createFAQ();
+                createTestQuestions();
             }
 
-            // --- FAQ Section ---
-            const faqData = [
-                { question: "كم من الوقت يستغرق إنشاء موقع إلكتروني؟", answer: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين." },
-                { question: "هل تقدمون الدعم الفني بعد التسليم؟", answer: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح." },
-                { question: "هل يمكنني الدفع بعد استلام الموقع؟", answer: "نعتمد نظام دفع مرن يتضمن دفعة أولى عند بدء العمل والباقي عند التسليم النهائي." },
-                { question: "هل تقدمون مواقع باللغة العربية؟", answer: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل مع اتجاه الكتابة من اليمين لليسار." },
-                { question: "هل يمكنني طلب ميزات إضافية مثل الحجز أو المدونة؟", answer: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك." }
-            ];
+            function handleLangToggle() {
+                currentLangIndex = (currentLangIndex + 1) % langCycle.length;
+                updateLanguage(langCycle[currentLangIndex]);
+            }
 
-            const faqContainer = document.querySelector('.faq-container');
-            if (faqContainer) {
-                faqData.forEach(item => {
-                    const faqItem = document.createElement('div');
-                    faqItem.classList.add('faq-item');
-                    faqItem.innerHTML = `
-                        <div class="faq-question">${item.question}</div>
-                        <div class="faq-answer">
-                            <p>${item.answer}</p>
+            function handleThemeToggle() {
+                const isLight = document.body.classList.toggle('light-mode');
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                updateThemeIcons(isLight);
+            }
+
+            function updateThemeIcons(isLight) {
+                themeToggles.forEach(toggle => toggle.innerHTML = isLight ? icons.moon : icons.sun);
+            }
+
+            function handleScroll() {
+                // Scroll to top button
+                scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
+
+                // Active nav link
+                let currentSection = '';
+                document.querySelectorAll('section[id]').forEach(section => {
+                    if (pageYOffset >= section.offsetTop - 70) {
+                        currentSection = section.id;
+                    }
+                });
+                document.querySelectorAll('.nav-link').forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('href') === '#' + currentSection);
+                });
+                
+                // Reveal on scroll
+                 document.querySelectorAll('.reveal').forEach(el => {
+                    const elTop = el.getBoundingClientRect().top;
+                    if(elTop < window.innerHeight - 100) {
+                        el.classList.add('visible');
+                    }
+                 });
+            }
+            
+            async function handleFormSubmit(event) {
+                event.preventDefault();
+                const lang = langCycle[currentLangIndex];
+                
+                formStatus.textContent = translations[lang].formSending;
+                formStatus.style.color = 'var(--subtle-text-color)';
+                
+                const data = new FormData(event.target);
+                try {
+                    const response = await fetch(event.target.action, {
+                        method: contactForm.method,
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (response.ok) {
+                        formStatus.textContent = translations[lang].formSuccess;
+                        formStatus.style.color = "#28a745";
+                        contactForm.reset();
+                    } else {
+                        formStatus.textContent = translations[lang].formError;
+                        formStatus.style.color = "#dc3545";
+                    }
+                } catch (error) {
+                    formStatus.textContent = translations[lang].formError;
+                    formStatus.style.color = "#dc3545";
+                }
+            }
+            
+            function createFAQ() {
+                const lang = langCycle[currentLangIndex];
+                const faqContainer = document.querySelector('.faq-container');
+                faqContainer.innerHTML = '';
+                
+                const faqKeys = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+                faqKeys.forEach(key => {
+                     const faqItem = document.createElement('div');
+                     faqItem.classList.add('faq-item');
+                     faqItem.innerHTML = `
+                        <div class="faq-question">
+                           ${translations[lang]['faq'+key]}
+                           <span class="faq-icon">+</span>
                         </div>
-                    `;
-                    faqContainer.appendChild(faqItem);
+                        <div class="faq-answer"><p>${translations[lang]['faqA'+key.substring(1)]}</p></div>
+                     `;
+                     faqContainer.appendChild(faqItem);
                 });
 
                 faqContainer.addEventListener('click', (e) => {
@@ -698,112 +585,88 @@
                     if (!question) return;
 
                     const faqItem = question.parentElement;
-                    faqItem.classList.toggle('active');
-
                     const answer = faqItem.querySelector('.faq-answer');
+
                     if (faqItem.classList.contains('active')) {
-                        answer.style.maxHeight = answer.scrollHeight + 'px';
-                    } else {
+                        faqItem.classList.remove('active');
                         answer.style.maxHeight = '0';
+                    } else {
+                        // Close other items
+                        faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
+                            item.classList.remove('active');
+                            item.querySelector('.faq-answer').style.maxHeight = '0';
+                        });
+                        // Open current item
+                        faqItem.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
                     }
                 });
             }
-
-            // --- Website Test Tool ---
-            const testQuestions = [
-                { id: 'q1', text: 'هل موقعك متجاوب مع الهاتف؟' },
-                { id: 'q2', text: 'هل يتم تحميل موقعك بسرعة؟' },
-                { id: 'q3', text: 'هل محتوى موقعك سهل التصفح؟' },
-                { id: 'q4', text: 'هل يبدو تصميم موقعك احترافيًا؟' },
-                { id: 'q5', text: 'هل معلومات الاتصال الخاصة بك واضحة؟' }
-            ];
             
-            const questionsContainer = document.querySelector('.test-questions-container');
-            const testResultEl = document.getElementById('test-result');
-            const userAnswers = {};
-
-            if (questionsContainer && testResultEl) {
-                testQuestions.forEach(q => {
+            function createTestQuestions() {
+                const lang = langCycle[currentLangIndex];
+                const questionsContainer = document.querySelector('.test-questions-container');
+                const testResultEl = document.getElementById('test-result');
+                questionsContainer.innerHTML = '';
+                testResultEl.style.display = 'none';
+                
+                const userAnswers = {};
+                const qKeys = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+                
+                qKeys.forEach((key, index) => {
                     const questionItem = document.createElement('div');
                     questionItem.classList.add('test-question-item');
                     questionItem.innerHTML = `
-                        <p>${q.text}</p>
-                        <div class="answers" data-question-id="${q.id}">
-                            <button value="yes">نعم</button>
-                            <button value="no">لا</button>
+                        <p>${translations[lang]['test'+key]}</p>
+                        <div class="answers" data-question-id="q${index+1}">
+                            <button value="yes">${lang === 'ar' ? 'نعم' : (lang === 'en' ? 'Yes' : 'Oui')}</button>
+                            <button value="no">${lang === 'ar' ? 'لا' : (lang === 'en' ? 'No' : 'Non')}</button>
                         </div>
                     `;
                     questionsContainer.appendChild(questionItem);
                 });
-
-                questionsContainer.addEventListener('click', (e) => {
+                
+                 questionsContainer.addEventListener('click', (e) => {
                     if (e.target.tagName === 'BUTTON') {
                         const questionId = e.target.parentElement.dataset.questionId;
-                        const value = e.target.value;
-                        userAnswers[questionId] = value;
+                        userAnswers[questionId] = e.target.value;
                         
                         const buttons = e.target.parentElement.querySelectorAll('button');
                         buttons.forEach(btn => btn.classList.remove('selected'));
                         e.target.classList.add('selected');
 
-                        checkAllAnswered();
+                        if (Object.keys(userAnswers).length === qKeys.length) {
+                           let yesCount = Object.values(userAnswers).filter(ans => ans === 'yes').length;
+                           testResultEl.style.display = 'block';
+                           if (yesCount >= 4) {
+                               testResultEl.innerHTML = translations[lang].testResultGood;
+                               testResultEl.className = 'test-result good';
+                           } else {
+                               testResultEl.innerHTML = translations[lang].testResultBad;
+                               testResultEl.className = 'test-result bad';
+                           }
+                        }
                     }
                 });
             }
+
+            // ----------------------------------
+            // --- INITIALIZATION & SETUP ---
+            // ----------------------------------
             
-            function checkAllAnswered() {
-                if (Object.keys(userAnswers).length === testQuestions.length) {
-                    let yesCount = Object.values(userAnswers).filter(answer => answer === 'yes').length;
-                    displayTestResult(yesCount);
-                }
-            }
+            // Set initial theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.classList.toggle('light-mode', savedTheme === 'light');
+            updateThemeIcons(savedTheme === 'light');
 
-            function displayTestResult(yesCount) {
-                testResultEl.style.display = 'block';
-                if (yesCount >= 4) {
-                    testResultEl.textContent = 'رائع! يبدو أن موقعك يعمل بشكل جيد.';
-                    testResultEl.className = 'test-result good';
-                } else {
-                    testResultEl.innerHTML = 'قد تحتاج إلى ترقية. <a href="#contact" style="color: inherit; text-decoration: underline;">دعنا نساعدك - اتصل بنا الآن!</a>';
-                    testResultEl.className = 'test-result bad';
-                }
-            }
-
-
-            // --- Contact Form Submission ---
-            const form = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-
-            if (form) {
-                form.addEventListener("submit", async function (event) {
-                    event.preventDefault();
-                    const data = new FormData(event.target);
-                    
-                    formStatus.textContent = 'جاري الإرسال...';
-                    formStatus.style.color = 'var(--subtle-text-color)';
-                    
-                    // IMPORTANT: Replace "YOUR_UNIQUE_CODE" in the form action with your actual Formspree code.
-                    fetch(event.target.action, {
-                        method: form.method,
-                        body: data,
-                        headers: { 'Accept': 'application/json' }
-                    }).then(response => {
-                        if (response.ok) {
-                            formStatus.textContent = "شكراً لك! تم إرسال رسالتك بنجاح.";
-                            formStatus.style.color = "#28a745";
-                            form.reset();
-                        } else {
-                            response.json().then(data => {
-                                formStatus.textContent = data.errors ? data.errors.map(e => e.message).join(", ") : "عذراً، حدث خطأ أثناء إرسال الرسالة.";
-                                formStatus.style.color = "#dc3545";
-                            });
-                        }
-                    }).catch(() => {
-                        formStatus.textContent = "عذراً، حدث خطأ أثناء إرسال الرسالة.";
-                        formStatus.style.color = "#dc3545";
-                    });
-                });
-            }
+            // Set initial icons
+            menuToggle.innerHTML = icons.menu;
+            
+            // Initial language setup and content load
+            updateLanguage('ar');
+            
+            // Trigger initial scroll animations
+            handleScroll();
         });
     </script>
 </body>
