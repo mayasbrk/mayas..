@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <title>سايتلك | تصميم مواقع احترافية في الجزائر</title>
+    <meta name="description" content="تقدم سايتلك خدمات تصميم مواقع سريعة، عصرية، وبأسعار معقولة للشركات والأفراد في الجزائر. حلول ويب متكاملة لعلامتك التجارية.">
+    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, sitelek, تطوير مواقع, متاجر الكترونية">
+    
+    <!-- Favicon (مثال، يمكنك استبداله) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
+
+    <style>
+        /* GOOGLE FONTS */
+        @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap');
+
+        /* CSS VARIABLES */
+        :root {
+            --header-height: 3.5rem;
+            
+            /* Colors */
+            --first-color: hsl(228, 79%, 52%);
+            --first-color-alt: hsl(228, 79%, 48%);
+            --title-color: hsl(228, 8%, 95%);
+            --text-color: hsl(228, 8%, 65%);
+            --body-color: hsl(228, 15%, 8%);
+            --container-color: hsl(228, 15%, 12%);
+            --border-color: hsl(228, 15%, 20%);
+
+            /* Font and typography */
+            --body-font: 'Readex Pro', sans-serif;
+            --biggest-font-size: 2.5rem;
+            --h1-font-size: 1.75rem;
+            --h2-font-size: 1.25rem;
+            --h3-font-size: 1rem;
+            --normal-font-size: .938rem;
+            --small-font-size: .813rem;
+
+            /* Font weight */
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semi-bold: 600;
+
+            /* Z-index */
+            --z-tooltip: 10;
+            --z-fixed: 100;
+            --z-modal: 1000;
+        }
+
+        /* Light theme variables */
+        body.light-theme {
+            --title-color: hsl(228, 8%, 15%);
+            --text-color: hsl(228, 8%, 35%);
+            --body-color: hsl(228, 100%, 99%);
+            --container-color: #fff;
+            --border-color: hsl(228, 15%, 85%);
+        }
+
+        /* Responsive typography */
+        @media screen and (min-width: 1024px) {
+            :root {
+                --biggest-font-size: 4rem;
+                --h1-font-size: 2.5rem;
+                --h2-font-size: 1.5rem;
+                --h3-font-size: 1.25rem;
+                --normal-font-size: 1rem;
+                --small-font-size: .875rem;
+            }
+        }
+
+        /* BASE */
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            font-size: var(--normal-font-size);
+            background-color: var(--body-color);
+            color: var(--text-color);
+            transition: background-color .4s;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--title-color);
+            font-weight: var(--font-semi-bold);
+        }
+
+        ul { list-style: none; }
+        a { text-decoration: none; }
+        img { max-width: 100%; height: auto; }
+
+        /* REUSABLE CSS CLASSES */
+        .container {
+            max-width: 1120px;
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+        }
+        .section { padding: 4.5rem 0 2rem; }
+        .section-title { font-size: var(--h1-font-size); text-align: center; margin-bottom: 3rem; }
+        .btn {
+            display: inline-block;
+            background-color: var(--first-color);
+            color: #fff;
+            padding: 1rem 1.75rem;
+            border-radius: .5rem;
+            font-weight: var(--font-medium);
+            transition: background-color .3s;
+        }
+        .btn:hover { background-color: var(--first-color-alt); }
+
+        /* HEADER & NAV */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: transparent;
+            z-index: var(--z-fixed);
+            transition: background-color .4s, box-shadow .4s;
+        }
+        .nav-container { height: var(--header-height); display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: var(--title-color); font-weight: var(--font-medium); font-size: var(--h2-font-size); }
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+        .icon-lucide { width: 1.25rem; height: 1.25rem; }
+        .theme-toggle, .nav-toggle { font-size: 1.25rem; color: var(--title-color); cursor: pointer; }
+        .lang-switcher button { background: none; border: none; color: var(--title-color); cursor: pointer; font-size: var(--normal-font-size); font-weight: var(--font-medium); font-family: var(--body-font); }
+        .nav-list { display: flex; flex-direction: column; text-align: center; padding-top: 4rem; gap: 2.5rem; }
+        .nav-link { color: var(--title-color); font-weight: var(--font-medium); transition: color .3s; }
+        .nav-link:hover { color: var(--first-color); }
+        .nav-close { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; color: var(--title-color); cursor: pointer; }
+        .show-menu { right: 0; }
+        .scroll-header { background-color: var(--body-color); box-shadow: 0 1px 4px hsla(228, 4%, 15%, .1); }
+        .light-theme .scroll-header { box-shadow: 0 1px 4px hsla(228, 4%, 15%, .1); }
+        .active-link { color: var(--first-color); }
+        
+        @media screen and (max-width: 767px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100%;
+                background-color: hsla(228, 15%, 8%, .2);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                transition: right .4s;
+            }
+        }
+        @media screen and (min-width: 768px) {
+            .nav-menu { width: initial; }
+            .nav-list { flex-direction: row; gap: 2.5rem; padding-top: 0; }
+            .nav-toggle, .nav-close { display: none; }
+        }
+
+        /* HERO */
+        .hero-container { padding-top: 2rem; text-align: center; }
+        .hero-title { font-size: var(--biggest-font-size); margin-bottom: 1rem; }
+        .hero-description { max-width: 600px; margin: 0 auto 2rem; }
+
+        /* SERVICES */
+        .services-grid { display: grid; gap: 1.5rem; }
+        .service-card { background-color: var(--container-color); border: 1px solid var(--border-color); padding: 2.5rem 2rem; border-radius: .75rem; text-align: center; transition: transform .3s; }
+        .service-card:hover { transform: translateY(-.5rem); }
+        .card-icon { color: var(--first-color); margin-bottom: 1rem; }
+        .card-title { font-size: var(--h3-font-size); margin-bottom: .5rem; }
+
+        /* HOW WE WORK (TIMELINE) */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background-color: var(--first-color); }
+        html[dir="rtl"] .timeline { padding-left: 0; padding-right: 2rem; }
+        html[dir="rtl"] .timeline::before { left: auto; right: 0; }
+        .timeline-item { position: relative; margin-bottom: 2.5rem; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot { position: absolute; left: -10px; top: 5px; width: 20px; height: 20px; background-color: var(--first-color); border: 3px solid var(--body-color); border-radius: 50%; }
+        html[dir="rtl"] .timeline-dot { left: auto; right: -10px; }
+
+        /* STATS */
+        .stats { background-color: var(--container-color); border-radius: .75rem; }
+        .stats-grid { display: grid; gap: 2rem; padding: 2rem 1rem; }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: var(--h1-font-size); color: var(--title-color); }
+        .stat-label { font-size: var(--small-font-size); }
+
+        /* PRICING CALCULATOR */
+        .calculator-container { display: grid; gap: 2rem; background-color: var(--container-color); padding: 2rem; border-radius: .75rem; border: 1px solid var(--border-color); }
+        .calculator-options h3, .calculator-total h3 { font-size: var(--h3-font-size); margin-bottom: 1rem; }
+        .calculator-options select, .calculator-options label { display: block; margin-bottom: 1rem; }
+        .calculator-options select { width: 100%; padding: .75rem; background-color: var(--body-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: .5rem; }
+        .addons label { display: flex; align-items: center; gap: .5rem; }
+        .calculator-total { text-align: center; border-top: 1px solid var(--border-color); padding-top: 2rem; }
+        #total-price { font-size: var(--h1-font-size); color: var(--first-color); font-weight: var(--font-semi-bold); margin-bottom: 1rem; }
+
+        /* CONTACT */
+        .contact-container { display: grid; gap: 2rem; }
+        .info-item { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+        .form-group { position: relative; margin-bottom: 2rem; }
+        .form-input { width: 100%; padding: 1rem; border: 1px solid var(--border-color); background-color: var(--container-color); border-radius: .5rem; color: var(--text-color); }
+        .form-label { position: absolute; top: -0.75rem; left: 1rem; background-color: var(--container-color); padding: 0 .5rem; font-size: var(--small-font-size); }
+        html[dir="rtl"] .form-label { left: auto; right: 1rem; }
+        textarea.form-input { resize: vertical; min-height: 120px; }
+
+        /* FOOTER */
+        .footer { padding-bottom: 2rem; }
+        .footer-container { text-align: center; }
+        .footer-description, .footer-copy { font-size: var(--small-font-size); }
+        .footer-links, .footer-socials { display: flex; justify-content: center; gap: 1.5rem; margin: 1.5rem 0; }
+        .footer-links button { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: var(--small-font-size); font-family: var(--body-font); }
+        .footer-links button:hover { color: var(--first-color); }
+        
+        /* SCROLL UP */
+        .scroll-up { position: fixed; right: 1rem; bottom: -30%; background-color: var(--first-color); padding: .5rem; border-radius: .25rem; display: inline-flex; z-index: var(--z-tooltip); transition: bottom .3s, transform .3s; }
+        .scroll-up:hover { transform: translateY(-.25rem); }
+        .scroll-up i { color: #fff; }
+        .show-scroll { bottom: 3rem; }
+
+        /* SCROLL BAR */
+        ::-webkit-scrollbar { width: .6rem; background-color: hsl(228, 4%, 15%); border-radius: .5rem; }
+        ::-webkit-scrollbar-thumb { background-color: hsl(228, 4%, 25%); border-radius: .5rem; }
+        ::-webkit-scrollbar-thumb:hover { background-color: hsl(228, 4%, 35%); }
+
+        /* MODAL (POP-UP) */
+        .modal {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: var(--z-modal);
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s, visibility .3s;
+        }
+        .modal.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            position: relative;
+            background-color: var(--body-color);
+            padding: 2.5rem;
+            border-radius: .75rem;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-content h2 { font-size: var(--h2-font-size); margin-bottom: 1rem; }
+        .modal-content p { margin-bottom: 1rem; }
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--title-color);
+            cursor: pointer;
+        }
+        html[dir="rtl"] .modal-close { right: auto; left: 1.5rem; }
+
+        /* REVEAL ANIMATION */
+        .reveal { position: relative; transform: translateY(100px); opacity: 0; transition: 1s all ease; }
+        .reveal.active { transform: translateY(0); opacity: 1; }
+
+        /* BREAKPOINTS */
+        @media screen and (min-width: 576px) {
+            .services-grid, .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .calculator-container { grid-template-columns: 1fr 250px; text-align: initial; }
+            html[dir="rtl"] .calculator-container { text-align: right; }
+            .calculator-total { border-top: none; border-left: 1px solid var(--border-color); padding-top: 0; padding-left: 2rem; }
+            html[dir="rtl"] .calculator-total { border-left: none; border-right: 1px solid var(--border-color); padding-left: 0; padding-right: 2rem; }
+        }
+        @media screen and (min-width: 768px) {
+            .contact-container { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media screen and (min-width: 1024px) {
+            .container { margin-left: auto; margin-right: auto; }
+            .section { padding: 6.5rem 0 2rem; }
+            .services-grid { grid-template-columns: repeat(3, 1fr); }
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+            .timeline { padding-left: 5rem; }
+            html[dir="rtl"] .timeline { padding-right: 5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================= HEADER ======================= -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">سايتلك.</a>
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#hero" class="nav-link active-link" data-lang-key="navHome">الرئيسية</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link" data-lang-key="navServices">خدماتنا</a></li>
+                    <li class="nav-item"><a href="#how-we-work" class="nav-link" data-lang-key="navHowWeWork">كيف نعمل</a></li>
+                    <li class="nav-item"><a href="#pricing" class="nav-link" data-lang-key="navPricing">الأسعار</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link" data-lang-key="navContact">اتصل بنا</a></li>
+                </ul>
+                <div class="nav-close" id="nav-close">
+                    <i class="icon-lucide" data-lucide="x"></i>
+                </div>
+            </nav>
+            <div class="nav-actions">
+                <i class="icon-lucide theme-toggle" id="theme-toggle" data-lucide="sun"></i>
+                <div class="lang-switcher">
+                    <button id="lang-btn">AR</button>
+                </div>
+                <div class="nav-toggle" id="nav-toggle">
+                    <i class="icon-lucide" data-lucide="menu"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ======================= HERO SECTION ======================= -->
+        <section class="hero section" id="hero">
+            <div class="container hero-container">
+                <div class="hero-content reveal">
+                    <h1 class="hero-title" data-lang-key="heroTitle">موقعك الإلكتروني، هويتك الرقمية.</h1>
+                    <p class="hero-description" data-lang-key="heroDescription">نصمم مواقع ويب عصرية، سريعة، وآمنة للشركات الناشئة، المستقلين، والعلامات التجارية في الجزائر.</p>
+                    <a href="#contact" class="btn" data-lang-key="heroButton">احجز استشارة مجانية</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= SERVICES SECTION ======================= -->
+        <section class="services section" id="services">
+            <div class="container">
+                <h2 class="section-title reveal" data-lang-key="servicesTitle">خدمات متكاملة لتلبية احتياجاتك</h2>
+                <div class="services-grid">
+                    <div class="service-card reveal">
+                        <i class="icon-lucide card-icon" data-lucide="layout-template"></i>
+                        <h3 class="card-title" data-lang-key="service1Title">تصميم وتطوير المواقع</h3>
+                        <p class="card-description" data-lang-key="service1Desc">نصمم مواقع جذابة ومتجاوبة بالكامل مع التركيز على تجربة المستخدم.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <i class="icon-lucide card-icon" data-lucide="shopping-cart"></i>
+                        <h3 class="card-title" data-lang-key="service2Title">متاجر إلكترونية</h3>
+                        <p class="card-description" data-lang-key="service2Desc">حلول تجارة إلكترونية قوية وآمنة لمساعدتك على بيع منتجاتك عبر الإنترنت.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <i class="icon-lucide card-icon" data-lucide="shield-check"></i>
+                        <h3 class="card-title" data-lang-key="service3Title">صيانة ودعم فني</h3>
+                        <p class="card-description" data-lang-key="service3Desc">نضمن بقاء موقعك محدثاً وآمناً ويعمل بأفضل أداء على مدار الساعة.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======================= HOW WE WORK SECTION ======================= -->
+        <section class="how-we-work section" id="how-we-work">
+            <div class="container">
+                <h2 class="section-title reveal" data-lang-key="howWeWorkTitle">منهجية عملنا</h2>
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3 data-lang-key="step1Title">1. الاستشارة</h3>
+                            <p data-lang-key="step1Desc">نبدأ بجلسة استماع لفهم أهدافك، جمهورك، ومتطلبات مشروعك بدقة.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3 data-lang-key="step2Title">2. التصميم والتخطيط</h3>
+                            <p data-lang-key="step2Desc">نقوم بإنشاء تصميم أولي وتخطيط هيكل الموقع لضمان تجربة مستخدم سلسة.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3 data-lang-key="step3Title">3. التطوير والمراجعة</h3>
+                            <p data-lang-key="step3Desc">نحول التصميم إلى موقع حقيقي، مع إتاحة الفرصة لك للمراجعة وتقديم الملاحظات.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3 data-lang-key="step4Title">4. الإطلاق والدعم</h3>
+                            <p data-lang-key="step4Desc">بعد موافقتك النهائية، نطلق الموقع ونوفر الدعم الفني لضمان استقراره.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= STATS SECTION ======================= -->
+        <section class="stats section" id="stats">
+            <div class="container stats-grid">
+                <div class="stat-item reveal">
+                    <h3 class="stat-number" data-target="35">0</h3>
+                    <p class="stat-label" data-lang-key="statsClients">عميل سعيد</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h3 class="stat-number" data-target="50">0</h3>
+                    <p class="stat-label" data-lang-key="statsProjects">مشروع مكتمل</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h3 class="stat-number" data-target="98">0</h3>
+                    <p class="stat-label" data-lang-key="statsSatisfaction">رضا العملاء %</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h3 class="stat-number" data-target="5">0</h3>
+                    <p class="stat-label" data-lang-key="statsYears">سنوات خبرة</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= PRICING CALCULATOR SECTION ======================= -->
+        <section class="pricing section" id="pricing">
+            <div class="container">
+                <h2 class="section-title reveal" data-lang-key="pricingTitle">احسب تكلفة موقعك</h2>
+                <div class="calculator-container reveal">
+                    <div class="calculator-options">
+                        <h3 data-lang-key="serviceType">نوع الخدمة</h3>
+                        <select id="service-type" class="form-input">
+                            <option value="1000" data-lang-key="optionLanding">صفحة هبوط</option>
+                            <option value="3000" data-lang-key="optionMultiPage">موقع متعدد الصفحات</option>
+                            <option value="5000" data-lang-key="optionEcommerce">متجر إلكتروني</option>
+                        </select>
+                        <h3 data-lang-key="addons">إضافات</h3>
+                        <div class="addons">
+                            <label><input type="checkbox" class="addon-checkbox" value="200"> <span data-lang-key="addonForm">نموذج اتصال</span></label>
+                            <label><input type="checkbox" class="addon-checkbox" value="500"> <span data-lang-key="addonBlog">قسم مدونة</span></label>
+                            <label><input type="checkbox" class="addon-checkbox" value="400"> <span data-lang-key="addonBooking">نظام حجز</span></label>
+                            <label><input type="checkbox" class="addon-checkbox" value="800"> <span data-lang-key="addonMultiLang">دعم متعدد اللغات</span></label>
+                        </div>
+                    </div>
+                    <div class="calculator-total">
+                        <h3 data-lang-key="totalCost">التكلفة الإجمالية التقديرية</h3>
+                        <p id="total-price">1000 DA</p>
+                        <a href="#contact" class="btn" data-lang-key="requestQuote">اطلب عرض سعر مفصل</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======================= CONTACT & BOOKING SECTION ======================= -->
+        <section class="contact section" id="contact">
+            <div class="container">
+                <h2 class="section-title reveal" data-lang-key="contactTitle">تواصل معنا الآن</h2>
+                 <div class="contact-container">
+                    <div class="contact-info reveal">
+                        <h3 data-lang-key="getInTouch">كن على تواصل</h3>
+                        <p data-lang-key="contactDescription">هل لديك سؤال أو مشروع؟ املأ النموذج وسنتواصل معك في أقرب وقت ممكن.</p>
+                        <div class="info-item">
+                            <i class="icon-lucide" data-lucide="mail"></i>
+                            <span>sitelekdz@gmail.com</span>
+                        </div>
+                         <div class="info-item">
+                            <i class="icon-lucide" data-lucide="map-pin"></i>
+                            <span data-lang-key="location">برج بوعريريج، الجزائر</span>
+                        </div>
+                    </div>
+                    <form action="https://formspree.io/f/YOUR_UNIQUE_ID_HERE" method="POST" class="contact-form reveal" id="contact-form">
+                         <div class="form-group">
+                            <label for="name" class="form-label" data-lang-key="formName">الاسم الكامل</label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label" data-lang-key="formEmail">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date" class="form-label" data-lang-key="formDate">التاريخ المفضل للاستشارة (اختياري)</label>
+                            <input type="date" id="date" name="date" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label" data-lang-key="formMessage">رسالتك</label>
+                            <textarea id="message" name="message" rows="5" class="form-input" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" data-lang-key="formSubmit">إرسال الرسالة</button>
+                    </form>
+                 </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================= FOOTER ======================= -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-content">
+                <a href="#" class="logo">سايتلك.</a>
+                <p class="footer-description" data-lang-key="footerDescription">نصوغ الهوية الرقمية للجزائر، موقعًا تلو الآخر.</p>
+            </div>
+            <div class="footer-links">
+                <button class="modal-btn" data-modal-target="privacy-modal" data-lang-key="footerPrivacy">سياسة الخصوصية</button>
+                <button class="modal-btn" data-modal-target="terms-modal" data-lang-key="footerTerms">شروط الخدمة</button>
+            </div>
+             <div class="footer-socials">
+                <a href="https://instagram.com/sitelek.dz" target="_blank" class="social-link"><i class="icon-lucide" data-lucide="instagram"></i></a>
+                <a href="#" target="_blank" class="social-link"><i class="icon-lucide" data-lucide="twitter"></i></a>
+                <a href="#" target="_blank" class="social-link"><i class="icon-lucide" data-lucide="linkedin"></i></a>
+            </div>
+            <p class="footer-copy" data-lang-key="footerRights">&copy; 2025 سايتلك. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+    
+    <!-- ======================= MODALS ======================= -->
+    <div class="modal" id="privacy-modal">
+        <div class="modal-content">
+            <i class="icon-lucide modal-close" data-lucide="x"></i>
+            <h2 data-lang-key="footerPrivacy">سياسة الخصوصية</h2>
+            <p><em>آخر تحديث: 28 يونيو 2025</em></p>
+            <p data-lang-key="privacyContent1">تدير "سايتلك" ("نحن"، "لنا"، أو "خاصتنا") هذا الموقع الإلكتروني ("الخدمة"). هذه الصفحة تعلمك بسياساتنا المتعلقة بجمع واستخدام والكشف عن البيانات الشخصية عند استخدامك لخدمتنا.</p>
+            <p data-lang-key="privacyContent2">عند استخدام نماذج الاتصال، قد نطلب منك تزويدنا بمعلومات تعريف شخصية معينة مثل الاسم والبريد الإلكتروني. نستخدم هذه البيانات للرد على استفساراتك فقط.</p>
+        </div>
+    </div>
+    <div class="modal" id="terms-modal">
+        <div class="modal-content">
+            <i class="icon-lucide modal-close" data-lucide="x"></i>
+            <h2 data-lang-key="footerTerms">شروط الخدمة</h2>
+            <p><em>آخر تحديث: 28 يونيو 2025</em></p>
+            <p data-lang-key="termsContent1">من خلال الوصول إلى هذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. إذا كنت لا توافق على أي من هذه الشروط، يُحظر عليك استخدام هذا الموقع.</p>
+            <p data-lang-key="termsContent2">تقدم سايتلك خدمات تصميم وتطوير الويب. سيتم تفصيل نطاق المشروع والجدول الزمني والتكلفة في عرض أسعار أو عقد رسمي منفصل. إن حجز استشارة لا يشكل اتفاقًا رسميًا لبدء العمل.</p>
+        </div>
+    </div>
+    
+    <!-- ======================= SCROLL UP ======================= -->
+    <a href="#" class="scroll-up" id="scroll-up">
+        <i class="icon-lucide" data-lucide="arrow-up"></i>
+    </a>
+
+    <!-- Lucide Icons & Main Script -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>
+        /*=============== INITIALIZE LUCIDE ICONS ===============*/
+        lucide.createIcons();
+
+        /*=============== BASE ELEMENTS ===============*/
+        const navMenu = document.getElementById('nav-menu'),
+              navToggle = document.getElementById('nav-toggle'),
+              navClose = document.getElementById('nav-close'),
+              navLinks = document.querySelectorAll('.nav-link');
+
+        /*=============== MENU SHOW/HIDE ===============*/
+        if(navToggle) {
+            navToggle.addEventListener('click', () => navMenu.classList.add('show-menu'));
+        }
+        if(navClose) {
+            navClose.addEventListener('click', () => navMenu.classList.remove('show-menu'));
+        }
+        navLinks.forEach(link => link.addEventListener('click', () => navMenu.classList.remove('show-menu')));
+
+        /*=============== HEADER SHADOW ===============*/
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scroll-header', window.scrollY >= 50);
+        });
+
+        /*=============== ACTIVE LINK ON SCROLL ===============*/
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset;
+            sections.forEach(current => {
+                const sectionHeight = current.offsetHeight,
+                      sectionTop = current.offsetTop - 58,
+                      sectionId = current.getAttribute('id'),
+                      link = document.querySelector('.nav-menu a[href*=' + sectionId + ']');
+                
+                if (link) {
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        link.classList.add('active-link');
+                    } else {
+                        link.classList.remove('active-link');
+                    }
+                }
+            });
+        });
+
+        /*=============== LIGHT/DARK THEME ===============*/ 
+        const themeButton = document.getElementById('theme-toggle');
+        const lightThemeClass = 'light-theme';
+        const savedTheme = localStorage.getItem('selected-theme');
+
+        const applyTheme = (theme) => {
+            document.body.classList.toggle(lightThemeClass, theme === 'light');
+            themeButton.setAttribute('data-lucide', theme === 'light' ? 'moon' : 'sun');
+            lucide.createIcons();
+        };
+
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        }
+
+        themeButton.addEventListener('click', () => {
+            const newTheme = document.body.classList.contains(lightThemeClass) ? 'dark' : 'light';
+            applyTheme(newTheme);
+            localStorage.setItem('selected-theme', newTheme);
+        });
+
+        /*=============== SHOW SCROLL UP ===============*/ 
+        const scrollUpButton = document.getElementById('scroll-up');
+        window.addEventListener('scroll', () => {
+            scrollUpButton.classList.toggle('show-scroll', window.scrollY >= 350);
+        });
+
+        /*=============== REVEAL ON SCROLL ===============*/
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+        /*=============== LANGUAGE SWITCHER ===============*/
+        const langBtn = document.getElementById('lang-btn');
+        const langData = {
+            ar: {
+                navHome: "الرئيسية", navServices: "خدماتنا", navHowWeWork: "كيف نعمل", navPricing: "الأسعار", navContact: "اتصل بنا",
+                heroTitle: "موقعك الإلكتروني، هويتك الرقمية.", heroDescription: "نصمم مواقع ويب عصرية، سريعة، وآمنة للشركات الناشئة، المستقلين، والعلامات التجارية في الجزائر.", heroButton: "احجز استشارة مجانية",
+                servicesTitle: "خدمات متكاملة لتلبية احتياجاتك", service1Title: "تصميم وتطوير المواقع", service1Desc: "نصمم مواقع جذابة ومتجاوبة بالكامل مع التركيز على تجربة المستخدم.", service2Title: "متاجر إلكترونية", service2Desc: "حلول تجارة إلكترونية قوية وآمنة لمساعدتك على بيع منتجاتك عبر الإنترنت.", service3Title: "صيانة ودعم فني", service3Desc: "نضمن بقاء موقعك محدثاً وآمناً ويعمل بأفضل أداء على مدار الساعة.",
+                howWeWorkTitle: "منهجية عملنا", step1Title: "1. الاستشارة", step1Desc: "نبدأ بجلسة استماع لفهم أهدافك، جمهورك، ومتطلبات مشروعك بدقة.", step2Title: "2. التصميم والتخطيط", step2Desc: "نقوم بإنشاء تصميم أولي وتخطيط هيكل الموقع لضمان تجربة مستخدم سلسة.", step3Title: "3. التطوير والمراجعة", step3Desc: "نحول التصميم إلى موقع حقيقي، مع إتاحة الفرصة لك للمراجعة وتقديم الملاحظات.", step4Title: "4. الإطلاق والدعم", step4Desc: "بعد موافقتك النهائية، نطلق الموقع ونوفر الدعم الفني لضمان استقراره.",
+                statsClients: "عميل سعيد", statsProjects: "مشروع مكتمل", statsSatisfaction: "رضا العملاء %", statsYears: "سنوات خبرة",
+                pricingTitle: "احسب تكلفة موقعك", serviceType: "نوع الخدمة", optionLanding: "صفحة هبوط", optionMultiPage: "موقع متعدد الصفحات", optionEcommerce: "متجر إلكتروني", addons: "إضافات", addonForm: "نموذج اتصال", addonBlog: "قسم مدونة", addonBooking: "نظام حجز", addonMultiLang: "دعم متعدد اللغات", totalCost: "التكلفة الإجمالية التقديرية", requestQuote: "اطلب عرض سعر مفصل",
+                contactTitle: "تواصل معنا الآن", getInTouch: "كن على تواصل", contactDescription: "هل لديك سؤال أو مشروع؟ املأ النموذج وسنتواصل معك في أقرب وقت ممكن.", location: "برج بوعريريج، الجزائر", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formDate: "التاريخ المفضل للاستشارة (اختياري)", formMessage: "رسالتك", formSubmit: "إرسال الرسالة",
+                footerDescription: "نصوغ الهوية الرقمية للجزائر، موقعًا تلو الآخر.", footerPrivacy: "سياسة الخصوصية", footerTerms: "شروط الخدمة", footerRights: "&copy; 2025 سايتلك. جميع الحقوق محفوظة.",
+                privacyContent1: "تدير \"سايتلك\" (\"نحن\"، \"لنا\"، أو \"خاصتنا\") هذا الموقع الإلكتروني (\"الخدمة\"). هذه الصفحة تعلمك بسياساتنا المتعلقة بجمع واستخدام والكشف عن البيانات الشخصية عند استخدامك لخدمتنا.", privacyContent2: "عند استخدام نماذج الاتصال، قد نطلب منك تزويدنا بمعلومات تعريف شخصية معينة مثل الاسم والبريد الإلكتروني. نستخدم هذه البيانات للرد على استفساراتك فقط.",
+                termsContent1: "من خلال الوصول إلى هذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. إذا كنت لا توافق على أي من هذه الشروط، يُحظر عليك استخدام هذا الموقع.", termsContent2: "تقدم سايتلك خدمات تصميم وتطوير الويب. سيتم تفصيل نطاق المشروع والجدول الزمني والتكلفة في عرض أسعار أو عقد رسمي منفصل. إن حجز استشارة لا يشكل اتفاقًا رسميًا لبدء العمل."
+            },
+            en: {
+                navHome: "Home", navServices: "Services", navHowWeWork: "How We Work", navPricing: "Pricing", navContact: "Contact",
+                heroTitle: "Your Website, Your Digital Identity.", heroDescription: "We design modern, fast, and secure websites for startups, freelancers, and brands in Algeria.", heroButton: "Book a Free Consultation",
+                servicesTitle: "Comprehensive Services to Meet Your Needs", service1Title: "Web Design & Development", service1Desc: "We design attractive and fully responsive websites focusing on user experience.", service2Title: "E-commerce Stores", service2Desc: "Powerful and secure e-commerce solutions to help you sell your products online.", service3Title: "Maintenance & Support", service3Desc: "We ensure your site stays updated, secure, and performing at its best around the clock.",
+                howWeWorkTitle: "How We Work", step1Title: "1. Consultation", step1Desc: "We start with a listening session to understand your goals, audience, and project requirements.", step2Title: "2. Design & Planning", step2Desc: "We create an initial design and plan the site structure to ensure a seamless user experience.", step3Title: "3. Development & Revision", step3Desc: "We turn the design into a real website, giving you the opportunity to review and provide feedback.", step4Title: "4. Launch & Support", step4Desc: "After your final approval, we launch the site and provide technical support to ensure its stability.",
+                statsClients: "Happy Clients", statsProjects: "Projects Completed", statsSatisfaction: "Client Satisfaction %", statsYears: "Years of Experience",
+                pricingTitle: "Calculate Your Website Cost", serviceType: "Service Type", optionLanding: "Landing Page", optionMultiPage: "Multi-page Website", optionEcommerce: "E-commerce Store", addons: "Add-ons", addonForm: "Contact Form", addonBlog: "Blog Section", addonBooking: "Booking System", addonMultiLang: "Multilingual Support", totalCost: "Estimated Total Cost", requestQuote: "Request a Detailed Quote",
+                contactTitle: "Contact Us Now", getInTouch: "Get in Touch", contactDescription: "Have a question or a project? Fill out the form, and we'll get back to you as soon as possible.", location: "Bordj Bou Arreridj, Algeria", formName: "Full Name", formEmail: "Email Address", formDate: "Preferred Consultation Date (Optional)", formMessage: "Your Message", formSubmit: "Send Message",
+                footerDescription: "Crafting Algeria's digital identity, one site at a time.", footerPrivacy: "Privacy Policy", footerTerms: "Terms of Service", footerRights: "&copy; 2025 Sitelek. All rights reserved.",
+                privacyContent1: "Sitelek ('us', 'we', or 'our') operates this website (the 'Service'). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service.", privacyContent2: "When using our contact forms, we may ask you to provide us with certain personally identifiable information such as name and email. We use this data to respond to your inquiries only.",
+                termsContent1: "By accessing this website, you agree to be bound by these terms of service. If you do not agree with any of these terms, you are prohibited from using this site.", termsContent2: "Sitelek provides web design and development services. The project scope, timeline, and cost will be detailed in a separate, formal proposal or contract. A booking consultation does not constitute a formal agreement to begin work."
+            },
+            fr: {
+                navHome: "Accueil", navServices: "Services", navHowWeWork: "Notre Méthode", navPricing: "Tarifs", navContact: "Contact",
+                heroTitle: "Votre Site Web, Votre Identité Numérique.", heroDescription: "Nous concevons des sites web modernes, rapides et sécurisés pour les startups, freelances et marques en Algérie.", heroButton: "Réservez une Consultation Gratuite",
+                servicesTitle: "Services Complets pour Répondre à Vos Besoins", service1Title: "Conception et Développement Web", service1Desc: "Nous concevons des sites attractifs et entièrement responsives en nous concentrant sur l'expérience utilisateur.", service2Title: "Boutiques E-commerce", service2Desc: "Solutions e-commerce puissantes et sécurisées pour vous aider à vendre vos produits en ligne.", service3Title: "Maintenance et Support", service3Desc: "Nous veillons à ce que votre site reste à jour, sécurisé et performant 24h/24.",
+                howWeWorkTitle: "Notre Méthode de Travail", step1Title: "1. Consultation", step1Desc: "Nous commençons par une session d'écoute pour comprendre vos objectifs, votre public et les exigences de votre projet.", step2Title: "2. Conception et Planification", step2Desc: "Nous créons un design initial et planifions la structure du site pour assurer une expérience utilisateur fluide.", step3Title: "3. Développement et Révision", step3Desc: "Nous transformons le design en un site web réel, en vous donnant la possibilité de réviser et de donner votre feedback.", step4Title: "4. Lancement et Support", step4Desc: "Après votre approbation finale, nous lançons le site et fournissons un support technique pour assurer sa stabilité.",
+                statsClients: "Clients Satisfaits", statsProjects: "Projets Terminés", statsSatisfaction: "Satisfaction Client %", statsYears: "Années d'Expérience",
+                pricingTitle: "Calculez le Coût de Votre Site", serviceType: "Type de Service", optionLanding: "Page d'Atterrissage", optionMultiPage: "Site Multi-pages", optionEcommerce: "Boutique E-commerce", addons: "Modules Complémentaires", addonForm: "Formulaire de Contact", addonBlog: "Section Blog", addonBooking: "Système de Réservation", addonMultiLang: "Support Multilingue", totalCost: "Coût Total Estimé", requestQuote: "Demander un Devis Détaillé",
+                contactTitle: "Contactez-nous Maintenant", getInTouch: "Restez en Contact", contactDescription: "Vous avez une question ou un projet ? Remplissez le formulaire et nous vous répondrons dès que possible.", location: "Bordj Bou Arreridj, Algérie", formName: "Nom Complet", formEmail: "Adresse E-mail", formDate: "Date de Consultation Préférée (Optionnel)", formMessage: "Votre Message", formSubmit: "Envoyer le Message",
+                footerDescription: "Forger l'identité numérique de l'Algérie, un site à la fois.", footerPrivacy: "Politique de Confidentialité", footerTerms: "Conditions d'Utilisation", footerRights: "&copy; 2025 Sitelek. Tous droits réservés.",
+                privacyContent1: "Sitelek ('nous', 'notre') exploite ce site web (le 'Service'). Cette page vous informe de nos politiques concernant la collecte, l'utilisation et la divulgation des données personnelles lorsque vous utilisez notre Service.", privacyContent2: "Lorsque vous utilisez nos formulaires de contact, nous pouvons vous demander de nous fournir certaines informations personnelles identifiables telles que le nom et l'e-mail. Nous utilisons ces données pour répondre à vos demandes uniquement.",
+                termsContent1: "En accédant à ce site web, vous acceptez d'être lié par ces conditions d'utilisation. Si vous n'êtes pas d'accord avec l'une de ces conditions, il vous est interdit d'utiliser ce site.", termsContent2: "Sitelek fournit des services de conception et de développement web. La portée du projet, le calendrier et le coût seront détaillés dans une proposition ou un contrat formel distinct. Une consultation de réservation ne constitue pas un accord formel pour commencer le travail."
+            }
+        };
+
+        const langOrder = ['ar', 'en', 'fr'];
+        let currentLangIndex = 0;
+
+        const setLanguage = (lang) => {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            langBtn.textContent = lang.toUpperCase();
+            
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.dataset.langKey;
+                if (langData[lang] && langData[lang][key]) {
+                    el.innerHTML = langData[lang][key];
+                }
+            });
+            localStorage.setItem('sitelek-lang', lang);
+        };
+
+        langBtn.addEventListener('click', () => {
+            currentLangIndex = (currentLangIndex + 1) % langOrder.length;
+            setLanguage(langOrder[currentLangIndex]);
+        });
+        
+        const savedLang = localStorage.getItem('sitelek-lang');
+        setLanguage(savedLang && langOrder.includes(savedLang) ? savedLang : 'ar');
+
+        /*=============== STATS COUNTER ===============*/
+        const statsSection = document.getElementById('stats');
+        if (statsSection) {
+            const counters = document.querySelectorAll('.stat-number');
+            let isCounterStarted = false;
+            const countUp = () => {
+                counters.forEach(counter => {
+                    counter.innerText = '0';
+                    const target = +counter.dataset.target;
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
+                    const updateCount = () => {
+                        const current = +counter.innerText;
+                        if (current < target) {
+                            counter.innerText = `${Math.ceil(current + increment)}`;
+                            setTimeout(updateCount, 16);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+            };
+            const statsObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !isCounterStarted) {
+                        isCounterStarted = true;
+                        countUp();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            statsObserver.observe(statsSection);
+        }
+
+        /*=============== PRICING CALCULATOR ===============*/
+        const serviceTypeSelect = document.getElementById('service-type');
+        const addonCheckboxes = document.querySelectorAll('.addon-checkbox');
+        const totalPriceEl = document.getElementById('total-price');
+
+        function updatePrice() {
+            if(!serviceTypeSelect || !totalPriceEl) return;
+            let total = parseInt(serviceTypeSelect.value);
+            addonCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    total += parseInt(checkbox.value);
+                }
+            });
+            totalPriceEl.textContent = `${total} DA`;
+        }
+
+        if(serviceTypeSelect) {
+            serviceTypeSelect.addEventListener('change', updatePrice);
+            addonCheckboxes.forEach(checkbox => checkbox.addEventListener('change', updatePrice));
+            updatePrice();
+        }
+        
+        /*=============== MODAL (POP-UP) ===============*/
+        const modalBtns = document.querySelectorAll('.modal-btn');
+        const modals = document.querySelectorAll('.modal');
+        const modalCloses = document.querySelectorAll('.modal-close');
+
+        modalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modalId = btn.dataset.modalTarget;
+                document.getElementById(modalId).classList.add('active');
+            });
+        });
+
+        const closeModal = () => {
+            modals.forEach(modal => modal.classList.remove('active'));
+        };
+        modalCloses.forEach(btn => btn.addEventListener('click', closeModal));
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) closeModal();
+            });
+        });
+    </script>
+</body>
+</html>
+
+
