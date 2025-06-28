@@ -16,390 +16,9 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
 
     <!-- ----------------- -->
-    <!--       STYLES      -->
+    <!--   STYLESHEET    -->
     <!-- ----------------- -->
-    <style>
-        /* ----- VARIABLES & GLOBAL STYLES ----- */
-        :root {
-            --bg-color: #0d0d0d;
-            --surface-color: #1a1a1a;
-            --primary-color: #3b82f6;
-            --text-color: #f0f0f0;
-            --subtle-text-color: #a0a0a0;
-            --border-color: #333;
-        }
-
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        /* ----- LAYOUT & HELPERS ----- */
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 4rem 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: var(--text-color);
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: transform 0.2s, background-color 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
-        }
-
-        /* ----- HEADER ----- */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem 5%;
-            background-color: rgba(13, 13, 13, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: var(--subtle-text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--text-color);
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 1.8rem;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            cursor: pointer;
-        }
-
-        /* ----- HERO SECTION ----- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: var(--subtle-text-color);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-        
-        /* ----- ABOUT SECTION ----- */
-        #about p {
-            text-align: center;
-            font-size: 1.1rem;
-            max-width: 750px;
-            margin: 0 auto;
-            color: var(--subtle-text-color);
-        }
-
-        /* ----- SERVICES SECTION ----- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .service-card {
-            background-color: var(--surface-color);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        
-        .service-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* ----- HOW WE WORK SECTION ----- */
-        .timeline {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: var(--border-color);
-            transform: translateY(-50%);
-        }
-
-        .timeline-step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-        }
-        
-        .timeline-step .step-number {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            border: 4px solid var(--bg-color);
-        }
-
-        .timeline-step h3 {
-            font-size: 1.2rem;
-        }
-
-        /* ----- TIPS SECTION ----- */
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .tip-card {
-            background-color: var(--surface-color);
-            padding: 1.5rem;
-            border-left: 4px solid var(--primary-color);
-            border-radius: 0 4px 4px 0;
-        }
-
-        /* ----- CONTACT SECTION ----- */
-        #contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        #contact-form input,
-        #contact-form textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-color);
-            font-size: 1rem;
-        }
-
-        #contact-form textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-        
-        #form-status {
-            text-align: center;
-            margin-top: 1rem;
-            font-weight: 500;
-        }
-
-        /* ----- FOOTER ----- */
-        .footer {
-            background-color: var(--surface-color);
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .footer-nav, .footer-legal, .footer-social {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .footer-nav a, .footer-legal a, .footer-social a {
-            color: var(--subtle-text-color);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-nav a:hover, .footer-legal a:hover, .footer-social a:hover {
-            color: var(--text-color);
-        }
-        
-        .footer-social a {
-            font-size: 1.5rem;
-        }
-
-        .footer-copy {
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #777;
-        }
-
-        /* ----- SCROLL-TO-TOP BUTTON ----- */
-        #scrollTopBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: none; /* Hidden by default */
-            align-items: center;
-            justify-content: center;
-            z-index: 99;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-        }
-        
-        #scrollTopBtn.show {
-            display: flex;
-            opacity: 1;
-        }
-        
-        #scrollTopBtn:hover {
-            transform: scale(1.1);
-        }
-
-        /* ----- RESPONSIVE DESIGN ----- */
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background-color: var(--surface-color);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: right 0.4s ease-in-out;
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .menu-toggle {
-                display: block;
-                z-index: 101; /* Ensure it's above the nav menu */
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .timeline {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .timeline::before {
-                left: 24px;
-                right: auto;
-                top: 0;
-                bottom: 0;
-                height: 100%;
-                width: 2px;
-            }
-
-            .timeline-step {
-                text-align: right;
-                padding-right: 50px;
-            }
-            
-            html[dir="rtl"] .timeline-step {
-                text-align: right;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -407,18 +26,18 @@
     <!--       HEADER         -->
     <!-- ==================== -->
     <header class="header">
-        <a href="#" class="logo">Sitelek.</a>
+        <a href="#hero" class="logo">Sitelek.</a>
         <nav>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#hero" class="nav-link">الرئيسية</a></li>
+                <li><a href="#hero" class="nav-link active">الرئيسية</a></li>
                 <li><a href="#about" class="nav-link">من نحن</a></li>
                 <li><a href="#services" class="nav-link">خدماتنا</a></li>
-                <li><a href="#process" class="nav-link">كيف نعمل</a></li>
-                <li><a href="#tips" class="nav-link">نصائح</a></li>
+                <li><a href="#website-test" class="nav-link">اختبر موقعك</a></li>
+                <li><a href="#faq" class="nav-link">أسئلة شائعة</a></li>
                 <li><a href="#contact" class="nav-link">اتصل بنا</a></li>
             </ul>
         </nav>
-        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">☰</button>
     </header>
 
     <main>
@@ -443,6 +62,22 @@
                 Sitelek هو شريكك التقني في الجزائر. نحن نؤمن بأن كل فكرة رائعة تستحق موقعًا إلكترونيًا احترافيًا. مهمتنا هي تمكين رواد الأعمال والمستقلين الجزائريين من خلال تزويدهم بمواقع ويب عالية الجودة وبأسعار تنافسية، مما يساعدهم على النمو والنجاح في العالم الرقمي.
             </p>
         </section>
+        
+        <!-- ==================== -->
+        <!-- MEET THE FOUNDER SECTION -->
+        <!-- ==================== -->
+        <section id="founder" class="container founder-section">
+            <h2 class="section-title">تعرف على المؤسس</h2>
+            <div class="founder-content">
+                <div class="founder-avatar"></div>
+                <div class="founder-bio">
+                    <p>
+                        أنا مبدع جزائري شغوف، أساعد الأفراد والشركات الصغيرة على بناء مواقع ويب جميلة وبأسعار معقولة. هدفي هو تمكين الناس من خلال منحهم حضورًا احترافيًا عبر الإنترنت باستخدام تصميم حديث وتطوير سريع - كل ذلك بأسعار في المتناول.
+                    </p>
+                </div>
+            </div>
+        </section>
+
 
         <!-- ==================== -->
         <!--   SERVICES SECTION   -->
@@ -450,72 +85,39 @@
         <section id="services" class="container">
             <h2 class="section-title">خدماتنا</h2>
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="icon">📄</div>
-                    <h3>صفحات الهبوط</h3>
-                </div>
-                <div class="service-card">
-                    <div class="icon">📑</div>
-                    <h3>مواقع متعددة الصفحات</h3>
-                </div>
-                <div class="service-card">
-                    <div class="icon">🛒</div>
-                    <h3>متاجر إلكترونية</h3>
-                </div>
-                <div class="service-card">
-                    <div class="icon">✍️</div>
-                    <h3>إضافة مدونة</h3>
-                </div>
-                <div class="service-card">
-                    <div class="icon">📅</div>
-                    <h3>أنظمة الحجز</h3>
-                </div>
-                <div class="service-card">
-                    <div class="icon">🖼️</div>
-                    <h3>معرض أعمال (Portfolio)</h3>
-                </div>
+                <div class="service-card"><div class="icon">📄</div><h3>صفحات الهبوط</h3></div>
+                <div class="service-card"><div class="icon">📑</div><h3>مواقع متعددة الصفحات</h3></div>
+                <div class="service-card"><div class="icon">🛒</div><h3>متاجر إلكترونية</h3></div>
+                <div class="service-card"><div class="icon">✍️</div><h3>إضافة مدونة</h3></div>
+                <div class="service-card"><div class="icon">📅</div><h3>أنظمة الحجز</h3></div>
+                <div class="service-card"><div class="icon">🖼️</div><h3>معرض أعمال (Portfolio)</h3></div>
             </div>
         </section>
 
         <!-- ==================== -->
-        <!--  HOW WE WORK SECTION -->
+        <!-- WEBSITE TEST SECTION -->
         <!-- ==================== -->
-        <section id="process" class="container">
-            <h2 class="section-title">كيف نعمل</h2>
-            <div class="timeline">
-                <div class="timeline-step">
-                    <div class="step-number">1</div>
-                    <h3>الاستشارة</h3>
+        <section id="website-test" class="container">
+             <h2 class="section-title">هل موقعك الحالي جيد؟</h2>
+             <div class="website-test-tool">
+                <div class="test-questions-container">
+                    <!-- Questions will be injected by JavaScript -->
                 </div>
-                <div class="timeline-step">
-                    <div class="step-number">2</div>
-                    <h3>التصميم</h3>
-                </div>
-                <div class="timeline-step">
-                    <div class="step-number">3</div>
-                    <h3>المراجعة</h3>
-                </div>
-                <div class="timeline-step">
-                    <div class="step-number">4</div>
-                    <h3>التسليم</h3>
-                </div>
-            </div>
+                <div id="test-result" class="test-result"></div>
+             </div>
         </section>
 
+
         <!-- ==================== -->
-        <!--     TIPS SECTION     -->
+        <!--      FAQ SECTION     -->
         <!-- ==================== -->
-        <section id="tips" class="container">
-            <h2 class="section-title">نصائح للنجاح الرقمي</h2>
-            <div class="tips-grid">
-                <div class="tip-card">اجعل هدف موقعك واضحًا من أول ثانية.</div>
-                <div class="tip-card">أزرار "اتصل الآن" تزيد التحويلات بنسبة 35%.</div>
-                <div class="tip-card">الموقع الجيد لا يكون فقط جميلاً، بل سهل الاستخدام.</div>
-                <div class="tip-card">تأكد أن موقعك يعمل بشكل ممتاز على الهاتف.</div>
-                <div class="tip-card">سرعة الموقع تؤثر على تجربة المستخدم وترتيبك في Google.</div>
-                <div class="tip-card">استخدم صوراً عالية الجودة لترك انطباع احترافي.</div>
+        <section id="faq" class="container">
+            <h2 class="section-title">أسئلة شائعة</h2>
+            <div class="faq-container">
+                <!-- FAQ items will be injected by JavaScript -->
             </div>
         </section>
+        
 
         <!-- ==================== -->
         <!--   CONTACT SECTION    -->
@@ -559,102 +161,12 @@
     <!-- ==================== -->
     <!-- SCROLL TO TOP BUTTON -->
     <!-- ==================== -->
-    <button id="scrollTopBtn" title="العودة للأعلى">↑</button>
+    <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">↑</button>
 
     <!-- ==================== -->
-    <!--      SCRIPTS       -->
+    <!--      MAIN SCRIPT     -->
     <!-- ==================== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- Mobile Menu Toggle ---
-            const menuToggle = document.getElementById('menu-toggle');
-            const navLinks = document.getElementById('nav-links');
-
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-            });
-
-            // Close menu when a link is clicked
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                });
-            });
-
-            // --- Active Nav Link on Scroll ---
-            const sections = document.querySelectorAll('section[id]');
-            const navLinkElements = document.querySelectorAll('.nav-links a');
-            
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 60) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLinkElements.forEach(a => {
-                    a.classList.remove('active');
-                    if (a.getAttribute('href') === '#' + current) {
-                        a.classList.add('active');
-                    }
-                });
-            });
-
-            // --- Scroll-to-Top Button ---
-            const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollTopBtn.classList.add('show');
-                } else {
-                    scrollTopBtn.classList.remove('show');
-                }
-            });
-
-            scrollTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // --- Contact Form Submission ---
-            const form = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-
-            async function handleSubmit(event) {
-                event.preventDefault();
-                const data = new FormData(event.target);
-                
-                // IMPORTANT: Replace "YOUR_UNIQUE_CODE" in the form action with your actual Formspree code.
-                // You can get this from formspree.io after setting up your form.
-                
-                fetch(event.target.action, {
-                    method: form.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                }).then(response => {
-                    if (response.ok) {
-                        formStatus.textContent = "شكراً لك! تم إرسال رسالتك بنجاح.";
-                        formStatus.style.color = "#28a745";
-                        form.reset();
-                    } else {
-                        response.json().then(data => {
-                            if (Object.hasOwn(data, 'errors')) {
-                                formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
-                            } else {
-                                formStatus.textContent = "عذراً، حدث خطأ أثناء إرسال الرسالة.";
-                            }
-                            formStatus.style.color = "#dc3545";
-                        })
-                    }
-                }).catch(error => {
-                    formStatus.textContent = "عذراً، حدث خطأ أثناء إرسال الرسالة.";
-                    formStatus.style.color = "#dc3545";
-                });
-            }
-            form.addEventListener("submit", handleSubmit);
-        });
-    </script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
 
