@@ -86,6 +86,7 @@
         .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center; flex-shrink: 0; border: 3px solid var(--border-color); }
         .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
         .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .founder-bio p { white-space: pre-line; color: var(--subtle-text-color); }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
         .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
@@ -112,7 +113,7 @@
         @media (min-width: 768px) { .contact-grid { grid-template-columns: 1fr 2fr; } }
         .contact-info { background-color: var(--surface-color); padding: 2rem; border-radius: 12px; }
         .contact-info-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-        .contact-info-item .icon { color: var(--text-color); width: 24px; }
+        .contact-info-item .icon { color: var(--text-color); width: 24px; flex-shrink: 0; }
         .contact-info-item a { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); word-break: break-all; }
         .contact-info-item a:hover { color: var(--text-color); }
         #contact-form { margin: 0; }
@@ -155,7 +156,7 @@
     <header class="header">
         <a href="#hero" class="logo">solu_tion.dev</a>
         <div class="nav-container" id="desktop-nav-container">
-            <!-- Desktop Nav Links will be populated here -->
+             <!-- Desktop nav links are populated by JS -->
         </div>
         <div class="header-actions">
             <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme"></button>
@@ -166,8 +167,8 @@
 
     <aside class="side-menu" id="side-menu">
         <nav>
-            <ul class="side-menu-nav">
-                <!-- Mobile Nav Links will be populated here -->
+            <ul class="side-menu-nav" id="side-menu-nav">
+                <!-- Mobile nav links are populated by JS -->
             </ul>
         </nav>
         <div class="side-menu-actions">
@@ -367,7 +368,7 @@ Mon objectif ? Démocratiser la présence en ligne.`
             let typingTimeout;
 
             const menuToggle = document.getElementById('menu-toggle');
-            const mobileNav = document.getElementById('main-nav'); 
+            const mobileNav = document.getElementById('main-nav');
             const headerActions = document.querySelector('.header-actions');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const contactForm = document.getElementById('contact-form');
@@ -382,7 +383,7 @@ Mon objectif ? Démocratiser la présence en ligne.`
 
             // --- EVENT LISTENERS ---
             menuToggle.addEventListener('click', () => mobileNav.classList.toggle('active'));
-            document.querySelectorAll('#main-nav a').forEach(link => {
+            document.querySelectorAll('.main-nav a').forEach(link => {
                 link.addEventListener('click', () => {
                     if (mobileNav.classList.contains('active')) {
                         mobileNav.classList.remove('active');
@@ -508,7 +509,7 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 document.querySelectorAll('section[id]').forEach(section => {
                     if (pageYOffset >= section.offsetTop - 70) currentSection = section.id;
                 });
-                document.querySelectorAll('.main-nav a').forEach(a => {
+                document.querySelectorAll('.nav-link').forEach(a => {
                     a.classList.toggle('active', a.getAttribute('href') === '#' + currentSection);
                 });
                 document.querySelectorAll('.reveal').forEach(el => {
@@ -516,15 +517,25 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 });
             }
             
-            function handleFormSubmit(event) {
+            async function handleFormSubmit(event) {
                 event.preventDefault();
-                const form = event.target;
-                const name = form.querySelector('[name="name"]').value;
-                const email = form.querySelector('[name="email"]').value;
-                const message = form.querySelector('[name="message"]').value;
-                const subject = `رسالة جديدة من ${name}`;
-                const body = `من: ${email}\n\n${message}`;
-                window.location.href = `mailto:solutiondev000@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                const lang = langCycle[currentLangIndex];
+                formStatus.textContent = translations[lang].formSending;
+                formStatus.style.color = 'var(--subtle-text-color)';
+                try {
+                    const response = await fetch(event.target.action, { method: contactForm.method, body: new FormData(event.target), headers: { 'Accept': 'application/json' } });
+                    if (response.ok) {
+                        formStatus.textContent = translations[lang].formSuccess;
+                        formStatus.style.color = "#28a745";
+                        contactForm.reset();
+                    } else {
+                        formStatus.textContent = translations[lang].formError;
+                        formStatus.style.color = "#dc3545";
+                    }
+                } catch (error) {
+                    formStatus.textContent = translations[lang].formError;
+                    formStatus.style.color = "#dc3545";
+                }
             }
             
             function createFAQ() {
@@ -590,7 +601,24 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 });
             }
 
+            // --- INITIALIZATION ---
             function init() {
+                const desktopNav = document.getElementById('main-nav-desktop');
+                const mobileNav = document.getElementById('side-menu-nav');
+
+                const navItems = [
+                    { href: "#hero", key: "navHome" }, { href: "#about", key: "navAbout" },
+                    { href: "#services", key: "navServices" }, { href: "#website-test", key: "navTest" },
+                    { href: "#faq", key: "navFAQ" }, { href: "#contact", key: "navContact" }
+                ];
+                
+                if (desktopNav) {
+                    desktopNav.innerHTML = navItems.slice(0, 3).map(item => `<li><a href="${item.href}" class="nav-link" data-lang-key="${item.key}"></a></li>`).join('');
+                }
+                if (mobileNav) {
+                    mobileNav.innerHTML = navItems.map(item => `<li><a href="${item.href}" class="side-nav-link" data-lang-key="${item.key}"></a></li>`).join('');
+                }
+
                 document.getElementById('phone-icon').innerHTML = icons.phone;
                 document.getElementById('email-icon').innerHTML = icons.email;
                 const savedTheme = localStorage.getItem('theme') || 'dark';
