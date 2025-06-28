@@ -1,554 +1,809 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- ----------------- -->
+    <!--     META TAGS     -->
+    <!-- ----------------- -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="siteTitleAr">sitelek | تصميم مواقع احترافية</title>
-    <meta name="description" content="تقدم sitelek خدمات تصميم مواقع سريعة، عصرية، وبأسعار معقولة للشركات والأفراد في الجزائر. حلول ويب متكاملة لعلامتك التجارية.">
-    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, sitelek, تطوير مواقع, متاجر الكترونية, conception web, algérie">
+    <meta name="description" content="نوفر خدمات تصميم مواقع احترافية في الجزائر للمستقلين والشركات بأسعار معقولة.">
+    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, sitelek, مستقل, freelance">
+
+    <!-- ----------------- -->
+    <!--  TITLE & FAVICON  -->
+    <!-- ----------------- -->
+    <title>Sitelek | Web Design in Algeria</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap');
-        :root {
-            --header-height: 3.5rem;
-            --first-color: hsl(228, 79%, 52%);
-            --first-color-alt: hsl(228, 79%, 48%);
-            --title-color: hsl(228, 8%, 95%);
-            --text-color: hsl(228, 8%, 65%);
-            --body-color: hsl(228, 15%, 8%);
-            --container-color: hsl(228, 15%, 12%);
-            --border-color: hsl(228, 15%, 20%);
-            --body-font: 'Readex Pro', sans-serif;
-            --biggest-font-size: 2.5rem;
-            --h1-font-size: 1.75rem;
-            --h2-font-size: 1.25rem;
-            --h3-font-size: 1rem;
-            --normal-font-size: .938rem;
-            --small-font-size: .813rem;
-            --font-medium: 500;
-            --font-semi-bold: 600;
-            --z-tooltip: 10;
-            --z-fixed: 100;
-            --z-modal: 1000;
-        }
-        body.light-theme {
-            --title-color: hsl(228, 8%, 15%);
-            --text-color: hsl(228, 8%, 35%);
-            --body-color: hsl(228, 100%, 99%);
-            --container-color: #fff;
-            --border-color: hsl(228, 15%, 85%);
-        }
-        @media screen and (min-width: 1024px) {
-            :root {
-                --biggest-font-size: 4rem;
-                --h1-font-size: 2.5rem;
-                --h2-font-size: 1.5rem;
-                --h3-font-size: 1.25rem;
-                --normal-font-size: 1rem;
-                --small-font-size: .875rem;
-            }
-        }
-        * { box-sizing: border-box; padding: 0; margin: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--body-font); font-size: var(--normal-font-size); background-color: var(--body-color); color: var(--text-color); transition: background-color .4s; }
-        h1, h2, h3, h4 { color: var(--title-color); font-weight: var(--font-semi-bold); }
-        ul { list-style: none; }
-        a { text-decoration: none; color: var(--first-color); transition: color .3s; }
-        a:hover { color: var(--first-color-alt); }
-        .info-item a { color: var(--text-color); }
-        .info-item a:hover { color: var(--title-color); }
-        .container { max-width: 1120px; margin-left: 1.5rem; margin-right: 1.5rem; }
-        .section { padding: 4.5rem 0 2rem; }
-        .section-title { font-size: var(--h1-font-size); text-align: center; margin-bottom: 3rem; }
-        .btn { display: inline-block; background-color: var(--first-color); color: #fff; padding: 1rem 1.75rem; border-radius: .5rem; font-weight: var(--font-medium); transition: background-color .3s, transform .3s; text-align: center; }
-        .btn:hover { background-color: var(--first-color-alt); transform: translateY(-2px); }
-        .header { position: fixed; top: 0; left: 0; width: 100%; background-color: transparent; z-index: var(--z-fixed); transition: background-color .4s, box-shadow .4s; }
-        .nav-container { height: var(--header-height); display: flex; justify-content: space-between; align-items: center; }
-        .logo { color: var(--title-color); font-weight: var(--font-medium); font-size: var(--h2-font-size); }
-        .nav-actions { display: flex; align-items: center; gap: 1rem; }
-        .icon-lucide { width: 1.25rem; height: 1.25rem; }
-        .theme-toggle, .nav-toggle { font-size: 1.25rem; color: var(--title-color); cursor: pointer; transition: transform .3s, color .3s; }
-        .theme-toggle:hover, .nav-toggle:hover { transform: scale(1.1); color: var(--first-color); }
-        .lang-switcher button { background: none; border: none; color: var(--title-color); cursor: pointer; font-size: var(--normal-font-size); font-weight: var(--font-medium); font-family: var(--body-font); }
-        .nav-menu { transition: right .4s, left .4s; }
-        .nav-list { display: flex; flex-direction: column; text-align: center; padding-top: 4rem; gap: 2.5rem; }
-        .nav-link { color: var(--title-color); font-weight: var(--font-medium); transition: color .3s; }
-        .nav-link:hover { color: var(--first-color); }
-        .nav-close { position: absolute; top: 1rem; font-size: 1.5rem; color: var(--title-color); cursor: pointer; }
-        html[dir="rtl"] .nav-close { right: 1.5rem; }
-        html[dir="ltr"] .nav-close { left: 1.5rem; }
-        html[dir="rtl"] .show-menu { right: 0; }
-        html[dir="ltr"] .show-menu { left: 0; }
-        .scroll-header { background-color: var(--body-color); box-shadow: 0 1px 4px hsla(228, 4%, 15%, .1); }
-        .light-theme .scroll-header { box-shadow: 0 1px 4px hsla(228, 4%, 15%, .1); }
-        .active-link { color: var(--first-color); }
-        @media screen and (max-width: 767px) { 
-            .nav-menu { position: fixed; top: 0; width: 100%; height: 100%; background-color: hsla(228, 15%, 8%, .2); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-            html[dir="rtl"] .nav-menu { right: -100%; }
-            html[dir="ltr"] .nav-menu { left: -100%; }
-        }
-        @media screen and (min-width: 768px) { .nav-menu { width: initial; } .nav-list { flex-direction: row; gap: 2.5rem; padding-top: 0; } .nav-toggle, .nav-close { display: none; } }
-        .hero-container { padding-top: 2rem; text-align: center; }
-        .hero-title { font-size: var(--biggest-font-size); margin-bottom: 1rem; min-height: calc(var(--biggest-font-size) * 1.2); }
-        .hero-description { max-width: 600px; margin: 0 auto 2rem; }
-        
-        /* Portfolio Section */
-        .portfolio-grid { display: grid; gap: 2rem; }
-        .portfolio-card { background: var(--container-color); border-radius: .75rem; overflow: hidden; }
-        .portfolio-card-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-        .portfolio-card-content { padding: 1.5rem; }
-        .portfolio-card-title { font-size: var(--h3-font-size); margin-bottom: .5rem; }
-        .portfolio-card-desc { margin-bottom: 1rem; }
-        .portfolio-card-link { font-weight: var(--font-medium); }
-        
-        /* Pricing Section */
-        .pricing-grid { display: grid; gap: 1.5rem; align-items: center; }
-        .pricing-card { background-color: var(--container-color); border: 2px solid var(--border-color); padding: 2.5rem 2rem; border-radius: .75rem; text-align: center; transition: transform .3s, border-color .3s; }
-        .pricing-card:hover { transform: translateY(-.5rem); }
-        .pricing-card.highlight { border-color: var(--first-color); transform: scale(1.05); }
-        .pricing-popular { display: inline-block; background-color: var(--first-color); color: #fff; font-size: var(--small-font-size); padding: .25rem .75rem; border-radius: 1rem; margin-bottom: 1rem; }
-        .pricing-title { font-size: var(--h3-font-size); margin-bottom: .5rem; }
-        .pricing-price { font-size: var(--h1-font-size); font-weight: var(--font-semi-bold); color: var(--title-color); margin-bottom: .5rem; }
-        .pricing-price span { font-size: var(--normal-font-size); font-weight: var(--font-medium); color: var(--text-color); }
-        .pricing-features { list-style: none; margin: 2rem 0; display: flex; flex-direction: column; gap: 1rem; }
-        .pricing-features li { display: flex; align-items: center; gap: .5rem; }
-        html[dir="rtl"] .pricing-features li { justify-content: flex-start; }
-        html[dir="ltr"] .pricing-features li { justify-content: flex-start; }
-        .pricing-features li i { color: var(--first-color); }
-
-        .services-grid { display: grid; gap: 1.5rem; }
-        .service-card { background-color: var(--container-color); border: 1px solid var(--border-color); padding: 2.5rem 2rem; border-radius: .75rem; text-align: center; transition: transform .3s; }
-        .service-card:hover { transform: translateY(-.5rem); }
-        .card-icon { color: var(--first-color); margin-bottom: 1rem; }
-        .card-title { font-size: var(--h3-font-size); margin-bottom: .5rem; }
-        .timeline { position: relative; }
-        html[dir="rtl"] .timeline { padding-right: 2rem; }
-        html[dir="ltr"] .timeline { padding-left: 2rem; }
-        .timeline::before { content: ''; position: absolute; top: 0; bottom: 0; width: 2px; background-color: var(--first-color); }
-        html[dir="rtl"] .timeline::before { right: 0; }
-        html[dir="ltr"] .timeline::before { left: 0; }
-        .timeline-item { position: relative; margin-bottom: 2.5rem; }
-        .timeline-item:last-child { margin-bottom: 0; }
-        .timeline-dot { position: absolute; top: 0px; width: 24px; height: 24px; background-color: var(--first-color); border: 3px solid var(--body-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8rem; color: #fff; font-weight: 600; }
-        html[dir="rtl"] .timeline-dot { right: -12px; }
-        html[dir="ltr"] .timeline-dot { left: -12px; }
-        .contact-container { display: grid; gap: 2rem; }
-        .info-item { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
-        .form-group { position: relative; margin-bottom: 2rem; }
-        .form-input { width: 100%; padding: 1rem; border: 1px solid var(--border-color); background-color: var(--container-color); border-radius: .5rem; color: var(--text-color); }
-        .form-label { position: absolute; top: -0.75rem; background-color: var(--body-color); padding: 0 .5rem; font-size: var(--small-font-size); color: var(--text-color); }
-        html[dir="rtl"] .form-label { right: 1rem; }
-        html[dir="ltr"] .form-label { left: 1rem; }
-        textarea.form-input { resize: vertical; min-height: 120px; }
-        .footer { padding: 3rem 0 2rem; border-top: 1px solid var(--border-color); margin-top: 2rem;}
-        .footer-container { text-align: center; }
-        .footer-copy { font-size: var(--small-font-size); }
-        .footer-links, .footer-socials { display: flex; justify-content: center; gap: 1.5rem; margin: 1.5rem 0; }
-        .footer-links button { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: var(--small-font-size); font-family: var(--body-font); }
-        .footer-links button:hover { color: var(--first-color); }
-        .scroll-up { position: fixed; right: 1rem; bottom: -30%; background-color: var(--first-color); padding: .5rem; border-radius: .25rem; display: inline-flex; z-index: var(--z-tooltip); transition: bottom .3s, transform .3s; }
-        .scroll-up:hover { transform: translateY(-.25rem); }
-        .scroll-up i { color: #fff; }
-        .show-scroll { bottom: 3rem; }
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: var(--z-modal); display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
-        .modal.active { opacity: 1; visibility: visible; }
-        .modal-content { position: relative; background-color: var(--body-color); padding: 2.5rem; border-radius: .75rem; max-width: 500px; width: 100%; }
-        html[dir="rtl"] .modal-content { text-align: right; }
-        html[dir="ltr"] .modal-content { text-align: left; }
-        .modal-content h2 { font-size: var(--h2-font-size); margin-bottom: 1rem; text-align: center; }
-        .modal-content p { margin-bottom: 1rem; }
-        .modal-close { position: absolute; top: 1.5rem; font-size: 1.5rem; color: var(--title-color); cursor: pointer; }
-        html[dir="rtl"] .modal-close { left: 1.5rem; }
-        html[dir="ltr"] .modal-close { right: 1.5rem; }
-        .reveal { opacity: 0; transform: translateY(50px); transition: opacity .8s ease-out, transform .8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .typing-cursor { border-right: 3px solid var(--title-color); animation: blink .7s step-end infinite; }
-        @keyframes blink { from, to { border-color: transparent; } 50% { border-color: var(--title-color); } }
-        
-        @media screen and (min-width: 576px) { 
-            .services-grid { grid-template-columns: repeat(2, 1fr); }
-            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media screen and (min-width: 768px) { 
-            .contact-container { grid-template-columns: repeat(2, 1fr); }
-            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media screen and (min-width: 1024px) { 
-            .container { margin-left: auto; margin-right: auto; } 
-            .section { padding: 6.5rem 0 2rem; } 
-            .services-grid { grid-template-columns: repeat(3, 1fr); } 
-            .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-    </style>
+    <!-- ----------------- -->
+    <!--   STYLESHEET    -->
+    <!-- ----------------- -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="header" id="header">
-        <div class="container nav-container">
-            <a href="#" class="logo">sitelek.</a>
-            <nav class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="#hero" class="nav-link active-link" data-lang-key="navHome"></a></li>
-                    <li class="nav-item"><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
-                    <li class="nav-item"><a href="#portfolio" class="nav-link" data-lang-key="navPortfolio"></a></li>
-                    <li class="nav-item"><a href="#pricing" class="nav-link" data-lang-key="navPricing"></a></li>
-                    <li class="nav-item"><a href="#how-we-work" class="nav-link" data-lang-key="navHowWeWork"></a></li>
-                    <li class="nav-item"><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
-                </ul>
-                <div class="nav-close" id="nav-close">
-                    <i class="icon-lucide" data-lucide="x"></i>
-                </div>
-            </nav>
-            <div class="nav-actions">
-                <i class="icon-lucide theme-toggle" id="theme-toggle" data-lucide="sun"></i>
-                <div class="lang-switcher">
-                    <button id="lang-btn">AR</button>
-                </div>
-                <div class="nav-toggle" id="nav-toggle">
-                    <i class="icon-lucide" data-lucide="menu"></i>
-                </div>
-            </div>
-        </div>
+    <!-- ==================== -->
+    <!--       HEADER         -->
+    <!-- ==================== -->
+    <header class="header">
+        <a href="#hero" class="logo">Sitelek.</a>
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero" class="nav-link active">الرئيسية</a></li>
+                <li><a href="#about" class="nav-link">من نحن</a></li>
+                <li><a href="#services" class="nav-link">خدماتنا</a></li>
+                <li><a href="#website-test" class="nav-link">اختبر موقعك</a></li>
+                <li><a href="#faq" class="nav-link">أسئلة شائعة</a></li>
+                <li><a href="#contact" class="nav-link">اتصل بنا</a></li>
+            </ul>
+        </nav>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">☰</button>
     </header>
 
     <main>
-        <section class="hero section" id="hero">
-            <div class="container hero-container">
-                <div class="hero-content">
-                    <h1 class="hero-title" id="hero-title"></h1>
-                    <p class="hero-description reveal" data-lang-key="heroDescription"></p>
-                    <a href="#contact" class="btn reveal" data-lang-key="heroButton"></a>
+
+        <!-- ==================== -->
+        <!--     HERO SECTION     -->
+        <!-- ==================== -->
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h1>نصمم لك هوية رقمية احترافية</h1>
+                <p>في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت من خلال مواقع ويب عصرية وسريعة وبأسعار معقولة.</p>
+                <a href="#contact" class="btn">اطلب استشارة مجانية</a>
+            </div>
+        </section>
+
+        <!-- ==================== -->
+        <!--    ABOUT SECTION     -->
+        <!-- ==================== -->
+        <section id="about" class="container">
+            <h2 class="section-title">من نحن؟</h2>
+            <p>
+                Sitelek هو شريكك التقني في الجزائر. نحن نؤمن بأن كل فكرة رائعة تستحق موقعًا إلكترونيًا احترافيًا. مهمتنا هي تمكين رواد الأعمال والمستقلين الجزائريين من خلال تزويدهم بمواقع ويب عالية الجودة وبأسعار تنافسية، مما يساعدهم على النمو والنجاح في العالم الرقمي.
+            </p>
+        </section>
+        
+        <!-- ==================== -->
+        <!-- MEET THE FOUNDER SECTION -->
+        <!-- ==================== -->
+        <section id="founder" class="container founder-section">
+            <h2 class="section-title">تعرف على المؤسس</h2>
+            <div class="founder-content">
+                <div class="founder-avatar"></div>
+                <div class="founder-bio">
+                    <p>
+                        أنا مبدع جزائري شغوف، أساعد الأفراد والشركات الصغيرة على بناء مواقع ويب جميلة وبأسعار معقولة. هدفي هو تمكين الناس من خلال منحهم حضورًا احترافيًا عبر الإنترنت باستخدام تصميم حديث وتطوير سريع - كل ذلك بأسعار في المتناول.
+                    </p>
                 </div>
             </div>
         </section>
 
-        <section class="services section" id="services">
-            <div class="container">
-                <h2 class="section-title" data-lang-key="servicesTitle"></h2>
-                <div class="services-grid">
-                    <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="layout-template"></i><h3 class="card-title" data-lang-key="service1Title"></h3><p class="card-description" data-lang-key="service1Desc"></p></div>
-                    <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="shopping-cart"></i><h3 class="card-title" data-lang-key="service2Title"></h3><p class="card-description" data-lang-key="service2Desc"></p></div>
-                    <div class="service-card reveal"><i class="icon-lucide card-icon" data-lucide="shield-check"></i><h3 class="card-title" data-lang-key="service3Title"></h3><p class="card-description" data-lang-key="service3Desc"></p></div>
-                </div>
+
+        <!-- ==================== -->
+        <!--   SERVICES SECTION   -->
+        <!-- ==================== -->
+        <section id="services" class="container">
+            <h2 class="section-title">خدماتنا</h2>
+            <div class="services-grid">
+                <div class="service-card"><div class="icon">📄</div><h3>صفحات الهبوط</h3></div>
+                <div class="service-card"><div class="icon">📑</div><h3>مواقع متعددة الصفحات</h3></div>
+                <div class="service-card"><div class="icon">🛒</div><h3>متاجر إلكترونية</h3></div>
+                <div class="service-card"><div class="icon">✍️</div><h3>إضافة مدونة</h3></div>
+                <div class="service-card"><div class="icon">📅</div><h3>أنظمة الحجز</h3></div>
+                <div class="service-card"><div class="icon">🖼️</div><h3>معرض أعمال (Portfolio)</h3></div>
             </div>
         </section>
 
-        <section class="portfolio section" id="portfolio">
-            <div class="container">
-                <h2 class="section-title" data-lang-key="portfolioTitle"></h2>
-                <div class="portfolio-grid">
-                    <article class="portfolio-card reveal">
-                        <img src="https://placehold.co/600x400/222/FFF?text=Projet+Un" alt="Image du projet un" class="portfolio-card-img">
-                        <div class="portfolio-card-content">
-                            <h3 class="portfolio-card-title" data-lang-key="project1Title"></h3>
-                            <p class="portfolio-card-desc" data-lang-key="project1Desc"></p>
-                            <a href="#" target="_blank" class="portfolio-card-link"><span data-lang-key="visitWebsite"></span> <i class="icon-lucide" data-lucide="external-link" style="width:1em; height:1em; vertical-align: middle;"></i></a>
-                        </div>
-                    </article>
-                    <article class="portfolio-card reveal">
-                        <img src="https://placehold.co/600x400/111/FFF?text=Projet+Deux" alt="Image du projet deux" class="portfolio-card-img">
-                        <div class="portfolio-card-content">
-                            <h3 class="portfolio-card-title" data-lang-key="project2Title"></h3>
-                            <p class="portfolio-card-desc" data-lang-key="project2Desc"></p>
-                            <a href="#" target="_blank" class="portfolio-card-link"><span data-lang-key="visitWebsite"></span> <i class="icon-lucide" data-lucide="external-link" style="width:1em; height:1em; vertical-align: middle;"></i></a>
-                        </div>
-                    </article>
-                    <article class="portfolio-card reveal">
-                        <img src="https://placehold.co/600x400/333/FFF?text=Projet+Trois" alt="Image du projet trois" class="portfolio-card-img">
-                        <div class="portfolio-card-content">
-                            <h3 class="portfolio-card-title" data-lang-key="project3Title"></h3>
-                            <p class="portfolio-card-desc" data-lang-key="project3Desc"></p>
-                            <a href="#" target="_blank" class="portfolio-card-link"><span data-lang-key="visitWebsite"></span> <i class="icon-lucide" data-lucide="external-link" style="width:1em; height:1em; vertical-align: middle;"></i></a>
-                        </div>
-                    </article>
+        <!-- ==================== -->
+        <!-- WEBSITE TEST SECTION -->
+        <!-- ==================== -->
+        <section id="website-test" class="container">
+             <h2 class="section-title">هل موقعك الحالي جيد؟</h2>
+             <div class="website-test-tool">
+                <div class="test-questions-container">
+                    <!-- Questions will be injected by JavaScript -->
                 </div>
-            </div>
+                <div id="test-result" class="test-result"></div>
+             </div>
         </section>
 
-        <section class="pricing section" id="pricing">
-            <div class="container">
-                <h2 class="section-title" data-lang-key="pricingTitle"></h2>
-                <div class="pricing-grid">
-                    <div class="pricing-card reveal">
-                        <h3 class="pricing-title" data-lang-key="plan1Title"></h3>
-                        <div class="pricing-price" data-lang-key="plan1Price"></div>
-                        <ul class="pricing-features">
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featurePages1"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureResponsive"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureContactForm"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSupport1"></span></li>
-                        </ul>
-                        <a href="#contact" class="btn" data-lang-key="choosePlan"></a>
-                    </div>
-                    <div class="pricing-card highlight reveal">
-                        <div class="pricing-popular" data-lang-key="mostPopular"></div>
-                        <h3 class="pricing-title" data-lang-key="plan2Title"></h3>
-                        <div class="pricing-price" data-lang-key="plan2Price"></div>
-                        <ul class="pricing-features">
-                             <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featurePages2"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureResponsive"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSeo"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureContactForm"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSupport2"></span></li>
-                        </ul>
-                        <a href="#contact" class="btn" data-lang-key="choosePlan"></a>
-                    </div>
-                    <div class="pricing-card reveal">
-                        <h3 class="pricing-title" data-lang-key="plan3Title"></h3>
-                        <div class="pricing-price" data-lang-key="plan3Price"></div>
-                        <ul class="pricing-features">
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featurePages3"></span></li>
-                             <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureResponsive"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureEcommerce"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSeo"></span></li>
-                            <li><i class="icon-lucide" data-lucide="check"></i> <span data-lang-key="featureSupport3"></span></li>
-                        </ul>
-                        <a href="#contact" class="btn" data-lang-key="choosePlan"></a>
-                    </div>
-                </div>
+
+        <!-- ==================== -->
+        <!--      FAQ SECTION     -->
+        <!-- ==================== -->
+        <section id="faq" class="container">
+            <h2 class="section-title">أسئلة شائعة</h2>
+            <div class="faq-container">
+                <!-- FAQ items will be injected by JavaScript -->
             </div>
         </section>
         
-        <section class="how-we-work section" id="how-we-work">
-            <div class="container">
-                <h2 class="section-title" data-lang-key="howWeWorkTitle"></h2>
-                <div class="timeline">
-                    <div class="timeline-item reveal"><div class="timeline-dot">1</div><div class="timeline-content"><h3 data-lang-key="step1Title"></h3><p data-lang-key="step1Desc"></p></div></div>
-                    <div class="timeline-item reveal"><div class="timeline-dot">2</div><div class="timeline-content"><h3 data-lang-key="step2Title"></h3><p data-lang-key="step2Desc"></p></div></div>
-                    <div class="timeline-item reveal"><div class="timeline-dot">3</div><div class="timeline-content"><h3 data-lang-key="step3Title"></h3><p data-lang-key="step3Desc"></p></div></div>
-                    <div class="timeline-item reveal"><div class="timeline-dot">4</div><div class="timeline-content"><h3 data-lang-key="step4Title"></h3><p data-lang-key="step4Desc"></p></div></div>
-                </div>
-            </div>
+
+        <!-- ==================== -->
+        <!--   CONTACT SECTION    -->
+        <!-- ==================== -->
+        <section id="contact" class="container">
+            <h2 class="section-title">تواصل معنا</h2>
+            <form id="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_CODE" method="POST">
+                <input type="text" name="name" placeholder="الاسم الكامل" required>
+                <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+                <textarea name="message" placeholder="رسالتك..." required></textarea>
+                <button type="submit" class="btn">إرسال الرسالة</button>
+            </form>
+            <p id="form-status"></p>
         </section>
-        
-        <section class="contact section" id="contact">
-            <div class="container">
-                <h2 class="section-title" data-lang-key="contactTitle"></h2>
-                 <div class="contact-container">
-                    <div class="contact-info reveal">
-                        <h3 data-lang-key="getInTouch"></h3>
-                        <p data-lang-key="contactDescription"></p>
-                        <div class="info-item">
-                            <i class="icon-lucide" data-lucide="mail"></i>
-                            <a href="mailto:sitelekdz@gmail.com">sitelekdz@gmail.com</a>
-                        </div>
-                        <div class="info-item">
-                            <i class="icon-lucide" data-lucide="phone"></i>
-                            <a href="tel:+213542511548" style="direction: ltr; display: inline-block;">0542 51 15 48</a>
-                        </div>
-                    </div>
-                    <form action="https://formspree.io/f/xblyqala" method="POST" class="contact-form reveal" id="contact-form">
-                         <div class="form-group"><label for="name" class="form-label" data-lang-key="formName"></label><input type="text" id="name" name="name" class="form-input" required></div>
-                         <div class="form-group"><label for="email" class="form-label" data-lang-key="formEmail"></label><input type="email" id="email" name="email" class="form-input" required></div>
-                         <div class="form-group"><label for="message" class="form-label" data-lang-key="formMessage"></label><textarea id="message" name="message" rows="5" class="form-input" required></textarea></div>
-                         <button type="submit" class="btn" data-lang-key="formSubmit"></button>
-                    </form>
-                 </div>
-            </div>
-        </section>
+
     </main>
 
+    <!-- ==================== -->
+    <!--        FOOTER        -->
+    <!-- ==================== -->
     <footer class="footer">
-        <div class="container footer-container">
-            <div class="footer-content"><a href="#" class="logo">sitelek.</a></div>
-             <div class="footer-socials"><a href="https://instagram.com/sitelek.dz" target="_blank" class="social-link"><i class="icon-lucide" data-lucide="instagram"></i></a></div>
-             <div class="footer-links">
-                <button class="modal-btn" data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
-                <button class="modal-btn" data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
-             </div>
-            <p class="footer-copy" data-lang-key="footerRights"></p>
+        <div class="footer-content">
+            <div class="footer-nav">
+                <a href="#hero">الرئيسية</a>
+                <a href="#services">خدماتنا</a>
+                <a href="#contact">اتصل بنا</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://instagram.com/sitelek.dz" target="_blank" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+            </div>
+            <div class="footer-legal">
+                <a href="#">سياسة الخصوصية</a>
+                <a href="#">شروط الخدمة</a>
+            </div>
+            <p class="footer-copy">&copy; 2025 Sitelek. جميع الحقوق محفوظة.</p>
         </div>
     </footer>
     
-    <div class="modal" id="privacy-modal"><div class="modal-content"><i class="icon-lucide modal-close" data-lucide="x"></i><h2 data-lang-key="footerPrivacy"></h2><div data-lang-key="privacyContent"></div></div></div>
-    <div class="modal" id="terms-modal"><div class="modal-content"><i class="icon-lucide modal-close" data-lucide="x"></i><h2 data-lang-key="footerTerms"></h2><div data-lang-key="termsContent"></div></div></div>
-    <div class="modal" id="thanks-modal"><div class="modal-content"><i class="icon-lucide" data-lucide="check-circle" style="color: #28a745; width: 50px; height: 50px; margin: 0 auto 1rem;"></i><h2 data-lang-key="thanksTitle"></h2><p data-lang-key="thanksMessage"></p><button class="btn modal-close-btn" data-lang-key="thanksClose"></button></div></div>
-    
-    <a href="#" class="scroll-up" id="scroll-up"><i class="icon-lucide" data-lucide="arrow-up"></i></a>
+    <!-- ==================== -->
+    <!-- SCROLL TO TOP BUTTON -->
+    <!-- ==================== -->
+    <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">↑</button>
 
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const translations = {
-            ar: {
-                siteTitleAr: "sitelek | تصميم مواقع احترافية",
-                navHome: "الرئيسية", navServices: "خدماتنا", navPortfolio: "أعمالنا", navPricing: "الأسعار", navHowWeWork: "كيف نعمل", navContact: "اتصل بنا",
-                heroTitle: ["موقعك، هويتك الرقمية.", "نصمم المستقبل الرقمي.", "حلول ويب مبتكرة."],
-                heroDescription: "نصمم مواقع ويب عصرية، سريعة، وآمنة للشركات الناشئة، المستقلين، والعلامات التجارية في الجزائر.",
-                heroButton: "احجز استشارة مجانية",
-                servicesTitle: "خدمات متكاملة لتلبية احتياجاتك", service1Title: "تصميم وتطوير المواقع", service1Desc: "نصمم مواقع جذابة ومتجاوبة بالكامل مع التركيز على تجربة المستخدم.", service2Title: "متاجر إلكترونية", service2Desc: "حلول تجارة إلكترونية قوية وآمنة لمساعدتك على بيع منتجاتك عبر الإنترنت.", service3Title: "صيانة ودعم فني", service3Desc: "نضمن بقاء موقعك محدثاً وآمناً ويعمل بأفضل أداء على مدار الساعة.",
-                portfolioTitle: "من أعمالنا", project1Title: "اسم المشروع الأول", project1Desc: "وصف موجز للمشروع والتقنيات المستخدمة. مثلاً: موقع تعريفي لشركة استشارات.", project2Title: "اسم المشروع الثاني", project2Desc: "وصف موجز للمشروع والتقنيات المستخدمة. مثلاً: متجر إلكتروني لبيع منتجات محلية.", project3Title: "اسم المشروع الثالث", project3Desc: "وصف موجز للمشروع والتقنيات المستخدمة. مثلاً: مدونة شخصية احترافية.", visitWebsite: "زيارة الموقع",
-                pricingTitle: "اختر الباقة التي تناسبك", mostPopular: "الأكثر طلباً", plan1Title: "الباقة الأساسية", plan1Price: "3,000 د.ج", plan2Title: "باقة الأعمال", plan2Price: "5,000 د.ج", plan3Title: "الباقة المميزة", plan3Price: "8,000 د.ج", choosePlan: "اختر الباقة",
-                featurePages1: "صفحة واحدة احترافية", featurePages2: "حتى 5 صفحات", featurePages3: "متجر إلكتروني + صفحات غير محدودة", featureResponsive: "تصميم متجاوب (موبايل وكمبيوتر)", featureContactForm: "نموذج تواصل", featureSupport1: "دعم فني أساسي", featureSupport2: "دعم فني أولوية", featureSupport3: "دعم فني متقدم + تدريب", featureSeo: "تهيئة أساسية لمحركات البحث (SEO)", featureEcommerce: "وظائف متجر إلكتروني كاملة",
-                howWeWorkTitle: "منهجية عملنا", step1Title: "الاستشارة", step1Desc: "نبدأ بجلسة استماع لفهم أهدافك، جمهورك، ومتطلبات مشروعك بدقة.", step2Title: "التصميم والتخطيط", step2Desc: "نقوم بإنشاء تصميم أولي وتخطيط هيكل الموقع لضمان تجربة مستخدم سلسة.", step3Title: "التطوير والمراجعة", step3Desc: "نحول التصميم إلى موقع حقيقي، مع إتاحة الفرصة لك للمراجعة وتقديم الملاحظات.", step4Title: "الإطلاق والدعم", step4Desc: "بعد موافقتك النهائية، نطلق الموقع ونوفر الدعم الفني لضمان استقراره.",
-                contactTitle: "تواصل معنا الآن", getInTouch: "كن على تواصل", contactDescription: "هل لديك سؤال أو مشروع؟ املأ النموذج وسنتواصل معك في أقرب وقت ممكن.", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك", formSubmit: "إرسال الرسالة",
-                footerPrivacy: "سياسة الخصوصية", footerTerms: "شروط الخدمة", footerRights: "مصمم من قبل sitelek.dz © 2025",
-                privacyContent: `<p>تدير "sitelek" ("نحن"، "لنا"، أو "خاصتنا") هذا الموقع الإلكتروني ("الخدمة"). هذه الصفحة تعلمك بسياساتنا المتعلقة بجمع واستخدام والكشف عن البيانات الشخصية عند استخدامك لخدمتنا.</p><p>عند استخدام نموذج الاتصال، قد نطلب منك تزويدنا بمعلومات تعريف شخصية معينة مثل الاسم والبريد الإلكتروني. نستخدم هذه البيانات للرد على استفساراتك وتقديم خدماتنا لك فقط، ولا نشاركها مع أي طرف ثالث دون موافقتك.</p>`,
-                termsContent: `<p>من خلال الوصول إلى هذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. إذا كنت لا توافق على أي من هذه الشروط، يُحظر عليك استخدام هذا الموقع.</p><p>تقدم sitelek خدمات تصميم وتطوير الويب. سيتم تفصيل نطاق المشروع والجدول الزمني والتكلفة في عرض أسعار أو عقد رسمي منفصل. إن حجز استشارة لا يشكل اتفاقاً رسمياً لبدء العمل.</p>`,
-                thanksTitle: "شكراً لتواصلك!", thanksMessage: "لقد استلمنا رسالتك وسنقوم بالرد في أقرب وقت ممكن.", thanksClose: "إغلاق",
-            },
-            en: {
-                siteTitleAr: "sitelek | Professional Web Design",
-                navHome: "Home", navServices: "Services", navPortfolio: "Portfolio", navPricing: "Pricing", navHowWeWork: "How We Work", navContact: "Contact Us",
-                heroTitle: ["Your Website, Your Identity.", "Designing the Digital Future.", "Innovative Web Solutions."],
-                heroDescription: "We design modern, fast, and secure websites for startups, freelancers, and brands in Algeria.",
-                heroButton: "Book a Free Consultation",
-                servicesTitle: "Comprehensive Services to Meet Your Needs", service1Title: "Website Design & Development", service1Desc: "We design attractive, fully responsive websites with a focus on user experience.", service2Title: "E-commerce Stores", service2Desc: "Powerful and secure e-commerce solutions to help you sell your products online.", service3Title: "Maintenance & Support", service3Desc: "We ensure your site stays updated, secure, and performing at its best around the clock.",
-                portfolioTitle: "Our Work", project1Title: "Project Name One", project1Desc: "Brief description of the project. e.g., a portfolio website for a consulting firm.", project2Title: "Project Name Two", project2Desc: "Brief description of the project. e.g., an e-commerce store for local products.", project3Title: "Project Name Three", project3Desc: "Brief description of the project. e.g., a professional personal blog.", visitWebsite: "Visit Website",
-                pricingTitle: "Choose the Plan That's Right for You", mostPopular: "Most Popular", plan1Title: "Basic Plan", plan1Price: "$250", plan2Title: "Business Plan", plan2Price: "$450", plan3Title: "Premium Plan", plan3Price: "$700", choosePlan: "Choose Plan",
-                featurePages1: "Professional 1-Page Website", featurePages2: "Up to 5 Pages", featurePages3: "E-commerce + Unlimited Pages", featureResponsive: "Responsive Design (Mobile & Desktop)", featureContactForm: "Contact Form", featureSupport1: "Basic Technical Support", featureSupport2: "Priority Technical Support", featureSupport3: "Advanced Support + Training", featureSeo: "Basic SEO Setup", featureEcommerce: "Full E-commerce Functionality",
-                howWeWorkTitle: "Our Work Process", step1Title: "Consultation", step1Desc: "We start with a listening session to understand your goals, audience, and project requirements.", step2Title: "Design & Planning", step2Desc: "We create an initial design and plan the site structure to ensure a smooth user experience.", step3Title: "Development & Review", step3Desc: "We turn the design into a real website, giving you the opportunity to review and provide feedback.", step4Title: "Launch & Support", step4Desc: "After your final approval, we launch the site and provide technical support to ensure its stability.",
-                contactTitle: "Contact Us Now", getInTouch: "Get in Touch", contactDescription: "Have a question or a project? Fill out the form, and we will contact you as soon as possible.", formName: "Full Name", formEmail: "Email Address", formMessage: "Your Message", formSubmit: "Send Message",
-                footerPrivacy: "Privacy Policy", footerTerms: "Terms of Service", footerRights: "Designed by sitelek.dz © 2025",
-                privacyContent: `<p>sitelek ("us", "we", or "our") operates this website (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service.</p><p>When using the contact form, we may ask you to provide us with certain personally identifiable information such as your name and email address. We use this data solely to respond to your inquiries and provide our services to you, and we do not share it with any third parties without your consent.</p>`,
-                termsContent: `<p>By accessing this website, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, then you are prohibited from using this website.</p><p>sitelek provides web design and development services. The project scope, timeline, and cost will be detailed in a separate quote or official contract. Booking a consultation does not constitute a formal agreement to start work.</p>`,
-                thanksTitle: "Thank You!", thanksMessage: "We have received your message and will get back to you as soon as possible.", thanksClose: "Close",
-            },
-            fr: {
-                siteTitleAr: "sitelek | Conception de sites web professionnels",
-                navHome: "Accueil", navServices: "Services", navPortfolio: "Portfolio", navPricing: "Tarifs", navHowWeWork: "Méthodologie", navContact: "Contact",
-                heroTitle: ["Votre Site, Votre Identité.", "Concevons l'Avenir Numérique.", "Solutions Web Innovantes."],
-                heroDescription: "Nous concevons des sites web modernes, rapides et sécurisés pour les startups, les indépendants et les marques en Algérie.",
-                heroButton: "Réserver une consultation gratuite",
-                servicesTitle: "Des Services Complets Pour Répondre à Vos Besoins", service1Title: "Conception & Développement de Sites", service1Desc: "Nous créons des sites web attrayants et entièrement responsives en mettant l'accent sur l'expérience utilisateur.", service2Title: "Boutiques E-commerce", service2Desc: "Des solutions e-commerce robustes et sécurisées pour vous aider à vendre vos produits en ligne.", service3Title: "Maintenance & Support Technique", service3Desc: "Nous veillons à ce que votre site reste à jour, sécurisé et performant 24h/24.",
-                portfolioTitle: "Nos Réalisations", project1Title: "Nom du Projet Un", project1Desc: "Brève description du projet. Ex: un site vitrine pour une société de conseil.", project2Title: "Nom du Projet Deux", project2Desc: "Brève description du projet. Ex: une boutique en ligne pour des produits locaux.", project3Title: "Nom du Projet Trois", project3Desc: "Brève description du projet. Ex: un blog personnel professionnel.", visitWebsite: "Visiter le site",
-                pricingTitle: "Choisissez le Forfait Qui Vous Convient", mostPopular: "Le plus populaire", plan1Title: "Forfait Essentiel", plan1Price: "3,000 DA", plan2Title: "Forfait Affaires", plan2Price: "5,000 DA", plan3Title: "Forfait Premium", plan3Price: "8,000 DA", choosePlan: "Choisir ce forfait",
-                featurePages1: "Site one-page professionnel", featurePages2: "Jusqu'à 5 pages", featurePages3: "E-commerce + pages illimitées", featureResponsive: "Design responsive (Mobile & Ordinateur)", featureContactForm: "Formulaire de contact", featureSupport1: "Support technique de base", featureSupport2: "Support technique prioritaire", featureSupport3: "Support avancé + Formation", featureSeo: "Optimisation SEO de base", featureEcommerce: "Fonctionnalités E-commerce complètes",
-                howWeWorkTitle: "Notre Méthodologie", step1Title: "Consultation", step1Desc: "Nous commençons par une session d'écoute pour comprendre vos objectifs, votre public et les exigences de votre projet.", step2Title: "Conception & Planification", step2Desc: "Nous créons un design initial et planifions la structure du site pour garantir une expérience utilisateur fluide.", step3Title: "Développement & Révision", step3Desc: "Nous transformons le design en un site web réel, en vous donnant la possibilité de réviser et de fournir des commentaires.", step4Title: "Lancement & Support", step4Desc: "Après votre approbation finale, nous lançons le site et fournissons un support technique pour garantir sa stabilité.",
-                contactTitle: "Contactez-Nous Maintenant", getInTouch: "Restez en contact", contactDescription: "Vous avez une question ou un projet ? Remplissez le formulaire et nous vous contacterons dans les plus brefs délais.", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message", formSubmit: "Envoyer le message",
-                footerPrivacy: "Politique de confidentialité", footerTerms: "Conditions d'utilisation", footerRights: "Conçu par sitelek.dz © 2025",
-                privacyContent: `<p>sitelek ("nous", "notre") exploite ce site web (le "Service"). Cette page vous informe de nos politiques concernant la collecte, l'utilisation et la divulgation des données personnelles lorsque vous utilisez notre Service.</p><p>Lors de l'utilisation du formulaire de contact, nous pouvons vous demander de nous fournir certaines informations personnelles identifiables telles que votre nom et votre adresse e-mail. Nous utilisons ces données uniquement pour répondre à vos demandes et vous fournir nos services, et nous ne les partageons avec aucun tiers sans votre consentement.</p>`,
-                termsContent: `<p>En accédant à ce site web, vous acceptez d'être lié par ces Conditions d'utilisation. Si vous n'êtes pas d'accord avec une partie des conditions, il vous est interdit d'utiliser ce site.</p><p>sitelek fournit des services de conception et de développement web. La portée du projet, le calendrier et le coût seront détaillés dans un devis ou un contrat officiel distinct. La réservation d'une consultation ne constitue pas un accord formel pour commencer le travail.</p>`,
-                thanksTitle: "Merci !", thanksMessage: "Nous avons bien reçu votre message et nous vous répondrons dans les plus brefs délais.", thanksClose: "Fermer",
-            }
-        };
-
-        const availableLangs = ['ar', 'en', 'fr'];
-        let currentLangIndex = 0;
-
-        const body = document.body;
-        const langBtn = document.getElementById('lang-btn');
-        const heroTitleEl = document.getElementById('hero-title');
-        let typingTimeout;
-        
-        const updateContent = () => {
-            const langCode = availableLangs[currentLangIndex];
-            const langData = translations[langCode];
-            
-            document.querySelectorAll('[data-lang-key]').forEach(el => {
-                const key = el.getAttribute('data-lang-key');
-                if (key && langData[key] && !Array.isArray(langData[key])) {
-                    el.innerHTML = langData[key];
-                }
-            });
-
-            document.documentElement.lang = langCode;
-            document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
-            langBtn.textContent = langCode.toUpperCase();
-            startTypingEffect();
-        };
-
-        const startTypingEffect = () => {
-            const phrases = translations[availableLangs[currentLangIndex]].heroTitle;
-            if (!heroTitleEl || !phrases) return;
-            let phraseIndex = 0, charIndex = 0, isDeleting = false;
-            clearTimeout(typingTimeout);
-
-            function type() {
-                const currentPhrase = phrases[phraseIndex];
-                let displayText = isDeleting ? currentPhrase.substring(0, charIndex--) : currentPhrase.substring(0, charIndex++);
-                heroTitleEl.innerHTML = `${displayText}<span class="typing-cursor"></span>`;
-                let typeSpeed = isDeleting ? 75 : 150;
-
-                if (!isDeleting && charIndex === currentPhrase.length) {
-                    typeSpeed = 2000;
-                    isDeleting = true;
-                } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    phraseIndex = (phraseIndex + 1) % phrases.length;
-                }
-                typingTimeout = setTimeout(type, typeSpeed);
-            }
-            type();
-        };
-
-        langBtn.addEventListener('click', () => {
-            currentLangIndex = (currentLangIndex + 1) % availableLangs.length;
-            updateContent();
-        });
-        
-        // --- The rest of the functionalities ---
-        const initIcons = () => lucide.createIcons();
-        const header = document.getElementById('header');
-        const navMenu = document.getElementById('nav-menu');
-        const navToggle = document.getElementById('nav-toggle');
-        const navClose = document.getElementById('nav-close');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const themeToggle = document.getElementById('theme-toggle');
-        const scrollUp = document.getElementById('scroll-up');
-        const sections = document.querySelectorAll('section[id]');
-        const revealElements = document.querySelectorAll('.reveal');
-        const contactForm = document.getElementById('contact-form');
-        const modalBtns = document.querySelectorAll('.modal-btn');
-        const modals = document.querySelectorAll('.modal');
-        const thanksModal = document.getElementById('thanks-modal');
-
-        if (navToggle) navToggle.addEventListener('click', () => navMenu.classList.add('show-menu'));
-        if (navClose) navClose.addEventListener('click', () => navMenu.classList.remove('show-menu'));
-        navLinks.forEach(link => link.addEventListener('click', () => navMenu.classList.remove('show-menu')));
-
-        const savedTheme = localStorage.getItem('selected-theme') || 'dark';
-        body.classList.toggle('light-theme', savedTheme === 'light');
-        themeToggle.setAttribute('data-lucide', savedTheme === 'light' ? 'moon' : 'sun');
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('light-theme');
-            const isLight = body.classList.contains('light-theme');
-            localStorage.setItem('selected-theme', isLight ? 'light' : 'dark');
-            themeToggle.setAttribute('data-lucide', isLight ? 'moon' : 'sun');
-            initIcons();
-        });
-
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scroll-header', window.scrollY >= 50);
-            scrollUp.classList.toggle('show-scroll', window.scrollY >= 350);
-            const scrollY = window.pageYOffset;
-            sections.forEach(current => {
-                const sectionTop = current.offsetTop - 58;
-                const link = document.querySelector('.nav-link[href*=' + current.id + ']');
-                if(link) link.classList.toggle('active-link', scrollY > sectionTop && scrollY <= sectionTop + current.offsetHeight);
-            });
-        });
-
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => entry.target.classList.toggle('active', entry.isIntersecting));
-        }, { threshold: 0.1 });
-        revealElements.forEach(el => revealObserver.observe(el));
-        
-        modalBtns.forEach(btn => btn.addEventListener('click', () => document.getElementById(btn.dataset.modalTarget)?.classList.add('active')));
-        modals.forEach(modal => {
-            modal.querySelector('.modal-close, .modal-close-btn')?.addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', e => { if(e.target === modal) modal.classList.remove('active'); });
-        });
-
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' }})
-            .then(res => {
-                if (res.ok) {
-                    thanksModal?.classList.add('active');
-                    this.reset();
-                } else {
-                    alert('An error occurred.');
-                }
-            }).catch(() => alert('An error occurred.'));
-        });
-
-        updateContent();
-        initIcons();
-    });
-    </script>
+    <!-- ==================== -->
+    <!--      MAIN SCRIPT     -->
+    <!-- ==================== -->
+    <script src="script.js"></script>
 </body>
 </html>
+```css
+/* ----- VARIABLES & GLOBAL STYLES ----- */
+:root {
+    --bg-color: #0d0d0d;
+    --surface-color: #1a1a1a;
+    --primary-color: #3b82f6;
+    --text-color: #f0f0f0;
+    --subtle-text-color: #a0a0a0;
+    --border-color: #333;
+}
+
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* ----- LAYOUT & HELPERS ----- */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.2s, background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+}
+
+/* ----- HEADER ----- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 5%;
+    background-color: rgba(13, 13, 13, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: var(--subtle-text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--text-color);
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* ----- HERO SECTION ----- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--subtle-text-color);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+/* ----- ABOUT SECTION ----- */
+#about p {
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 750px;
+    margin: 0 auto;
+    color: var(--subtle-text-color);
+}
+
+/* ----- MEET THE FOUNDER SECTION ----- */
+.founder-section {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+}
+.founder-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.founder-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    flex-shrink: 0;
+}
+.founder-bio {
+    flex-basis: 60%;
+    min-width: 300px;
+    text-align: center;
+}
+.founder-bio p {
+    font-size: 1.1rem;
+    color: var(--subtle-text-color);
+}
+
+
+/* ----- SERVICES SECTION ----- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.service-card {
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.service-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.service-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ----- WEBSITE TEST SECTION ----- */
+.website-test-tool {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+.test-question-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.test-question-item:last-child {
+    border-bottom: none;
+}
+.test-question-item p {
+    margin: 0;
+}
+.test-question-item .answers {
+    display: flex;
+    gap: 0.5rem;
+}
+.test-question-item .answers button {
+    background: var(--border-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.test-question-item .answers button.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.test-result {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    display: none; /* Hidden by default */
+}
+.test-result.good {
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 1px solid #28a745;
+    color: #28a745;
+}
+.test-result.bad {
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid #dc3545;
+    color: #dc3545;
+}
+
+
+/* ----- FAQ SECTION ----- */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.faq-item {
+    background-color: var(--surface-color);
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+.faq-question {
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.faq-question::after {
+    content: '+';
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+.faq-item.active .faq-question::after {
+    transform: rotate(45deg);
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.faq-answer p {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--subtle-text-color);
+}
+
+/* ----- CONTACT SECTION ----- */
+#contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+#contact-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+#form-status {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+    min-height: 1.6em;
+}
+
+/* ----- FOOTER ----- */
+.footer {
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-nav, .footer-legal, .footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.footer-nav a, .footer-legal a, .footer-social a {
+    color: var(--subtle-text-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-nav a:hover, .footer-legal a:hover, .footer-social a:hover {
+    color: var(--text-color);
+}
+
+.footer-social a {
+    font-size: 1.5rem;
+}
+
+.footer-copy {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* ----- SCROLL-TO-TOP BUTTON ----- */
+#scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+#scrollTopBtn.show {
+    display: flex;
+    opacity: 1;
+}
+
+#scrollTopBtn:hover {
+    transform: scale(1.1);
+}
+
+/* ----- RESPONSIVE DESIGN ----- */
+@media (max-width: 768px) {
+    html[dir="rtl"] .nav-links {
+        right: -100%;
+    }
+    html[dir="rtl"] .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--surface-color);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.4s ease-in-out, left 0.4s ease-in-out;
+    }
+
+    .menu-toggle {
+        display: block;
+        z-index: 101;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .founder-content {
+        gap: 1.5rem;
+    }
+}
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- Mobile Menu Toggle ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    }
+
+    // --- Active Nav Link on Scroll ---
+    const sections = document.querySelectorAll('section[id]');
+    const navLinkElements = document.querySelectorAll('.nav-links a');
+    
+    const activateNavLink = () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 70) { // Adjusted offset for header height
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinkElements.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + current) {
+                a.classList.add('active');
+            }
+        });
+    };
+    window.addEventListener('scroll', activateNavLink);
+
+    // --- Scroll-to-Top Button ---
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // --- FAQ Section ---
+    const faqData = [
+        { question: "كم من الوقت يستغرق إنشاء موقع إلكتروني؟", answer: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين." },
+        { question: "هل تقدمون الدعم الفني بعد التسليم؟", answer: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح." },
+        { question: "هل يمكنني الدفع بعد استلام الموقع؟", answer: "نعتمد نظام دفع مرن يتضمن دفعة أولى عند بدء العمل والباقي عند التسليم النهائي." },
+        { question: "هل تقدمون مواقع باللغة العربية؟", answer: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل مع اتجاه الكتابة من اليمين لليسار." },
+        { question: "هل يمكنني طلب ميزات إضافية مثل الحجز أو المدونة؟", answer: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك." }
+    ];
+
+    const faqContainer = document.querySelector('.faq-container');
+    if (faqContainer) {
+        faqData.forEach(item => {
+            const faqItem = document.createElement('div');
+            faqItem.classList.add('faq-item');
+            faqItem.innerHTML = `
+                <div class="faq-question">${item.question}</div>
+                <div class="faq-answer">
+                    <p>${item.answer}</p>
+                </div>
+            `;
+            faqContainer.appendChild(faqItem);
+        });
+
+        faqContainer.addEventListener('click', (e) => {
+            const question = e.target.closest('.faq-question');
+            if (!question) return;
+
+            const faqItem = question.parentElement;
+            faqItem.classList.toggle('active');
+
+            const answer = faqItem.querySelector('.faq-answer');
+            if (faqItem.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            } else {
+                answer.style.maxHeight = '0';
+            }
+        });
+    }
+
+    // --- Website Test Tool ---
+    const testQuestions = [
+        { id: 'q1', text: 'هل موقعك متجاوب مع الهاتف؟' },
+        { id: 'q2', text: 'هل يتم تحميل موقعك بسرعة؟' },
+        { id: 'q3', text: 'هل محتوى موقعك سهل التصفح؟' },
+        { id: 'q4', text: 'هل يبدو تصميم موقعك احترافيًا؟' },
+        { id: 'q5', text: 'هل معلومات الاتصال الخاصة بك واضحة؟' }
+    ];
+    
+    const questionsContainer = document.querySelector('.test-questions-container');
+    const testResultEl = document.getElementById('test-result');
+    const userAnswers = {};
+
+    if (questionsContainer && testResultEl) {
+        testQuestions.forEach(q => {
+            const questionItem = document.createElement('div');
+            questionItem.classList.add('test-question-item');
+            questionItem.innerHTML = `
+                <p>${q.text}</p>
+                <div class="answers" data-question-id="${q.id}">
+                    <button value="yes">نعم</button>
+                    <button value="no">لا</button>
+                </div>
+            `;
+            questionsContainer.appendChild(questionItem);
+        });
+
+        questionsContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const questionId = e.target.parentElement.dataset.questionId;
+                const value = e.target.value;
+                userAnswers[questionId] = value;
+                
+                // Update button styles
+                const buttons = e.target.parentElement.querySelectorAll('button');
+                buttons.forEach(btn => btn.classList.remove('selected'));
+                e.target.classList.add('selected');
+
+                checkAllAnswered();
+            }
+        });
+    }
+    
+    function checkAllAnswered() {
+        if (Object.keys(userAnswers).length === testQuestions.length) {
+            let yesCount = Object.values(userAnswers).filter(answer => answer === 'yes').length;
+            displayTestResult(yesCount);
+        }
+    }
+
+    function displayTestResult(yesCount) {
+        testResultEl.style.display = 'block';
+        if (yesCount >= 4) {
+            testResultEl.textContent = 'رائع! يبدو أن موقعك يعمل بشكل جيد.';
+            testResultEl.className = 'test-result good';
+        } else {
+            testResultEl.innerHTML = 'قد تحتاج إلى ترقية. <a href="#contact" style="color: inherit; text-decoration: underline;">دعنا نساعدك - اتصل بنا الآن!</a>';
+            testResultEl.className = 'test-result bad';
+        }
+    }
+
+
+    // --- Contact Form Submission ---
+    const form = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+
+    if (form) {
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            
+            formStatus.textContent = 'جاري الإرسال...';
+            formStatus.style.color = 'var(--subtle-text-color)';
+            
+            // IMPORTANT: Replace "YOUR_UNIQUE_CODE" in the form action with your actual Formspree code.
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    formStatus.textContent = "شكراً لك! تم إرسال رسالتك بنجاح.";
+                    formStatus.style.color = "#28a745";
+                    form.reset();
+                } else {
+                    response.json().then(data => {
+                        formStatus.textContent = data.errors ? data.errors.map(e => e.message).join(", ") : "عذراً، حدث خطأ أثناء إرسال الرسالة.";
+                        formStatus.style.color = "#dc3545";
+                    });
+                }
+            }).catch(() => {
+                formStatus.textContent = "عذراً، حدث خطأ أثناء إرسال الرسالة.";
+                formStatus.style.color = "#dc3545";
+            });
+        });
+    }
+});
 
