@@ -114,7 +114,7 @@
         .contact-info { background-color: var(--surface-color); padding: 2rem; border-radius: 12px; }
         .contact-info-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
         .contact-info-item:last-child { margin-bottom: 0; }
-        .contact-info-item .icon { color: var(--text-color); width: 24px; }
+        .contact-info-item .icon { color: var(--text-color); width: 24px; flex-shrink: 0; }
         .contact-info-item a { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); word-break: break-all; }
         .contact-info-item a:hover { color: var(--text-color); }
         #contact-form { margin: 0; }
@@ -145,6 +145,7 @@
         html[dir="ltr"] #scrollTopBtn { right: 20px; }
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
         #scrollTopBtn:hover { background-color: var(--border-color); }
+        
         @media (max-width: 820px) {
             .nav-container { display: none; }
             .menu-toggle { display: block; }
@@ -156,7 +157,7 @@
     <header class="header">
         <a href="#hero" class="logo">solu_tion.dev</a>
         <div class="nav-container" id="desktop-nav-container">
-             <!-- Desktop links will be populated by JS -->
+             <!-- Desktop nav links populated by JS -->
         </div>
         <div class="header-actions">
             <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme"></button>
@@ -168,7 +169,7 @@
     <aside class="side-menu" id="side-menu">
         <nav>
             <ul class="side-menu-nav" id="side-menu-nav">
-                <!-- Mobile links will be populated by JS -->
+                <!-- Mobile nav links populated by JS -->
             </ul>
         </nav>
         <div class="side-menu-actions">
@@ -361,7 +362,7 @@ Mon objectif ? Démocratiser la présence en ligne.`
                     formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Termes", footerCredit: "Développé par Amayas Berkani ©",
                     privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
-                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Usage</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>"
+                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>"
                 }
             };
             
@@ -372,7 +373,7 @@ Mon objectif ? Démocratiser la présence en ligne.`
             const menuToggle = document.getElementById('menu-toggle');
             const sideMenu = document.getElementById('side-menu');
             const overlay = document.getElementById('overlay');
-            const desktopNavContainer = document.getElementById('desktop-nav-container').querySelector('.main-nav');
+            const desktopNav = document.getElementById('desktop-nav-container').querySelector('.main-nav');
             const mobileNavContainer = document.getElementById('side-menu-nav');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const contactForm = document.getElementById('contact-form');
@@ -387,6 +388,7 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 founderAvatar.style.backgroundImage = `url(${founderImageBase64})`;
             }
 
+            // --- EVENT LISTENERS ---
             menuToggle.addEventListener('click', () => {
                 sideMenu.classList.toggle('active');
                 overlay.classList.toggle('active');
@@ -432,6 +434,7 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 });
             });
 
+            // --- FUNCTIONS ---
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
                 document.documentElement.lang = langCode;
@@ -623,18 +626,11 @@ Mon objectif ? Démocratiser la présence en ligne.`
                     { href: "#contact", key: "navContact" }
                 ].map(item => `<li><a href="${item.href}" class="side-nav-link" data-lang-key="${item.key}"></a></li>`).join('');
                 
-                if(desktopNav){
-                    desktopNav.innerHTML = navItemsHTML.replace(/side-nav-link/g, 'nav-link');
-                }
-                if(mobileNav) {
-                    mobileNav.innerHTML = navItemsHTML;
-                }
+                if (desktopNav) desktopNav.innerHTML = navItemsHTML.replace(/side-nav-link/g, 'nav-link');
+                if (mobileNav) mobileNav.innerHTML = navItemsHTML;
                 
-                const phoneIcon = document.getElementById('phone-icon');
-                const emailIcon = document.getElementById('email-icon');
-                if (phoneIcon) phoneIcon.innerHTML = icons.phone;
-                if (emailIcon) emailIcon.innerHTML = icons.email;
-
+                document.getElementById('phone-icon').innerHTML = icons.phone;
+                document.getElementById('email-icon').innerHTML = icons.email;
                 const savedTheme = localStorage.getItem('theme') || 'dark';
                 document.body.classList.toggle('light-mode', savedTheme === 'light');
                 updateThemeIcons(savedTheme === 'light');
