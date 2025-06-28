@@ -55,29 +55,17 @@
         .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: rgba(18, 18, 18, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed); }
         body.light-mode .header { background-color: rgba(245, 245, 245, 0.7); }
         .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-color); text-decoration: none; }
-        .nav-container { display: flex; align-items: center; gap: 1.5rem; position: relative; }
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
         .main-nav { list-style: none; display: flex; gap: 2rem; }
         .main-nav a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color var(--transition-speed); }
         .main-nav a:hover, .main-nav a.active { color: var(--text-color); }
         .header-actions { display: flex; align-items: center; gap: 1rem; }
-        .theme-toggle, .lang-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; transition: color var(--transition-speed), transform var(--transition-speed); display: flex; align-items: center; justify-content: center; }
+        .theme-toggle, .lang-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; transition: color var(--transition-speed), transform var(--transition-speed); }
         .theme-toggle:hover, .lang-toggle:hover { color: var(--text-color); transform: scale(1.1); }
         .lang-toggle { font-size: 1rem; font-weight: 600; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.5rem 0.8rem; }
         .menu-toggle { display: none; background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.8rem; padding: 0.5rem; z-index: 1002; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--overlay-color); z-index: 1000; opacity: 0; transition: opacity var(--transition-speed); pointer-events: none; }
-        .overlay.active { opacity: 1; pointer-events: auto; }
-        .side-menu { position: fixed; top: 0; width: 280px; height: 100%; background-color: var(--surface-color); z-index: 1001; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: transform var(--transition-speed) var(--ease-out-quart); border-left: 1px solid var(--border-color); }
-        html[dir="rtl"] .side-menu { right: 0; transform: translateX(100%); border-left: none; border-right: 1px solid var(--border-color);}
-        html[dir="ltr"] .side-menu { left: 0; transform: translateX(-100%); }
-        .side-menu.active { transform: translateX(0); }
-        .side-menu-nav { list-style: none; text-align: center; }
-        .side-menu-nav li { margin-bottom: 2rem; }
-        .side-menu-nav a { color: var(--text-color); text-decoration: none; font-size: 1.2rem; font-weight: 600; }
-        .side-menu-actions { position: absolute; bottom: 2rem; display: flex; gap: 1rem; align-items: center; }
-        .side-menu-actions .theme-toggle, .side-menu-actions .lang-toggle { background: none; border: 1px solid var(--border-color); color: var(--subtle-text-color); cursor: pointer; font-size: 1.5rem; padding: 0.75rem; transition: color var(--transition-speed), transform var(--transition-speed); border-radius: 8px; }
-        .side-menu-actions .lang-toggle { font-size: 1rem; font-weight: 600; padding: 0.85rem 1rem; }
-        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding-top: 80px; }
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 100px; }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color);}
         .hero-content .typing-cursor { border-right: 4px solid var(--text-color); animation: blink 0.7s step-end infinite; }
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
@@ -86,7 +74,6 @@
         .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center; flex-shrink: 0; border: 3px solid var(--border-color); }
         .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
         .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
-        .founder-bio p { white-space: pre-line; color: var(--subtle-text-color); }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
         .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
@@ -109,15 +96,7 @@
         .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); color: var(--text-color); }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease; }
         .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--subtle-text-color); }
-        .contact-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 800px; margin: 2rem auto 0; }
-        @media (min-width: 768px) { .contact-grid { grid-template-columns: 1fr 2fr; } }
-        .contact-info { background-color: var(--surface-color); padding: 2rem; border-radius: 12px; }
-        .contact-info-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-        .contact-info-item:last-child { margin-bottom: 0; }
-        .contact-info-item .icon { color: var(--text-color); width: 24px; flex-shrink: 0; }
-        .contact-info-item a { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); word-break: break-all; }
-        .contact-info-item a:hover { color: var(--text-color); }
-        #contact-form { margin: 0; }
+        #contact-form { max-width: 600px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.5rem; }
         #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
         #contact-form input:focus, #contact-form textarea:focus { border-color: var(--text-color); box-shadow: 0 0 0 3px rgba(128,128,128, 0.2); outline: none; }
         #contact-form textarea { resize: vertical; min-height: 150px; }
@@ -145,19 +124,42 @@
         html[dir="ltr"] #scrollTopBtn { right: 20px; }
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
         #scrollTopBtn:hover { background-color: var(--border-color); }
-        
-        @media (max-width: 820px) {
-            .nav-container { display: none; }
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--surface-color);
+                flex-direction: column;
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border-color);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s var(--ease-out-quart), padding 0.5s var(--ease-out-quart);
+            }
+            .main-nav.active { max-height: 500px; padding: 1rem 0; }
+            .main-nav li { width: 100%; text-align: center; }
+            .main-nav a { padding: 1rem; display: block; width: 100%; }
             .menu-toggle { display: block; }
         }
     </style>
 </head>
 <body>
-    <div class="overlay" id="overlay"></div>
     <header class="header">
         <a href="#hero" class="logo">solu_tion.dev</a>
-        <div class="nav-container" id="desktop-nav-container">
-             <!-- Desktop nav links populated by JS -->
+        <div class="nav-container">
+            <nav>
+                <ul class="main-nav" id="main-nav">
+                    <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
+                    <li><a href="#about" class="nav-link" data-lang-key="navAbout"></a></li>
+                    <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
+                    <li><a href="#website-test" class="nav-link" data-lang-key="navTest"></a></li>
+                    <li><a href="#faq" class="nav-link" data-lang-key="navFAQ"></a></li>
+                    <li><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
+                </ul>
+            </nav>
         </div>
         <div class="header-actions">
             <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme"></button>
@@ -165,18 +167,6 @@
             <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu"></button>
         </div>
     </header>
-
-    <aside class="side-menu" id="side-menu">
-        <nav>
-            <ul class="side-menu-nav" id="side-menu-nav">
-                <!-- Mobile nav links populated by JS -->
-            </ul>
-        </nav>
-        <div class="side-menu-actions">
-            <button class="theme-toggle" id="menu-theme-toggle" aria-label="Toggle theme"></button>
-            <button class="lang-toggle" id="menu-lang-toggle" aria-label="Change language">AR</button>
-        </div>
-    </aside>
 
     <main>
         <section id="hero" class="hero">
@@ -193,11 +183,11 @@
                 <div class="founder-avatar" id="founder-avatar"></div>
                 <div class="founder-bio">
                     <h3 data-lang-key="founderName"></h3>
-                    <p id="founderText"></p>
+                    <p data-lang-key="founderText"></p>
                 </div>
             </div>
         </section>
-        
+
         <section id="services" class="container">
             <h2 class="section-title reveal" data-lang-key="servicesTitle"></h2>
             <div class="services-grid">
@@ -225,27 +215,14 @@
 
         <section id="contact" class="container reveal">
             <h2 class="section-title" data-lang-key="contactTitle"></h2>
-            <div class="contact-grid">
-                <div class="contact-info">
-                     <div class="contact-info-item">
-                        <span class="icon" id="phone-icon"></span>
-                        <a href="tel:+213542511548">0542 51 15 48</a>
-                    </div>
-                    <div class="contact-info-item">
-                        <span class="icon" id="email-icon"></span>
-                        <a href="mailto:solutiondev000@gmail.com">solutiondev000@gmail.com</a>
-                    </div>
-                </div>
-                <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
-                    <input type="text" name="name" required data-lang-placeholder="formName">
-                    <input type="email" name="email" required data-lang-placeholder="formEmail">
-                    <textarea name="message" required data-lang-placeholder="formMessage"></textarea>
-                    <button type="submit" class="btn" data-lang-key="formSubmit"></button>
-                </form>
-            </div>
-             <p id="form-status"></p>
+            <form id="contact-form" action="https://formspree.io/f/xblyqala" method="POST">
+                <input type="text" name="name" required data-lang-placeholder="formName">
+                <input type="email" name="email" required data-lang-placeholder="formEmail">
+                <textarea name="message" required data-lang-placeholder="formMessage"></textarea>
+                <button type="submit" class="btn" data-lang-key="formSubmit"></button>
+            </form>
+            <p id="form-status"></p>
         </section>
-
     </main>
 
     <footer class="footer">
@@ -298,24 +275,7 @@
                 sun: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06z"></path></svg>`,
                 moon: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M9.37 5.51A7.35 7.35 0 009 6c0 4.42 3.58 8 8 8.01 1.07 0 2.09-.23 3-.64.42-.18.88.08 1.06.5.18.42-.08.88-.5 1.06-1.18.5-2.49.77-3.87.77-5.52 0-10-4.48-10-10 0-1.38.27-2.69.77-3.87.18-.42.64-.68 1.06-.5.42.18.68.64.5 1.06z"></path></svg>`,
                 menu: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>`,
-                close: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`,
-                phone: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></svg>`,
-                email: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>`
-            };
-
-            const founderBio = {
-                ar: `مرحبًا، أنا أمَيّاس بركاني — شاب جزائري شغوف بتصميم وتطوير المواقع.
-أسّست solu_tion.dev لأمنح الأفراد والمستقلين وحتى الشركات الصغيرة فرصة الحصول على موقع احترافي وسريع بأبسط التكاليف.
-أمزج بين الإبداع والبساطة لأصمم مواقع أنيقة وسهلة الاستخدام، وأعتمد على أدوات ذكية لضمان نتائج عالية الجودة في وقت قياسي.
-هدفي؟ جعل الحضور الرقمي متاحًا للجميع، بدون تعقيد.`,
-                en: `Hi, I'm Amayas Berkani — a passionate Algerian web developer and designer.
-I founded solu_tion.dev to help individuals and small businesses get professional websites at an affordable price.
-I blend creativity and simplicity to deliver elegant and user-friendly websites using smart tools and fast development.
-My goal? Making a digital presence accessible to everyone.`,
-                fr: `Bonjour, je suis Amayas Berkani — un jeune algérien passionné par la création et le développement de sites web.
-J'ai fondé solu_tion.dev pour offrir aux freelances et aux petites entreprises des sites modernes, rapides et accessibles.
-Je combine créativité et simplicité pour livrer des sites esthétiques, fluides et efficaces.
-Mon objectif ? Démocratiser la présence en ligne.`
+                close: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
             };
 
             const translations = {
@@ -323,14 +283,14 @@ Mon objectif ? Démocratiser la présence en ligne.`
                     navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا",
                     heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
                     heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
-                    aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani",
+                    aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
                     servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
                     testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
                     testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
                     formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
-                    footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerCredit: "تم تطويره بواسطة Amayas Berkani ©",
+                    footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerRights: "جميع الحقوق محفوظة.", footerCredit: "تم تطويره بواسطة Amayas Berkani ©",
                     privacyTitle: "سياسة الخصوصية", privacyContent: "<h4>جمع المعلومات</h4><p>نقوم بجمع المعلومات التي تقدمها مباشرة عبر نموذج التواصل، مثل الاسم والبريد الإلكتروني، وذلك بهدف الرد على استفساراتك وتقديم خدماتنا.</p><h4>استخدام المعلومات</h4><p>تستخدم المعلومات التي نجمعها فقط للتواصل معك بخصوص طلباتك ولتحسين خدماتنا. نحن لا نشارك بياناتك الشخصية مع أي طرف ثالث دون موافقتك الصريحة.</p>",
                     termsTitle: "شروط الخدمة", termsContent: "<h4>الاستخدام</h4><p>باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. نحتفظ بالحق في تعديل هذه الشروط في أي وقت.</p><h4>الخدمات</h4><p>يتم الاتفاق على تفاصيل الخدمات المقدمة، بما في ذلك النطاق والتكلفة والجداول الزمنية، بشكل رسمي قبل بدء أي عمل. حجز استشارة لا يشكل عقداً ملزماً.</p>"
                 },
@@ -338,14 +298,14 @@ Mon objectif ? Démocratiser la présence en ligne.`
                     navHome: "Home", navAbout: "About", navServices: "Services", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact",
                     heroTitle: ["Professional Digital Identity", "Turning Ideas into Reality", "Innovative Web Solutions"],
                     heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Get a Free Consultation",
-                    aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas berkani",
+                    aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just a facade, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant design and high-performance code.",
                     servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-page Sites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolios",
                     testTitle: "Is Your Website Good Enough?", testQ1: "Is your website mobile-friendly?", testQ2: "Does your site load fast?", testQ3: "Is your content easy to navigate?", testQ4: "Does your site look professional?", testQ5: "Is your contact info clear?",
                     testResultGood: "Great! Your site seems to be performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
                     faqTitle: "Frequently Asked Questions", faqQ1: "How long to build a website?", faqA1: "A simple site usually takes 1-2 weeks, depending on the project scope.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start, and the rest upon final delivery.", faqQ4: "Do you build websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need for your business.",
                     contactTitle: "Contact Us", formName: "Full Name", formEmail: "Email Address", formMessage: "Your Message...", formSubmit: "Send Message",
                     formSending: "Sending...", formSuccess: "Thank you! Your message was sent.", formError: "Sorry, an error occurred.",
-                    footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "Developed by Amayas Berkani ©",
+                    footerPrivacy: "Privacy", footerTerms: "Terms", footerRights: "All rights reserved.", footerCredit: "Developed by Amayas Berkani ©",
                     privacyTitle: "Privacy Policy", privacyContent: "<h4>Information Collection</h4><p>We collect information that you provide directly through the contact form, such as name and email, to respond to your inquiries and provide our services.</p><h4>Use of Information</h4><p>The information we collect is used solely to communicate with you regarding your requests and to improve our services. We do not share your personal data with any third parties without your explicit consent.</p>",
                     termsTitle: "Terms of Service", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these Terms of Service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Details of the services provided, including scope, cost, and timelines, are formally agreed upon before any work begins. A consultation does not constitute a binding contract.</p>"
                 },
@@ -353,14 +313,14 @@ Mon objectif ? Démocratiser la présence en ligne.`
                     navHome: "Accueil", navAbout: "À propos", navServices: "Services", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact",
                     heroTitle: ["Votre Identité Numérique", "Transformer les Idées en Réalité", "Solutions Web Innovantes"],
                     heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Consultation Gratuite",
-                    aboutTitle: "Solutions Numériques Innovantes pour Votre Marque", founderName: "Amayas berkani",
+                    aboutTitle: "Solutions Numériques Innovantes pour Votre Marque", founderName: "Amayas berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas juste une façade, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à un design élégant et un code performant.",
                     servicesTitle: "Nos Services", service1: "Pages de Destination", service2: "Sites Multi-pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolios",
                     testTitle: "Votre Site est-il Performant ?", testQ1: "Votre site est-il compatible mobile ?", testQ2: "Votre site se charge-t-il rapidement ?", testQ3: "Votre contenu est-il facile à naviguer ?", testQ4: "Le design est-il professionnel ?", testQ5: "Vos coordonnées sont-elles claires ?",
                     testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider !</a>",
                     faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.", faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
                     contactTitle: "Contactez-Nous", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer",
                     formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
-                    footerPrivacy: "Confidentialité", footerTerms: "Termes", footerCredit: "Développé par Amayas Berkani ©",
+                    footerPrivacy: "Confidentialité", footerTerms: "Termes", footerRights: "Tous droits réservés.", footerCredit: "Développé par Amayas Berkani ©",
                     privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
                     termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>"
                 }
@@ -371,15 +331,11 @@ Mon objectif ? Démocratiser la présence en ligne.`
             let typingTimeout;
 
             const menuToggle = document.getElementById('menu-toggle');
-            const sideMenu = document.getElementById('side-menu');
-            const overlay = document.getElementById('overlay');
-            const desktopNav = document.getElementById('desktop-nav-container').querySelector('.main-nav');
-            const mobileNavContainer = document.getElementById('side-menu-nav');
+            const mobileNav = document.getElementById('main-nav');
+            const headerActions = document.querySelector('.header-actions');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
-            const themeToggles = document.querySelectorAll('.theme-toggle');
-            const langToggles = document.querySelectorAll('.lang-toggle');
             const founderAvatar = document.getElementById('founder-avatar');
             const modalTriggers = document.querySelectorAll('[data-modal-target]');
             
@@ -388,26 +344,20 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 founderAvatar.style.backgroundImage = `url(${founderImageBase64})`;
             }
 
-            // --- EVENT LISTENERS ---
             menuToggle.addEventListener('click', () => {
-                sideMenu.classList.toggle('active');
-                overlay.classList.toggle('active');
-                menuToggle.innerHTML = sideMenu.classList.contains('active') ? icons.close : icons.menu;
+                mobileNav.classList.toggle('active');
             });
             
-            const closeMenu = () => {
-                if (sideMenu.classList.contains('active')) {
-                    sideMenu.classList.remove('active');
-                    overlay.classList.remove('active');
-                    menuToggle.innerHTML = icons.menu;
-                }
-            };
+            document.querySelectorAll('.main-nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileNav.classList.contains('active')) {
+                        mobileNav.classList.remove('active');
+                    }
+                });
+            });
 
-            document.querySelectorAll('.side-nav-link').forEach(link => link.addEventListener('click', closeMenu));
-            overlay.addEventListener('click', closeMenu);
-            
-            themeToggles.forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
-            langToggles.forEach(toggle => toggle.addEventListener('click', handleLangToggle));
+            document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
+            document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
             scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             window.addEventListener('scroll', handleScroll);
             if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
@@ -434,7 +384,6 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 });
             });
 
-            // --- FUNCTIONS ---
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
                 document.documentElement.lang = langCode;
@@ -442,7 +391,7 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
-                    if (langData && langData[key] && typeof langData[key] === 'string') {
+                    if (langData && langData[key] && !Array.isArray(langData[key])) {
                          el.innerHTML = langData[key];
                     }
                 });
@@ -452,11 +401,10 @@ Mon objectif ? Démocratiser la présence en ligne.`
                     if(langData && langData[key]) el.placeholder = langData[key];
                 });
                 
-                langToggles.forEach(toggle => {
+                document.querySelectorAll('.lang-toggle').forEach(toggle => {
                     if (toggle) toggle.textContent = langCode.toUpperCase();
                 });
-                
-                document.getElementById('founderText').innerText = founderBio[langCode];
+
                 startTypingEffect();
                 createFAQ();
                 createTestQuestions();
@@ -524,7 +472,7 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 document.querySelectorAll('section[id]').forEach(section => {
                     if (pageYOffset >= section.offsetTop - 70) currentSection = section.id;
                 });
-                document.querySelectorAll('.main-nav a, .side-menu-nav a').forEach(a => {
+                document.querySelectorAll('.main-nav a').forEach(a => {
                     a.classList.toggle('active', a.getAttribute('href') === '#' + currentSection);
                 });
                 document.querySelectorAll('.reveal').forEach(el => {
@@ -616,21 +564,8 @@ Mon objectif ? Démocratiser la présence en ligne.`
                 });
             }
 
+            // --- INITIALIZATION ---
             function init() {
-                const navItemsHTML = [
-                    { href: "#hero", key: "navHome" },
-                    { href: "#about", key: "navAbout" },
-                    { href: "#services", key: "navServices" },
-                    { href: "#website-test", key: "navTest" },
-                    { href: "#faq", key: "navFAQ" },
-                    { href: "#contact", key: "navContact" }
-                ].map(item => `<li><a href="${item.href}" class="side-nav-link" data-lang-key="${item.key}"></a></li>`).join('');
-                
-                if (desktopNav) desktopNav.innerHTML = navItemsHTML.replace(/side-nav-link/g, 'nav-link');
-                if (mobileNav) mobileNav.innerHTML = navItemsHTML;
-                
-                document.getElementById('phone-icon').innerHTML = icons.phone;
-                document.getElementById('email-icon').innerHTML = icons.email;
                 const savedTheme = localStorage.getItem('theme') || 'dark';
                 document.body.classList.toggle('light-mode', savedTheme === 'light');
                 updateThemeIcons(savedTheme === 'light');
@@ -641,8 +576,11 @@ Mon objectif ? Démocratiser la présence en ligne.`
                     initialLang = savedLang;
                 } else {
                     const browserLang = (navigator.language || navigator.userLanguage).slice(0, 2);
-                    if (browserLang === 'fr') initialLang = 'fr';
-                    else if (browserLang === 'en') initialLang = 'en';
+                    if (browserLang === 'fr') {
+                        initialLang = 'fr';
+                    } else if (browserLang === 'en') {
+                        initialLang = 'en';
+                    }
                 }
                 
                 currentLangIndex = langCycle.indexOf(initialLang);
@@ -657,4 +595,3 @@ Mon objectif ? Démocratiser la présence en ligne.`
     </script>
 </body>
 </html>
-
