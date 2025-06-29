@@ -287,9 +287,9 @@
                 top: 0;
                 height: 100%;
                 width: min(80vw, 320px);
-                background-color: var(--surface-color);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
+                /* --- FIX START: Made background solid --- */
+                background-color: var(--bg-color); 
+                /* --- FIX END --- */
                 box-shadow: 0 0 20px rgba(0,0,0,0.2);
                 z-index: 1001;
                 padding: 5rem 0 2rem;
@@ -711,10 +711,37 @@
             });
 
             navOverlay.addEventListener('click', closeNav);
-
+            
+            // --- FIX START: Corrected mobile nav link clicks ---
             document.querySelectorAll('.main-nav a').forEach(link => {
-                link.addEventListener('click', closeNav);
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        
+                        closeNav();
+                        
+                        if (targetElement) {
+                            setTimeout(() => {
+                                const headerOffset = document.querySelector('.header').offsetHeight;
+                                const elementPosition = targetElement.getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                          
+                                window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: "smooth"
+                                });
+                            }, 50); 
+                        }
+                    } else {
+                        closeNav();
+                    }
+                });
             });
+            // --- FIX END ---
+
 
             const founderAvatar = document.getElementById('founder-avatar');
             if (founderAvatar) {
