@@ -257,7 +257,6 @@
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
         #scrollTopBtn:hover { background-color: var(--border-color); }
         
-        /* === START: NEW MOBILE MENU STYLES === */
         .nav-overlay {
             position: fixed;
             top: 0;
@@ -298,23 +297,26 @@
                 gap: 0.5rem;
                 transition: transform 0.4s var(--ease-out-quart);
                 border: none;
-                max-height: none; /* Override old style */
+                max-height: none; 
             }
             
+            /* === START: CORRECTED CODE === */
+            /* For Arabic (RTL), button is on the left, so menu comes from the left */
             html[dir="rtl"] .main-nav {
-                right: 0;
-                transform: translateX(100%);
-                border-left: 1px solid var(--border-color);
-            }
-            html[dir="ltr"] .main-nav {
                 left: 0;
                 transform: translateX(-100%);
                 border-right: 1px solid var(--border-color);
             }
-
+            /* For LTR languages, button is on the right, so menu comes from the right */
+            html[dir="ltr"] .main-nav {
+                right: 0;
+                transform: translateX(100%);
+                border-left: 1px solid var(--border-color);
+            }
             body.nav-open .main-nav {
                 transform: translateX(0);
             }
+            /* === END: CORRECTED CODE === */
 
             .main-nav li {
                 width: 100%;
@@ -357,7 +359,6 @@
                 transform: none;
             }
         }
-        /* === END: NEW MOBILE MENU STYLES === */
     </style>
 </head>
 <body>
@@ -607,7 +608,6 @@
                 close: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
             };
             
-            // Translations object remains the same
             const translations = {
                 ar: {
                     navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا",
@@ -690,7 +690,6 @@
             const modalTriggers = document.querySelectorAll('[data-modal-target]');
             const headerLangToggle = document.getElementById('header-lang-toggle');
             
-            // === START: NEW MENU LOGIC ===
             const navOverlay = document.createElement('div');
             navOverlay.className = 'nav-overlay';
             document.body.appendChild(navOverlay);
@@ -720,8 +719,6 @@
             document.querySelectorAll('.main-nav a').forEach(link => {
                 link.addEventListener('click', closeNav);
             });
-            // === END: NEW MENU LOGIC ===
-
 
             const founderAvatar = document.getElementById('founder-avatar');
             if (founderAvatar) {
