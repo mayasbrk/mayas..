@@ -47,10 +47,14 @@
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
         
-        @keyframes animated-gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* -- التعديل الجديد: أنيميشن دوران بطيء للخلفية -- */
+        @keyframes animated-aurora {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -62,31 +66,46 @@
             color: var(--text-color); 
             line-height: 1.7; 
             transition: background-color var(--transition-speed), color var(--transition-speed); 
+            overflow-x: hidden; /* لمنع ظهور أي أشرطة تمرير جانبية */
         }
 
+        /* -- التعديل الجذري على الخلفية -- */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            /* جعل العنصر أكبر من الشاشة لتجنب رؤية الحواف عند الدوران */
+            top: -50%; 
+            left: -50%;
+            width: 200vw;
+            height: 200vh;
             z-index: -1;
             pointer-events: none;
-            /* التعديل الجديد: تدرج بنفسجي داكن مع بنفسجي حيوي */
-            background: linear-gradient(135deg, #0d0d0d, #6D28D9, #8B5CF6);
-            background-size: 400% 400%;
-            animation: animated-gradient 15s ease-in-out infinite;
-            filter: blur(8px);
-            transform: scale(1.1);
-            transition: background var(--transition-speed);
+            
+            /* خلفية الوضع الليلي */
+            background-color: #0d0d0d;
+            background-image:
+                /* السحابة اللونية الأولى (بنفسجي ساطع) */
+                radial-gradient(circle at 25% 25%, #8B5CF6 0%, rgba(139, 92, 246, 0) 30%),
+                /* السحابة اللونية الثانية (بنفسجي داكن) */
+                radial-gradient(circle at 75% 75%, #4a23a0 0%, rgba(74, 35, 160, 0) 35%);
+
+            /* زيادة قوة الضبابية لتحقيق نعومة فائقة */
+            filter: blur(40px);
+            
+            /* تطبيق أنيميشن الدوران البطيء */
+            animation: animated-aurora 30s linear infinite;
+            
+            transition: background-image var(--transition-speed);
         }
 
         body.light-mode::before {
-            /* التعديل الجديد: تدرج أبيض بنفسجي ناعم */
-            background: linear-gradient(135deg, #FFFFFF, #E9D5FF, #C084FC);
-            background-size: 400% 400%;
-            animation: animated-gradient 15s ease-in-out infinite;
+            /* خلفية الوضع النهاري */
+            background-color: #ffffff;
+            background-image:
+                /* السحابة اللونية الأولى (بنفسجي متوسط) */
+                radial-gradient(circle at 20% 80%, #c084fc 0%, rgba(192, 132, 252, 0) 30%),
+                /* السحابة اللونية الثانية (بنفسجي فاتح جداً) */
+                radial-gradient(circle at 80% 30%, #f3e8ff 0%, rgba(243, 232, 255, 0) 40%);
         }
 
         html[lang="ar"] body { font-family: var(--font-cairo); }
