@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صانع المحتوى بالذكاء الاصطناعي</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="description" content="solu_tion.dev - تصميم مواقع احترافية وسريعة في الجزائر للشركات والأفراد بأسعار معقولة.">
+    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, solu_tion.dev, تطوير ويب, مبرمج, مستقل, Amayas berkani">
+    
+    <title>solu_tion.dev | تصميم مواقع احترافية</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
+    
     <style>
-        /* Define the font and the animated background for the body */
-        body {
-            font-family: 'Cairo', sans-serif;
-            /* Animated Gradient Background */
-            background: linear-gradient(-45deg, #000000, #f0f0f0, #232323, #ffffff);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-            color: #333; /* Default text color for better readability on light parts of gradient */
+        :root {
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-cairo: 'Cairo', var(--font-sans);
+            --transition-speed: 0.4s;
+            --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-
-        /* Keyframes for the background position animation */
-        @keyframes gradientAnimation {
+        /* --- START: NEW ANIMATION KEYFRAMES --- */
+        @keyframes animated-gradient {
             0% {
                 background-position: 0% 50%;
             }
@@ -29,201 +28,615 @@
                 background-position: 0% 50%;
             }
         }
+        /* --- END: NEW ANIMATION KEYFRAMES --- */
+
+        body {
+            --bg-color: #121212;
+            --surface-color: #1E1E1E;
+            --text-color: #E0E0E0;
+            --subtle-text-color: #A0A0A0;
+            --border-color: #333333;
+            --primary-color: #FFFFFF; 
+            --primary-text-color: #121212;
+            --primary-hover: #E0E0E0;
+            --overlay-color: rgba(0, 0, 0, 0.5);
+        }
+        body.light-mode {
+            --bg-color: #F5F5F5;
+            --surface-color: #FFFFFF;
+            --text-color: #121212;
+            --subtle-text-color: #555555;
+            --border-color: #E0E0E0;
+            --primary-color: #1E1E1E;
+            --primary-text-color: #FFFFFF;
+            --primary-hover: #000000;
+            --overlay-color: rgba(0, 0, 0, 0.4);
+            
+            /* --- START: MODIFICATION FOR LIGHT MODE --- */
+            background: linear-gradient(120deg, #f5f5f5, #ffffff, #f5f5f5);
+            background-size: 200% 200%;
+            animation: animated-gradient 15s ease infinite;
+            /* --- END: MODIFICATION FOR LIGHT MODE --- */
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        /* --- START: MODIFICATION FOR BODY --- */
+        body { 
+            font-family: var(--font-sans); 
+            color: var(--text-color); 
+            line-height: 1.7; 
+            transition: color var(--transition-speed);
+            background: linear-gradient(120deg, #121212, #282828, #121212);
+            background-size: 200% 200%;
+            animation: animated-gradient 15s ease infinite;
+        }
+        /* --- END: MODIFICATION FOR BODY --- */
+        html[lang="ar"] body { font-family: var(--font-cairo); }
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; }
+        .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); margin-bottom: 3rem; text-align: center; font-weight: 700; color: var(--text-color);}
+        .btn { display: inline-block; background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); border: none; cursor: pointer; }
+        .btn:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(128, 128, 128, 0.1); }
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: rgba(18, 18, 18, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed); }
+        body.light-mode .header { background-color: rgba(245, 245, 245, 0.7); }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-color); text-decoration: none; }
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        .main-nav { list-style: none; display: flex; gap: 2rem; }
+        .main-nav a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color var(--transition-speed); }
+        .main-nav a:hover, .main-nav a.active { color: var(--text-color); }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .theme-toggle, .lang-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; transition: color var(--transition-speed), transform var(--transition-speed); }
+        .theme-toggle:hover, .lang-toggle:hover { color: var(--text-color); transform: scale(1.1); }
+        .lang-toggle { font-size: 1rem; font-weight: 600; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.5rem 0.8rem; }
+        .menu-toggle { display: none; background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.8rem; padding: 0.5rem; z-index: 1002; }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color);}
+        .hero-content .typing-cursor { border-right: 4px solid var(--text-color); animation: blink 0.7s step-end infinite; }
+        @keyframes blink { 50% { border-color: transparent; } }
+        .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
+        #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; }
+        .founder-content { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
+        .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center; flex-shrink: 0; border: 3px solid var(--border-color); }
+        .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
+        .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
+        .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
+        .service-card .icon { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1; }
+        .service-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-color); }
+        .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; }
+        .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
+        .test-question-item:last-child { border-bottom: none; }
+        .test-question-item p { margin: 0; flex-grow: 1; font-weight: 500; }
+        .test-question-item .answers { display: flex; gap: 0.5rem; flex-shrink: 0; }
+        .test-question-item .answers button { background: var(--border-color); border: 1px solid transparent; color: var(--text-color); padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background-color var(--transition-speed); }
+        .test-question-item .answers button.selected { background: var(--primary-color); color: var(--primary-text-color); }
+        .test-result { text-align: center; margin-top: 2rem; padding: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
+        .test-result.good { background-color: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #28a745; }
+        .test-result.bad { background-color: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; color: #dc3545; }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background-color: var(--surface-color); margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; }
+        .faq-question { padding: 1.25rem 1.5rem; font-weight: 600; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question .faq-icon { font-size: 1.5rem; transition: transform var(--transition-speed) ease; color: var(--subtle-text-color); }
+        .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); color: var(--text-color); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease; }
+        .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--subtle-text-color); }
+        #contact-form { max-width: 600px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.5rem; }
+        #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
+        #contact-form input:focus, #contact-form textarea:focus { border-color: var(--text-color); box-shadow: 0 0 0 3px rgba(128,128,128, 0.2); outline: none; }
+        #contact-form textarea { resize: vertical; min-height: 150px; }
+        #form-status { text-align: center; margin-top: 1.5rem; font-weight: 500; min-height: 1.6em; }
+        .contact-direct-title { text-align: center; color: var(--subtle-text-color); margin-top: 2rem; font-weight: 500; }
+        .contact-direct-links { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        .contact-direct-links a { color: var(--text-color); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.75rem; transition: color var(--transition-speed); }
+        .contact-direct-links a:hover { color: var(--primary-hover); }
+        .contact-direct-links a svg { width: 22px; height: 22px; color: var(--subtle-text-color); }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1002; display: flex; align-items: center; justify-content: center; background-color: var(--overlay-color); opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); }
+        .modal.active { opacity: 1; visibility: visible; }
+        .modal-content { background-color: var(--surface-color); padding: 2rem; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; transform: scale(0.95); transition: transform var(--transition-speed); }
+        .modal.active .modal-content { transform: scale(1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem; }
+        .modal-title { font-size: 1.5rem; color: var(--text-color); }
+        .modal-close { background: none; border: none; font-size: 2rem; color: var(--subtle-text-color); cursor: pointer; }
+        .modal-body p { margin-bottom: 1rem; }
+        .modal-body h4 { margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--text-color); }
+        .footer { background-color: var(--surface-color); border-top: 1px solid var(--border-color); padding: 3rem 0; text-align: center; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .footer-links { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+        .footer-legal button { background: none; border: none; color: var(--subtle-text-color); cursor: pointer; font-family: inherit; font-size: 1em; font-weight: 500; }
+        .footer-legal button { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); font-weight: 500;}
+        .footer-legal button:hover { color: var(--text-color); }
+        .footer-social a { color: var(--subtle-text-color); transition: color var(--transition-speed), transform var(--transition-speed); }
+        .footer-social a:hover { color: var(--text-color); transform: scale(1.1); }
+        .footer-copy { margin-top: 0; font-size: 0.9rem; color: #777; }
+        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed), background-color var(--transition-speed); pointer-events: none; border-radius: 50%; }
+        html[dir="rtl"] #scrollTopBtn { left: 20px; }
+        html[dir="ltr"] #scrollTopBtn { right: 20px; }
+        #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        #scrollTopBtn:hover { background-color: var(--border-color); }
         
-        /* A class to ensure text is light and readable against the dark background */
-        .dark-mode-text {
-            color: #f0f0f0;
-        }
-
-        /* "Glassmorphism" effect for cards to make them semi-transparent */
-        .card-bg {
-             background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
-             backdrop-filter: blur(10px); /* Frosted glass effect */
-             -webkit-backdrop-filter: blur(10px); /* For Safari */
-             border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
-        }
-
-        /* Styling for the generated content inside the prose class */
-        .prose {
-             color: #f0f0f0;
-        }
-       .prose h2 {
-            color: #ffffff;
-        }
-        .prose p, .prose ul, .prose li, .prose strong {
-            color: #e5e7eb;
-        }
-
-        /* Loading spinner animation */
-        .loader {
-           border-top-color: #3498db;
-           -webkit-animation: spinner 1.5s linear infinite;
-           animation: spinner 1.5s linear infinite;
-        }
-
-        @-webkit-keyframes spinner {
-           0% { -webkit-transform: rotate(0deg); }
-           100% { -webkit-transform: rotate(360deg); }
-        }
-
-        @keyframes spinner {
-           0% { transform: rotate(0deg); }
-           100% { transform: rotate(360deg); }
+        @media (max-width: 768px) {
+            .main-nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--surface-color);
+                flex-direction: column;
+                padding: 0;
+                border-bottom: 1px solid var(--border-color);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s var(--ease-out-quart), padding 0.5s var(--ease-out-quart);
+            }
+            .main-nav.active {
+                max-height: 500px;
+                padding: 1rem 0;
+            }
+            .main-nav li { width: 100%; text-align: center; }
+            .main-nav a { padding: 1rem; display: block; width: 100%; }
+            .menu-toggle { display: block; }
         }
     </style>
 </head>
-<body class="transition-colors duration-500">
+<body>
+    <header class="header">
+        <a href="#hero" class="logo">solu_tion.dev</a>
+        <div class="nav-container">
+            <nav>
+                <ul class="main-nav" id="main-nav">
+                    <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
+                    <li><a href="#about" class="nav-link" data-lang-key="navAbout"></a></li>
+                    <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
+                    <li><a href="#website-test" class="nav-link" data-lang-key="navTest"></a></li>
+                    <li><a href="#faq" class="nav-link" data-lang-key="navFAQ"></a></li>
+                    <li><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-actions">
+            <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme"></button>
+            <button class="lang-toggle" id="header-lang-toggle" aria-label="Change language">AR</button>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu"></button>
+        </div>
+    </header>
 
-    <div class="container mx-auto p-4 md:p-8">
-        
-        <header class="text-center mb-8 md:mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold dark-mode-text">🚀 صانع المحتوى بالذكاء الاصطناعي</h1>
-            <p class="mt-4 text-lg md:text-xl text-gray-300">أنشئ مقالات، منشورات، وتغريدات بسهولة فائقة</p>
-        </header>
-
-        <main>
-            <div id="app" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- Input Section -->
-                <div class="md:col-span-1 space-y-6">
-                    <div class="p-6 rounded-2xl shadow-lg card-bg">
-                        <h2 class="text-2xl font-bold mb-4 dark-mode-text">📝 تفاصيل المحتوى</h2>
-                        
-                        <div>
-                            <label for="topic" class="block mb-2 text-sm font-medium dark-mode-text">الموضوع الرئيسي</label>
-                            <input type="text" id="topic" class="w-full p-3 bg-gray-700/50 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" placeholder="مثال: أهمية التسويق الرقمي">
-                        </div>
-
-                        <div>
-                            <label for="keywords" class="block mb-2 text-sm font-medium dark-mode-text">كلمات مفتاحية (مفصولة بفاصلة)</label>
-                            <input type="text" id="keywords" class="w-full p-3 bg-gray-700/50 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" placeholder="تسويق, SEO, محتوى">
-                        </div>
-
-                        <div>
-                            <label for="tone" class="block mb-2 text-sm font-medium dark-mode-text">نبرة الكتابة</label>
-                            <select id="tone" class="w-full p-3 bg-gray-700/50 border border-gray-500 rounded-lg text-white focus:ring-blue-500 focus:border-blue-500">
-                                <option value="professional">احترافي</option>
-                                <option value="casual">ودي</option>
-                                <option value="informative">معلوماتي</option>
-                                <option value="humorous">فكاهي</option>
-                            </select>
-                        </div>
-                        
-                        <button id="generateBtn" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105 shadow-lg">
-                            ✨ توليد المحتوى
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Output Section -->
-                <div class="md:col-span-2">
-                    <div id="output" class="p-6 rounded-2xl shadow-lg h-full min-h-[400px] card-bg">
-                        <div id="placeholder" class="flex flex-col items-center justify-center h-full text-center">
-                            <svg class="w-16 h-16 mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            <h3 class="text-xl font-semibold dark-mode-text">سيظهر المحتوى الذي تم إنشاؤه هنا</h3>
-                            <p class="text-gray-300 mt-2">ابدأ بإدخال التفاصيل في اللوحة اليمنى وانقر على "توليد المحتوى".</p>
-                        </div>
-                        <div id="loading" class="hidden flex-col items-center justify-center h-full">
-                            <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24 mb-4"></div>
-                             <p class="text-lg dark-mode-text">جاري التفكير... يرجى الانتظار قليلاً.</p>
-                        </div>
-                        <div id="result" class="hidden prose max-w-none">
-                            <!-- Generated content will be injected here -->
-                        </div>
-                        <div id="error" class="hidden p-4 text-sm text-red-200 bg-red-800/50 rounded-lg" role="alert">
-                           <span class="font-bold">خطأ!</span> حدث خطأ ما. يرجى المحاولة مرة أخرى.
-                        </div>
-                    </div>
-                </div>
-
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-content reveal">
+                <h1 id="hero-title-animated"></h1>
+                <p data-lang-key="heroSubtitle"></p>
+                <a href="#contact" class="btn" data-lang-key="heroCTA"></a>
             </div>
-        </main>
+        </section>
+
+        <section id="about" class="container reveal">
+            <h2 class="section-title" data-lang-key="aboutTitle"></h2>
+            <div class="founder-content">
+                <div class="founder-avatar" id="founder-avatar"></div>
+                <div class="founder-bio">
+                    <h3 data-lang-key="founderName"></h3>
+                    <p data-lang-key="founderText"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="container">
+            <h2 class="section-title reveal" data-lang-key="servicesTitle"></h2>
+            <div class="services-grid">
+                <div class="service-card reveal"><div class="icon">📄</div><h3 data-lang-key="service1"></h3></div>
+                <div class="service-card reveal"><div class="icon">📑</div><h3 data-lang-key="service2"></h3></div>
+                <div class="service-card reveal"><div class="icon">🛒</div><h3 data-lang-key="service3"></h3></div>
+                <div class="service-card reveal"><div class="icon">✍️</div><h3 data-lang-key="service4"></h3></div>
+                <div class="service-card reveal"><div class="icon">📅</div><h3 data-lang-key="service5"></h3></div>
+                <div class="service-card reveal"><div class="icon">🖼️</div><h3 data-lang-key="service6"></h3></div>
+            </div>
+        </section>
+
+        <section id="website-test" class="container">
+             <h2 class="section-title reveal" data-lang-key="testTitle"></h2>
+             <div class="website-test-tool reveal">
+                <div class="test-questions-container"></div>
+                <div id="test-result" class="test-result"></div>
+             </div>
+        </section>
+
+        <section id="faq" class="container">
+            <h2 class="section-title reveal" data-lang-key="faqTitle"></h2>
+            <div class="faq-container reveal"></div>
+        </section>
+
+        <section id="contact" class="container reveal">
+            <h2 class="section-title" data-lang-key="contactTitle"></h2>
+            <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
+                <input type="text" name="name" required data-lang-placeholder="formName">
+                <input type="email" name="email" required data-lang-placeholder="formEmail">
+                <textarea name="message" required data-lang-placeholder="formMessage"></textarea>
+                <button type="submit" class="btn" data-lang-key="formSubmit"></button>
+            </form>
+            <p id="form-status"></p>
+            
+            <p class="contact-direct-title" data-lang-key="contactSubtitle"></p>
+            <div class="contact-direct-links">
+                <a href="tel:+213542511548">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <span>0542 51 15 48</span>
+                </a>
+                <a href="mailto:solutiondev000@gmail.com">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>solutiondev000@gmail.com</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <div class="footer-social">
+                    <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram">
+                        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg>
+                    </a>
+                </div>
+                <div class="footer-legal">
+                    <button data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
+                    <button data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
+                </div>
+            </div>
+            <p class="footer-copy" data-lang-key="footerCredit"></p>
+        </div>
+    </footer>
+    
+    <div class="modal" id="privacy-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="privacyTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="privacyContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="terms-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="termsTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="termsContent"></div>
+        </div>
     </div>
 
-    <script type="module">
-        const generateBtn = document.getElementById('generateBtn');
-        const topicInput = document.getElementById('topic');
-        const keywordsInput = document.getElementById('keywords');
-        const toneSelect = document.getElementById('tone');
-        
-        const outputDiv = document.getElementById('output');
-        const placeholderDiv = document.getElementById('placeholder');
-        const loadingDiv = document.getElementById('loading');
-        const resultDiv = document.getElementById('result');
-        const errorDiv = document.getElementById('error');
-        
-        // This is a mock function to simulate an API call to an LLM.
-        async function generateContent(prompt) {
-            console.log("Generating content for prompt:", prompt);
+    <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">
+        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    
+            const icons = {
+                sun: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06z"></path></svg>`,
+                moon: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M9.37 5.51A7.35 7.35 0 009 6c0 4.42 3.58 8 8 8.01 1.07 0 2.09-.23 3-.64.42-.18.88.08 1.06.5.18.42-.08.88-.5 1.06-1.18.5-2.49.77-3.87.77-5.52 0-10-4.48-10-10 0-1.38.27-2.69.77-3.87.18-.42.64-.68 1.06-.5.42.18.68.64.5 1.06z"></path></svg>`,
+                menu: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>`,
+                close: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
+            };
             
-            // Simulate network delay
-            await new Promise(resolve => setTimeout(resolve, 2500));
+            const translations = {
+                ar: {
+                    navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا",
+                    heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
+                    heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
+                    aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
+                    servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
+                    testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
+                    testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
+                    faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
+                    contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
+                    formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
+                    footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerCredit: "جميع الحقوق محفوظة. © تم تطويره بواسطة Amayas Berkani",
+                    privacyTitle: "سياسة الخصوصية", privacyContent: "<h4>جمع المعلومات</h4><p>نقوم بجمع المعلومات التي تقدمها مباشرة عبر نموذج التواصل، مثل الاسم والبريد الإلكتروني، وذلك بهدف الرد على استفساراتك وتقديم خدماتنا.</p><h4>استخدام المعلومات</h4><p>تستخدم المعلومات التي نجمعها فقط للتواصل معك بخصوص طلباتك ولتحسين خدماتنا. نحن لا نشارك بياناتك الشخصية مع أي طرف ثالث دون موافقتك الصريحة.</p>",
+                    termsTitle: "شروط الخدمة", termsContent: "<h4>الاستخدام</h4><p>باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. نحتفظ بالحق في تعديل هذه الشروط في أي وقت.</p><h4>الخدمات</h4><p>يتم الاتفاق على تفاصيل الخدمات المقدمة، بما في ذلك النطاق والتكلفة والجداول الزمنية، بشكل رسمي قبل بدء أي عمل. حجز استشارة لا يشكل عقداً ملزماً.</p>"
+                },
+                en: {
+                    navHome: "Home", navAbout: "About", navServices: "Services", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact",
+                    heroTitle: ["Professional Digital Identity", "Turning Ideas into Reality", "Innovative Web Solutions"],
+                    heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Get a Free Consultation",
+                    aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just a facade, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant design and high-performance code.",
+                    servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-page Sites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolios",
+                    testTitle: "Is Your Website Good Enough?", testQ1: "Is your website mobile-friendly?", testQ2: "Does your site load fast?", testQ3: "Is your content easy to navigate?", testQ4: "Does your site look professional?", testQ5: "Is your contact info clear?",
+                    testResultGood: "Great! Your site seems to be performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
+                    faqTitle: "Frequently Asked Questions", faqQ1: "How long to build a website?", faqA1: "A simple site usually takes 1-2 weeks, depending on the project scope.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start, and the rest upon final delivery.", faqQ4: "Do you build websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need for your business.",
+                    contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your Message...", formSubmit: "Send Message",
+                    formSending: "Sending...", formSuccess: "Thank you! Your message was sent.", formError: "Sorry, an error occurred.",
+                    footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "All rights reserved. © Developed by Amayas Berkani",
+                    privacyTitle: "Privacy Policy", privacyContent: "<h4>Information Collection</h4><p>We collect information that you provide directly through the contact form, such as name and email, to respond to your inquiries and provide our services.</p><h4>Use of Information</h4><p>The information we collect is used solely to communicate with you regarding your requests and to improve our services. We do not share your personal data with any third parties without your explicit consent.</p>",
+                    termsTitle: "Terms of Service", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these Terms of Service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Details of the services provided, including scope, cost, and timelines, are formally agreed upon before any work begins. A consultation does not constitute a binding contract.</p>"
+                },
+                fr: {
+                    navHome: "Accueil", navAbout: "À propos", navServices: "Services", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact",
+                    heroTitle: ["Votre Identité Numérique", "Transformer les Idées en Réalité", "Solutions Web Innovantes"],
+                    heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Consultation Gratuite",
+                    aboutTitle: "Solutions Numériques Innovantes pour Votre Marque", founderName: "Amayas berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas juste une façade, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à un design élégant et un code performant.",
+                    servicesTitle: "Nos Services", service1: "Pages de Destination", service2: "Sites Multi-pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolios",
+                    testTitle: "Votre Site est-il Performant ?", testQ1: "Votre site est-il compatible mobile ?", testQ2: "Votre site se charge-t-il rapidement ?", testQ3: "Votre contenu est-il facile à naviguer ?", testQ4: "Le design est-il professionnel ?", testQ5: "Vos coordonnées sont-elles claires ?",
+                    testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider !</a>",
+                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.", faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
+                    contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via :", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer",
+                    formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
+                    footerPrivacy: "Confidentialité", footerTerms: "Termes", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
+                    privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
+                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>"
+                }
+            };
             
-            if (!topicInput.value) {
-                 throw new Error("Topic is required.");
+            const langCycle = ['ar', 'en', 'fr'];
+            let currentLangIndex = 0;
+            let typingTimeout;
+
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileNav = document.getElementById('main-nav');
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            const modalTriggers = document.querySelectorAll('[data-modal-target]');
+            
+            // --- UPDATED: Set founder avatar from URL ---
+            const founderAvatar = document.getElementById('founder-avatar');
+            if (founderAvatar) {
+                founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
             }
 
-            const tone = toneSelect.value;
-            const keywords = keywordsInput.value;
+            menuToggle.addEventListener('click', () => {
+                const isActive = mobileNav.classList.toggle('active');
+                menuToggle.innerHTML = isActive ? icons.close : icons.menu;
+            });
+            
+            document.querySelectorAll('.main-nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileNav.classList.contains('active')) {
+                        mobileNav.classList.remove('active');
+                        menuToggle.innerHTML = icons.menu;
+                    }
+                });
+            });
 
-            // Mocked response based on the prompt. Note the Arabic strings are correctly formatted.
-            return `
-                <h2 class="text-2xl font-bold mb-4">أهمية ${topicInput.value} في العصر الحديث</h2>
-                <p>يعد ${topicInput.value} حجر الزاوية في استراتيجيات النمو المعاصرة. مع التطور الرقمي السريع، أصبح من الضروري للشركات والأفراد على حد سواء فهم واستغلال الإمكانيات الهائلة التي يقدمها.</p>
-                <p>النبرة المطلوبة كانت <strong>${tone === 'professional' ? 'احترافية' : tone === 'casual' ? 'ودية' : tone === 'informative' ? 'معلوماتية' : 'فكاهية'}</strong>، وهذا واضح في الأسلوب المتبع.</p>
-                <ul class="list-disc pr-5 mt-4 space-y-2">
-                    ${keywords.split(',').filter(k => k.trim() !== '').map(k => `<li>التركيز على ${k.trim()}</li>`).join('')}
-                </ul>
-                <p class="mt-4">في الختام، لا يمكن إغفال دور ${topicInput.value}. إنه ليس مجرد خيار، بل ضرورة حتمية للنجاح.</p>
-            `;
-        }
+            document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
+            document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
+            scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            window.addEventListener('scroll', handleScroll);
+            if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
 
-        // Event listener for the generate button
-        generateBtn.addEventListener('click', async () => {
-            const topic = topicInput.value.trim();
-            const keywords = keywordsInput.value.trim();
-            const tone = toneSelect.value;
+            modalTriggers.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modalId = button.dataset.modalTarget;
+                    const modal = document.getElementById(modalId);
+                    if (modal) modal.classList.add('active');
+                });
+            });
 
-            if (!topic) {
-                // Simple validation feedback
-                topicInput.focus();
-                topicInput.classList.add('border-red-500');
-                setTimeout(() => topicInput.classList.remove('border-red-500'), 2000);
-                return;
-            }
+            document.querySelectorAll('.modal .modal-close').forEach(button => {
+                button.addEventListener('click', () => {
+                    button.closest('.modal').classList.remove('active');
+                });
+            });
 
-            // --- UI State Update: Start Loading ---
-            placeholderDiv.style.display = 'none';
-            resultDiv.classList.add('hidden');
-            errorDiv.classList.add('hidden');
-            loadingDiv.style.display = 'flex';
-            generateBtn.disabled = true;
-            generateBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
 
-            try {
-                const prompt = `
-                    Generate a short article about "${topic}" with the keywords "${keywords}". 
-                    The tone should be ${tone}.
-                `;
-                const generatedHtml = await generateContent(prompt);
+            function updateLanguage(langCode) {
+                const langData = translations[langCode];
+                document.documentElement.lang = langCode;
+                document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
                 
-                // --- UI State Update: Display Result ---
-                resultDiv.innerHTML = generatedHtml;
-                resultDiv.classList.remove('hidden');
+                document.querySelectorAll('[data-lang-key]').forEach(el => {
+                    const key = el.getAttribute('data-lang-key');
+                    if (langData && langData[key] && !Array.isArray(langData[key])) {
+                         el.innerHTML = langData[key];
+                    }
+                });
+                
+                document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-lang-placeholder');
+                    if(langData && langData[key]) el.placeholder = langData[key];
+                });
+                
+                document.querySelectorAll('.lang-toggle').forEach(toggle => {
+                    if (toggle) toggle.textContent = langCode.toUpperCase();
+                });
 
-            } catch (err) {
-                console.error("Error generating content:", err);
-                // --- UI State Update: Display Error ---
-                errorDiv.classList.remove('hidden');
-            } finally {
-                // --- UI State Update: End Loading ---
-                loadingDiv.style.display = 'none';
-                generateBtn.disabled = false;
-                generateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                startTypingEffect();
+                createFAQ();
+                createTestQuestions();
             }
+            
+            function startTypingEffect() {
+                const titleEl = document.getElementById('hero-title-animated');
+                if (!titleEl) return;
+                
+                const phrases = translations[langCycle[currentLangIndex]].heroTitle;
+                if (!phrases || !Array.isArray(phrases)) {
+                    titleEl.innerHTML = phrases || "";
+                    return;
+                }
+
+                let phraseIndex = 0, charIndex = 0, isDeleting = false;
+                if (typingTimeout) clearTimeout(typingTimeout);
+
+                function type() {
+                    const currentPhrase = phrases[phraseIndex];
+                    let displayText = isDeleting
+                        ? currentPhrase.substring(0, charIndex--)
+                        : currentPhrase.substring(0, charIndex++);
+
+                    titleEl.innerHTML = `${displayText}<span class="typing-cursor"></span>`;
+                    let typeSpeed = isDeleting ? 75 : 150;
+
+                    if (!isDeleting && charIndex === currentPhrase.length) {
+                        typeSpeed = 2000;
+                        isDeleting = true;
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        phraseIndex = (phraseIndex + 1) % phrases.length;
+                    }
+                    
+                    typingTimeout = setTimeout(type, typeSpeed);
+                }
+                type();
+            }
+
+            function handleLangToggle() {
+                currentLangIndex = (currentLangIndex + 1) % langCycle.length;
+                const newLang = langCycle[currentLangIndex];
+                localStorage.setItem('siteLang', newLang);
+                updateLanguage(newLang);
+            }
+
+            function handleThemeToggle() {
+                const isLight = document.body.classList.toggle('light-mode');
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                updateThemeIcons(isLight);
+            }
+
+            function updateThemeIcons(isLight) {
+                document.querySelectorAll('.theme-toggle').forEach(toggle => {
+                    if (toggle) toggle.innerHTML = isLight ? icons.moon : icons.sun;
+                });
+            }
+
+            function handleScroll() {
+                if (scrollTopBtn) {
+                    scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
+                }
+                let currentSection = 'hero';
+                document.querySelectorAll('section[id]').forEach(section => {
+                    if (pageYOffset >= section.offsetTop - 70) currentSection = section.id;
+                });
+                document.querySelectorAll('.main-nav a').forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('href') === '#' + currentSection);
+                });
+                document.querySelectorAll('.reveal').forEach(el => {
+                    if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('visible');
+                });
+            }
+            
+            async function handleFormSubmit(event) {
+                event.preventDefault();
+                const lang = langCycle[currentLangIndex];
+                formStatus.textContent = translations[lang].formSending;
+                formStatus.style.color = 'var(--subtle-text-color)';
+                try {
+                    const response = await fetch(event.target.action, { method: contactForm.method, body: new FormData(event.target), headers: { 'Accept': 'application/json' } });
+                    if (response.ok) {
+                        formStatus.textContent = translations[lang].formSuccess;
+                        formStatus.style.color = "#28a745";
+                        contactForm.reset();
+                    } else {
+                        formStatus.textContent = translations[lang].formError;
+                        formStatus.style.color = "#dc3545";
+                    }
+                } catch (error) {
+                    formStatus.textContent = translations[lang].formError;
+                    formStatus.style.color = "#dc3545";
+                }
+            }
+            
+            function createFAQ() {
+                const lang = langCycle[currentLangIndex];
+                const faqContainer = document.querySelector('.faq-container');
+                if (!faqContainer) return;
+                faqContainer.innerHTML = '';
+                ['Q1','Q2','Q3','Q4','Q5'].forEach(key => {
+                     const faqItem = document.createElement('div');
+                     faqItem.classList.add('faq-item');
+                     faqItem.innerHTML = `<div class="faq-question"><span>${translations[lang]['faq'+key]}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${translations[lang]['faqA'+key.substring(1)]}</p></div>`;
+                     faqContainer.appendChild(faqItem);
+                });
+                faqContainer.addEventListener('click', (e) => {
+                    const question = e.target.closest('.faq-question');
+                    if (!question) return;
+                    const faqItem = question.parentElement;
+                    const answer = faqItem.querySelector('.faq-answer');
+                    const isActive = faqItem.classList.contains('active');
+                    faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
+                        if (item !== faqItem) {
+                            item.classList.remove('active');
+                            item.querySelector('.faq-answer').style.maxHeight = '0';
+                        }
+                    });
+                    if (!isActive) {
+                        faqItem.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    } else {
+                        faqItem.classList.remove('active');
+                        answer.style.maxHeight = '0';
+                    }
+                });
+            }
+            
+            function createTestQuestions() {
+                const lang = langCycle[currentLangIndex];
+                const container = document.querySelector('.test-questions-container');
+                const resultEl = document.getElementById('test-result');
+                if (!container || !resultEl) return;
+                container.innerHTML = '';
+                resultEl.style.display = 'none';
+                const answers = {};
+                const qKeys = ['Q1','Q2','Q3','Q4','Q5'];
+                qKeys.forEach((key, i) => {
+                    const item = document.createElement('div');
+                    item.classList.add('test-question-item');
+                    item.innerHTML = `<p>${translations[lang]['test'+key]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${lang === 'ar' ? 'نعم' : (lang === 'en' ? 'Yes' : 'Oui')}</button><button value="no">${lang === 'ar' ? 'لا' : (lang === 'en' ? 'No' : 'Non')}</button></div>`;
+                    container.appendChild(item);
+                });
+                container.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'BUTTON') return;
+                    const qId = e.target.parentElement.dataset.id;
+                    answers[qId] = e.target.value;
+                    e.target.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+                    e.target.classList.add('selected');
+                    if (Object.keys(answers).length === qKeys.length) {
+                       let yes = Object.values(answers).filter(a => a === 'yes').length;
+                       resultEl.style.display = 'block';
+                       resultEl.innerHTML = translations[lang][yes >= 4 ? 'testResultGood' : 'testResultBad'];
+                       resultEl.className = `test-result ${yes >= 4 ? 'good' : 'bad'}`;
+                    }
+                });
+            }
+
+            // --- INITIALIZATION ---
+            function init() {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                document.body.classList.toggle('light-mode', savedTheme === 'light');
+                updateThemeIcons(savedTheme === 'light');
+                
+                const savedLang = localStorage.getItem('siteLang');
+                let initialLang = 'ar';
+                if(savedLang && langCycle.includes(savedLang)) {
+                    initialLang = savedLang;
+                } else {
+                    const browserLang = (navigator.language || navigator.userLanguage).slice(0, 2);
+                    if (browserLang === 'fr') {
+                        initialLang = 'fr';
+                    } else if (browserLang === 'en') {
+                        initialLang = 'en';
+                    }
+                }
+                
+                currentLangIndex = langCycle.indexOf(initialLang);
+                updateLanguage(initialLang);
+
+                menuToggle.innerHTML = icons.menu;
+                handleScroll();
+            }
+
+            init();
         });
     </script>
-
 </body>
 </html>
-
