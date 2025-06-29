@@ -102,7 +102,7 @@
         .menu-toggle { display: none; background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.8rem; padding: 0.5rem; z-index: 1002; }
         
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color);}
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; } /* Added min-height */
         .hero-content .typing-cursor { border-right: 4px solid var(--text-color); animation: blink 0.7s step-end infinite; }
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
@@ -710,42 +710,57 @@
                 initTextAnimations(); 
             }
             
+            // --- START OF NEW, CORRECTED TYPING ANIMATION ---
             function startTypingEffect() {
                 const titleEl = document.getElementById('hero-title-animated');
                 if (!titleEl) return;
-                
+
                 const phrases = translations[langCycle[currentLangIndex]].heroTitle;
                 if (!phrases || !Array.isArray(phrases)) {
                     titleEl.innerHTML = phrases || "";
                     return;
                 }
 
-                let phraseIndex = 0, charIndex = 0, isDeleting = false;
                 if (typingTimeout) clearTimeout(typingTimeout);
+
+                let phraseIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
 
                 function type() {
                     const currentPhrase = phrases[phraseIndex];
-                    let displayText = isDeleting
-                        ? currentPhrase.substring(0, charIndex--)
-                        : currentPhrase.substring(0, charIndex++);
+                    let typeSpeed;
 
-                    titleEl.innerHTML = `${displayText}<span class="typing-cursor"></span>`;
-                    let typeSpeed = isDeleting ? 75 : 150;
-
-                    if (!isDeleting && charIndex === currentPhrase.length) {
-                        typeSpeed = 2000;
-                        isDeleting = true;
-                    } else if (isDeleting && charIndex === 0) {
-                        isDeleting = false;
-                        phraseIndex = (phraseIndex + 1) % phrases.length;
-                        // ضمان عدم ترك السطر فارغاً عند الانتقال للجملة التالية
-                        titleEl.innerHTML = `<span class="typing-cursor"></span>`;
+                    if (isDeleting) {
+                        // Handle deleting
+                        typeSpeed = 75;
+                        titleEl.innerHTML = `${currentPhrase.substring(0, charIndex--)}<span class="typing-cursor"></span>`;
+                        
+                        if (charIndex < 0) {
+                            isDeleting = false;
+                            phraseIndex = (phraseIndex + 1) % phrases.length;
+                            charIndex = 0; // Reset for the next phrase
+                            typeSpeed = 500; // Pause before typing next phrase
+                        }
+                    } else {
+                        // Handle typing
+                        typeSpeed = 150;
+                        titleEl.innerHTML = `${currentPhrase.substring(0, charIndex++)}<span class="typing-cursor"></span>`;
+                        
+                        if (charIndex > currentPhrase.length) {
+                            isDeleting = true;
+                            charIndex = currentPhrase.length; // Set index for deletion
+                            typeSpeed = 2000; // Pause after typing is complete
+                        }
                     }
                     
                     typingTimeout = setTimeout(type, typeSpeed);
                 }
+
                 type();
             }
+            // --- END OF NEW, CORRECTED TYPING ANIMATION ---
+
 
             function handleLangToggle() {
                 currentLangIndex = (currentLangIndex + 1) % langCycle.length;
