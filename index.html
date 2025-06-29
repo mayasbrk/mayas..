@@ -102,7 +102,7 @@
         .menu-toggle { display: none; background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.8rem; padding: 0.5rem; z-index: 1002; }
         
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; }
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; } /* Added min-height */
         .hero-content .typing-cursor { border-right: 4px solid var(--text-color); animation: blink 0.7s step-end infinite; }
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
@@ -135,7 +135,7 @@
         
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         
-        /* --- NEW CSS FOR CARD ANIMATION --- */
+        /* === ANIMATION START === */
         .service-card { 
             background-color: var(--surface-color); 
             padding: 2.5rem 2rem; 
@@ -143,25 +143,30 @@
             border: 1px solid var(--border-color); 
             text-align: center; 
             display: flex; 
-            flex-direction: column;
+            flex-direction: column; 
             
             /* Initial state for animation */
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow var(--transition-speed);
+            transform: translateY(40px);
+            will-change: transform, opacity;
+            transition: opacity 0.6s var(--ease-out-quart), 
+                        transform 0.6s var(--ease-out-quart), 
+                        box-shadow var(--transition-speed);
         }
 
-        /* Final state for animation */
+        /* Visible state (triggered by JS) */
         .service-card.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-        /* --- END OF NEW CSS --- */
 
         .service-card:hover { 
-            transform: translateY(-8px); /* Keep hover effect, but it will only apply after the initial animation */
+            /* On hover, lift up slightly from its final position */
+            transform: translateY(-8px); 
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
         }
+        /* === ANIMATION END === */
+
         .service-card[data-modal-target] { cursor: pointer; }
         
         .service-icon-container {
@@ -657,6 +662,58 @@
                 });
             });
 
+            let textAnimationObserver;
+            function initTextAnimations() {
+                const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
+                
+                elementsToAnimate.forEach(el => {
+                    if (el.dataset.originalHtml) {
+                        el.innerHTML = el.dataset.originalHtml;
+                    } else {
+                        el.dataset.originalHtml = el.innerHTML;
+                    }
+                    el.classList.remove('is-visible', 'slide-up-words');
+                });
+
+                if (textAnimationObserver) {
+                    textAnimationObserver.disconnect();
+                }
+
+                textAnimationObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const container = entry.target;
+                            
+                            const text = container.textContent;
+                            const words = text.trim().split(' ');
+                            
+                            container.innerHTML = ''; 
+                            container.classList.add('slide-up-words');
+
+                            words.forEach((word, index) => {
+                                const wordSpan = document.createElement('span');
+                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
+                                container.appendChild(wordSpan);
+                                
+                                if (index < words.length - 1) {
+                                    container.appendChild(document.createTextNode(' '));
+                                }
+                            });
+                            
+                            setTimeout(() => {
+                                container.classList.add('is-visible');
+                            }, 50);
+
+                            textAnimationObserver.unobserve(container);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                elementsToAnimate.forEach(el => {
+                    textAnimationObserver.observe(el);
+                });
+            }
+
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
                 document.documentElement.lang = langCode;
@@ -705,25 +762,23 @@
                     let typeSpeed;
 
                     if (isDeleting) {
-                        // Handle deleting
                         typeSpeed = 75;
                         titleEl.innerHTML = `${currentPhrase.substring(0, charIndex--)}<span class="typing-cursor"></span>`;
                         
                         if (charIndex < 0) {
                             isDeleting = false;
                             phraseIndex = (phraseIndex + 1) % phrases.length;
-                            charIndex = 0;
-                            typeSpeed = 500;
+                            charIndex = 0; 
+                            typeSpeed = 500; 
                         }
                     } else {
-                        // Handle typing
                         typeSpeed = 150;
                         titleEl.innerHTML = `${currentPhrase.substring(0, charIndex++)}<span class="typing-cursor"></span>`;
                         
                         if (charIndex > currentPhrase.length) {
                             isDeleting = true;
-                            charIndex = currentPhrase.length;
-                            typeSpeed = 2000;
+                            charIndex = currentPhrase.length; 
+                            typeSpeed = 2000; 
                         }
                     }
                     
@@ -874,69 +929,34 @@
                     }
                 });
             }
+            
+            // === NEW ANIMATION FUNCTION START ===
+            function initServiceCardAnimations() {
+                const serviceCards = document.querySelectorAll('.service-card');
+                if (!serviceCards.length) return;
 
-            // --- NEW FUNCTION FOR CARD ANIMATION ---
-            function initCardAnimations() {
-                const grid = document.querySelector('.services-grid');
-                if (!grid) return;
+                const observerOptions = {
+                    root: null, 
+                    rootMargin: '0px',
+                    threshold: 0.1 
+                };
 
-                const observer = new IntersectionObserver((entries, observer) => {
+                const cardObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            const cards = grid.querySelectorAll('.service-card');
-                            cards.forEach((card, index) => {
-                                card.style.transitionDelay = `${index * 100}ms`;
-                                card.classList.add('is-visible');
-                            });
-                            observer.unobserve(grid); // Animate only once
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target); 
                         }
                     });
-                }, { threshold: 0.1 }); 
+                }, observerOptions);
 
-                observer.observe(grid);
-            }
-
-            function initTextAnimations() {
-                const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
-                // ... (rest of the function is the same, no changes needed)
-                if (textAnimationObserver) {
-                    textAnimationObserver.disconnect();
-                }
-
-                textAnimationObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const container = entry.target;
-                            
-                            const text = container.textContent;
-                            const words = text.trim().split(' ');
-                            
-                            container.innerHTML = ''; 
-                            container.classList.add('slide-up-words');
-
-                            words.forEach((word, index) => {
-                                const wordSpan = document.createElement('span');
-                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
-                                container.appendChild(wordSpan);
-                                
-                                if (index < words.length - 1) {
-                                    container.appendChild(document.createTextNode(' '));
-                                }
-                            });
-                            
-                            setTimeout(() => {
-                                container.classList.add('is-visible');
-                            }, 50);
-
-                            textAnimationObserver.unobserve(container);
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                elementsToAnimate.forEach(el => {
-                    textAnimationObserver.observe(el);
+                serviceCards.forEach((card, index) => {
+                    card.style.transitionDelay = `${index * 100}ms`;
+                    cardObserver.observe(card);
                 });
             }
+            // === NEW ANIMATION FUNCTION END ===
+
 
             function init() {
                 const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -958,7 +978,9 @@
 
                 menuToggle.innerHTML = icons.menu;
                 handleScroll();
-                initCardAnimations(); // <-- Call the new animation function
+                
+                // Call the new animation function
+                initServiceCardAnimations();
             }
 
             init();
