@@ -139,18 +139,16 @@
         .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); display: flex; flex-direction: column; }
         .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
         
-        /* تعديل CSS للأيقونات */
         .service-card lottie-player {
             width: 120px;
             height: 120px;
             margin: 0 auto 1.5rem auto;
         }
-
         .service-card h3 { 
             font-size: 1.4rem; 
             font-weight: 600; 
             color: var(--text-color);
-            margin-top: auto; /* لدفع العنوان للأسفل قليلاً */
+            margin-top: auto;
         }
         
         .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); }
@@ -500,13 +498,11 @@
                 });
             });
 
-            // --- الكود الجديد للأنيميشن ---
             let textAnimationObserver;
 
             function initTextAnimations() {
                 const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
                 
-                // إعادة النص الأصلي قبل إعادة تهيئة الأنيميشن
                 elementsToAnimate.forEach(el => {
                     if (el.dataset.originalHtml) {
                         el.innerHTML = el.dataset.originalHtml;
@@ -536,7 +532,6 @@
                                 wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
                                 container.appendChild(wordSpan);
                                 
-                                // إضافة المسافة بعد كل كلمة ما عدا الأخيرة
                                 if (index < words.length - 1) {
                                     container.appendChild(document.createTextNode(' '));
                                 }
@@ -555,7 +550,6 @@
                     textAnimationObserver.observe(el);
                 });
             }
-            // --- نهاية الكود الجديد للأنيميشن ---
 
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
