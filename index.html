@@ -300,14 +300,11 @@
                 max-height: none; 
             }
             
-            /* === START: CORRECTED CODE === */
-            /* For Arabic (RTL), button is on the left, so menu comes from the left */
             html[dir="rtl"] .main-nav {
                 left: 0;
                 transform: translateX(-100%);
                 border-right: 1px solid var(--border-color);
             }
-            /* For LTR languages, button is on the right, so menu comes from the right */
             html[dir="ltr"] .main-nav {
                 right: 0;
                 transform: translateX(100%);
@@ -316,7 +313,6 @@
             body.nav-open .main-nav {
                 transform: translateX(0);
             }
-            /* === END: CORRECTED CODE === */
 
             .main-nav li {
                 width: 100%;
