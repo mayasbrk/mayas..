@@ -73,8 +73,8 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            /* التعديل هنا: تم تفتيح اللون البنفسجي في الوضع الليلي */
-            background: linear-gradient(135deg, #0d0d0d, #6D28D9, #0d0d0d);
+            /* التعديل الجديد: تدرج بنفسجي داكن مع بنفسجي حيوي */
+            background: linear-gradient(135deg, #0d0d0d, #6D28D9, #8B5CF6);
             background-size: 400% 400%;
             animation: animated-gradient 15s ease-in-out infinite;
             filter: blur(8px);
@@ -83,10 +83,10 @@
         }
 
         body.light-mode::before {
-            /* التعديل هنا: تم زيادة التباين في الوضع النهاري */
-            background: linear-gradient(135deg, #F3E8FF, #C084FC);
-            background-size: 300% 300%;
-            animation: animated-gradient 12s ease-in-out infinite;
+            /* التعديل الجديد: تدرج أبيض بنفسجي ناعم */
+            background: linear-gradient(135deg, #FFFFFF, #E9D5FF, #C084FC);
+            background-size: 400% 400%;
+            animation: animated-gradient 15s ease-in-out infinite;
         }
 
         html[lang="ar"] body { font-family: var(--font-cairo); }
