@@ -118,10 +118,20 @@
             transition: transform 0.3s ease-out;
         }
         
-        /* --- CSS لتأثير انزلاق الكلمات --- */
-        .slide-up-words span { display: inline-block; overflow: hidden; }
-        .slide-up-words span .word { display: inline-block; transform: translateY(100%); transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); transition-delay: var(--delay, 0s); }
-        .slide-up-words.is-visible span .word { transform: translateY(0); }
+        .slide-up-words span {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: top;
+        }
+        .slide-up-words span .word {
+            display: inline-block;
+            transform: translateY(110%);
+            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition-delay: var(--delay);
+        }
+        .slide-up-words.is-visible span .word {
+            transform: translateY(0);
+        }
         
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
@@ -394,7 +404,7 @@
                     formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Termes", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
                     privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
-                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>"
+                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Usage</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>"
                 }
             };
             
@@ -463,6 +473,13 @@
                 document.documentElement.lang = langCode;
                 document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
                 
+                // --- استعادة النص الأصلي قبل الترجمة ---
+                document.querySelectorAll('[data-animate="slide-up-words"]').forEach(el => {
+                    if (el.dataset.originalText) {
+                        el.innerHTML = el.dataset.originalText;
+                    }
+                });
+
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
                     if (langData && langData[key] && !Array.isArray(langData[key])) {
@@ -482,7 +499,7 @@
                 startTypingEffect();
                 createFAQ();
                 createTestQuestions();
-                initTextAnimations();
+                initTextAnimations(); // إعادة تهيئة الأنيميشن بعد الترجمة
             }
             
             function startTypingEffect() {
@@ -669,29 +686,44 @@
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const container = entry.target;
-                            const text = container.getAttribute('data-original-text') || container.textContent;
-                            container.setAttribute('data-original-text', text); // Store original text
+                            
+                            // حفظ النص الأصلي إذا لم يتم حفظه من قبل
+                            if (!container.dataset.originalText) {
+                                container.dataset.originalText = container.textContent;
+                            }
+                            
+                            const text = container.textContent;
                             const words = text.trim().split(' ');
                             
-                            container.innerHTML = ''; // Clear current content
+                            container.innerHTML = ''; 
                             container.classList.add('slide-up-words');
 
                             words.forEach((word, index) => {
                                 const wordSpan = document.createElement('span');
-                                // Add a non-breaking space after each word except the last one
                                 const space = (index < words.length - 1) ? ' ' : '';
-                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>${space}`;
+                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
                                 container.appendChild(wordSpan);
+                                if (space) {
+                                    container.appendChild(document.createTextNode(space));
+                                }
                             });
+                            
+                            // تأخير بسيط لإعطاء فرصة للمتصفح برسم العناصر قبل إضافة الكلاس
+                            setTimeout(() => {
+                                container.classList.add('is-visible');
+                            }, 100);
 
-                            // Make it visible to trigger the animation
-                            container.classList.add('is-visible');
-                            observer.unobserve(container); // Stop observing after animation
+                            observer.unobserve(container);
                         }
                     });
-                }, { threshold: 0.2 });
+                }, { threshold: 0.1 });
 
                 elementsToAnimate.forEach(el => {
+                    // إعادة تهيئة بسيطة للعنصر قبل مراقبته
+                    el.classList.remove('is-visible', 'slide-up-words');
+                    if (el.dataset.originalText) {
+                        el.innerHTML = el.dataset.originalText;
+                    }
                     observer.observe(el);
                 });
             }
