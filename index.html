@@ -116,17 +116,14 @@
         .modal-body p { margin-bottom: 1rem; }
         .modal-body h4 { margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--text-color); }
         .footer { background-color: var(--surface-color); border-top: 1px solid var(--border-color); padding: 3rem 0; text-align: center; }
-        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
-        .footer-nav, .footer-legal, .footer-social { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
-        .footer-contact { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.5rem 1.5rem; color: var(--subtle-text-color); font-weight: 500; }
-        .footer-contact a { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); }
-        .footer-contact a:hover { color: var(--text-color); }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .footer-links { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
         .footer-legal button { background: none; border: none; color: var(--subtle-text-color); cursor: pointer; font-family: inherit; font-size: 1em; font-weight: 500; }
-        .footer-nav a, .footer-legal button { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); font-weight: 500;}
-        .footer-nav a:hover, .footer-legal button:hover { color: var(--text-color); }
+        .footer-legal button { color: var(--subtle-text-color); text-decoration: none; transition: color var(--transition-speed); font-weight: 500;}
+        .footer-legal button:hover { color: var(--text-color); }
         .footer-social a { color: var(--subtle-text-color); transition: color var(--transition-speed), transform var(--transition-speed); }
         .footer-social a:hover { color: var(--text-color); transform: scale(1.1); }
-        .footer-copy { margin-top: 2rem; font-size: 0.9rem; color: #777; }
+        .footer-copy { margin-top: 0; font-size: 0.9rem; color: #777; }
         #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed), background-color var(--transition-speed); pointer-events: none; border-radius: 50%; }
         html[dir="rtl"] #scrollTopBtn { left: 20px; }
         html[dir="ltr"] #scrollTopBtn { right: 20px; }
@@ -234,7 +231,6 @@
             </form>
             <p id="form-status"></p>
             
-            <!-- NEW: Direct contact details added -->
             <p class="contact-direct-title" data-lang-key="contactSubtitle"></p>
             <div class="contact-direct-links">
                 <a href="tel:+213542511548">
@@ -251,25 +247,16 @@
 
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-nav">
-                <a href="#hero" data-lang-key="navHome"></a>
-                <a href="#services" data-lang-key="navServices"></a>
-                <a href="#contact" data-lang-key="navContact"></a>
-            </div>
-            <!-- NEW: Footer contact details added -->
-            <div class="footer-contact">
-                <a href="tel:+213542511548">0542 51 15 48</a>
-                <span class="separator">&bull;</span>
-                <a href="mailto:solutiondev000@gmail.com">solutiondev000@gmail.com</a>
-            </div>
-            <div class="footer-social">
-                <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram">
-                    <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg>
-                </a>
-            </div>
-            <div class="footer-legal">
-                <button data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
-                <button data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
+            <div class="footer-links">
+                <div class="footer-social">
+                    <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram">
+                        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg>
+                    </a>
+                </div>
+                <div class="footer-legal">
+                    <button data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
+                    <button data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
+                </div>
             </div>
             <p class="footer-copy" data-lang-key="footerCredit"></p>
         </div>
@@ -307,7 +294,7 @@
                 menu: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>`,
                 close: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
             };
-
+            
             const translations = {
                 ar: {
                     navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا",
@@ -320,7 +307,7 @@
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
                     formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
-                    footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerRights: "جميع الحقوق محفوظة.", footerCredit: "تم تطويره بواسطة Amayas Berkani ©",
+                    footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerCredit: "جميع الحقوق محفوظة. © تم تطويره بواسطة Amayas Berkani",
                     privacyTitle: "سياسة الخصوصية", privacyContent: "<h4>جمع المعلومات</h4><p>نقوم بجمع المعلومات التي تقدمها مباشرة عبر نموذج التواصل، مثل الاسم والبريد الإلكتروني، وذلك بهدف الرد على استفساراتك وتقديم خدماتنا.</p><h4>استخدام المعلومات</h4><p>تستخدم المعلومات التي نجمعها فقط للتواصل معك بخصوص طلباتك ولتحسين خدماتنا. نحن لا نشارك بياناتك الشخصية مع أي طرف ثالث دون موافقتك الصريحة.</p>",
                     termsTitle: "شروط الخدمة", termsContent: "<h4>الاستخدام</h4><p>باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. نحتفظ بالحق في تعديل هذه الشروط في أي وقت.</p><h4>الخدمات</h4><p>يتم الاتفاق على تفاصيل الخدمات المقدمة، بما في ذلك النطاق والتكلفة والجداول الزمنية، بشكل رسمي قبل بدء أي عمل. حجز استشارة لا يشكل عقداً ملزماً.</p>"
                 },
@@ -335,7 +322,7 @@
                     faqTitle: "Frequently Asked Questions", faqQ1: "How long to build a website?", faqA1: "A simple site usually takes 1-2 weeks, depending on the project scope.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start, and the rest upon final delivery.", faqQ4: "Do you build websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need for your business.",
                     contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your Message...", formSubmit: "Send Message",
                     formSending: "Sending...", formSuccess: "Thank you! Your message was sent.", formError: "Sorry, an error occurred.",
-                    footerPrivacy: "Privacy", footerTerms: "Terms", footerRights: "All rights reserved.", footerCredit: "Developed by Amayas Berkani ©",
+                    footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "All rights reserved. © Developed by Amayas Berkani",
                     privacyTitle: "Privacy Policy", privacyContent: "<h4>Information Collection</h4><p>We collect information that you provide directly through the contact form, such as name and email, to respond to your inquiries and provide our services.</p><h4>Use of Information</h4><p>The information we collect is used solely to communicate with you regarding your requests and to improve our services. We do not share your personal data with any third parties without your explicit consent.</p>",
                     termsTitle: "Terms of Service", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these Terms of Service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Details of the services provided, including scope, cost, and timelines, are formally agreed upon before any work begins. A consultation does not constitute a binding contract.</p>"
                 },
@@ -350,7 +337,7 @@
                     faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.", faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
                     contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via :", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer",
                     formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
-                    footerPrivacy: "Confidentialité", footerTerms: "Termes", footerRights: "Tous droits réservés.", footerCredit: "Développé par Amayas Berkani ©",
+                    footerPrivacy: "Confidentialité", footerTerms: "Termes", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
                     privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
                     termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>"
                 }
@@ -362,16 +349,15 @@
 
             const menuToggle = document.getElementById('menu-toggle');
             const mobileNav = document.getElementById('main-nav');
-            const headerActions = document.querySelector('.header-actions');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
-            const founderAvatar = document.getElementById('founder-avatar');
             const modalTriggers = document.querySelectorAll('[data-modal-target]');
             
-            const founderImageBase64 = "data:image/jpeg;base64,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";
+            // --- UPDATED: Set founder avatar from URL ---
+            const founderAvatar = document.getElementById('founder-avatar');
             if (founderAvatar) {
-                founderAvatar.style.backgroundImage = `url(${founderImageBase64})`;
+                founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
             }
 
             menuToggle.addEventListener('click', () => {
