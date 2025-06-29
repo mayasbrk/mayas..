@@ -9,6 +9,8 @@
     <title>solu_tion.dev | تصميم مواقع احترافية</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
     
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
     <style>
         :root {
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -134,10 +136,22 @@
         }
         
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
+        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); display: flex; flex-direction: column; }
         .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
-        .service-card .icon { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1; }
-        .service-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-color); }
+        
+        /* تعديل CSS للأيقونات */
+        .service-card lottie-player {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .service-card h3 { 
+            font-size: 1.4rem; 
+            font-weight: 600; 
+            color: var(--text-color);
+            margin-top: auto; /* لدفع العنوان للأسفل قليلاً */
+        }
         
         .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); }
         .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
@@ -264,12 +278,30 @@
         <section id="services" class="container">
             <h2 class="section-title" data-lang-key="servicesTitle" data-animate="slide-up-words"></h2>
             <div class="services-grid">
-                <div class="service-card"><div class="icon">📄</div><h3 data-lang-key="service1"></h3></div>
-                <div class="service-card"><div class="icon">📑</div><h3 data-lang-key="service2"></h3></div>
-                <div class="service-card"><div class="icon">🛒</div><h3 data-lang-key="service3"></h3></div>
-                <div class="service-card"><div class="icon">✍️</div><h3 data-lang-key="service4"></h3></div>
-                <div class="service-card"><div class="icon">📅</div><h3 data-lang-key="service5"></h3></div>
-                <div class="service-card"><div class="icon">🖼️</div><h3 data-lang-key="service6"></h3></div>
+                <div class="service-card">
+                    <lottie-player src="https://lottie.host/1c7181c4-1888-448c-a81e-1522964946f8/oB6j4iS23a.json" background="transparent" speed="1" loop autoplay></lottie-player>
+                    <h3 data-lang-key="service1"></h3>
+                </div>
+                <div class="service-card">
+                    <lottie-player src="https://lottie.host/9361a4c6-e51a-42b7-85b4-395a16e7884d/hHwT733A5p.json" background="transparent" speed="1" loop autoplay></lottie-player>
+                    <h3 data-lang-key="service2"></h3>
+                </div>
+                <div class="service-card">
+                    <lottie-player src="https://lottie.host/9a5270c5-5517-497c-b630-f24f0c6e6963/d5qGqds5k1.json" background="transparent" speed="1" loop autoplay></lottie-player>
+                    <h3 data-lang-key="service3"></h3>
+                </div>
+                <div class="service-card">
+                    <lottie-player src="https://lottie.host/17502c3c-279c-48c0-82a0-4c8305c4852f/4Tq7s3v7b0.json" background="transparent" speed="1" loop autoplay></lottie-player>
+                    <h3 data-lang-key="service4"></h3>
+                </div>
+                <div class="service-card">
+                    <lottie-player src="https://lottie.host/880a400f-b295-4424-81d3-6e3e4a3e9c61/N5LImkH9YI.json" background="transparent" speed="1" loop autoplay></lottie-player>
+                    <h3 data-lang-key="service5"></h3>
+                </div>
+                <div class="service-card">
+                    <lottie-player src="https://lottie.host/43e79435-862d-459d-a602-12792c303f2f/3i7wBCV17y.json" background="transparent" speed="1" loop autoplay></lottie-player>
+                    <h3 data-lang-key="service6"></h3>
+                </div>
             </div>
         </section>
 
@@ -468,17 +500,67 @@
                 });
             });
 
+            // --- الكود الجديد للأنيميشن ---
+            let textAnimationObserver;
+
+            function initTextAnimations() {
+                const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
+                
+                // إعادة النص الأصلي قبل إعادة تهيئة الأنيميشن
+                elementsToAnimate.forEach(el => {
+                    if (el.dataset.originalHtml) {
+                        el.innerHTML = el.dataset.originalHtml;
+                    } else {
+                        el.dataset.originalHtml = el.innerHTML;
+                    }
+                    el.classList.remove('is-visible', 'slide-up-words');
+                });
+
+                if (textAnimationObserver) {
+                    textAnimationObserver.disconnect();
+                }
+
+                textAnimationObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const container = entry.target;
+                            
+                            const text = container.textContent;
+                            const words = text.trim().split(' ');
+                            
+                            container.innerHTML = ''; 
+                            container.classList.add('slide-up-words');
+
+                            words.forEach((word, index) => {
+                                const wordSpan = document.createElement('span');
+                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
+                                container.appendChild(wordSpan);
+                                
+                                // إضافة المسافة بعد كل كلمة ما عدا الأخيرة
+                                if (index < words.length - 1) {
+                                    container.appendChild(document.createTextNode(' '));
+                                }
+                            });
+                            
+                            setTimeout(() => {
+                                container.classList.add('is-visible');
+                            }, 50);
+
+                            observer.unobserve(container);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                elementsToAnimate.forEach(el => {
+                    textAnimationObserver.observe(el);
+                });
+            }
+            // --- نهاية الكود الجديد للأنيميشن ---
+
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
                 document.documentElement.lang = langCode;
                 document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
-                
-                // --- استعادة النص الأصلي قبل الترجمة ---
-                document.querySelectorAll('[data-animate="slide-up-words"]').forEach(el => {
-                    if (el.dataset.originalText) {
-                        el.innerHTML = el.dataset.originalText;
-                    }
-                });
 
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
@@ -499,7 +581,7 @@
                 startTypingEffect();
                 createFAQ();
                 createTestQuestions();
-                initTextAnimations(); // إعادة تهيئة الأنيميشن بعد الترجمة
+                initTextAnimations(); 
             }
             
             function startTypingEffect() {
@@ -676,55 +758,6 @@
                        resultEl.innerHTML = translations[lang][yes >= 4 ? 'testResultGood' : 'testResultBad'];
                        resultEl.className = `test-result ${yes >= 4 ? 'good' : 'bad'}`;
                     }
-                });
-            }
-
-            function initTextAnimations() {
-                const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
-                
-                const observer = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const container = entry.target;
-                            
-                            // حفظ النص الأصلي إذا لم يتم حفظه من قبل
-                            if (!container.dataset.originalText) {
-                                container.dataset.originalText = container.textContent;
-                            }
-                            
-                            const text = container.textContent;
-                            const words = text.trim().split(' ');
-                            
-                            container.innerHTML = ''; 
-                            container.classList.add('slide-up-words');
-
-                            words.forEach((word, index) => {
-                                const wordSpan = document.createElement('span');
-                                const space = (index < words.length - 1) ? ' ' : '';
-                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
-                                container.appendChild(wordSpan);
-                                if (space) {
-                                    container.appendChild(document.createTextNode(space));
-                                }
-                            });
-                            
-                            // تأخير بسيط لإعطاء فرصة للمتصفح برسم العناصر قبل إضافة الكلاس
-                            setTimeout(() => {
-                                container.classList.add('is-visible');
-                            }, 100);
-
-                            observer.unobserve(container);
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                elementsToAnimate.forEach(el => {
-                    // إعادة تهيئة بسيطة للعنصر قبل مراقبته
-                    el.classList.remove('is-visible', 'slide-up-words');
-                    if (el.dataset.originalText) {
-                        el.innerHTML = el.dataset.originalText;
-                    }
-                    observer.observe(el);
                 });
             }
 
