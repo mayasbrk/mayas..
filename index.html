@@ -738,6 +738,8 @@
                     } else if (isDeleting && charIndex === 0) {
                         isDeleting = false;
                         phraseIndex = (phraseIndex + 1) % phrases.length;
+                        // ضمان عدم ترك السطر فارغاً عند الانتقال للجملة التالية
+                        titleEl.innerHTML = `<span class="typing-cursor"></span>`;
                     }
                     
                     typingTimeout = setTimeout(type, typeSpeed);
