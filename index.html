@@ -135,7 +135,6 @@
         
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         
-        /* === ANIMATION START === */
         .service-card { 
             background-color: var(--surface-color); 
             padding: 2.5rem 2rem; 
@@ -145,7 +144,6 @@
             display: flex; 
             flex-direction: column; 
             
-            /* Initial state for animation */
             opacity: 0;
             transform: translateY(40px);
             will-change: transform, opacity;
@@ -154,18 +152,15 @@
                         box-shadow var(--transition-speed);
         }
 
-        /* Visible state (triggered by JS) */
         .service-card.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
         .service-card:hover { 
-            /* On hover, lift up slightly from its final position */
             transform: translateY(-8px); 
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
         }
-        /* === ANIMATION END === */
 
         .service-card[data-modal-target] { cursor: pointer; }
         
@@ -598,6 +593,7 @@
             const langCycle = ['ar', 'en', 'fr'];
             let currentLangIndex = 0;
             let typingTimeout;
+            let textAnimationObserver;
 
             const menuToggle = document.getElementById('menu-toggle');
             const mobileNav = document.getElementById('main-nav');
@@ -661,25 +657,16 @@
                     }
                 });
             });
-
-            let textAnimationObserver;
+            
+            // === START OF CORRECTED FUNCTION ===
             function initTextAnimations() {
                 const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
                 
-                elementsToAnimate.forEach(el => {
-                    if (el.dataset.originalHtml) {
-                        el.innerHTML = el.dataset.originalHtml;
-                    } else {
-                        el.dataset.originalHtml = el.innerHTML;
-                    }
-                    el.classList.remove('is-visible', 'slide-up-words');
-                });
-
                 if (textAnimationObserver) {
                     textAnimationObserver.disconnect();
                 }
 
-                textAnimationObserver = new IntersectionObserver((entries) => {
+                textAnimationObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const container = entry.target;
@@ -704,15 +691,27 @@
                                 container.classList.add('is-visible');
                             }, 50);
 
-                            textAnimationObserver.unobserve(container);
+                            observer.unobserve(container);
                         }
                     });
                 }, { threshold: 0.1 });
 
                 elementsToAnimate.forEach(el => {
+                    // Reset the element's visual state and content before observing.
+                    el.classList.remove('is-visible', 'slide-up-words');
+                    
+                    // Get the correct translated text from the key.
+                    const key = el.getAttribute('data-lang-key');
+                    const lang = langCycle[currentLangIndex];
+                    if (key && translations[lang] && translations[lang][key]) {
+                        // This ensures the element has the plain translated text before the animation is applied.
+                        el.innerHTML = translations[lang][key];
+                    }
+                    
                     textAnimationObserver.observe(el);
                 });
             }
+            // === END OF CORRECTED FUNCTION ===
 
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
@@ -930,7 +929,6 @@
                 });
             }
             
-            // === NEW ANIMATION FUNCTION START ===
             function initServiceCardAnimations() {
                 const serviceCards = document.querySelectorAll('.service-card');
                 if (!serviceCards.length) return;
@@ -955,7 +953,6 @@
                     cardObserver.observe(card);
                 });
             }
-            // === NEW ANIMATION FUNCTION END ===
 
 
             function init() {
@@ -979,7 +976,6 @@
                 menuToggle.innerHTML = icons.menu;
                 handleScroll();
                 
-                // Call the new animation function
                 initServiceCardAnimations();
             }
 
