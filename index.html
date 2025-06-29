@@ -16,7 +16,7 @@
             --transition-speed: 0.4s;
             --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        /* --- START: NEW ANIMATION KEYFRAMES --- */
+        
         @keyframes animated-gradient {
             0% {
                 background-position: 0% 50%;
@@ -28,7 +28,6 @@
                 background-position: 0% 50%;
             }
         }
-        /* --- END: NEW ANIMATION KEYFRAMES --- */
 
         body {
             --bg-color: #121212;
@@ -41,6 +40,8 @@
             --primary-hover: #E0E0E0;
             --overlay-color: rgba(0, 0, 0, 0.5);
         }
+
+        /* --- START: MODIFICATION FOR LIGHT MODE --- */
         body.light-mode {
             --bg-color: #F5F5F5;
             --surface-color: #FFFFFF;
@@ -51,27 +52,32 @@
             --primary-text-color: #FFFFFF;
             --primary-hover: #000000;
             --overlay-color: rgba(0, 0, 0, 0.4);
-            
-            /* --- START: MODIFICATION FOR LIGHT MODE --- */
-            background: linear-gradient(120deg, #f5f5f5, #ffffff, #f5f5f5);
-            background-size: 200% 200%;
-            animation: animated-gradient 15s ease infinite;
-            /* --- END: MODIFICATION FOR LIGHT MODE --- */
+            /* Increased contrast and speed for better visibility */
+            background: linear-gradient(120deg, #e0e0e0, #ffffff, #e0e0e0);
+            background-size: 300% 300%;
+            animation: animated-gradient 10s ease infinite;
         }
+        /* --- END: MODIFICATION FOR LIGHT MODE --- */
+        
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         html { scroll-behavior: smooth; }
+        
         /* --- START: MODIFICATION FOR BODY --- */
         body { 
             font-family: var(--font-sans); 
             color: var(--text-color); 
             line-height: 1.7; 
             transition: color var(--transition-speed);
-            background: linear-gradient(120deg, #121212, #282828, #121212);
-            background-size: 200% 200%;
-            animation: animated-gradient 15s ease infinite;
+            /* Increased contrast and speed for better visibility */
+            background: linear-gradient(120deg, #000000, #3a3a3a, #000000);
+            background-size: 300% 300%;
+            animation: animated-gradient 10s ease infinite;
         }
         /* --- END: MODIFICATION FOR BODY --- */
+        
         html[lang="ar"] body { font-family: var(--font-cairo); }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; }
         .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); margin-bottom: 3rem; text-align: center; font-weight: 700; color: var(--text-color);}
@@ -591,7 +597,7 @@
                 qKeys.forEach((key, i) => {
                     const item = document.createElement('div');
                     item.classList.add('test-question-item');
-                    item.innerHTML = `<p>${translations[lang]['test'+key]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${lang === 'ar' ? 'نعم' : (lang === 'en' ? 'Yes' : 'Oui')}</button><button value="no">${lang === 'ar' ? 'لا' : (lang === 'en' ? 'No' : 'Non')}</button></div>`;
+                    item.innerHTML = `<p>${translations[lang]['test'+key]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${lang === 'ar' ? 'نعم' : (lang === 'en' ? 'Yes' : 'Non')}</button><button value="no">${lang === 'ar' ? 'لا' : (lang === 'en' ? 'No' : 'Non')}</button></div>`;
                     container.appendChild(item);
                 });
                 container.addEventListener('click', (e) => {
