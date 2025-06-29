@@ -26,7 +26,8 @@
             --primary-color: #FFFFFF; 
             --primary-text-color: #121212;
             --primary-hover: #E0E0E0;
-            --overlay-color: rgba(0, 0, 0, 0.6);
+            /* --- FIX: Made overlay darker --- */
+            --overlay-color: rgba(0, 0, 0, 0.75); 
             --header-bg: rgba(18, 18, 18, 0.7);
         }
 
@@ -39,7 +40,8 @@
             --primary-color: #1E1E1E;
             --primary-text-color: #FFFFFF;
             --primary-hover: #000000;
-            --overlay-color: rgba(0, 0, 0, 0.4);
+             /* --- FIX: Made overlay darker --- */
+            --overlay-color: rgba(0, 0, 0, 0.6);
             --header-bg: rgba(245, 245, 245, 0.7);
         }
 
@@ -275,11 +277,20 @@
             visibility: visible;
         }
 
-        /* --- NEW: Mobile Nav Animation --- */
         @keyframes navLinkFade {
             from {
                 opacity: 0;
                 transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        html[dir="rtl"] @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
             }
             to {
                 opacity: 1;
@@ -298,13 +309,14 @@
                 position: fixed;
                 top: 0;
                 height: 100%;
-                width: min(85vw, 340px);
+                /* --- FIX: Adjusted size --- */
+                width: min(80vw, 320px);
                 background-color: var(--bg-color); 
                 box-shadow: 0 0 20px rgba(0,0,0,0.2);
                 z-index: 1001;
-                padding: 5rem 1rem 1rem; /* Adjusted padding */
+                padding: 5rem 1rem 1rem;
                 flex-direction: column;
-                gap: 0.75rem; /* Adjusted gap */
+                gap: 0.75rem;
                 transition: transform 0.4s var(--ease-out-quart);
                 border: none;
                 max-height: none; 
@@ -327,10 +339,9 @@
             .main-nav li {
                 width: 100%;
                 text-align: inherit;
-                opacity: 0; /* For animation */
+                opacity: 0;
             }
             
-            /* --- NEW: Staggered Animation on Open --- */
             body.nav-open .main-nav li {
                 animation: navLinkFade 0.5s ease forwards;
             }
@@ -344,13 +355,13 @@
 
 
             .main-nav a {
-                display: flex; /* NEW */
-                align-items: center; /* NEW */
-                gap: 1rem; /* NEW */
-                padding: 0.8rem 1rem; /* Adjusted padding */
-                font-size: 1.1rem; /* Adjusted font size */
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 0.8rem 1rem;
+                font-size: 1.1rem;
                 font-weight: 500;
-                border-radius: 8px; /* NEW */
+                border-radius: 8px;
                 transition: background-color 0.2s, color 0.2s;
             }
             html[dir="rtl"] .main-nav a { text-align: right; }
@@ -361,7 +372,6 @@
                 color: var(--text-color);
             }
 
-            /* --- NEW: Active Link Style --- */
             .main-nav a.active {
                 background-color: var(--primary-color);
                 color: var(--primary-text-color);
@@ -371,7 +381,6 @@
                 stroke: var(--primary-text-color);
             }
 
-            /* --- NEW: Icon Style --- */
             .main-nav a svg {
                 width: 22px;
                 height: 22px;
@@ -397,11 +406,11 @@
                 border: 1px solid var(--border-color);
                 border-radius: 8px;
                 background-color: transparent;
-                display: flex; /* NEW */
-                align-items: center; /* NEW */
-                justify-content: center; /* NEW */
-                gap: 0.75rem; /* NEW */
-                color: var(--text-color); /* Ensure text color is set */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.75rem;
+                color: var(--text-color);
             }
             .main-nav .nav-lang-switcher .lang-toggle:hover {
                 background-color: var(--border-color);
@@ -764,7 +773,6 @@
             if (headerLangToggle) {
                 const langToggleClone = headerLangToggle.cloneNode(true);
                 langToggleClone.id = 'menu-lang-toggle';
-                // --- NEW: Add icon to language switcher ---
                 langToggleClone.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`;
                 const langToggleText = document.createElement('span');
                 langToggleClone.appendChild(langToggleText);
@@ -897,7 +905,6 @@
                 elementsToAnimate.forEach(el => {
                     el.classList.remove('is-visible', 'slide-up-words');
                     
-                    // Find the child span if it exists, otherwise use the element itself
                     const targetEl = el.querySelector('span[data-lang-key]') || el;
                     const key = targetEl.getAttribute('data-lang-key');
                     const lang = langCycle[currentLangIndex];
@@ -927,13 +934,12 @@
                     if(langData && langData[key]) el.placeholder = langData[key];
                 });
                 
-                // Update language toggle text
                 const langToggles = document.querySelectorAll('.lang-toggle');
                 langToggles.forEach(toggle => {
                     const textSpan = toggle.querySelector('span');
-                    if(textSpan) { // For mobile nav
+                    if(textSpan) {
                         textSpan.textContent = langCode.toUpperCase();
-                    } else { // For header
+                    } else {
                         toggle.textContent = langCode.toUpperCase();
                     }
                 });
