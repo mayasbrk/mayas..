@@ -19,7 +19,7 @@
 
         body {
             --bg-color: #0d0d0d;
-            --surface-color: rgba(30, 30, 30, 0.75);
+            --surface-color: rgba(30, 30, 30, 0.9);
             --text-color: #E0E0E0;
             --subtle-text-color: #A0A0A0;
             --border-color: rgba(70, 70, 70, 0.5);
@@ -32,7 +32,7 @@
 
         body.light-mode {
             --bg-color: #f0f0f0;
-            --surface-color: rgba(255, 255, 255, 0.7);
+            --surface-color: rgba(255, 255, 255, 0.9);
             --text-color: #121212;
             --subtle-text-color: #555555;
             --border-color: rgba(200, 200, 200, 0.5);
@@ -62,6 +62,10 @@
             transition: background-color var(--transition-speed), color var(--transition-speed); 
         }
 
+        body.nav-open {
+            overflow: hidden;
+        }
+
         body::before {
             content: '';
             position: fixed;
@@ -82,8 +86,6 @@
         body.light-mode::before {
             background: linear-gradient(135deg, #d5d5d5, #ffffff, #d5d5d5);
         }
-        
-        body.nav-open { overflow: hidden; }
 
         html[lang="ar"] body { font-family: var(--font-cairo); }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; position: relative; z-index: 1; }
@@ -104,7 +106,7 @@
         .menu-toggle { display: none; background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.8rem; padding: 0.5rem; z-index: 1002; }
         
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; } /* Added min-height */
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; }
         .hero-content .typing-cursor { border-right: 4px solid var(--text-color); animation: blink 0.7s step-end infinite; }
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
@@ -115,31 +117,87 @@
         .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
         .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
         
-        .founder-avatar, .founder-bio { will-change: transform; transition: transform 0.3s ease-out; }
-        .slide-up-words span { display: inline-block; overflow: hidden; vertical-align: top; }
-        .slide-up-words span .word { display: inline-block; transform: translateY(110%); transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); transition-delay: var(--delay); }
-        .slide-up-words.is-visible span .word { transform: translateY(0); }
+        .founder-avatar, .founder-bio {
+            will-change: transform;
+            transition: transform 0.3s ease-out;
+        }
+        
+        .slide-up-words span {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: top;
+        }
+        .slide-up-words span .word {
+            display: inline-block;
+            transform: translateY(110%);
+            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition-delay: var(--delay);
+        }
+        .slide-up-words.is-visible span .word {
+            transform: translateY(0);
+        }
         
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; display: flex; flex-direction: column; opacity: 0; transform: translateY(40px); will-change: transform, opacity; transition: opacity 0.6s var(--ease-out-quart), transform 0.6s var(--ease-out-quart), box-shadow var(--transition-speed); }
-        .service-card.is-visible { opacity: 1; transform: translateY(0); }
-        .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
+        
+        .service-card { 
+            background-color: var(--surface-color); 
+            padding: 2.5rem 2rem; 
+            border-radius: 12px; 
+            border: 1px solid var(--border-color); 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            
+            opacity: 0;
+            transform: translateY(40px);
+            will-change: transform, opacity;
+            transition: opacity 0.6s var(--ease-out-quart), 
+                        transform 0.6s var(--ease-out-quart), 
+                        box-shadow var(--transition-speed);
+        }
+
+        .service-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+        }
+
         .service-card[data-modal-target] { cursor: pointer; }
-        .service-icon-container { width: 100px; height: 100px; margin: 0 auto 1.5rem auto; }
-        .service-icon-container svg { width: 100%; height: 100%; stroke: var(--text-color); }
+        
+        .service-icon-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem auto;
+        }
+        .service-icon-container svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--text-color);
+        }
         .service-card:hover .page-corner { transform: rotate(-15deg); }
         .service-card:hover .layer-top { transform: translateY(-2px); }
         .service-card:hover .cart-wheel { animation: spin 1s linear infinite; }
         .service-card:hover .blog-line { stroke-dashoffset: 0; }
         .service-card:hover .calendar-check { transform: scale(1.2); opacity: 1; }
         .service-card:hover .portfolio-image { transform: translateY(-5px); }
+
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .page-corner { transition: transform 0.3s ease; transform-origin: bottom left; }
         .layer-top { transition: transform 0.3s ease; }
         .blog-line { stroke-dasharray: 50; stroke-dashoffset: 50; transition: stroke-dashoffset 0.8s ease; }
         .calendar-check { transition: transform 0.4s ease, opacity 0.4s ease; transform-origin: center; opacity: 0; transform: scale(0.5); }
         .portfolio-image { transition: transform 0.4s ease; }
-        .service-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--text-color); margin-top: auto; }
+
+        .service-card h3 { 
+            font-size: 1.4rem; 
+            font-weight: 600; 
+            color: var(--text-color);
+            margin-top: auto;
+        }
         
         .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); }
         .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
@@ -199,120 +257,115 @@
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
         #scrollTopBtn:hover { background-color: var(--border-color); }
         
-        /* --- MOBILE MENU STYLES --- */
-        .menu-overlay {
+        /* === START: NEW MOBILE MENU STYLES === */
+        .nav-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: var(--overlay-color);
-            z-index: 1003;
+            z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transition: opacity var(--transition-speed) var(--ease-out-quart), visibility var(--transition-speed) var(--ease-out-quart);
+            transition: opacity var(--transition-speed), visibility var(--transition-speed);
         }
-        .menu-overlay.active {
+
+        body.nav-open .nav-overlay {
             opacity: 1;
             visibility: visible;
         }
 
-        .mobile-menu-container {
-            position: fixed;
-            top: 0;
-            background: var(--bg-color);
-            height: 100%;
-            width: 85%;
-            max-width: 320px;
-            z-index: 1004;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            padding: 2.5rem 1.5rem;
-            transition: transform var(--transition-speed) var(--ease-out-quart);
-        }
-        
-        html[dir="rtl"] .mobile-menu-container {
-            right: 0;
-            transform: translateX(100%);
-        }
-        html[dir="ltr"] .mobile-menu-container {
-            left: 0;
-            transform: translateX(-100%);
-        }
-        
-        .mobile-menu-container.active {
-            transform: translateX(0);
-        }
-
-        .mobile-menu-container .main-nav {
-            flex-direction: column;
-            gap: 0;
-            flex-grow: 1;
-        }
-        .mobile-menu-container .main-nav a {
-            display: block;
-            padding: 1rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-bottom: 1px solid var(--border-color);
-        }
-         .mobile-menu-container .main-nav li:first-child a {
-            border-top: 1px solid var(--border-color);
-        }
-        .mobile-menu-container .main-nav a:hover,
-        .mobile-menu-container .main-nav a.active {
-            background-color: rgba(128,128,128, 0.1);
-        }
-
-        .mobile-menu-footer {
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .mobile-menu-footer .theme-toggle {
-            transform: scale(1.2);
-        }
-        .mobile-menu-footer .lang-toggle {
-             padding: 0.6rem 1.5rem;
-        }
-        /* --- END OF MOBILE MENU STYLES --- */
-
         @media (max-width: 768px) {
-            .nav-container {
-                display: none; /* Hide desktop nav container */
-            }
-            .header-actions {
-                 /* Hide original actions on mobile */
+            .menu-toggle { display: block; }
+            
+            .header-actions .lang-toggle {
                 display: none;
             }
-            .header-actions-mobile {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-            }
-            .menu-toggle { 
-                display: block; 
-            }
-        }
-        @media (min-width: 769px) {
-            .mobile-menu-container, .menu-overlay {
-                display: none; /* Hide mobile menu on desktop */
-            }
-        }
 
+            .main-nav {
+                position: fixed;
+                top: 0;
+                height: 100%;
+                width: min(80vw, 320px);
+                background-color: var(--surface-color);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 0 20px rgba(0,0,0,0.2);
+                z-index: 1001;
+                padding: 5rem 0 2rem;
+                flex-direction: column;
+                gap: 0.5rem;
+                transition: transform 0.4s var(--ease-out-quart);
+                border: none;
+                max-height: none; /* Override old style */
+            }
+            
+            html[dir="rtl"] .main-nav {
+                right: 0;
+                transform: translateX(100%);
+                border-left: 1px solid var(--border-color);
+            }
+            html[dir="ltr"] .main-nav {
+                left: 0;
+                transform: translateX(-100%);
+                border-right: 1px solid var(--border-color);
+            }
+
+            body.nav-open .main-nav {
+                transform: translateX(0);
+            }
+
+            .main-nav li {
+                width: 100%;
+                text-align: inherit;
+            }
+            .main-nav a {
+                display: block;
+                padding: 0.8rem 2.5rem;
+                font-size: 1.2rem;
+                font-weight: 500;
+                transition: background-color 0.2s, color 0.2s;
+            }
+            html[dir="rtl"] .main-nav a { text-align: right; }
+            html[dir="ltr"] .main-nav a { text-align: left; }
+
+            .main-nav a:hover, .main-nav a.active {
+                background-color: var(--border-color);
+                color: var(--text-color);
+            }
+            
+            .main-nav .nav-lang-switcher {
+                margin-top: auto;
+                padding: 1.5rem 2.5rem 0;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .main-nav .nav-lang-switcher .lang-toggle {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+                font-weight: 600;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                background-color: transparent;
+                display: block;
+                text-align: center;
+            }
+            .main-nav .nav-lang-switcher .lang-toggle:hover {
+                background-color: var(--border-color);
+                transform: none;
+            }
+        }
+        /* === END: NEW MOBILE MENU STYLES === */
     </style>
 </head>
 <body>
     <header class="header">
         <a href="#hero" class="logo">solu_tion.dev</a>
-        
         <div class="nav-container">
             <nav>
-                <ul class="main-nav">
+                <ul class="main-nav" id="main-nav">
                     <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
                     <li><a href="#about" class="nav-link" data-lang-key="navAbout"></a></li>
                     <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
@@ -322,29 +375,12 @@
                 </ul>
             </nav>
         </div>
-        
         <div class="header-actions">
             <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme"></button>
             <button class="lang-toggle" id="header-lang-toggle" aria-label="Change language">AR</button>
-        </div>
-
-        <div class="header-actions-mobile">
-             <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu"></button>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu"></button>
         </div>
     </header>
-    
-    <div class="menu-overlay" id="menu-overlay"></div>
-    <div class="mobile-menu-container" id="mobile-menu-container">
-        <nav>
-            <ul class="main-nav" id="main-nav-mobile">
-                </ul>
-        </nav>
-        <div class="mobile-menu-footer">
-            <button class="theme-toggle" id="mobile-theme-toggle" aria-label="Toggle theme"></button>
-            <button class="lang-toggle" id="mobile-lang-toggle" aria-label="Change language">AR</button>
-        </div>
-    </div>
-
 
     <main>
         <section id="hero" class="hero">
@@ -501,12 +537,60 @@
         </div>
     </div>
 
-    <div class="modal" id="landing-page-modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title" data-lang-key="landingPageModalTitle"></h3><button class="modal-close">&times;</button></div><div class="modal-body" data-lang-key="landingPageModalContent"></div></div></div>
-    <div class="modal" id="multi-page-modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title" data-lang-key="multiPageModalTitle"></h3><button class="modal-close">&times;</button></div><div class="modal-body" data-lang-key="multiPageModalContent"></div></div></div>
-    <div class="modal" id="ecommerce-modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title" data-lang-key="ecommerceModalTitle"></h3><button class="modal-close">&times;</button></div><div class="modal-body" data-lang-key="ecommerceModalContent"></div></div></div>
-    <div class="modal" id="blog-modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title" data-lang-key="blogModalTitle"></h3><button class="modal-close">&times;</button></div><div class="modal-body" data-lang-key="blogModalContent"></div></div></div>
-    <div class="modal" id="booking-modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title" data-lang-key="bookingModalTitle"></h3><button class="modal-close">&times;</button></div><div class="modal-body" data-lang-key="bookingModalContent"></div></div></div>
-    <div class="modal" id="portfolio-modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title" data-lang-key="portfolioModalTitle"></h3><button class="modal-close">&times;</button></div><div class="modal-body" data-lang-key="portfolioModalContent"></div></div></div>
+    <div class="modal" id="landing-page-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="landingPageModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="landingPageModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="multi-page-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="multiPageModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="multiPageModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="ecommerce-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="ecommerceModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="ecommerceModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="blog-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="blogModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="blogModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="bookingModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="bookingModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="portfolio-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="portfolioModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="portfolioModalContent"></div>
+        </div>
+    </div>
 
 
     <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">
@@ -523,6 +607,7 @@
                 close: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
             };
             
+            // Translations object remains the same
             const translations = {
                 ar: {
                     navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا",
@@ -598,39 +683,53 @@
             let textAnimationObserver;
 
             const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenuContainer = document.getElementById('mobile-menu-container');
-            const menuOverlay = document.getElementById('menu-overlay');
-            const mobileNavList = document.getElementById('main-nav-mobile');
-            
+            const mobileNav = document.getElementById('main-nav');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
             const modalTriggers = document.querySelectorAll('[data-modal-target]');
+            const headerLangToggle = document.getElementById('header-lang-toggle');
             
+            // === START: NEW MENU LOGIC ===
+            const navOverlay = document.createElement('div');
+            navOverlay.className = 'nav-overlay';
+            document.body.appendChild(navOverlay);
+
+            if (headerLangToggle) {
+                const langToggleClone = headerLangToggle.cloneNode(true);
+                langToggleClone.id = 'menu-lang-toggle';
+                const li = document.createElement('li');
+                li.className = 'nav-lang-switcher';
+                li.appendChild(langToggleClone);
+                mobileNav.appendChild(li);
+                langToggleClone.addEventListener('click', handleLangToggle);
+            }
+
+            function closeNav() {
+                document.body.classList.remove('nav-open');
+                menuToggle.innerHTML = icons.menu;
+            }
+
+            menuToggle.addEventListener('click', () => {
+                const isOpen = document.body.classList.toggle('nav-open');
+                menuToggle.innerHTML = isOpen ? icons.close : icons.menu;
+            });
+
+            navOverlay.addEventListener('click', closeNav);
+
+            document.querySelectorAll('.main-nav a').forEach(link => {
+                link.addEventListener('click', closeNav);
+            });
+            // === END: NEW MENU LOGIC ===
+
+
             const founderAvatar = document.getElementById('founder-avatar');
             if (founderAvatar) {
                 founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
             }
-
-            function closeMobileMenu() {
-                mobileMenuContainer.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                menuToggle.innerHTML = icons.menu;
-                document.body.classList.remove('nav-open');
-            }
-
-            menuToggle.addEventListener('click', () => {
-                const isActive = mobileMenuContainer.classList.toggle('active');
-                menuOverlay.classList.toggle('active');
-                menuToggle.innerHTML = isActive ? icons.close : icons.menu;
-                document.body.classList.toggle('nav-open', isActive);
-            });
             
-            menuOverlay.addEventListener('click', closeMobileMenu);
-
             document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
             document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
-
             scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             window.addEventListener('scroll', handleScroll);
             if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
@@ -663,27 +762,39 @@
                     }
                 });
             });
-            
+
             function initTextAnimations() {
                 const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
                 
-                if (textAnimationObserver) { textAnimationObserver.disconnect(); }
+                if (textAnimationObserver) {
+                    textAnimationObserver.disconnect();
+                }
 
                 textAnimationObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const container = entry.target;
+                            
                             const text = container.textContent;
                             const words = text.trim().split(' ');
+                            
                             container.innerHTML = ''; 
                             container.classList.add('slide-up-words');
+
                             words.forEach((word, index) => {
                                 const wordSpan = document.createElement('span');
                                 wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
                                 container.appendChild(wordSpan);
-                                if (index < words.length - 1) { container.appendChild(document.createTextNode(' ')); }
+                                
+                                if (index < words.length - 1) {
+                                    container.appendChild(document.createTextNode(' '));
+                                }
                             });
-                            setTimeout(() => { container.classList.add('is-visible'); }, 50);
+                            
+                            setTimeout(() => {
+                                container.classList.add('is-visible');
+                            }, 50);
+
                             observer.unobserve(container);
                         }
                     });
@@ -691,11 +802,13 @@
 
                 elementsToAnimate.forEach(el => {
                     el.classList.remove('is-visible', 'slide-up-words');
+                    
                     const key = el.getAttribute('data-lang-key');
                     const lang = langCycle[currentLangIndex];
                     if (key && translations[lang] && translations[lang][key]) {
                         el.innerHTML = translations[lang][key];
                     }
+                    
                     textAnimationObserver.observe(el);
                 });
             }
@@ -720,38 +833,13 @@
                 document.querySelectorAll('.lang-toggle').forEach(toggle => {
                     if (toggle) toggle.textContent = langCode.toUpperCase();
                 });
-                
-                populateMobileNav();
+
                 startTypingEffect();
                 createFAQ();
                 createTestQuestions();
                 initTextAnimations(); 
             }
             
-            function populateMobileNav() {
-                mobileNavList.innerHTML = ''; // Clear existing links
-                const navLinks = [
-                    { href: "#hero", key: "navHome" },
-                    { href: "#about", key: "navAbout" },
-                    { href: "#services", key: "navServices" },
-                    { href: "#website-test", key: "navTest" },
-                    { href: "#faq", key: "navFAQ" },
-                    { href: "#contact", key: "navContact" },
-                ];
-
-                navLinks.forEach(linkInfo => {
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.href = linkInfo.href;
-                    a.className = 'nav-link';
-                    a.dataset.langKey = linkInfo.key;
-                    a.textContent = translations[langCycle[currentLangIndex]][linkInfo.key];
-                    a.addEventListener('click', closeMobileMenu);
-                    li.appendChild(a);
-                    mobileNavList.appendChild(li);
-                });
-            }
-
             function startTypingEffect() {
                 const titleEl = document.getElementById('hero-title-animated');
                 if (!titleEl) return;
@@ -764,21 +852,38 @@
 
                 if (typingTimeout) clearTimeout(typingTimeout);
 
-                let phraseIndex = 0; let charIndex = 0; let isDeleting = false;
+                let phraseIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
                 function type() {
                     const currentPhrase = phrases[phraseIndex];
                     let typeSpeed;
+
                     if (isDeleting) {
                         typeSpeed = 75;
                         titleEl.innerHTML = `${currentPhrase.substring(0, charIndex--)}<span class="typing-cursor"></span>`;
-                        if (charIndex < 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; charIndex = 0; typeSpeed = 500; }
+                        
+                        if (charIndex < 0) {
+                            isDeleting = false;
+                            phraseIndex = (phraseIndex + 1) % phrases.length;
+                            charIndex = 0; 
+                            typeSpeed = 500; 
+                        }
                     } else {
                         typeSpeed = 150;
                         titleEl.innerHTML = `${currentPhrase.substring(0, charIndex++)}<span class="typing-cursor"></span>`;
-                        if (charIndex > currentPhrase.length) { isDeleting = true; charIndex = currentPhrase.length; typeSpeed = 2000; }
+                        
+                        if (charIndex > currentPhrase.length) {
+                            isDeleting = true;
+                            charIndex = currentPhrase.length; 
+                            typeSpeed = 2000; 
+                        }
                     }
+                    
                     typingTimeout = setTimeout(type, typeSpeed);
                 }
+
                 type();
             }
 
@@ -811,7 +916,7 @@
                         currentSection = section.id;
                     }
                 });
-                document.querySelectorAll('.nav-link').forEach(a => {
+                document.querySelectorAll('.main-nav a').forEach(a => {
                     a.classList.toggle('active', a.getAttribute('href') === '#' + currentSection);
                 });
                 
@@ -821,13 +926,22 @@
             function handleParallaxEffect() {
                 const aboutSection = document.querySelector('#about');
                 if (!aboutSection) return;
+
                 const rect = aboutSection.getBoundingClientRect();
+
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                     const avatar = document.querySelector('.founder-avatar');
                     const bio = document.querySelector('.founder-bio');
                     const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-                    if (avatar) { const avatarY = scrollPercent * -80; avatar.style.transform = `translateY(${avatarY}px)`; }
-                    if (bio) { const bioY = scrollPercent * -40; bio.style.transform = `translateY(${bioY}px)`; }
+
+                    if (avatar) {
+                        const avatarY = scrollPercent * -80;
+                        avatar.style.transform = `translateY(${avatarY}px)`;
+                    }
+                    if (bio) {
+                        const bioY = scrollPercent * -40;
+                        bio.style.transform = `translateY(${bioY}px)`;
+                    }
                 }
             }
 
@@ -918,7 +1032,13 @@
             function initServiceCardAnimations() {
                 const serviceCards = document.querySelectorAll('.service-card');
                 if (!serviceCards.length) return;
-                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+
+                const observerOptions = {
+                    root: null, 
+                    rootMargin: '0px',
+                    threshold: 0.1 
+                };
+
                 const cardObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -927,11 +1047,13 @@
                         }
                     });
                 }, observerOptions);
+
                 serviceCards.forEach((card, index) => {
                     card.style.transitionDelay = `${index * 100}ms`;
                     cardObserver.observe(card);
                 });
             }
+
 
             function init() {
                 const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -953,6 +1075,7 @@
 
                 menuToggle.innerHTML = icons.menu;
                 handleScroll();
+                
                 initServiceCardAnimations();
             }
 
