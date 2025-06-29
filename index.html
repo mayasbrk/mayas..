@@ -64,7 +64,6 @@
             transition: background-color var(--transition-speed), color var(--transition-speed); 
         }
 
-        /* --- START: NEW BLURRY BACKGROUND TECHNIQUE --- */
         body::before {
             content: '';
             position: fixed;
@@ -80,14 +79,13 @@
             animation: animated-gradient 12s ease-in-out infinite;
             
             filter: blur(8px);
-            transform: scale(1.1); /* Prevents hard edges from the blur */
+            transform: scale(1.1);
             transition: background var(--transition-speed);
         }
 
         body.light-mode::before {
             background: linear-gradient(135deg, #d5d5d5, #ffffff, #d5d5d5);
         }
-        /* --- END: NEW BLURRY BACKGROUND TECHNIQUE --- */
 
         html[lang="ar"] body { font-family: var(--font-cairo); }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; position: relative; z-index: 1; }
@@ -115,11 +113,18 @@
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
         
-        #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; border: 1px solid var(--border-color); }
+        #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; border: 1px solid var(--border-color); overflow: hidden; /* لإخفاء أي تجاوز للحركة */ }
         .founder-content { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
         .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center; flex-shrink: 0; border: 3px solid var(--border-color); }
         .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
         .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
+        
+        /* --- CSS جديد لتأثير Parallax --- */
+        .founder-avatar, .founder-bio {
+            will-change: transform;
+            transition: transform 0.3s ease-out;
+        }
+        /* --- نهاية CSS الجديد --- */
         
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
@@ -535,7 +540,8 @@
                     if (toggle) toggle.innerHTML = isLight ? icons.moon : icons.sun;
                 });
             }
-
+            
+            // --- دالة التمرير المحدثة ---
             function handleScroll() {
                 if (scrollTopBtn) {
                     scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
@@ -552,8 +558,40 @@
                 document.querySelectorAll('.reveal').forEach(el => {
                     if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('visible');
                 });
+
+                // لتحسين الأداء، نطلب من المتصفح تشغيل الدالة قبل التحديث التالي للإطار
+                requestAnimationFrame(handleParallaxEffect);
             }
             
+            // --- دالة تأثير Parallax الجديدة ---
+            function handleParallaxEffect() {
+                const aboutSection = document.querySelector('#about');
+                if (!aboutSection) return;
+
+                const rect = aboutSection.getBoundingClientRect();
+
+                // التأكد من أن القسم في مجال الرؤية
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const avatar = document.querySelector('.founder-avatar');
+                    const bio = document.querySelector('.founder-bio');
+
+                    // حساب مدى التمرير داخل القسم
+                    const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+
+                    if (avatar) {
+                        // سرعة بطيئة للصورة (تتحرك للأعلى ببطء)
+                        const avatarY = scrollPercent * -80; // -80px هي أقصى مسافة تحرك
+                        avatar.style.transform = `translateY(${avatarY}px)`;
+                    }
+                    if (bio) {
+                        // سرعة أسرع قليلاً للنص
+                        const bioY = scrollPercent * -40; // -40px هي أقصى مسافة تحرك
+                        bio.style.transform = `translateY(${bioY}px)`;
+                    }
+                }
+            }
+
+
             async function handleFormSubmit(event) {
                 event.preventDefault();
                 const lang = langCycle[currentLangIndex];
@@ -661,7 +699,7 @@
                 updateLanguage(initialLang);
 
                 menuToggle.innerHTML = icons.menu;
-                handleScroll();
+                handleScroll(); // Call once on load
             }
 
             init();
