@@ -112,13 +112,29 @@
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
         
+        /* --- Animation States --- */
+        #about, #website-test, #faq, #contact {
+            opacity: 0;
+            transform: translateY(40px);
+            will-change: opacity, transform;
+        }
+
+        #about.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #website-test, #faq, #contact {
+            transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart);
+        }
+        
         #about { 
             background-color: var(--surface-color); 
             border-radius: 16px; 
             padding: 4rem 2rem; 
             border: 1px solid var(--border-color); 
             overflow: hidden; 
-            transition: box-shadow var(--transition-speed), border-color var(--transition-speed);
+            transition: box-shadow var(--transition-speed), border-color var(--transition-speed), opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart);
             box-shadow: 0 0 20px -8px var(--glow-color);
         }
         #about:hover {
@@ -362,7 +378,7 @@
             <div class="founder-content">
                 <div class="founder-avatar" id="founder-avatar"></div>
                 <div class="founder-bio">
-                    <h3 data-lang-key="founderName"></h3>
+                    <h3 data-lang-key="founderName" data-animate="slide-up-words"></h3>
                     <p data-lang-key="founderText" data-animate="slide-up-words"></p>
                 </div>
             </div>
@@ -977,6 +993,23 @@
                 });
             }
 
+            function initSectionEntryAnimations() {
+                const sections = document.querySelectorAll('#about, #website-test, #faq, #contact');
+                if (!sections.length) return;
+
+                const sectionObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                sections.forEach(section => {
+                    sectionObserver.observe(section);
+                });
+            }
 
             function init() {
                 const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -997,6 +1030,7 @@
                 updateLanguage(initialLang);
                 handleScroll();
                 initServiceCardAnimations();
+                initSectionEntryAnimations();
             }
 
             init();
