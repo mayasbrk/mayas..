@@ -47,7 +47,6 @@
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
         
-        /* -- التعديل الجديد: أنيميشن دوران بطيء للخلفية -- */
         @keyframes animated-aurora {
             from {
                 transform: rotate(0deg);
@@ -66,45 +65,31 @@
             color: var(--text-color); 
             line-height: 1.7; 
             transition: background-color var(--transition-speed), color var(--transition-speed); 
-            overflow-x: hidden; /* لمنع ظهور أي أشرطة تمرير جانبية */
+            overflow-x: hidden;
         }
 
-        /* -- التعديل الجذري على الخلفية -- */
         body::before {
             content: '';
             position: fixed;
-            /* جعل العنصر أكبر من الشاشة لتجنب رؤية الحواف عند الدوران */
             top: -50%; 
             left: -50%;
             width: 200vw;
             height: 200vh;
             z-index: -1;
             pointer-events: none;
-            
-            /* خلفية الوضع الليلي */
             background-color: #0d0d0d;
             background-image:
-                /* السحابة اللونية الأولى (بنفسجي ساطع) */
                 radial-gradient(circle at 25% 25%, #8B5CF6 0%, rgba(139, 92, 246, 0) 30%),
-                /* السحابة اللونية الثانية (بنفسجي داكن) */
                 radial-gradient(circle at 75% 75%, #4a23a0 0%, rgba(74, 35, 160, 0) 35%);
-
-            /* زيادة قوة الضبابية لتحقيق نعومة فائقة */
             filter: blur(40px);
-            
-            /* تطبيق أنيميشن الدوران البطيء */
             animation: animated-aurora 30s linear infinite;
-            
             transition: background-image var(--transition-speed);
         }
 
         body.light-mode::before {
-            /* خلفية الوضع النهاري */
             background-color: #ffffff;
             background-image:
-                /* السحابة اللونية الأولى (بنفسجي متوسط) */
                 radial-gradient(circle at 20% 80%, #c084fc 0%, rgba(192, 132, 252, 0) 30%),
-                /* السحابة اللونية الثانية (بنفسجي فاتح جداً) */
                 radial-gradient(circle at 80% 30%, #f3e8ff 0%, rgba(243, 232, 255, 0) 40%);
         }
 
@@ -136,19 +121,18 @@
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
         
-        /* --- Animation States --- */
-        #about, #website-test, #faq, #contact {
+        #about, #pricing, #website-test, #faq, #contact {
             opacity: 0;
             transform: translateY(40px);
             will-change: opacity, transform;
         }
 
-        #about.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible {
+        #about.is-visible, #pricing.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        #website-test, #faq, #contact {
+        #pricing, #website-test, #faq, #contact {
             transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart);
         }
         
@@ -249,6 +233,115 @@
             font-weight: 600; 
             color: var(--text-color);
             margin-top: auto;
+        }
+
+        /* --- Styles for Pricing Section --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+        .pricing-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 15px -5px var(--glow-color);
+        }
+        
+        .pricing-card.popular {
+            transform: scale(1.05);
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 30px -5px var(--glow-color);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: var(--primary-text-color);
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card .price {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+        .pricing-card .price small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--subtle-text-color);
+            margin-inline-start: 0.5rem;
+        }
+        
+        .features-list {
+            list-style: none;
+            text-align: start;
+            margin-bottom: 2.5rem;
+        }
+
+        .features-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-color);
+        }
+
+        .features-list li::before {
+            content: '✔';
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .features-list li.disabled {
+            color: var(--subtle-text-color);
+            text-decoration: line-through;
+        }
+        .features-list li.disabled::before {
+             content: '✖';
+             color: var(--subtle-text-color);
+        }
+        
+        .pricing-card .btn {
+            width: 100%;
+        }
+
+        @media (max-width: 992px) {
+            .pricing-card.popular {
+                transform: scale(1); /* Remove scale on smaller screens to avoid layout issues */
+            }
+             .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+                margin-inline: auto;
+            }
         }
         
         .website-test-tool { 
@@ -361,7 +454,6 @@
 
         /* --- Mobile Styles --- */
         @media (max-width: 768px) {
-            /* Hide main navigation on mobile */
             .main-nav {
                 display: none;
             }
@@ -468,6 +560,65 @@
                     </div>
                     <h3 data-lang-key="service6"></h3>
                 </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="container">
+            <h2 class="section-title" data-lang-key="pricingTitle" data-animate="slide-up-words"></h2>
+            <div class="pricing-grid">
+                
+                <div class="pricing-card">
+                    <h3 data-lang-key="plan1Name"></h3>
+                    <div class="price">
+                        <span data-lang-key="plan1Price"></span>
+                        <small data-lang-key="currencySuffix"></small>
+                    </div>
+                    <ul class="features-list">
+                        <li data-lang-key="plan1Feat1"></li>
+                        <li data-lang-key="plan1Feat2"></li>
+                        <li data-lang-key="plan1Feat3"></li>
+                        <li data-lang-key="plan1Feat4"></li>
+                        <li class="disabled" data-lang-key="plan1Feat5"></li>
+                        <li class="disabled" data-lang-key="plan1Feat6"></li>
+                    </ul>
+                    <a href="#contact" class="btn" data-lang-key="planCTA"></a>
+                </div>
+
+                <div class="pricing-card popular">
+                    <div class="popular-badge" data-lang-key="planPopularBadge"></div>
+                    <h3 data-lang-key="plan2Name"></h3>
+                    <div class="price">
+                        <span data-lang-key="plan2Price"></span>
+                        <small data-lang-key="currencySuffix"></small>
+                    </div>
+                    <ul class="features-list">
+                        <li data-lang-key="plan2Feat1"></li>
+                        <li data-lang-key="plan2Feat2"></li>
+                        <li data-lang-key="plan2Feat3"></li>
+                        <li data-lang-key="plan2Feat4"></li>
+                        <li data-lang-key="plan2Feat5"></li>
+                        <li class="disabled" data-lang-key="plan2Feat6"></li>
+                    </ul>
+                    <a href="#contact" class="btn" data-lang-key="planCTA"></a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3 data-lang-key="plan3Name"></h3>
+                    <div class="price">
+                        <span data-lang-key="plan3Price"></span>
+                        <small data-lang-key="currencySuffix"></small>
+                    </div>
+                    <ul class="features-list">
+                        <li data-lang-key="plan3Feat1"></li>
+                        <li data-lang-key="plan3Feat2"></li>
+                        <li data-lang-key="plan3Feat3"></li>
+                        <li data-lang-key="plan3Feat4"></li>
+                        <li data-lang-key="plan3Feat5"></li>
+                        <li data-lang-key="plan3Feat6"></li>
+                    </ul>
+                    <a href="#contact" class="btn" data-lang-key="planCTA"></a>
+                </div>
+
             </div>
         </section>
 
@@ -619,6 +770,34 @@
                     heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
                     aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
                     servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
+                    pricingTitle: "باقات أسعار شفافة ومنافسة",
+                    planPopularBadge: "الأكثر طلباً",
+                    currencySuffix: "د.ج",
+                    planCTA: "ابدأ الآن",
+                    plan1Name: "الباقة الأساسية",
+                    plan1Price: "3000",
+                    plan1Feat1: "صفحة ويب واحدة (Landing Page)",
+                    plan1Feat2: "تصميم متجاوب مع كل الشاشات",
+                    plan1Feat3: "نموذج تواصل فعال",
+                    plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)",
+                    plan1Feat5: "نظام إدارة المحتوى",
+                    plan1Feat6: "متجر إلكتروني متكامل",
+                    plan2Name: "الباقة الاحترافية",
+                    plan2Price: "5000",
+                    plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)",
+                    plan2Feat2: "تصميم متجاوب ومخصص",
+                    plan2Feat3: "ربط بلوحة تحكم (CMS)",
+                    plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)",
+                    plan2Feat5: "دعم فني لمدة شهر",
+                    plan2Feat6: "متجر إلكتروني متكامل",
+                    plan3Name: "الباقة المتكاملة",
+                    plan3Price: "12000",
+                    plan3Feat1: "موقع متعدد الصفحات غير محدود",
+                    plan3Feat2: "تصميم فريد وعصري",
+                    plan3Feat3: "ربط بلوحة تحكم (CMS)",
+                    plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)",
+                    plan3Feat5: "دعم فني لمدة 3 أشهر",
+                    plan3Feat6: "متجر إلكتروني مع بوابات دفع",
                     testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
                     testYes: "نعم", testNo: "لا",
                     testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
@@ -641,6 +820,34 @@
                     heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Get a Free Consultation",
                     aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just a facade, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant design and high-performance code.",
                     servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-page Sites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolios",
+                    pricingTitle: "Transparent & Competitive Plans",
+                    planPopularBadge: "Most Popular",
+                    currencySuffix: "DA",
+                    planCTA: "Get Started",
+                    plan1Name: "Basic",
+                    plan1Price: "3000",
+                    plan1Feat1: "Single Web Page (Landing Page)",
+                    plan1Feat2: "Responsive Design",
+                    plan1Feat3: "Contact Form",
+                    plan1Feat4: "Basic SEO Setup",
+                    plan1Feat5: "Content Management System (CMS)",
+                    plan1Feat6: "Full E-commerce Store",
+                    plan2Name: "Professional",
+                    plan2Price: "5000",
+                    plan2Feat1: "Multi-page Site (up to 5 pages)",
+                    plan2Feat2: "Custom & Responsive Design",
+                    plan2Feat3: "CMS Integration",
+                    plan2Feat4: "Advanced SEO Optimization",
+                    plan2Feat5: "1-Month Technical Support",
+                    plan2Feat6: "Full E-commerce Store",
+                    plan3Name: "Ultimate",
+                    plan3Price: "12000",
+                    plan3Feat1: "Unlimited Multi-page Site",
+                    plan3Feat2: "Unique & Modern Design",
+                    plan3Feat3: "CMS Integration",
+                    plan3Feat4: "Professional SEO Optimization",
+                    plan3Feat5: "3-Months Technical Support",
+                    plan3Feat6: "E-commerce with Payment Gateways",
                     testTitle: "Is Your Website Good Enough?", testQ1: "Is your website mobile-friendly?", testQ2: "Does your site load fast?", testQ3: "Is your content easy to navigate?", testQ4: "Does your site look professional?", testQ5: "Is your contact info clear?",
                     testYes: "Yes", testNo: "No",
                     testResultGood: "Great! Your site seems to be performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
@@ -663,6 +870,34 @@
                     heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Consultation Gratuite",
                     aboutTitle: "Solutions Numériques Innovantes pour Votre Marque", founderName: "Amayas berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas juste une façade, mais un puissant outil de croissance. Ma mission est de transformer vos ideas en réalité numérique grâce à un design élégant et un code performant.",
                     servicesTitle: "Nos Services", service1: "Pages de Destination", service2: "Sites Multi-pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolios",
+                    pricingTitle: "Forfaits Transparents & Compétitifs",
+                    planPopularBadge: "Le plus populaire",
+                    currencySuffix: "DA",
+                    planCTA: "Commencer",
+                    plan1Name: "Basique",
+                    plan1Price: "3000",
+                    plan1Feat1: "Page Web Unique (Landing Page)",
+                    plan1Feat2: "Design Responsive",
+                    plan1Feat3: "Formulaire de Contact",
+                    plan1Feat4: "Configuration SEO de Base",
+                    plan1Feat5: "Système de Gestion de Contenu (CMS)",
+                    plan1Feat6: "Boutique E-commerce Complète",
+                    plan2Name: "Professionnel",
+                    plan2Price: "5000",
+                    plan2Feat1: "Site Multi-pages (jusqu'à 5)",
+                    plan2Feat2: "Design Personnalisé & Responsive",
+                    plan2Feat3: "Intégration CMS",
+                    plan2Feat4: "Optimisation SEO Avancée",
+                    plan2Feat5: "1 mois de support technique",
+                    plan2Feat6: "Boutique E-commerce Complète",
+                    plan3Name: "Intégral",
+                    plan3Price: "12000",
+                    plan3Feat1: "Site Multi-pages Illimité",
+                    plan3Feat2: "Design Unique et Moderne",
+                    plan3Feat3: "Intégration CMS",
+                    plan3Feat4: "Optimisation SEO Professionnelle",
+                    plan3Feat5: "3 mois de support technique",
+                    plan3Feat6: "E-commerce avec Passerelles de Paiement",
                     testTitle: "Votre Site est-il Performant ?", testQ1: "Votre site est-il compatible mobile ?", testQ2: "Votre site se charge-t-il rapidement ?", testQ3: "Votre contenu est-il facile à naviguer ?", testQ4: "Le design est-il professionnel ?", testQ5: "Vos coordonnées sont-elles claires ?",
                     testYes: "Oui", testNo: "Non",
                     testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider !</a>",
@@ -1019,7 +1254,7 @@
             }
 
             function initSectionEntryAnimations() {
-                const sections = document.querySelectorAll('#about, #website-test, #faq, #contact');
+                const sections = document.querySelectorAll('#about, #pricing, #website-test, #faq, #contact');
                 if (!sections.length) return;
 
                 const sectionObserver = new IntersectionObserver((entries, observer) => {
