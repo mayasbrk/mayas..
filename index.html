@@ -134,8 +134,9 @@
         }
         
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); display: flex; flex-direction: column; cursor: pointer; }
+        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); display: flex; flex-direction: column; }
         .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
+        .service-card[data-modal-target] { cursor: pointer; }
         
         .service-icon-container {
             width: 100px;
@@ -208,8 +209,8 @@
         .modal-close { background: none; border: none; font-size: 2rem; color: var(--subtle-text-color); cursor: pointer; }
         .modal-body p { margin-bottom: 1rem; }
         .modal-body h4 { margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--text-color); }
-        .modal-body ul { list-style-position: inside; padding-inline-start: 1rem; margin-bottom: 1rem;}
-        .modal-body ul li { margin-bottom: 0.5rem; }
+        .modal-body ul { list-style-position: inside; padding-inline-start: 1rem; }
+        .modal-body li { margin-bottom: 0.5rem; }
         
         .footer { background-color: var(--surface-color); border-top: 1px solid var(--border-color); padding: 3rem 0; text-align: center; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
@@ -295,7 +296,7 @@
         <section id="services" class="container">
             <h2 class="section-title" data-lang-key="servicesTitle" data-animate="slide-up-words"></h2>
             <div class="services-grid">
-                <div class="service-card" data-modal-target="service-modal-1">
+                <div class="service-card" data-modal-target="landing-page-modal">
                     <div class="service-icon-container">
                         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -305,7 +306,7 @@
                     </div>
                     <h3 data-lang-key="service1"></h3>
                 </div>
-                <div class="service-card" data-modal-target="service-modal-2">
+                <div class="service-card" data-modal-target="multi-page-modal">
                     <div class="service-icon-container">
                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon>
@@ -315,7 +316,7 @@
                     </div>
                     <h3 data-lang-key="service2"></h3>
                 </div>
-                <div class="service-card" data-modal-target="service-modal-3">
+                <div class="service-card" data-modal-target="ecommerce-modal">
                     <div class="service-icon-container">
                         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="9" cy="21" r="1" class="cart-wheel"></circle><circle cx="20" cy="21" r="1" class="cart-wheel"></circle>
@@ -324,7 +325,7 @@
                     </div>
                     <h3 data-lang-key="service3"></h3>
                 </div>
-                <div class="service-card" data-modal-target="service-modal-4">
+                <div class="service-card" data-modal-target="blog-modal">
                     <div class="service-icon-container">
                         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
@@ -333,7 +334,7 @@
                     </div>
                     <h3 data-lang-key="service4"></h3>
                 </div>
-                <div class="service-card" data-modal-target="service-modal-5">
+                <div class="service-card" data-modal-target="booking-modal">
                     <div class="service-icon-container">
                         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
@@ -342,7 +343,7 @@
                     </div>
                     <h3 data-lang-key="service5"></h3>
                 </div>
-                <div class="service-card" data-modal-target="service-modal-6">
+                <div class="service-card" data-modal-target="portfolio-modal">
                     <div class="service-icon-container">
                         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="portfolio-image"></rect>
@@ -408,85 +409,6 @@
         </div>
     </footer>
     
-    <div class="modal" id="service-modal-1">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="service1"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p data-lang-key="service1_desc"></p>
-                <h4 data-lang-key="featuresTitle"></h4>
-                <ul data-lang-key="service1_features"></ul>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="service-modal-2">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="service2"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p data-lang-key="service2_desc"></p>
-                <h4 data-lang-key="featuresTitle"></h4>
-                <ul data-lang-key="service2_features"></ul>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="service-modal-3">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="service3"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p data-lang-key="service3_desc"></p>
-                <h4 data-lang-key="featuresTitle"></h4>
-                <ul data-lang-key="service3_features"></ul>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="service-modal-4">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="service4"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p data-lang-key="service4_desc"></p>
-                <h4 data-lang-key="featuresTitle"></h4>
-                <ul data-lang-key="service4_features"></ul>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="service-modal-5">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="service5"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p data-lang-key="service5_desc"></p>
-                <h4 data-lang-key="featuresTitle"></h4>
-                <ul data-lang-key="service5_features"></ul>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="service-modal-6">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="service6"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p data-lang-key="service6_desc"></p>
-                <h4 data-lang-key="featuresTitle"></h4>
-                <ul data-lang-key="service6_features"></ul>
-            </div>
-        </div>
-    </div>
-
     <div class="modal" id="privacy-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -505,6 +427,62 @@
             <div class="modal-body" data-lang-key="termsContent"></div>
         </div>
     </div>
+
+    <div class="modal" id="landing-page-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="landingPageModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="landingPageModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="multi-page-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="multiPageModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="multiPageModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="ecommerce-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="ecommerceModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="ecommerceModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="blog-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="blogModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="blogModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="bookingModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="bookingModalContent"></div>
+        </div>
+    </div>
+    <div class="modal" id="portfolio-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-lang-key="portfolioModalTitle"></h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" data-lang-key="portfolioModalContent"></div>
+        </div>
+    </div>
+
 
     <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">
         <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>
@@ -526,26 +504,7 @@
                     heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
                     heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
                     aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
-                    servicesTitle: "خدماتنا", 
-                    service1: "صفحات الهبوط", 
-                    service2: "مواقع متعددة الصفحات", 
-                    service3: "متاجر إلكترونية", 
-                    service4: "إضافة مدونة", 
-                    service5: "أنظمة الحجز", 
-                    service6: "معرض أعمال",
-                    featuresTitle: "الميزات الأساسية:",
-                    service1_desc: "صفحة الهبوط هي صفحة ويب واحدة مصممة لهدف تسويقي محدد، مثل إطلاق منتج جديد أو جمع بيانات العملاء المحتملين. نركز على تصميم جذاب وتجربة مستخدم سلسة لتحقيق أعلى معدل تحويل ممكن.",
-                    service1_features: "<li>تصميم فريد وموجه للهدف</li><li>سرعة تحميل فائقة</li><li>متجاوبة 100% مع جميع الأجهزة</li><li>دعوة واضحة لاتخاذ إجراء (CTA)</li><li>ربط مع أدوات التحليل (Google Analytics)</li>",
-                    service2_desc: "نقدم خدمة بناء مواقع إلكترونية متكاملة للشركات والعلامات التجارية التي ترغب في تأسيس حضور رقمي قوي. الموقع متعدد الصفحات هو هويتك الرقمية الكاملة التي تعرض خدماتك، رسالتك، وقصتك.",
-                    service2_features: "<li>تصميم احترافي يعكس علامتك التجارية</li><li>نظام إدارة محتوى (CMS) مثل WordPress لتسهيل التعديلات</li><li>بنية صديقة لمحركات البحث (SEO)</li><li>صفحات أساسية (من نحن، خدماتنا، اتصل بنا)</li><li>تكامل مع خرائط جوجل ووسائل التواصل الاجتماعي</li>",
-                    service3_desc: "هل ترغب في بيع منتجاتك عبر الإنترنت؟ نقوم ببناء متاجر إلكترونية قوية وآمنة تتيح لك الوصول إلى جمهور أوسع وإدارة عمليات البيع بكفاءة. نستخدم منصات رائدة مثل WooCommerce و Shopify لضمان تجربة تسوق ممتازة لعملائك.",
-                    service3_features: "<li>تصميم جذاب وسهل التنقل للمنتجات</li><li>بوابات دفع آمنة ومتعددة</li><li>نظام لإدارة المنتجات والمخزون</li><li>عربة تسوق وسلة مشتريات متطورة</li><li>صفحة لتتبع الطلبات للعملاء</li>",
-                    service4_desc: "المحتوى هو الملك. إضافة مدونة إلى موقعك هي أفضل استراتيجية لتحسين ترتيبك في جوجل، بناء ثقة جمهورك، ومشاركة خبراتك. نقوم بدمج نظام مدونة قوي وسهل الاستخدام في موقعك الحالي أو الجديد.",
-                    service4_features: "<li>محرر نصوص سهل الاستخدام</li><li>نظام تصنيفات ووسوم (Categories & Tags)</li><li>أزرار مشاركة على وسائل التواصل الاجتماعي</li><li>قسم للتعليقات لزيادة التفاعل</li><li>تحسينات SEO للمقالات</li>",
-                    service5_desc: "إذا كان عملك يعتمد على المواعيد (عيادة، صالون، استشارات)، فإن نظام الحجز الآلي يوفر عليك الوقت والجهد. نصمم ونربط أنظمة حجز تتيح لعملائك حجز مواعيدهم بسهولة عبر الإنترنت في أي وقت.",
-                    service5_features: "<li>تقويم يعرض المواعيد المتاحة</li><li>إمكانية الدفع المسبق لتأكيد الحجز</li><li>إشعارات وتذكيرات آلية عبر البريد الإلكتروني</li><li>لوحة تحكم سهلة لإدارة الحجوزات</li><li>تزامن مع تقويم جوجل (Google Calendar)</li>",
-                    service6_desc: "للمبدعين والمصورين والمصممين، معرض الأعمال هو أداتك الأساسية لعرض مواهبك. نصمم مواقع بتركيز بصري عالٍ، حيث يكون التصميم في خدمة أعمالك الفنية ليبرزها بأفضل طريقة ممكنة.",
-                    service6_features: "<li>تصميم بسيط وأنيق يركز على المحتوى البصري</li><li>معارض صور وفيديوهات عالية الدقة</li><li>أداء سريع حتى مع المحتوى الكبير (Lazy Loading)</li><li>حماية للمحتوى (مثل منع النقر الأيمن)</li><li>سهولة إضافة أعمال جديدة</li>",
+                    servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
                     testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
                     testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
@@ -553,33 +512,20 @@
                     formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
                     footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerCredit: "جميع الحقوق محفوظة. © تم تطويره بواسطة Amayas Berkani",
                     privacyTitle: "سياسة الخصوصية", privacyContent: "<h4>جمع المعلومات</h4><p>نقوم بجمع المعلومات التي تقدمها مباشرة عبر نموذج التواصل، مثل الاسم والبريد الإلكتروني، وذلك بهدف الرد على استفساراتك وتقديم خدماتنا.</p><h4>استخدام المعلومات</h4><p>تستخدم المعلومات التي نجمعها فقط للتواصل معك بخصوص طلباتك ولتحسين خدماتنا. نحن لا نشارك بياناتك الشخصية مع أي طرف ثالث دون موافقتك الصريحة.</p>",
-                    termsTitle: "شروط الخدمة", termsContent: "<h4>الاستخدام</h4><p>باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. نحتفظ بالحق في تعديل هذه الشروط في أي وقت.</p><h4>الخدمات</h4><p>يتم الاتفاق على تفاصيل الخدمات المقدمة، بما في ذلك النطاق والتكلفة والجداول الزمنية، بشكل رسمي قبل بدء أي عمل. حجز استشارة لا يشكل عقداً ملزماً.</p>"
+                    termsTitle: "شروط الخدمة", termsContent: "<h4>الاستخدام</h4><p>باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. نحتفظ بالحق في تعديل هذه الشروط في أي وقت.</p><h4>الخدمات</h4><p>يتم الاتفاق على تفاصيل الخدمات المقدمة، بما في ذلك النطاق والتكلفة والجداول الزمنية، بشكل رسمي قبل بدء أي عمل. حجز استشارة لا يشكل عقداً ملزماً.</p>",
+                    landingPageModalTitle: "خدمة صفحات الهبوط", landingPageModalContent: "<p>صفحة الهبوط هي صفحة ويب واحدة مصممة خصيصًا لهدف تسويقي محدد. هدفها هو تحويل الزوار إلى عملاء محتملين عن طريق تشجيعهم على اتخاذ إجراء معين.</p><h4>الميزات الأساسية</h4><ul><li>تصميم جذاب ومركز على الهدف.</li><li>دعوة واضحة لاتخاذ إجراء (Call-to-Action).</li><li>محتوى مقنع وموجز.</li><li>نموذج بسيط لجمع بيانات العملاء.</li><li>متوافقة تمامًا مع جميع الشاشات.</li></ul><h4>فائدة ذلك لعملك</h4><p>تزيد من فعالية حملاتك الإعلانية، ترفع معدلات التحويل، وتوفر بيانات دقيقة لقياس نجاحك.</p>",
+                    multiPageModalTitle: "خدمة المواقع متعددة الصفحات", multiPageModalContent: "<p>الموقع متعدد الصفحات هو الواجهة الرقمية الكاملة لشركتك، حيث يعرض هويتك، خدماتك، ومنتجاتك بشكل شامل ومنظم عبر عدة صفحات مترابطة.</p><h4>الميزات الأساسية</h4><ul><li>هيكل تنقل واضح وسهل الاستخدام.</li><li>صفحات متخصصة (من نحن، خدماتنا، اتصل بنا، ...).</li><li>تصميم يعكس هوية علامتك التجارية.</li><li>أساس قوي لتحسين محركات البحث (SEO).</li><li>محتوى شامل لبناء ثقة العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يبني مصداقية قوية لعلامتك التجارية، يوفر معلومات كاملة لجمهورك، ويعتبر مركزًا رقميًا لجميع أنشطتك التسويقية.</p>",
+                    ecommerceModalTitle: "خدمة تصميم المتاجر الإلكترونية", ecommerceModalContent: "<p>نحن نحول فكرة متجرك إلى واقع رقمي متكامل. نصمم ونطور متاجر إلكترونية احترافية تساعدك على عرض منتجاتك بأسلوب جذاب، إدارة عملياتك بسهولة، وتحقيق النمو في المبيعات.</p><h4>المنصات والتقنيات</h4><ul><li><b>ووكومرس (WooCommerce):</b> للمتاجر المبنية على ووردبريس، مما يوفر سهولة في الإدارة ولوحة تحكم غنية.</li><li><b>شوبيفاي (Shopify):</b> نقوم بتخصيص القوالب وتطوير تطبيقات خاصة لتناسب هوية علامتك التجارية.</li><li><b>حلول مخصصة (Custom):</b> للمشاريع الفريدة، نقوم ببناء متاجر من الصفر باستخدام تقنيات حديثة.</li></ul><h4>فائدة ذلك لعملك</h4><p>توسيع قاعدة عملائك، بناء علامة تجارية قوية، وزيادة أرباحك من خلال قناة بيع تعمل على مدار الساعة.</p>",
+                    blogModalTitle: "خدمة إضافة مدونة", blogModalContent: "<p>إضافة قسم للمدونة في موقعك هو استثمار استراتيجي لإنشاء محتوى قيم يجذب الزوار، يبني الثقة، ويثبت خبرتك في مجالك.</p><h4>الميزات الأساسية</h4><ul><li>نظام إدارة محتوى سهل الاستخدام (CMS).</li><li>تصنيف المقالات عبر الوسوم والفئات.</li><li>إمكانية التعليق والمشاركة على الشبكات الاجتماعية.</li><li>هيكلة المقالات لتكون صديقة لمحركات البحث.</li></ul><h4>فائدة ذلك لعملك</h4><p>زيادة الزيارات المجانية من جوجل، ترسيخ مكانتك كخبير في مجالك، وتوفير محتوى دائم لمشاركته مع جمهورك.</p>",
+                    bookingModalTitle: "خدمة أنظمة الحجز", bookingModalContent: "<p>نظام الحجز الإلكتروني يسمح لعملائك بحجز المواعيد أو الخدمات مباشرة من موقعك في أي وقت ومن أي مكان، مما يوفر وقتك ووقتهم.</p><h4>الميزات الأساسية</h4><ul><li>تقويم يعرض المواعيد المتاحة بشكل فوري.</li><li>إمكانية الدفع المسبق لتأكيد الحجوزات.</li><li>إرسال تأكيدات وتذكيرات آلية عبر البريد الإلكتروني.</li><li>لوحة تحكم لإدارة الحجوزات والموظفين والخدمات.</li></ul><h4>فائدة ذلك لعملك</h4><p>أتمتة عملية جدولة المواعيد، تقليل حالات عدم الحضور، وزيادة كفاءة إدارة وقتك وعملك.</p>",
+                    portfolioModalTitle: "خدمة معرض الأعمال (Portfolio)", portfolioModalContent: "<p>معرض الأعمال هو الطريقة الأكثر احترافية لعرض مهاراتك ومشاريعك السابقة. إنه سيرتك الذاتية المرئية التي تتحدث عن جودة عملك.</p><h4>الميزات الأساسية</h4><ul><li>تصميم أنيق يركز على عرض أعمالك.</li><li>معارض صور وفيديو عالية الجودة.</li><li>تقسيم الأعمال حسب الفئة لتسهيل التصفح.</li><li>صفحة لكل مشروع تحتوي على تفاصيل وشهادات العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يعرض خبرتك بشكل ملموس، يجذب عملاء جدد يقدرون الجودة، ويبني علامتك الشخصية أو التجارية بقوة.</p>"
                 },
                 en: {
                     navHome: "Home", navAbout: "About", navServices: "Services", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact",
                     heroTitle: ["Professional Digital Identity", "Turning Ideas into Reality", "Innovative Web Solutions"],
                     heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Get a Free Consultation",
                     aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just a facade, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant design and high-performance code.",
-                    servicesTitle: "Our Services", 
-                    service1: "Landing Pages", 
-                    service2: "Multi-page Sites", 
-                    service3: "E-commerce Stores", 
-                    service4: "Blog Integration", 
-                    service5: "Booking Systems", 
-                    service6: "Portfolios",
-                    featuresTitle: "Key Features:",
-                    service1_desc: "A landing page is a single web page designed for a specific marketing goal, like launching a new product or capturing leads. We focus on compelling design and a seamless user experience to achieve the highest possible conversion rate.",
-                    service1_features: "<li>Unique, goal-oriented design</li><li>Blazing-fast loading speed</li><li>100% responsive on all devices</li><li>Clear Call-to-Action (CTA)</li><li>Integration with analytics tools (Google Analytics)</li>",
-                    service2_desc: "We offer comprehensive website development for businesses and brands looking to establish a strong digital presence. A multi-page site is your complete digital identity, showcasing your services, mission, and story.",
-                    service2_features: "<li>Professional design reflecting your brand</li><li>Content Management System (CMS) like WordPress for easy edits</li><li>SEO-friendly architecture</li><li>Essential pages (About, Services, Contact)</li><li>Integration with Google Maps and social media</li>",
-                    service3_desc: "Want to sell your products online? We build robust and secure e-commerce stores that allow you to reach a wider audience and manage sales efficiently. We use leading platforms like WooCommerce and Shopify to ensure an excellent shopping experience for your customers.",
-                    service3_features: "<li>Attractive and easy-to-navigate product layout</li><li>Secure and multiple payment gateways</li><li>Product and inventory management system</li><li>Advanced shopping cart and checkout</li><li>Order tracking page for customers</li>",
-                    service4_desc: "Content is king. Adding a blog to your site is the best strategy to improve your Google ranking, build audience trust, and share your expertise. We integrate a powerful and user-friendly blog system into your new or existing website.",
-                    service4_features: "<li>Easy-to-use text editor</li><li>Categories & Tags system</li><li>Social media sharing buttons</li><li>Comments section for engagement</li><li>SEO optimizations for articles</li>",
-                    service5_desc: "If your business relies on appointments (clinic, salon, consulting), an automated booking system saves you time and effort. We design and integrate booking systems that let your clients easily schedule their appointments online, anytime.",
-                    service5_features: "<li>Calendar showing available slots</li><li>Option for upfront payment to confirm bookings</li><li>Automated email reminders</li><li>Easy-to-use dashboard to manage bookings</li><li>Sync with Google Calendar</li>",
-                    service6_desc: "For creatives, photographers, and designers, a portfolio is your essential tool to showcase your talent. We design visually-focused websites where the design serves your artwork, highlighting it in the best possible way.",
-                    service6_features: "<li>Minimalist and elegant design focused on visual content</li><li>High-resolution image and video galleries</li><li>Fast performance even with large content (Lazy Loading)</li><li>Content protection (e.g., disable right-click)</li><li>Easy to add new works</li>",
+                    servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-page Sites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolios",
                     testTitle: "Is Your Website Good Enough?", testQ1: "Is your website mobile-friendly?", testQ2: "Does your site load fast?", testQ3: "Is your content easy to navigate?", testQ4: "Does your site look professional?", testQ5: "Is your contact info clear?",
                     testResultGood: "Great! Your site seems to be performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
                     faqTitle: "Frequently Asked Questions", faqQ1: "How long to build a website?", faqA1: "A simple site usually takes 1-2 weeks, depending on the project scope.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start, and the rest upon final delivery.", faqQ4: "Do you build websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need for your business.",
@@ -587,33 +533,20 @@
                     formSending: "Sending...", formSuccess: "Thank you! Your message was sent.", formError: "Sorry, an error occurred.",
                     footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "All rights reserved. © Developed by Amayas Berkani",
                     privacyTitle: "Privacy Policy", privacyContent: "<h4>Information Collection</h4><p>We collect information that you provide directly through the contact form, such as name and email, to respond to your inquiries and provide our services.</p><h4>Use of Information</h4><p>The information we collect is used solely to communicate with you regarding your requests and to improve our services. We do not share your personal data with any third parties without your explicit consent.</p>",
-                    termsTitle: "Terms of Service", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these Terms of Service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Details of the services provided, including scope, cost, and timelines, are formally agreed upon before any work begins. A consultation does not constitute a binding contract.</p>"
+                    termsTitle: "Terms of Service", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these Terms of Service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Details of the services provided, including scope, cost, and timelines, are formally agreed upon before any work begins. A consultation does not constitute a binding contract.</p>",
+                    landingPageModalTitle: "Landing Pages Service", landingPageModalContent: "<p>A landing page is a single web page designed for a specific marketing goal. Its purpose is to convert visitors into leads by encouraging them to take a specific action.</p><h4>Key Features</h4><ul><li>Attractive, goal-oriented design.</li><li>Clear Call-to-Action (CTA).</li><li>Concise and persuasive copy.</li><li>Simple lead generation form.</li><li>Fully responsive on all screens.</li></ul><h4>Benefit for Your Business</h4><p>Increases the effectiveness of your ad campaigns, boosts conversion rates, and provides accurate data to measure your success.</p>",
+                    multiPageModalTitle: "Multi-Page Websites Service", multiPageModalContent: "<p>A multi-page website is the complete digital presence for your company, showcasing your identity, services, and products in a comprehensive and organized manner across several linked pages.</p><h4>Key Features</h4><ul><li>Clear and easy-to-use navigation structure.</li><li>Dedicated pages (About, Services, Contact, etc.).</li><li>Design that reflects your brand identity.</li><li>Strong foundation for Search Engine Optimization (SEO).</li><li>Comprehensive content to build customer trust.</li></ul><h4>Benefit for Your Business</h4><p>Builds strong credibility for your brand, provides complete information to your audience, and serves as a central digital hub for all your marketing activities.</p>",
+                    ecommerceModalTitle: "E-commerce Stores Service", ecommerceModalContent: "<p>We transform your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you showcase your products attractively, manage your operations easily, and achieve sales growth.</p><h4>Platforms & Technologies</h4><ul><li><b>WooCommerce:</b> For WordPress-based stores, providing easy management and a feature-rich control panel.</li><li><b>Shopify:</b> We customize themes and develop special apps to match your brand identity.</li><li><b>Custom Solutions:</b> For unique projects, we build stores from scratch using modern technologies.</li></ul><h4>Benefit for Your Business</h4><p>Expand your customer base, build a strong brand, and increase your profits through a 24/7 sales channel.</p>",
+                    blogModalTitle: "Blog Integration Service", blogModalContent: "<p>Adding a blog section to your site is a strategic investment to create valuable content that attracts visitors, builds trust, and establishes your expertise in your field.</p><h4>Key Features</h4><ul><li>Easy-to-use Content Management System (CMS).</li><li>Post categorization via tags and categories.</li><li>Commenting and social sharing functionality.</li><li>SEO-friendly article structure.</li></ul><h4>Benefit for Your Business</h4><p>Increases organic traffic from Google, establishes you as an expert in your field, and provides evergreen content to share with your audience.</p>",
+                    bookingModalTitle: "Booking Systems Service", bookingModalContent: "<p>An online booking system allows your clients to book appointments or services directly from your website at any time, from anywhere, saving your time and theirs.</p><h4>Key Features</h4><ul><li>A calendar showing real-time availability.</li><li>Option for upfront payments to confirm bookings.</li><li>Automated email confirmations and reminders.</li><li>A dashboard to manage bookings, staff, and services.</li></ul><h4>Benefit for Your Business</h4><p>Automates the appointment scheduling process, reduces no-shows, and increases the efficiency of managing your time and business.</p>",
+                    portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality image and video galleries.</li><li>Project categorization for easy Browse.</li><li>A detail page for each project with descriptions and client testimonials.</li></ul><h4>Benefit for Your Business</h4><p>Visibly demonstrates your expertise, attracts new clients who value quality, and strongly builds your personal or company brand.</p>"
                 },
                 fr: {
                     navHome: "Accueil", navAbout: "À propos", navServices: "Services", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact",
                     heroTitle: ["Votre Identité Numérique", "Transformer les Idées en Réalité", "Solutions Web Innovantes"],
                     heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Consultation Gratuite",
                     aboutTitle: "Solutions Numériques Innovantes pour Votre Marque", founderName: "Amayas berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas juste une façade, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à un design élégant et un code performant.",
-                    servicesTitle: "Nos Services", 
-                    service1: "Pages de Destination", 
-                    service2: "Sites Multi-pages", 
-                    service3: "Boutiques E-commerce", 
-                    service4: "Intégration de Blog", 
-                    service5: "Systèmes de Réservation", 
-                    service6: "Portfolios",
-                    featuresTitle: "Caractéristiques Clés :",
-                    service1_desc: "Une page de destination est une page web unique conçue pour un objectif marketing spécifique, comme lancer un nouveau produit ou capturer des prospects. Nous nous concentrons sur un design convaincant et une expérience utilisateur fluide pour atteindre le taux de conversion le plus élevé possible.",
-                    service1_features: "<li>Design unique et orienté objectif</li><li>Vitesse de chargement ultra-rapide</li><li>100% responsive sur tous les appareils</li><li>Appel à l'action (CTA) clair</li><li>Intégration avec les outils d'analyse (Google Analytics)</li>",
-                    service2_desc: "Nous offrons le développement de sites web complets pour les entreprises et les marques qui souhaitent établir une forte présence numérique. Un site multi-pages est votre identité numérique complète, présentant vos services, votre mission et votre histoire.",
-                    service2_features: "<li>Design professionnel reflétant votre marque</li><li>Système de gestion de contenu (CMS) comme WordPress pour des modifications faciles</li><li>Architecture optimisée pour le SEO</li><li>Pages essentielles (À propos, Services, Contact)</li><li>Intégration avec Google Maps et les réseaux sociaux</li>",
-                    service3_desc: "Vous voulez vendre vos produits en ligne ? Nous construisons des boutiques e-commerce robustes et sécurisées qui vous permettent d'atteindre un public plus large et de gérer les ventes efficacement. Nous utilisons des plateformes de premier plan comme WooCommerce et Shopify pour garantir une excellente expérience d'achat.",
-                    service3_features: "<li>Présentation des produits attrayante et facile à naviguer</li><li>Passerelles de paiement sécurisées et multiples</li><li>Système de gestion des produits et des stocks</li><li>Panier d'achat et processus de paiement avancés</li><li>Page de suivi des commandes pour les clients</li>",
-                    service4_desc: "Le contenu est roi. Ajouter un blog à votre site est la meilleure stratégie pour améliorer votre classement Google, renforcer la confiance de votre public et partager votre expertise. Nous intégrons un système de blog puissant et convivial à votre site.",
-                    service4_features: "<li>Éditeur de texte facile à utiliser</li><li>Système de catégories et d'étiquettes</li><li>Boutons de partage sur les réseaux sociaux</li><li>Section de commentaires pour l'engagement</li><li>Optimisations SEO pour les articles</li>",
-                    service5_desc: "Si votre activité dépend des rendez-vous (clinique, salon, consultation), un système de réservation automatisé vous fait gagner du temps et des efforts. Nous concevons et intégrons des systèmes de réservation qui permettent à vos clients de prendre rendez-vous facilement en ligne, à tout moment.",
-                    service5_features: "<li>Calendrier affichant les disponibilités</li><li>Option de paiement anticipé pour confirmer</li><li>Rappels automatisés par e-mail</li><li>Tableau de bord facile pour gérer les réservations</li><li>Synchronisation avec Google Agenda</li>",
-                    service6_desc: "Pour les créatifs, photographes et designers, un portfolio est votre outil essentiel pour mettre en valeur votre talent. Nous concevons des sites à fort impact visuel, où le design met en valeur vos œuvres de la meilleure façon possible.",
-                    service6_features: "<li>Design minimaliste et élégant axé sur le contenu visuel</li><li>Galeries d'images et de vidéos haute résolution</li><li>Performance rapide même avec un contenu volumineux (Lazy Loading)</li><li>Protection du contenu (ex: désactiver le clic droit)</li><li>Facilité d'ajout de nouvelles œuvres</li>",
+                    servicesTitle: "Nos Services", service1: "Pages de Destination", service2: "Sites Multi-pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolios",
                     testTitle: "Votre Site est-il Performant ?", testQ1: "Votre site est-il compatible mobile ?", testQ2: "Votre site se charge-t-il rapidement ?", testQ3: "Votre contenu est-il facile à naviguer ?", testQ4: "Le design est-il professionnel ?", testQ5: "Vos coordonnées sont-elles claires ?",
                     testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider !</a>",
                     faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.", faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
@@ -621,7 +554,13 @@
                     formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Termes", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
                     privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
-                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Usage</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>"
+                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Usage</h4><p>En utilisant ce site, vous acceptez d'être lié par ces Conditions d'Utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>",
+                    landingPageModalTitle: "Service de Pages de Destination", landingPageModalContent: "<p>Une page de destination (landing page) est une page web unique conçue pour un objectif marketing spécifique. Son but est de convertir les visiteurs en prospects en les incitant à effectuer une action précise.</p><h4>Caractéristiques Clés</h4><ul><li>Design attrayant et axé sur l'objectif.</li><li>Appel à l'action (CTA) clair.</li><li>Texte concis et persuasif.</li><li>Formulaire simple de collecte de données.</li><li>Entièrement responsive sur tous les écrans.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente l'efficacité de vos campagnes publicitaires, améliore les taux de conversion et fournit des données précises pour mesurer votre succès.</p>",
+                    multiPageModalTitle: "Service de Sites Multi-pages", multiPageModalContent: "<p>Un site multi-pages est la vitrine numérique complète de votre entreprise, présentant votre identité, vos services et vos produits de manière exhaustive et organisée sur plusieurs pages liées.</p><h4>Caractéristiques Clés</h4><ul><li>Structure de navigation claire et simple.</li><li>Pages dédiées (À propos, Services, Contact, etc.).</li><li>Design qui reflète l'identité de votre marque.</li><li>Base solide pour l'optimisation des moteurs de recherche (SEO).</li><li>Contenu complet pour renforcer la confiance des clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Renforce la crédibilité de votre marque, fournit des informations complètes à votre public et sert de hub numérique central pour toutes vos activités marketing.</p>",
+                    ecommerceModalTitle: "Service de Boutiques E-commerce", ecommerceModalContent: "<p>Nous transformons votre idée de boutique en une réalité numérique complète. Nous concevons des boutiques en ligne professionnelles qui vous aident à présenter vos produits, à gérer vos opérations et à augmenter vos ventes.</p><h4>Plateformes et Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un panel riche en fonctionnalités.</li><li><b>Shopify :</b> Nous personnalisons des thèmes et développons des applications pour correspondre à votre marque.</li><li><b>Solutions sur mesure :</b> Pour les projets uniques, nous construisons des boutiques de A à Z avec des technologies modernes.</li></ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24/7.</p>",
+                    blogModalTitle: "Service d'Intégration de Blog", blogModalContent: "<p>Ajouter une section blog à votre site est un investissement stratégique pour créer du contenu de valeur qui attire les visiteurs, instaure la confiance et établit votre expertise.</p><h4>Caractéristiques Clés</h4><ul><li>Système de gestion de contenu (CMS) facile à utiliser.</li><li>Catégorisation des articles par tags et catégories.</li><li>Fonctionnalité de commentaires et de partage social.</li><li>Structure d'article optimisée pour le SEO.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente le trafic organique de Google, vous positionne en tant qu'expert et fournit du contenu frais à partager avec votre audience.</p>",
+                    bookingModalTitle: "Service de Systèmes de Réservation", bookingModalContent: "<p>Un système de réservation en ligne permet à vos clients de prendre rendez-vous ou de réserver des services directement depuis votre site, à tout moment, ce qui vous fait gagner du temps, à vous et à eux.</p><h4>Caractéristiques Clés</h4><ul><li>Un calendrier affichant la disponibilité en temps réel.</li><li>Option de paiement anticipé pour confirmer les réservations.</li><li>Confirmations et rappels automatiques par e-mail.</li><li>Tableau de bord pour gérer les réservations, le personnel et les services.</li></ul><h4>Avantage pour votre entreprise</h4><p>Automatise la planification des rendez-vous, réduit les absences et augmente l'efficacité de la gestion de votre temps et de votre activité.</p>",
+                    portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>Un portfolio est le moyen le plus professionnel de présenter vos compétences et vos projets antérieurs. C'est votre CV visuel qui témoigne de la qualité de votre travail.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries d'images et de vidéos de haute qualité.</li><li>Catégorisation des projets pour une navigation facile.</li><li>Page de détail pour chaque projet avec descriptions et témoignages clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit solidement votre marque personnelle ou d'entreprise.</p>"
                 }
             };
             
@@ -663,11 +602,18 @@
             window.addEventListener('scroll', handleScroll);
             if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
 
-            modalTriggers.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modalId = button.dataset.modalTarget;
+            function openModal(modal) {
+                if (modal) {
+                    modal.classList.add('active');
+                }
+            }
+
+            modalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    const targetElement = e.target.closest('[data-modal-target]');
+                    const modalId = targetElement.dataset.modalTarget;
                     const modal = document.getElementById(modalId);
-                    if (modal) modal.classList.add('active');
+                    openModal(modal);
                 });
             });
 
@@ -739,26 +685,19 @@
 
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
-                if (!langData) return;
-                
                 document.documentElement.lang = langCode;
                 document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
 
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
-                    if (langData[key]) {
-                        // Handle list items for features
-                        if (key.includes('_features')) {
-                            el.innerHTML = langData[key];
-                        } else if (!Array.isArray(langData[key])) {
-                            el.innerHTML = langData[key];
-                        }
+                    if (langData && langData[key] && !Array.isArray(langData[key])) {
+                         el.innerHTML = langData[key];
                     }
                 });
                 
                 document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-lang-placeholder');
-                    if(langData[key]) el.placeholder = langData[key];
+                    if(langData && langData[key]) el.placeholder = langData[key];
                 });
                 
                 document.querySelectorAll('.lang-toggle').forEach(toggle => {
@@ -930,7 +869,7 @@
                 qKeys.forEach((key, i) => {
                     const item = document.createElement('div');
                     item.classList.add('test-question-item');
-                    item.innerHTML = `<p>${translations[lang]['test'+key]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${lang === 'ar' ? 'نعم' : (lang === 'en' ? 'Yes' : 'Oui')}</button><button value="no">${lang === 'ar' ? 'لا' : (lang === 'en' ? 'No' : 'Non')}</button></div>`;
+                    item.innerHTML = `<p>${translations[lang]['test'+key]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${lang === 'ar' ? 'نعم' : (lang === 'en' ? 'Yes' : 'Non')}</button><button value="no">${lang === 'ar' ? 'لا' : (lang === 'en' ? 'No' : 'Non')}</button></div>`;
                     container.appendChild(item);
                 });
                 container.addEventListener('click', (e) => {
@@ -949,4 +888,29 @@
             }
 
             function init() {
-                const savedTheme = localStorage.getItem('theme') ||
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                document.body.classList.toggle('light-mode', savedTheme === 'light');
+                updateThemeIcons(savedTheme === 'light');
+                
+                const savedLang = localStorage.getItem('siteLang');
+                let initialLang = 'ar';
+                if(savedLang && langCycle.includes(savedLang)) {
+                    initialLang = savedLang;
+                } else {
+                    const browserLang = (navigator.language || navigator.userLanguage).slice(0, 2);
+                    if (browserLang === 'fr') initialLang = 'fr';
+                    else if (browserLang === 'en') initialLang = 'en';
+                }
+                
+                currentLangIndex = langCycle.indexOf(initialLang);
+                updateLanguage(initialLang);
+
+                menuToggle.innerHTML = icons.menu;
+                handleScroll();
+            }
+
+            init();
+        });
+    </script>
+</body>
+</html>
