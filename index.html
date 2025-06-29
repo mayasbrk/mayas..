@@ -127,7 +127,6 @@
 
         /* --- MOBILE STYLES -- */
         @media (max-width: 768px) {
-            /* UPDATED: This allows the transition to work correctly */
             .main-nav {
                 position: absolute;
                 top: 100%;
@@ -135,15 +134,14 @@
                 width: 100%;
                 background-color: var(--surface-color);
                 flex-direction: column;
-                padding: 0; /* No padding when closed */
+                padding: 0;
                 border-bottom: 1px solid var(--border-color);
-                max-height: 0; /* Hide with max-height for transition */
+                max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.5s var(--ease-out-quart), padding 0.5s var(--ease-out-quart);
             }
-            /* UPDATED: Add padding when menu is open */
             .main-nav.active {
-                max-height: 500px; /* Expand to show */
+                max-height: 500px;
                 padding: 1rem 0;
             }
             .main-nav li { width: 100%; text-align: center; }
@@ -221,7 +219,8 @@
 
         <section id="contact" class="container reveal">
             <h2 class="section-title" data-lang-key="contactTitle"></h2>
-            <form id="contact-form" action="https://formspree.io/f/xblyqala" method="POST">
+            <!-- UPDATED: Form action URL changed -->
+            <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
                 <input type="text" name="name" required data-lang-placeholder="formName">
                 <input type="email" name="email" required data-lang-placeholder="formEmail">
                 <textarea name="message" required data-lang-placeholder="formMessage"></textarea>
@@ -350,7 +349,6 @@
                 founderAvatar.style.backgroundImage = `url(${founderImageBase64})`;
             }
 
-            // UPDATED: Added icon change on menu toggle
             menuToggle.addEventListener('click', () => {
                 const isActive = mobileNav.classList.toggle('active');
                 menuToggle.innerHTML = isActive ? icons.close : icons.menu;
@@ -360,7 +358,7 @@
                 link.addEventListener('click', () => {
                     if (mobileNav.classList.contains('active')) {
                         mobileNav.classList.remove('active');
-                        menuToggle.innerHTML = icons.menu; // Revert icon on link click
+                        menuToggle.innerHTML = icons.menu;
                     }
                 });
             });
