@@ -121,18 +121,18 @@
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
         
-        #about, #pricing, #website-test, #faq, #contact {
+        #about, #services, #pricing, #website-test, #faq, #contact {
             opacity: 0;
             transform: translateY(40px);
             will-change: opacity, transform;
         }
 
-        #about.is-visible, #pricing.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible {
+        #about.is-visible, #services.is-visible, #pricing.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        #pricing, #website-test, #faq, #contact {
+        #about, #services, #pricing, #website-test, #faq, #contact {
             transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart);
         }
         
@@ -1039,7 +1039,7 @@
             const modalTriggers = document.querySelectorAll('[data-modal-target]');
             const langCycle = ['ar', 'en', 'fr'];
 
-            document.querySelectorAll('.main-nav a').forEach(link => {
+            document.querySelectorAll('.main-nav a, .scroll-indicator-nav a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     if (href && href.startsWith('#')) {
@@ -1138,19 +1138,21 @@
 
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
+                if (!langData) return;
+                
                 document.documentElement.lang = langCode;
                 document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
 
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
-                    if (langData && langData[key] && !Array.isArray(langData[key])) {
+                    if (langData[key] && !Array.isArray(langData[key])) {
                          el.innerHTML = langData[key];
                     }
                 });
                 
                 document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-lang-placeholder');
-                    if(langData && langData[key]) el.placeholder = langData[key];
+                    if(langData[key]) el.placeholder = langData[key];
                 });
                 
                 document.querySelectorAll('.lang-toggle').forEach(toggle => {
@@ -1227,7 +1229,7 @@
                 let currentSection = 'hero';
                 document.querySelectorAll('main > section[id]').forEach(section => {
                     const headerOffset = document.querySelector('.header').offsetHeight;
-                    if (pageYOffset >= section.offsetTop - headerOffset) {
+                    if (pageYOffset >= section.offsetTop - (headerOffset + 10)) {
                         currentSection = section.id;
                     }
                 });
@@ -1367,7 +1369,7 @@
             }
 
             function initSectionEntryAnimations() {
-                const sections = document.querySelectorAll('#about, #pricing, #website-test, #faq, #contact');
+                const sections = document.querySelectorAll('#about, #services, #pricing, #website-test, #faq, #contact');
                 if (!sections.length) return;
 
                 const sectionObserver = new IntersectionObserver((entries, observer) => {
@@ -1384,7 +1386,95 @@
                 });
             }
 
-            // --- New Function: Initialize Scroll Indicator ---
             function initScrollIndicator() {
                 const navContainer = document.createElement('nav');
-                navContainer.className = 'scroll-indicator-nav
+                navContainer.className = 'scroll-indicator-nav';
+                const navList = document.createElement('ul');
+                navContainer.appendChild(navList);
+                document.body.appendChild(navContainer);
+
+                const sections = document.querySelectorAll('main > section[id]');
+                const navItems = {};
+
+                const sectionNameKeys = {
+                    'hero': 'navHome', 'about': 'navAbout', 'services': 'navServices',
+                    'pricing': 'pricingTitle', 'website-test': 'navTest', 'faq': 'navFAQ', 'contact': 'navContact'
+                };
+
+                sections.forEach(section => {
+                    const sectionId = section.id;
+                    const nameKey = sectionNameKeys[sectionId];
+                    
+                    if (nameKey) {
+                        const listItem = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = `#${sectionId}`;
+
+                        const label = document.createElement('span');
+                        label.className = 'nav-label';
+                        label.dataset.langKey = nameKey;
+
+                        link.appendChild(label);
+                        listItem.appendChild(link);
+                        navList.appendChild(listItem);
+                        navItems[sectionId] = listItem;
+                    }
+                });
+
+                const updateActiveNav = () => {
+                    let currentSectionId = '';
+                    const triggerOffset = window.innerHeight * 0.4;
+
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (pageYOffset >= sectionTop - triggerOffset) {
+                            currentSectionId = section.id;
+                        }
+                    });
+                    
+                    Object.keys(navItems).forEach(id => {
+                        navItems[id].classList.remove('active');
+                    });
+                    if (navItems[currentSectionId]) {
+                        navItems[currentSectionId].classList.add('active');
+                    }
+                };
+
+                window.addEventListener('scroll', updateActiveNav);
+                updateActiveNav();
+            }
+
+            function init() {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                document.body.classList.toggle('light-mode', savedTheme === 'light');
+                updateThemeIcons(savedTheme === 'light');
+                
+                // Initialize the structure of the page first
+                initScrollIndicator();
+                
+                const savedLang = localStorage.getItem('siteLang');
+                let initialLang = 'ar';
+                if(savedLang && langCycle.includes(savedLang)) {
+                    initialLang = savedLang;
+                } else {
+                    const browserLang = (navigator.language || navigator.userLanguage).slice(0, 2);
+                    if (browserLang === 'fr') initialLang = 'fr';
+                    else if (browserLang === 'en') initialLang = 'en';
+                }
+                
+                currentLangIndex = langCycle.indexOf(initialLang);
+                
+                // Now, populate all text content, including the newly created indicator
+                updateLanguage(initialLang); 
+                
+                // Set up the rest of the dynamic behavior
+                handleScroll();
+                initServiceCardAnimations();
+                initSectionEntryAnimations();
+            }
+
+            init();
+        });
+    </script>
+</body>
+</html>
