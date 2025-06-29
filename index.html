@@ -102,7 +102,7 @@
         .menu-toggle { display: none; background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.8rem; padding: 0.5rem; z-index: 1002; }
         
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; } /* Added min-height */
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; }
         .hero-content .typing-cursor { border-right: 4px solid var(--text-color); animation: blink 0.7s step-end infinite; }
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
@@ -134,8 +134,34 @@
         }
         
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); display: flex; flex-direction: column; }
-        .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
+        
+        /* --- NEW CSS FOR CARD ANIMATION --- */
+        .service-card { 
+            background-color: var(--surface-color); 
+            padding: 2.5rem 2rem; 
+            border-radius: 12px; 
+            border: 1px solid var(--border-color); 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column;
+            
+            /* Initial state for animation */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow var(--transition-speed);
+        }
+
+        /* Final state for animation */
+        .service-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* --- END OF NEW CSS --- */
+
+        .service-card:hover { 
+            transform: translateY(-8px); /* Keep hover effect, but it will only apply after the initial animation */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+        }
         .service-card[data-modal-target] { cursor: pointer; }
         
         .service-icon-container {
@@ -631,58 +657,6 @@
                 });
             });
 
-            let textAnimationObserver;
-            function initTextAnimations() {
-                const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
-                
-                elementsToAnimate.forEach(el => {
-                    if (el.dataset.originalHtml) {
-                        el.innerHTML = el.dataset.originalHtml;
-                    } else {
-                        el.dataset.originalHtml = el.innerHTML;
-                    }
-                    el.classList.remove('is-visible', 'slide-up-words');
-                });
-
-                if (textAnimationObserver) {
-                    textAnimationObserver.disconnect();
-                }
-
-                textAnimationObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const container = entry.target;
-                            
-                            const text = container.textContent;
-                            const words = text.trim().split(' ');
-                            
-                            container.innerHTML = ''; 
-                            container.classList.add('slide-up-words');
-
-                            words.forEach((word, index) => {
-                                const wordSpan = document.createElement('span');
-                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
-                                container.appendChild(wordSpan);
-                                
-                                if (index < words.length - 1) {
-                                    container.appendChild(document.createTextNode(' '));
-                                }
-                            });
-                            
-                            setTimeout(() => {
-                                container.classList.add('is-visible');
-                            }, 50);
-
-                            textAnimationObserver.unobserve(container);
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                elementsToAnimate.forEach(el => {
-                    textAnimationObserver.observe(el);
-                });
-            }
-
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
                 document.documentElement.lang = langCode;
@@ -710,7 +684,6 @@
                 initTextAnimations(); 
             }
             
-            // --- START OF NEW, CORRECTED TYPING ANIMATION ---
             function startTypingEffect() {
                 const titleEl = document.getElementById('hero-title-animated');
                 if (!titleEl) return;
@@ -739,8 +712,8 @@
                         if (charIndex < 0) {
                             isDeleting = false;
                             phraseIndex = (phraseIndex + 1) % phrases.length;
-                            charIndex = 0; // Reset for the next phrase
-                            typeSpeed = 500; // Pause before typing next phrase
+                            charIndex = 0;
+                            typeSpeed = 500;
                         }
                     } else {
                         // Handle typing
@@ -749,8 +722,8 @@
                         
                         if (charIndex > currentPhrase.length) {
                             isDeleting = true;
-                            charIndex = currentPhrase.length; // Set index for deletion
-                            typeSpeed = 2000; // Pause after typing is complete
+                            charIndex = currentPhrase.length;
+                            typeSpeed = 2000;
                         }
                     }
                     
@@ -759,8 +732,6 @@
 
                 type();
             }
-            // --- END OF NEW, CORRECTED TYPING ANIMATION ---
-
 
             function handleLangToggle() {
                 currentLangIndex = (currentLangIndex + 1) % langCycle.length;
@@ -904,6 +875,69 @@
                 });
             }
 
+            // --- NEW FUNCTION FOR CARD ANIMATION ---
+            function initCardAnimations() {
+                const grid = document.querySelector('.services-grid');
+                if (!grid) return;
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const cards = grid.querySelectorAll('.service-card');
+                            cards.forEach((card, index) => {
+                                card.style.transitionDelay = `${index * 100}ms`;
+                                card.classList.add('is-visible');
+                            });
+                            observer.unobserve(grid); // Animate only once
+                        }
+                    });
+                }, { threshold: 0.1 }); 
+
+                observer.observe(grid);
+            }
+
+            function initTextAnimations() {
+                const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
+                // ... (rest of the function is the same, no changes needed)
+                if (textAnimationObserver) {
+                    textAnimationObserver.disconnect();
+                }
+
+                textAnimationObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const container = entry.target;
+                            
+                            const text = container.textContent;
+                            const words = text.trim().split(' ');
+                            
+                            container.innerHTML = ''; 
+                            container.classList.add('slide-up-words');
+
+                            words.forEach((word, index) => {
+                                const wordSpan = document.createElement('span');
+                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
+                                container.appendChild(wordSpan);
+                                
+                                if (index < words.length - 1) {
+                                    container.appendChild(document.createTextNode(' '));
+                                }
+                            });
+                            
+                            setTimeout(() => {
+                                container.classList.add('is-visible');
+                            }, 50);
+
+                            textAnimationObserver.unobserve(container);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                elementsToAnimate.forEach(el => {
+                    textAnimationObserver.observe(el);
+                });
+            }
+
             function init() {
                 const savedTheme = localStorage.getItem('theme') || 'dark';
                 document.body.classList.toggle('light-mode', savedTheme === 'light');
@@ -924,6 +958,7 @@
 
                 menuToggle.innerHTML = icons.menu;
                 handleScroll();
+                initCardAnimations(); // <-- Call the new animation function
             }
 
             init();
