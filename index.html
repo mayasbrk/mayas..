@@ -124,22 +124,28 @@
         html[dir="ltr"] #scrollTopBtn { right: 20px; }
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
         #scrollTopBtn:hover { background-color: var(--border-color); }
+
+        /* --- MOBILE STYLES -- */
         @media (max-width: 768px) {
+            /* UPDATED: This allows the transition to work correctly */
             .main-nav {
-                display: none;
                 position: absolute;
                 top: 100%;
                 left: 0;
                 width: 100%;
                 background-color: var(--surface-color);
                 flex-direction: column;
-                padding: 1rem 0;
+                padding: 0; /* No padding when closed */
                 border-bottom: 1px solid var(--border-color);
-                max-height: 0;
+                max-height: 0; /* Hide with max-height for transition */
                 overflow: hidden;
                 transition: max-height 0.5s var(--ease-out-quart), padding 0.5s var(--ease-out-quart);
             }
-            .main-nav.active { max-height: 500px; padding: 1rem 0; }
+            /* UPDATED: Add padding when menu is open */
+            .main-nav.active {
+                max-height: 500px; /* Expand to show */
+                padding: 1rem 0;
+            }
             .main-nav li { width: 100%; text-align: center; }
             .main-nav a { padding: 1rem; display: block; width: 100%; }
             .menu-toggle { display: block; }
@@ -344,14 +350,17 @@
                 founderAvatar.style.backgroundImage = `url(${founderImageBase64})`;
             }
 
+            // UPDATED: Added icon change on menu toggle
             menuToggle.addEventListener('click', () => {
-                mobileNav.classList.toggle('active');
+                const isActive = mobileNav.classList.toggle('active');
+                menuToggle.innerHTML = isActive ? icons.close : icons.menu;
             });
             
             document.querySelectorAll('.main-nav a').forEach(link => {
                 link.addEventListener('click', () => {
                     if (mobileNav.classList.contains('active')) {
                         mobileNav.classList.remove('active');
+                        menuToggle.innerHTML = icons.menu; // Revert icon on link click
                     }
                 });
             });
@@ -595,3 +604,4 @@
     </script>
 </body>
 </html>
+
