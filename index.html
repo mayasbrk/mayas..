@@ -73,17 +73,18 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            background: linear-gradient(135deg, #000000, #1E1B2E, #000000); /* Dark purple background tint */
-            background-size: 300% 300%;
-            animation: animated-gradient 12s ease-in-out infinite;
+            /* التعديل هنا: تم تفتيح اللون البنفسجي وإبطاء الحركة */
+            background: linear-gradient(135deg, #0d0d0d, #4C1D95, #0d0d0d);
+            background-size: 400% 400%;
+            animation: animated-gradient 15s ease-in-out infinite;
             filter: blur(8px);
             transform: scale(1.1);
             transition: background var(--transition-speed);
         }
 
         body.light-mode::before {
-            /* التعديل هنا: تم تغيير التدرج إلى أبيض وبنفسجي فاتح */
-            background: linear-gradient(135deg, #FFFFFF, #E9D5FF); 
+            /* التعديل هنا: تم تعتيم اللون البنفسجي لزيادة الوضوح */
+            background: linear-gradient(135deg, #FFFFFF, #D8B4FE);
             background-size: 300% 300%;
             animation: animated-gradient 12s ease-in-out infinite;
         }
