@@ -121,18 +121,18 @@
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
         
-        #about, #services, #pricing, #website-test, #faq, #contact {
+        #about, #pricing, #website-test, #faq, #contact {
             opacity: 0;
             transform: translateY(40px);
             will-change: opacity, transform;
         }
 
-        #about.is-visible, #services.is-visible, #pricing.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible {
+        #about.is-visible, #pricing.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        #about, #services, #pricing, #website-test, #faq, #contact {
+        #pricing, #website-test, #faq, #contact {
             transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart);
         }
         
@@ -332,6 +332,17 @@
         .pricing-card .btn {
             width: 100%;
         }
+
+        @media (max-width: 992px) {
+            .pricing-card.popular {
+                transform: scale(1); /* Remove scale on smaller screens to avoid layout issues */
+            }
+             .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+                margin-inline: auto;
+            }
+        }
         
         .website-test-tool { 
             max-width: 800px; 
@@ -441,22 +452,31 @@
             visibility: visible;
         }
 
-        /* --- New Styles: Scroll Indicator --- */
-        .scroll-indicator-nav {
+        /* --- New Styles for Side Scroll Indicator --- */
+        .scroll-indicator {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 1001;
+            z-index: 998; /* Below header and modals, above content */
+            display: flex;
+            align-items: center;
         }
 
-        html[dir="rtl"] .scroll-indicator-nav {
-            right: 25px;
-            left: auto;
-        }
-
-        html[dir="ltr"] .scroll-indicator-nav {
+        html[dir="rtl"] .scroll-indicator {
             left: 25px;
-            right: auto;
+            flex-direction: row-reverse;
+        }
+
+        html[dir="ltr"] .scroll-indicator {
+            right: 25px;
+            flex-direction: row;
+        }
+
+        .scroll-indicator-line {
+            width: 2px;
+            height: 200px; /* Adjust as needed */
+            background-color: var(--border-color);
+            position: relative;
         }
 
         .scroll-indicator-nav ul {
@@ -466,104 +486,76 @@
             position: relative;
         }
 
-        .scroll-indicator-nav ul::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 2px;
-            height: 100%;
-            background-color: var(--border-color);
-            transform: translateX(-50%);
-        }
-        
-        html[dir="rtl"] .scroll-indicator-nav ul::before {
-            right: 5px; 
-            left: auto;
-        }
-
-        html[dir="ltr"] .scroll-indicator-nav ul::before {
-            left: 5px;
-        }
-
-        .scroll-indicator-nav li {
-            position: relative;
-            margin: 25px 0;
-        }
-
-        .scroll-indicator-nav a {
+        .scroll-indicator-nav li a {
             display: flex;
             align-items: center;
+            padding: 10px 0;
             text-decoration: none;
             color: var(--subtle-text-color);
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        .scroll-indicator-nav a::before {
-            content: '';
-            display: block;
-            width: 12px;
-            height: 12px;
-            border: 2px solid var(--subtle-text-color);
-            border-radius: 50%;
-            background-color: var(--bg-color);
-            transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
+            transition: color var(--transition-speed);
+            position: relative;
         }
         
-        html[dir="rtl"] .scroll-indicator-nav a {
-            flex-direction: row-reverse;
+        html[dir="rtl"] .scroll-indicator-nav li a {
+            padding-right: 20px;
+        }
+        html[dir="ltr"] .scroll-indicator-nav li a {
+            padding-left: 20px;
         }
 
-        html[dir="rtl"] .scroll-indicator-nav a::before {
-            margin-right: 20px;
+        .scroll-indicator-nav li a .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--subtle-text-color);
+            border-radius: 50%;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        html[dir="ltr"] .scroll-indicator-nav a::before {
-            margin-right: 20px;
+        html[dir="rtl"] .scroll-indicator-nav li a .dot {
+            right: -4px;
+        }
+        html[dir="ltr"] .scroll-indicator-nav li a .dot {
+            left: -4px;
         }
 
-        .scroll-indicator-nav .nav-label {
-            visibility: hidden;
+
+        .scroll-indicator-nav li a .section-name {
             opacity: 0;
+            visibility: hidden;
             font-size: 0.9rem;
             font-weight: 500;
             white-space: nowrap;
-            transition: visibility 0.3s, opacity 0.3s;
-            background-color: var(--surface-color);
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
+            transform: translateX(-10px);
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
         }
 
-        .scroll-indicator-nav a:hover,
+        html[dir="rtl"] .scroll-indicator-nav li a .section-name {
+            transform: translateX(10px);
+        }
+
+        .scroll-indicator-nav li a:hover .section-name,
+        .scroll-indicator-nav li.active a .section-name {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
         .scroll-indicator-nav li.active a {
             color: var(--primary-color);
         }
 
-        .scroll-indicator-nav a:hover::before,
-        .scroll-indicator-nav li.active a::before {
+        .scroll-indicator-nav li.active a .dot {
             background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            transform: scale(1.2);
-        }
-
-        .scroll-indicator-nav a:hover .nav-label,
-        .scroll-indicator-nav li.active a .nav-label {
-            visibility: visible;
-            opacity: 1;
+            transform: translateY(-50%) scale(1.7);
         }
 
         /* --- Mobile Styles --- */
         @media (max-width: 992px) {
-            .pricing-card.popular {
-                transform: scale(1); /* Remove scale on smaller screens to avoid layout issues */
-            }
-             .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 450px;
-                margin-inline: auto;
-            }
-            .scroll-indicator-nav {
-                display: none;
+            .scroll-indicator {
+                display: none; /* Hide indicator on smaller screens */
             }
         }
         @media (max-width: 768px) {
@@ -574,6 +566,15 @@
     </style>
 </head>
 <body>
+
+    <nav class="scroll-indicator" id="scroll-indicator">
+        <div class="scroll-indicator-nav" id="scroll-indicator-nav">
+            <ul>
+                </ul>
+        </div>
+        <div class="scroll-indicator-line"></div>
+    </nav>
+
     <header class="header">
         <a href="#hero" class="logo">solu_tion.dev</a>
         <div class="nav-container">
@@ -595,7 +596,7 @@
     </header>
 
     <main>
-        <section id="hero" class="hero">
+        <section id="hero" class="hero" data-section-name="الرئيسية" data-section-name-en="Home" data-section-name-fr="Accueil">
             <div class="hero-content">
                 <h1 id="hero-title-animated"></h1>
                 <p data-lang-key="heroSubtitle" data-animate="slide-up-words"></p>
@@ -603,7 +604,7 @@
             </div>
         </section>
 
-        <section id="about" class="container">
+        <section id="about" class="container" data-section-name="من نحن" data-section-name-en="About" data-section-name-fr="À propos">
             <h2 class="section-title" data-lang-key="aboutTitle" data-animate="slide-up-words"></h2>
             <div class="founder-content">
                 <div class="founder-avatar" id="founder-avatar"></div>
@@ -614,7 +615,7 @@
             </div>
         </section>
 
-        <section id="services" class="container">
+        <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
             <h2 class="section-title" data-lang-key="servicesTitle" data-animate="slide-up-words"></h2>
             <div class="services-grid">
                 <div class="service-card" data-modal-target="landing-page-modal">
@@ -676,7 +677,7 @@
             </div>
         </section>
 
-        <section id="pricing" class="container">
+        <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
             <h2 class="section-title" data-lang-key="pricingTitle" data-animate="slide-up-words"></h2>
             <div class="pricing-grid">
                 
@@ -735,7 +736,7 @@
             </div>
         </section>
 
-        <section id="website-test" class="container">
+        <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test" data-section-name-fr="Test">
              <h2 class="section-title" data-lang-key="testTitle" data-animate="slide-up-words"></h2>
              <div class="website-test-tool">
                 <div class="test-questions-container"></div>
@@ -743,12 +744,12 @@
              </div>
         </section>
 
-        <section id="faq" class="container">
+        <section id="faq" class="container" data-section-name="الأسئلة الشائعة" data-section-name-en="FAQ" data-section-name-fr="FAQ">
             <h2 class="section-title" data-lang-key="faqTitle" data-animate="slide-up-words"></h2>
             <div class="faq-container"></div>
         </section>
 
-        <section id="contact" class="container">
+        <section id="contact" class="container" data-section-name="اتصل بنا" data-section-name-en="Contact" data-section-name-fr="Contact">
             <h2 class="section-title" data-lang-key="contactTitle" data-animate="slide-up-words"></h2>
             <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
                 <input type="text" name="name" required data-lang-placeholder="formName">
@@ -777,7 +778,7 @@
             <div class="footer-links">
                 <div class="footer-social">
                     <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram">
-                        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594-.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg>
+                        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594-.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg>
                     </a>
                 </div>
                 <div class="footer-legal">
@@ -1038,8 +1039,12 @@
             const formStatus = document.getElementById('form-status');
             const modalTriggers = document.querySelectorAll('[data-modal-target]');
             const langCycle = ['ar', 'en', 'fr'];
+            // New variables for scroll indicator
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            const scrollIndicatorNav = document.getElementById('scroll-indicator-nav').querySelector('ul');
+            const pageSections = document.querySelectorAll('main > section[id]');
 
-            document.querySelectorAll('.main-nav a, .scroll-indicator-nav a').forEach(link => {
+            document.querySelectorAll('.main-nav a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     if (href && href.startsWith('#')) {
@@ -1138,21 +1143,19 @@
 
             function updateLanguage(langCode) {
                 const langData = translations[langCode];
-                if (!langData) return;
-                
                 document.documentElement.lang = langCode;
                 document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
 
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
-                    if (langData[key] && !Array.isArray(langData[key])) {
+                    if (langData && langData[key] && !Array.isArray(langData[key])) {
                          el.innerHTML = langData[key];
                     }
                 });
                 
                 document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-lang-placeholder');
-                    if(langData[key]) el.placeholder = langData[key];
+                    if(langData && langData[key]) el.placeholder = langData[key];
                 });
                 
                 document.querySelectorAll('.lang-toggle').forEach(toggle => {
@@ -1163,6 +1166,7 @@
                 createFAQ();
                 createTestQuestions();
                 initTextAnimations(); 
+                createScrollIndicator(); // Regenerate scroll indicator on lang change
             }
             
             function startTypingEffect() {
@@ -1226,16 +1230,30 @@
                 if (scrollTopBtn) {
                     scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
                 }
-                let currentSection = 'hero';
-                document.querySelectorAll('main > section[id]').forEach(section => {
-                    const headerOffset = document.querySelector('.header').offsetHeight;
-                    if (pageYOffset >= section.offsetTop - (headerOffset + 10)) {
-                        currentSection = section.id;
+                let currentSectionId = '';
+                const headerOffset = document.querySelector('.header').offsetHeight;
+
+                pageSections.forEach(section => {
+                    const sectionTop = section.offsetTop - headerOffset - 100; // Adjusted offset
+                    const sectionHeight = section.offsetHeight;
+                    if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                        currentSectionId = section.id;
                     }
                 });
+                
+                // Update top nav
                 document.querySelectorAll('.main-nav a').forEach(a => {
-                    a.classList.toggle('active', a.getAttribute('href') === '#' + currentSection);
+                    a.classList.toggle('active', a.getAttribute('href') === '#' + currentSectionId);
                 });
+
+                // Update side scroll indicator
+                if (scrollIndicator) {
+                     scrollIndicator.style.display = window.pageYOffset > window.innerHeight / 2 ? '' : 'none';
+                    const indicatorLinks = scrollIndicatorNav.querySelectorAll('li');
+                    indicatorLinks.forEach(li => {
+                        li.classList.toggle('active', li.dataset.section === currentSectionId);
+                    });
+                }
                 
                 requestAnimationFrame(handleParallaxEffect);
             }
@@ -1369,7 +1387,7 @@
             }
 
             function initSectionEntryAnimations() {
-                const sections = document.querySelectorAll('#about, #services, #pricing, #website-test, #faq, #contact');
+                const sections = document.querySelectorAll('#about, #pricing, #website-test, #faq, #contact');
                 if (!sections.length) return;
 
                 const sectionObserver = new IntersectionObserver((entries, observer) => {
@@ -1386,71 +1404,59 @@
                 });
             }
 
-            function initScrollIndicator() {
-                const navContainer = document.createElement('nav');
-                navContainer.className = 'scroll-indicator-nav';
-                const navList = document.createElement('ul');
-                navContainer.appendChild(navList);
-                document.body.appendChild(navContainer);
+            // New function to create and manage the scroll indicator
+            function createScrollIndicator() {
+                if (!scrollIndicatorNav || !pageSections.length) return;
+                
+                scrollIndicatorNav.innerHTML = ''; // Clear previous items
+                const currentLangCode = langCycle[currentLangIndex];
 
-                const sections = document.querySelectorAll('main > section[id]');
-                const navItems = {};
-
-                const sectionNameKeys = {
-                    'hero': 'navHome', 'about': 'navAbout', 'services': 'navServices',
-                    'pricing': 'pricingTitle', 'website-test': 'navTest', 'faq': 'navFAQ', 'contact': 'navContact'
-                };
-
-                sections.forEach(section => {
+                pageSections.forEach(section => {
                     const sectionId = section.id;
-                    const nameKey = sectionNameKeys[sectionId];
+                    // Get section name based on current language
+                    let sectionName = section.dataset[`sectionName${currentLangCode === 'ar' ? '' : '-' + currentLangCode}`] || section.id;
+
+                    const li = document.createElement('li');
+                    li.dataset.section = sectionId;
+
+                    const a = document.createElement('a');
+                    a.href = `#${sectionId}`;
+                    a.setAttribute('aria-label', `Go to ${sectionName} section`);
                     
-                    if (nameKey) {
-                        const listItem = document.createElement('li');
-                        const link = document.createElement('a');
-                        link.href = `#${sectionId}`;
+                    const dot = document.createElement('span');
+                    dot.className = 'dot';
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'section-name';
+                    nameSpan.textContent = sectionName;
+                    
+                    a.appendChild(nameSpan);
+                    a.appendChild(dot);
+                    li.appendChild(a);
+                    scrollIndicatorNav.appendChild(li);
 
-                        const label = document.createElement('span');
-                        label.className = 'nav-label';
-                        label.dataset.langKey = nameKey;
-
-                        link.appendChild(label);
-                        listItem.appendChild(link);
-                        navList.appendChild(listItem);
-                        navItems[sectionId] = listItem;
-                    }
-                });
-
-                const updateActiveNav = () => {
-                    let currentSectionId = '';
-                    const triggerOffset = window.innerHeight * 0.4;
-
-                    sections.forEach(section => {
-                        const sectionTop = section.offsetTop;
-                        if (pageYOffset >= sectionTop - triggerOffset) {
-                            currentSectionId = section.id;
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetElement = document.getElementById(sectionId);
+                        if (targetElement) {
+                             const headerOffset = document.querySelector('.header').offsetHeight;
+                             const elementPosition = targetElement.getBoundingClientRect().top;
+                             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                       
+                             window.scrollTo({
+                                 top: offsetPosition,
+                                 behavior: "smooth"
+                             });
                         }
                     });
-                    
-                    Object.keys(navItems).forEach(id => {
-                        navItems[id].classList.remove('active');
-                    });
-                    if (navItems[currentSectionId]) {
-                        navItems[currentSectionId].classList.add('active');
-                    }
-                };
-
-                window.addEventListener('scroll', updateActiveNav);
-                updateActiveNav();
+                });
             }
+
 
             function init() {
                 const savedTheme = localStorage.getItem('theme') || 'dark';
                 document.body.classList.toggle('light-mode', savedTheme === 'light');
                 updateThemeIcons(savedTheme === 'light');
-                
-                // Initialize the structure of the page first
-                initScrollIndicator();
                 
                 const savedLang = localStorage.getItem('siteLang');
                 let initialLang = 'ar';
@@ -1463,11 +1469,7 @@
                 }
                 
                 currentLangIndex = langCycle.indexOf(initialLang);
-                
-                // Now, populate all text content, including the newly created indicator
-                updateLanguage(initialLang); 
-                
-                // Set up the rest of the dynamic behavior
+                updateLanguage(initialLang); // This will call createScrollIndicator
                 handleScroll();
                 initServiceCardAnimations();
                 initSectionEntryAnimations();
