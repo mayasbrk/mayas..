@@ -23,12 +23,12 @@
             --text-color: #E0E0E0;
             --subtle-text-color: #A0A0A0;
             --border-color: rgba(70, 70, 70, 0.5);
-            --primary-color: #FFFFFF; 
-            --primary-text-color: #121212;
-            --primary-hover: #E0E0E0;
+            --primary-color: #8B5CF6;  /* Purple Accent */
+            --primary-text-color: #FFFFFF; /* White text on purple */
+            --primary-hover: #A37FF7; /* Lighter Purple for hover */
             --overlay-color: rgba(0, 0, 0, 0.7);
             --header-bg: rgba(18, 18, 18, 0.7);
-            --glow-color: rgba(255, 255, 255, 0.6); /* Neon Glow Color */
+            --glow-color: rgba(139, 92, 246, 0.7); /* Purple Neon Glow */
         }
 
         body.light-mode {
@@ -37,12 +37,12 @@
             --text-color: #121212;
             --subtle-text-color: #555555;
             --border-color: rgba(200, 200, 200, 0.5);
-            --primary-color: #1E1E1E;
+            --primary-color: #8B5CF6; /* Purple Accent */
             --primary-text-color: #FFFFFF;
-            --primary-hover: #000000;
+            --primary-hover: #7C3AED; /* Darker Purple for hover */
             --overlay-color: rgba(0, 0, 0, 0.6);
             --header-bg: rgba(245, 245, 245, 0.7);
-            --glow-color: rgba(30, 30, 30, 0.5); /* Neon Glow Color for Light Mode */
+            --glow-color: rgba(139, 92, 246, 0.5); /* Purple Neon Glow for Light Mode */
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
@@ -73,7 +73,7 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            background: linear-gradient(135deg, #000000, #434343, #000000);
+            background: linear-gradient(135deg, #000000, #1E1B2E, #000000); /* Dark purple background tint */
             background-size: 300% 300%;
             animation: animated-gradient 12s ease-in-out infinite;
             filter: blur(8px);
@@ -82,7 +82,7 @@
         }
 
         body.light-mode::before {
-            background: linear-gradient(135deg, #d5d5d5, #ffffff, #d5d5d5);
+            background: linear-gradient(135deg, #e7e5e4, #ffffff, #F5F3FF); /* Light purple background tint */
         }
 
         html[lang="ar"] body { font-family: var(--font-cairo); }
@@ -92,7 +92,7 @@
         .btn:hover { 
             background-color: var(--primary-hover); 
             transform: translateY(-3px); 
-            box-shadow: 0 4px 15px rgba(128, 128, 128, 0.1), 0 0 10px var(--glow-color);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2), 0 0 10px var(--glow-color);
         }
         
         .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed), border-color var(--transition-speed); }
@@ -103,12 +103,13 @@
         .main-nav a:hover, .main-nav a.active { color: var(--text-color); }
         .header-actions { display: flex; align-items: center; gap: 1rem; }
         .theme-toggle, .lang-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; transition: color var(--transition-speed), transform var(--transition-speed); }
-        .theme-toggle:hover, .lang-toggle:hover { color: var(--text-color); transform: scale(1.1); }
+        .theme-toggle:hover, .lang-toggle:hover { color: var(--primary-hover); transform: scale(1.1); }
         .lang-toggle { font-size: 1rem; font-weight: 600; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.5rem 0.8rem; background-color: transparent; }
+        .lang-toggle:hover { color: var(--primary-hover); border-color: var(--primary-hover); }
         
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
         .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; }
-        .hero-content .typing-cursor { border-right: 4px solid var(--text-color); animation: blink 0.7s step-end infinite; }
+        .hero-content .typing-cursor { border-right: 4px solid var(--primary-color); animation: blink 0.7s step-end infinite; }
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
         
@@ -141,7 +142,7 @@
             box-shadow: 0 0 25px -5px var(--glow-color);
         }
         .founder-content { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
-        .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center; flex-shrink: 0; border: 3px solid var(--border-color); }
+        .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center; flex-shrink: 0; border: 3px solid var(--primary-color); }
         .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
         .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
         
@@ -204,7 +205,7 @@
         .service-icon-container svg {
             width: 100%;
             height: 100%;
-            stroke: var(--text-color);
+            stroke: var(--primary-color);
         }
         .service-card:hover .page-corner { transform: rotate(-15deg); }
         .service-card:hover .layer-top { transform: translateY(-2px); }
@@ -244,7 +245,7 @@
         .test-question-item:last-child { border-bottom: none; }
         .test-question-item p { margin: 0; flex-grow: 1; font-weight: 500; }
         .test-question-item .answers { display: flex; gap: 0.5rem; flex-shrink: 0; }
-        .test-question-item .answers button { background: var(--border-color); border: 1px solid transparent; color: var(--text-color); padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background-color var(--transition-speed); }
+        .test-question-item .answers button { background: var(--border-color); border: 1px solid transparent; color: var(--text-color); padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background-color var(--transition-speed), color var(--transition-speed); }
         .test-question-item .answers button.selected { background: var(--primary-color); color: var(--primary-text-color); }
         .test-result { text-align: center; margin-top: 2rem; padding: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
         .test-result.good { background-color: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #28a745; }
@@ -261,22 +262,22 @@
         }
         .faq-item:hover {
             box-shadow: 0 0 8px -2px var(--glow-color);
-            border-color: var(--text-color);
+            border-color: var(--primary-color);
         }
         .faq-item.active {
             box-shadow: 0 0 10px -2px var(--glow-color);
-            border-color: var(--text-color);
+            border-color: var(--primary-color);
         }
         .faq-question { padding: 1.25rem 1.5rem; font-weight: 600; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .faq-question .faq-icon { font-size: 1.5rem; transition: transform var(--transition-speed) ease; color: var(--subtle-text-color); }
-        .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); color: var(--text-color); }
+        .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); color: var(--primary-color); }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease; }
         .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--subtle-text-color); }
         
         #contact-form { max-width: 600px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.5rem; }
         #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
         #contact-form input:focus, #contact-form textarea:focus { 
-            border-color: var(--text-color); 
+            border-color: var(--primary-color); 
             box-shadow: 0 0 8px var(--glow-color);
             outline: none; 
         }
@@ -288,7 +289,8 @@
         .contact-direct-links a { color: var(--text-color); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.75rem; transition: color var(--transition-speed); }
         .contact-direct-links a:hover { color: var(--primary-hover); }
         .contact-direct-links a svg { width: 22px; height: 22px; color: var(--subtle-text-color); }
-        
+        .contact-direct-links a:hover svg { color: var(--primary-hover); }
+
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1002; display: flex; align-items: center; justify-content: center; background-color: var(--overlay-color); opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); }
         .modal.active { opacity: 1; visibility: visible; }
         .modal-content { background-color: var(--surface-color); padding: 2rem; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; transform: scale(0.95); transition: transform var(--transition-speed); border: 1px solid var(--border-color); }
@@ -305,16 +307,16 @@
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
         .footer-links { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
         .footer-legal button { background: none; border: none; color: var(--subtle-text-color); cursor: pointer; font-family: inherit; font-size: 1em; font-weight: 500; }
-        .footer-legal button:hover { color: var(--text-color); }
+        .footer-legal button:hover { color: var(--primary-color); }
         .footer-social a { color: var(--subtle-text-color); transition: color var(--transition-speed), transform var(--transition-speed); }
-        .footer-social a:hover { color: var(--text-color); transform: scale(1.1); }
+        .footer-social a:hover { color: var(--primary-color); transform: scale(1.1); }
         .footer-copy { margin-top: 0; font-size: 0.9rem; color: #777; }
         
-        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed), background-color var(--transition-speed); pointer-events: none; border-radius: 50%; }
+        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed), background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed); pointer-events: none; border-radius: 50%; }
         html[dir="rtl"] #scrollTopBtn { left: 20px; }
         html[dir="ltr"] #scrollTopBtn { right: 20px; }
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        #scrollTopBtn:hover { background-color: var(--border-color); }
+        #scrollTopBtn:hover { background-color: var(--primary-color); color: var(--primary-text-color); border-color: var(--primary-color); }
         
         .nav-overlay {
             position: fixed;
