@@ -235,7 +235,6 @@
             margin-top: auto;
         }
 
-        /* --- Styles for Pricing Section --- */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -441,32 +440,24 @@
             visibility: visible;
         }
 
-        /* --- Styles for Side Scroll Indicator (Visible on Mobile) --- */
+        /* --- UPDATED Styles for Side Scroll Indicator (Always on Right) --- */
         .scroll-indicator {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 998; /* Below header and modals, above content */
+            z-index: 998;
             display: flex;
             align-items: center;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0.4s ease;
+            right: 15px; /* Always on the right */
+            flex-direction: row-reverse; /* Puts nav items on the left and line on the right */
         }
 
         .scroll-indicator.show {
             opacity: 1;
             visibility: visible;
-        }
-
-        html[dir="rtl"] .scroll-indicator {
-            left: 15px; /* Adjusted for smaller screens */
-            flex-direction: row-reverse;
-        }
-
-        html[dir="ltr"] .scroll-indicator {
-            right: 15px; /* Adjusted for smaller screens */
-            flex-direction: row;
         }
 
         .scroll-indicator-line {
@@ -484,18 +475,13 @@
         .scroll-indicator-nav li a {
             display: flex;
             align-items: center;
+            justify-content: flex-end; /* Align content to the right (towards the line) */
             padding: 12px 0;
+            padding-right: 25px; /* Space for the dot and between dot/text */
             text-decoration: none;
             color: var(--subtle-text-color);
             transition: color var(--transition-speed);
             position: relative;
-        }
-        
-        html[dir="rtl"] .scroll-indicator-nav li a {
-            padding-right: 20px;
-        }
-        html[dir="ltr"] .scroll-indicator-nav li a {
-            padding-left: 20px;
         }
 
         .scroll-indicator-nav li a .dot {
@@ -507,13 +493,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-        }
-
-        html[dir="rtl"] .scroll-indicator-nav li a .dot {
-            right: -5px; /* Centered on the line */
-        }
-        html[dir="ltr"] .scroll-indicator-nav li a .dot {
-            left: -5px; /* Centered on the line */
+            right: -4px; /* Place the dot over the line */
         }
 
         .scroll-indicator-nav li a .section-name {
@@ -522,22 +502,18 @@
             font-size: 0.9rem;
             font-weight: 500;
             white-space: nowrap;
-            transform: translateX(-10px);
             transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
             background-color: var(--surface-color);
             padding: 4px 8px;
             border-radius: 4px;
-        }
-
-        html[dir="rtl"] .scroll-indicator-nav li a .section-name {
-            transform: translateX(10px);
+            transform: translateX(10px); /* Initially shifted to the right */
         }
 
         .scroll-indicator-nav li a:hover .section-name,
         .scroll-indicator-nav li.active a .section-name {
             opacity: 1;
             visibility: visible;
-            transform: translateX(0);
+            transform: translateX(0); /* Animate to its final position */
         }
         
         .scroll-indicator-nav li.active a {
@@ -569,11 +545,11 @@
 <body>
 
     <nav class="scroll-indicator" id="scroll-indicator">
-        <div class="scroll-indicator-line"></div>
         <div class="scroll-indicator-nav" id="scroll-indicator-nav">
             <ul>
                 </ul>
         </div>
+        <div class="scroll-indicator-line"></div>
     </nav>
 
     <header class="header">
@@ -916,7 +892,8 @@
                     testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
                     testYes: "نعم", testNo: "لا",
                     testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
-                    faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
+                    faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.",
+                    faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
                     formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
                     footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerCredit: "جميع الحقوق محفوظة. © تم تطويره بواسطة Amayas Berkani",
@@ -965,7 +942,8 @@
                     testTitle: "Is Your Website Good Enough?", testQ1: "Is your website mobile-friendly?", testQ2: "Does your site load fast?", testQ3: "Is your content easy to navigate?", testQ4: "Does your site look professional?", testQ5: "Is your contact info clear?",
                     testYes: "Yes", testNo: "No",
                     testResultGood: "Great! Your site seems to be performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
-                    faqTitle: "Frequently Asked Questions", faqQ1: "How long to build a website?", faqA1: "A simple site usually takes 1-2 weeks, depending on the project scope.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start, and the rest upon final delivery.", faqQ4: "Do you build websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need for your business.",
+                    faqTitle: "Frequently Asked Questions", faqQ1: "How long to build a website?", faqA1: "A simple site usually takes 1-2 weeks, depending on the project scope.", faqQ2: "Do you offer support after delivery?", faqA2: "Yes, we provide a free support period to ensure everything works correctly.",
+                    faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start, and the rest upon final delivery.", faqQ4: "Do you build websites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support Arabic.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need for your business.",
                     contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your Message...", formSubmit: "Send Message",
                     formSending: "Sending...", formSuccess: "Thank you! Your message was sent.", formError: "Sorry, an error occurred.",
                     footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "All rights reserved. © Developed by Amayas Berkani",
@@ -1014,7 +992,8 @@
                     testTitle: "Votre Site est-il Performant ?", testQ1: "Votre site est-il compatible mobile ?", testQ2: "Votre site se charge-t-il rapidement ?", testQ3: "Votre contenu est-il facile à naviguer ?", testQ4: "Le design est-il professionnel ?", testQ5: "Vos coordonnées sont-elles claires ?",
                     testYes: "Oui", testNo: "Non",
                     testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider !</a>",
-                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.", faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
+                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.",
+                    faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
                     contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via :", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer",
                     formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Termes", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
