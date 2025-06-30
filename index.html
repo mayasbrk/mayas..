@@ -82,6 +82,7 @@
         }
 
         html[lang="ar"] body { font-family: var(--font-cairo); }
+        html[lang="fr"] body { font-family: var(--font-sans); } /* Or a specific French font */
         .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; position: relative; z-index: 1; }
         .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); margin-bottom: 3rem; text-align: center; font-weight: 700; color: var(--text-color);}
         .btn { display: inline-block; background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); border: none; cursor: pointer; }
@@ -208,159 +209,34 @@
         #scrollTopBtn:hover { background-color: var(--primary-color); color: var(--primary-text-color); border-color: var(--primary-color); }
         .nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--overlay-color); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); }
         body.nav-open .nav-overlay { opacity: 1; visibility: visible; }
-
-        /* --- UPDATED & REFINED Styles for Side Scroll Indicator (Larger Size) --- */
-        .scroll-indicator {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 998;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .scroll-indicator.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .scroll-indicator.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        
+        .scroll-indicator { position: fixed; top: 50%; transform: translateY(-50%); z-index: 998; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        .scroll-indicator.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .scroll-indicator.visible { opacity: 1; visibility: visible; }
         html[dir="rtl"] .scroll-indicator { right: 15px; }
         html[dir="ltr"] .scroll-indicator { left: 15px; }
-
-        .scroll-indicator-line {
-            width: 2px;
-            height: 260px; /* زيادة الطول */
-            background-color: var(--border-color);
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        html[dir="rtl"] .scroll-indicator-line { right: 4px; /* ضبط ليتمركز مع النقطة الجديدة */ }
+        .scroll-indicator-line { width: 2px; height: 260px; background-color: var(--border-color); position: absolute; top: 50%; transform: translateY(-50%); }
+        html[dir="rtl"] .scroll-indicator-line { right: 4px; }
         html[dir="ltr"] .scroll-indicator-line { left: 4px; }
-
-
-        .scroll-indicator-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            position: relative;
-        }
-
-        .scroll-indicator-nav li a {
-            display: block;
-            position: relative;
-            text-decoration: none;
-            color: var(--subtle-text-color);
-            transition: color var(--transition-speed);
-        }
-        /* زيادة المسافة بين النقاط */
+        .scroll-indicator-nav ul { list-style: none; padding: 0; margin: 0; position: relative; }
+        .scroll-indicator-nav li a { display: block; position: relative; text-decoration: none; color: var(--subtle-text-color); transition: color var(--transition-speed); }
         html[dir="rtl"] .scroll-indicator-nav li a { padding: 15px 30px 15px 0; }
         html[dir="ltr"] .scroll-indicator-nav li a { padding: 15px 0 15px 30px; }
-
-        /* تكبير حجم النقطة */
-        .scroll-indicator-nav li a .dot {
-            width: 10px;
-            height: 10px;
-            background-color: var(--subtle-text-color);
-            border-radius: 50%;
-            transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
+        .scroll-indicator-nav li a .dot { width: 10px; height: 10px; background-color: var(--subtle-text-color); border-radius: 50%; transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed); position: absolute; top: 50%; transform: translateY(-50%); }
         html[dir="rtl"] .scroll-indicator-nav li a .dot { right: 0; }
         html[dir="ltr"] .scroll-indicator-nav li a .dot { left: 0; }
-
-        /* تكبير حجم فقاعة النص */
-        .scroll-indicator-nav li a .section-name {
-            position: absolute;
-            top: 50%;
-            opacity: 0;
-            visibility: hidden;
-            background-color: var(--surface-color);
-            color: var(--text-color);
-            padding: 8px 14px; /* زيادة الحشو الداخلي */
-            border-radius: 8px;
-            font-size: 1rem; /* تكبير الخط */
-            font-weight: 500;
-            white-space: nowrap;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, text-shadow 0.3s ease;
-        }
-        
-        html[dir="rtl"] .scroll-indicator-nav li a .section-name {
-            right: 30px; /* إبعادها لتناسب حجم النقطة */
-            transform: translateY(-50%) translateX(15px);
-        }
-        html[dir="ltr"] .scroll-indicator-nav li a .section-name {
-            left: 30px;
-            transform: translateY(-50%) translateX(-15px);
-        }
-
-        /* تكبير المثلث الصغير */
-        .scroll-indicator-nav li a .section-name::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            border-top: 7px solid transparent;
-            border-bottom: 7px solid transparent;
-        }
-        html[dir="rtl"] .scroll-indicator-nav li a .section-name::after {
-            left: 100%;
-            border-left: 7px solid var(--surface-color);
-        }
-        html[dir="ltr"] .scroll-indicator-nav li a .section-name::after {
-            right: 100%;
-            border-right: 7px solid var(--surface-color);
-        }
-
-        /* الأنيميشن والتأثيرات عند التمرير أو عندما يكون نشطاً */
-        .scroll-indicator-nav li a:hover .section-name,
-        .scroll-indicator-nav li.active a .section-name {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(-50%) translateX(0);
-            text-shadow: 0 0 8px var(--glow-color);
-        }
-        
-        .scroll-indicator-nav li.active a {
-            color: var(--primary-color);
-        }
-
-        .scroll-indicator-nav li.active a .dot {
-            background-color: var(--primary-color);
-            transform: translateY(-50%) scale(1.7); /* تعديل طفيف للتكبير */
-            box-shadow: 0 0 12px var(--glow-color), 0 0 22px var(--primary-color);
-        }
-
-        .scroll-indicator-nav li:not(.active) a:hover .dot {
-            transform: translateY(-50%) scale(1.4);
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-        .scroll-indicator-nav li:not(.active) a:hover .section-name {
-            text-shadow: 0 0 6px var(--glow-color);
-        }
-
-
-        @media (max-width: 992px) {
-            .pricing-card.popular { transform: scale(1); }
-             .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 450px;
-                margin-inline: auto;
-            }
-        }
-        @media (max-width: 768px) {
-            .main-nav { display: none; }
-        }
+        .scroll-indicator-nav li a .section-name { position: absolute; top: 50%; opacity: 0; visibility: hidden; background-color: var(--surface-color); color: var(--text-color); padding: 8px 14px; border-radius: 8px; font-size: 1rem; font-weight: 500; white-space: nowrap; border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.2); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, text-shadow 0.3s ease; }
+        html[dir="rtl"] .scroll-indicator-nav li a .section-name { right: 30px; transform: translateY(-50%) translateX(15px); }
+        html[dir="ltr"] .scroll-indicator-nav li a .section-name { left: 30px; transform: translateY(-50%) translateX(-15px); }
+        .scroll-indicator-nav li a .section-name::after { content: ''; position: absolute; top: 50%; transform: translateY(-50%); border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+        html[dir="rtl"] .scroll-indicator-nav li a .section-name::after { left: 100%; border-left: 7px solid var(--surface-color); }
+        html[dir="ltr"] .scroll-indicator-nav li a .section-name::after { right: 100%; border-right: 7px solid var(--surface-color); }
+        .scroll-indicator-nav li a:hover .section-name, .scroll-indicator-nav li.active a .section-name { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); text-shadow: 0 0 8px var(--glow-color); }
+        .scroll-indicator-nav li.active a { color: var(--primary-color); }
+        .scroll-indicator-nav li.active a .dot { background-color: var(--primary-color); transform: translateY(-50%) scale(1.7); box-shadow: 0 0 12px var(--glow-color), 0 0 22px var(--primary-color); }
+        .scroll-indicator-nav li:not(.active) a:hover .dot { transform: translateY(-50%) scale(1.4); box-shadow: 0 0 10px var(--glow-color); }
+        .scroll-indicator-nav li:not(.active) a:hover .section-name { text-shadow: 0 0 6px var(--glow-color); }
+        @media (max-width: 992px) { .pricing-card.popular { transform: scale(1); } .pricing-grid { grid-template-columns: 1fr; max-width: 450px; margin-inline: auto; } }
+        @media (max-width: 768px) { .main-nav { display: none; } }
     </style>
 </head>
 <body>
@@ -368,8 +244,7 @@
     <nav class="scroll-indicator hidden" id="scroll-indicator">
         <div class="scroll-indicator-line"></div>
         <div class="scroll-indicator-nav" id="scroll-indicator-nav">
-            <ul>
-                </ul>
+            <ul></ul>
         </div>
     </nav>
 
@@ -417,125 +292,25 @@
         <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
             <h2 class="section-title" data-lang-key="servicesTitle" data-animate="slide-up-words"></h2>
             <div class="services-grid">
-                <div class="service-card" data-modal-target="landing-page-modal">
-                    <div class="service-icon-container">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8" class="page-corner"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>
-                        </svg>
-                    </div>
-                    <h3 data-lang-key="service1"></h3>
-                </div>
-                <div class="service-card" data-modal-target="multi-page-modal">
-                    <div class="service-icon-container">
-                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                        </svg>
-                    </div>
-                    <h3 data-lang-key="service2"></h3>
-                </div>
-                <div class="service-card" data-modal-target="ecommerce-modal">
-                    <div class="service-icon-container">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="9" cy="21" r="1" class="cart-wheel"></circle><circle cx="20" cy="21" r="1" class="cart-wheel"></circle>
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                        </svg>
-                    </div>
-                    <h3 data-lang-key="service3"></h3>
-                </div>
-                <div class="service-card" data-modal-target="blog-modal">
-                    <div class="service-icon-container">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                            <line class="blog-line" x1="15" y1="6" x2="18" y2="9"></line>
-                        </svg>
-                    </div>
-                    <h3 data-lang-key="service4"></h3>
-                </div>
-                <div class="service-card" data-modal-target="booking-modal">
-                    <div class="service-icon-container">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-                            <path d="m9 16 2 2 4-4" class="calendar-check"></path>
-                        </svg>
-                    </div>
-                    <h3 data-lang-key="service5"></h3>
-                </div>
-                <div class="service-card" data-modal-target="portfolio-modal">
-                    <div class="service-icon-container">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="portfolio-image"></rect>
-                            <circle cx="8.5" cy="8.5" r="1.5" class="portfolio-image"></circle><polyline points="21 15 16 10 5 21" class="portfolio-image"></polyline>
-                        </svg>
-                    </div>
-                    <h3 data-lang-key="service6"></h3>
-                </div>
+                <div class="service-card" data-modal-target="landing-page-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8" class="page-corner"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
+                <div class="service-card" data-modal-target="multi-page-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
+                <div class="service-card" data-modal-target="ecommerce-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="9" cy="21" r="1" class="cart-wheel"></circle><circle cx="20" cy="21" r="1" class="cart-wheel"></circle> <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path> </svg> </div> <h3 data-lang-key="service3"></h3> </div>
+                <div class="service-card" data-modal-target="blog-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path> <line class="blog-line" x1="15" y1="6" x2="18" y2="9"></line> </svg> </div> <h3 data-lang-key="service4"></h3> </div>
+                <div class="service-card" data-modal-target="booking-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line> <path d="m9 16 2 2 4-4" class="calendar-check"></path> </svg> </div> <h3 data-lang-key="service5"></h3> </div>
+                <div class="service-card" data-modal-target="portfolio-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="portfolio-image"></rect> <circle cx="8.5" cy="8.5" r="1.5" class="portfolio-image"></circle><polyline points="21 15 16 10 5 21" class="portfolio-image"></polyline> </svg> </div> <h3 data-lang-key="service6"></h3> </div>
             </div>
         </section>
 
         <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
             <h2 class="section-title" data-lang-key="pricingTitle" data-animate="slide-up-words"></h2>
             <div class="pricing-grid">
-                
-                <div class="pricing-card">
-                    <h3 data-lang-key="plan1Name"></h3>
-                    <div class="price">
-                        <span data-lang-key="plan1Price"></span>
-                        <small data-lang-key="currencySuffix"></small>
-                    </div>
-                    <ul class="features-list">
-                        <li data-lang-key="plan1Feat1"></li>
-                        <li data-lang-key="plan1Feat2"></li>
-                        <li data-lang-key="plan1Feat3"></li>
-                        <li data-lang-key="plan1Feat4"></li>
-                        <li class="disabled" data-lang-key="plan1Feat5"></li>
-                        <li class="disabled" data-lang-key="plan1Feat6"></li>
-                    </ul>
-                    <a href="#contact" class="btn" data-lang-key="planCTA"></a>
-                </div>
-
-                <div class="pricing-card popular">
-                    <div class="popular-badge" data-lang-key="planPopularBadge"></div>
-                    <h3 data-lang-key="plan2Name"></h3>
-                    <div class="price">
-                        <span data-lang-key="plan2Price"></span>
-                        <small data-lang-key="currencySuffix"></small>
-                    </div>
-                    <ul class="features-list">
-                        <li data-lang-key="plan2Feat1"></li>
-                        <li data-lang-key="plan2Feat2"></li>
-                        <li data-lang-key="plan2Feat3"></li>
-                        <li data-lang-key="plan2Feat4"></li>
-                        <li data-lang-key="plan2Feat5"></li>
-                        <li class="disabled" data-lang-key="plan2Feat6"></li>
-                    </ul>
-                    <a href="#contact" class="btn" data-lang-key="planCTA"></a>
-                </div>
-
-                <div class="pricing-card">
-                    <h3 data-lang-key="plan3Name"></h3>
-                    <div class="price">
-                        <span data-lang-key="plan3Price"></span>
-                        <small data-lang-key="currencySuffix"></small>
-                    </div>
-                    <ul class="features-list">
-                        <li data-lang-key="plan3Feat1"></li>
-                        <li data-lang-key="plan3Feat2"></li>
-                        <li data-lang-key="plan3Feat3"></li>
-                        <li data-lang-key="plan3Feat4"></li>
-                        <li data-lang-key="plan3Feat5"></li>
-                        <li data-lang-key="plan3Feat6"></li>
-                    </ul>
-                    <a href="#contact" class="btn" data-lang-key="planCTA"></a>
-                </div>
-
+                <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan3Feat1"></li> <li data-lang-key="plan3Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
             </div>
         </section>
 
-        <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test" data-section-name-fr="Test">
+        <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test Your Site" data-section-name-fr="Testez Votre Site">
              <h2 class="section-title" data-lang-key="testTitle" data-animate="slide-up-words"></h2>
              <div class="website-test-tool">
                 <div class="test-questions-container"></div>
@@ -557,17 +332,10 @@
                 <button type="submit" class="btn" data-lang-key="formSubmit"></button>
             </form>
             <p id="form-status"></p>
-            
             <p class="contact-direct-title" data-lang-key="contactSubtitle"></p>
             <div class="contact-direct-links">
-                <a href="tel:+213542511548">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    <span>0542 51 15 48</span>
-                </a>
-                <a href="mailto:solutiondev000@gmail.com">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    <span>solutiondev000@gmail.com</span>
-                </a>
+                <a href="tel:+213542511548"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> <span>0542 51 15 48</span> </a>
+                <a href="mailto:solutiondev000@gmail.com"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <span>solutiondev000@gmail.com</span> </a>
             </div>
         </section>
     </main>
@@ -575,11 +343,7 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-links">
-                <div class="footer-social">
-                    <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram">
-                        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594-.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg>
-                    </a>
-                </div>
+                <div class="footer-social"> <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594-.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg> </a> </div>
                 <div class="footer-legal">
                     <button data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
                     <button data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
@@ -589,84 +353,16 @@
         </div>
     </footer>
     
-    <div class="modal" id="privacy-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="privacyTitle"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body" data-lang-key="privacyContent"></div>
-        </div>
-    </div>
-    <div class="modal" id="terms-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="termsTitle"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body" data-lang-key="termsContent"></div>
-        </div>
-    </div>
+    <div class="modal" id="privacy-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="privacyTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="privacyContent"></div> </div> </div>
+    <div class="modal" id="terms-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="termsTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="termsContent"></div> </div> </div>
+    <div class="modal" id="landing-page-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="landingPageModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="landingPageModalContent"></div> </div> </div>
+    <div class="modal" id="multi-page-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="multiPageModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="multiPageModalContent"></div> </div> </div>
+    <div class="modal" id="ecommerce-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="ecommerceModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="ecommerceModalContent"></div> </div> </div>
+    <div class="modal" id="blog-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="blogModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="blogModalContent"></div> </div> </div>
+    <div class="modal" id="booking-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="bookingModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="bookingModalContent"></div> </div> </div>
+    <div class="modal" id="portfolio-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="portfolioModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="portfolioModalContent"></div> </div> </div>
 
-    <div class="modal" id="landing-page-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="landingPageModalTitle"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body" data-lang-key="landingPageModalContent"></div>
-        </div>
-    </div>
-    <div class="modal" id="multi-page-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="multiPageModalTitle"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body" data-lang-key="multiPageModalContent"></div>
-        </div>
-    </div>
-    <div class="modal" id="ecommerce-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="ecommerceModalTitle"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body" data-lang-key="ecommerceModalContent"></div>
-        </div>
-    </div>
-    <div class="modal" id="blog-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="blogModalTitle"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body" data-lang-key="blogModalContent"></div>
-        </div>
-    </div>
-    <div class="modal" id="booking-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="bookingModalTitle"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body" data-lang-key="bookingModalContent"></div>
-        </div>
-    </div>
-    <div class="modal" id="portfolio-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" data-lang-key="portfolioModalTitle"></h3>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body" data-lang-key="portfolioModalContent"></div>
-        </div>
-    </div>
-
-
-    <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top">
-        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>
-    </button>
+    <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg> </button>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -684,9 +380,9 @@
                     aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
                     servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
                     planPopularBadge: "الأكثر طلباً", currencySuffix: "د.ج", planCTA: "ابدأ الآن",
-                    plan1Name: "الباقة الأساسية", plan1Price: "3000", plan1Feat1: "صفحة ويب واحدة (Landing Page)", plan1Feat2: "تصميم متجاوب مع كل الشاشات", plan1Feat3: "نموذج تواصل فعال", plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)", plan1Feat5: "نظام إدارة المحتوى", plan1Feat6: "متجر إلكتروني متكامل",
-                    plan2Name: "الباقة الاحترافية", plan2Price: "5000", plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)", plan2Feat2: "تصميم متجاوب ومخصص", plan2Feat3: "ربط بلوحة تحكم (CMS)", plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)", plan2Feat5: "دعم فني لمدة شهر", plan2Feat6: "متجر إلكتروني متكامل",
-                    plan3Name: "الباقة المتكاملة", plan3Price: "12000", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
+                    plan1Name: "الباقة الأساسية", plan1Price: "30,000", plan1Feat1: "صفحة ويب واحدة (Landing Page)", plan1Feat2: "تصميم متجاوب مع كل الشاشات", plan1Feat3: "نموذج تواصل فعال", plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)", plan1Feat5: "نظام إدارة المحتوى", plan1Feat6: "متجر إلكتروني متكامل",
+                    plan2Name: "الباقة الاحترافية", plan2Price: "50,000", plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)", plan2Feat2: "تصميم متجاوب ومخصص", plan2Feat3: "ربط بلوحة تحكم (CMS)", plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)", plan2Feat5: "دعم فني لمدة شهر", plan2Feat6: "متجر إلكتروني متكامل",
+                    plan3Name: "الباقة المتكاملة", plan3Price: "120,000", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
                     testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
                     testYes: "نعم", testNo: "لا", testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
@@ -703,7 +399,54 @@
                     portfolioModalTitle: "خدمة معرض الأعمال (Portfolio)", portfolioModalContent: "<p>معرض الأعمال هو الطريقة الأكثر احترافية لعرض مهاراتك ومشاريعك السابقة. إنه سيرتك الذاتية المرئية التي تتحدث عن جودة عملك.</p><h4>الميزات الأساسية</h4><ul><li>تصميم أنيق يركز على عرض أعمالك.</li><li>معارض صور وفيديو عالية الجودة.</li><li>تقسيم الأعمال حسب الفئة لتسهيل التصفح.</li><li>صفحة لكل مشروع تحتوي على تفاصيل وشهادات العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يعرض خبرتك بشكل ملموس، يجذب عملاء جدد يقدرون الجودة، ويبني علامتك الشخصية أو التجارية بقوة.</p>"
                 },
                 en: {
-                    // ... (English translations remain the same) ...
+                    navHome: "Home", navAbout: "About", navServices: "Services", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Pricing",
+                    heroTitle: ["We Design a Professional Digital Identity", "We Turn Your Ideas Into Reality", "Innovative Web Solutions"],
+                    heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Request a Free Consultation",
+                    aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas Berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just an interface, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant designs and high-performance code.",
+                    servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-Page Websites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolio",
+                    planPopularBadge: "Most Popular", currencySuffix: "DZD", planCTA: "Get Started",
+                    plan1Name: "Basic Plan", plan1Price: "30,000", plan1Feat1: "Single Web Page (Landing Page)", plan1Feat2: "Responsive on all devices", plan1Feat3: "Effective contact form", plan1Feat4: "Basic SEO setup", plan1Feat5: "Content Management System", plan1Feat6: "Full E-commerce store",
+                    plan2Name: "Professional Plan", plan2Price: "50,000", plan2Feat1: "Multi-page site (up to 5 pages)", plan2Feat2: "Custom responsive design", plan2Feat3: "CMS Integration", plan2Feat4: "Advanced SEO optimization", plan2Feat5: "1-month technical support", plan2Feat6: "Full E-commerce store",
+                    plan3Name: "Premium Plan", plan3Price: "120,000", plan3Feat1: "Unlimited multi-page site", plan3Feat2: "Unique and modern design", plan3Feat3: "CMS Integration", plan3Feat4: "Professional SEO optimization", plan3Feat5: "3-months technical support", plan3Feat6: "E-commerce with payment gateways",
+                    testTitle: "Is Your Current Website Good?", testQ1: "Is your site mobile-responsive?", testQ2: "Does your site load quickly?", testQ3: "Is your content easy to navigate?", testQ4: "Does your design look professional?", testQ5: "Is your contact information clear?",
+                    testYes: "Yes", testNo: "No", testResultGood: "Great! It seems your website is performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
+                    faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.", faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.", faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
+                    contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your message...", formSubmit: "Send Message",
+                    formSending: "Sending...", formSuccess: "Thank you! Your message has been sent successfully.", formError: "Sorry, an error occurred.",
+                    footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "All rights reserved. © Developed by Amayas Berkani",
+                    privacyTitle: "Privacy Policy", privacyContent: "<h4>Information Collection</h4><p>We collect information you provide directly through the contact form, such as name and email, to respond to your inquiries and provide our services.</p><h4>Use of Information</h4><p>The information we collect is used only to communicate with you regarding your requests and to improve our services. We do not share your personal data with any third party without your explicit consent.</p>",
+                    termsTitle: "Terms of Service", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these terms of service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Details of the services provided, including scope, cost, and timelines, are formally agreed upon before any work begins. A consultation booking does not constitute a binding contract.</p>",
+                    landingPageModalTitle: "Landing Page Service", landingPageModalContent: "<p>A landing page is a single web page designed for a specific marketing goal. Its purpose is to convert visitors into leads by encouraging a specific action.</p><h4>Key Features</h4><ul><li>Attractive, goal-oriented design.</li><li>Clear Call-to-Action (CTA).</li><li>Concise and persuasive content.</li><li>Simple form to collect customer data.</li><li>Fully responsive on all screens.</li></ul><h4>Benefit for Your Business</h4><p>Increases the effectiveness of your ad campaigns, boosts conversion rates, and provides accurate data to measure success.</p>",
+                    multiPageModalTitle: "Multi-Page Website Service", multiPageModalContent: "<p>A multi-page website is the complete digital storefront for your company, showcasing your identity, services, and products in a comprehensive and organized manner across several interconnected pages.</p><h4>Key Features</h4><ul><li>Clear and easy-to-use navigation structure.</li><li>Specialized pages (About Us, Services, Contact, etc.).</li><li>Design that reflects your brand identity.</li><li>Strong foundation for Search Engine Optimization (SEO).</li><li>Comprehensive content to build customer trust.</li></ul><h4>Benefit for Your Business</h4><p>Builds strong credibility for your brand, provides complete information to your audience, and serves as a digital hub for all your marketing activities.</p>",
+                    ecommerceModalTitle: "E-commerce Store Design Service", ecommerceModalContent: "<p>We turn your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Platforms & Technologies</h4><ul><li><b>WooCommerce:</b> For stores built on WordPress, offering easy management and a rich dashboard.</li><li><b>Shopify:</b> We customize themes and develop special apps to match your brand identity.</li><li><b>Custom Solutions:</b> For unique projects, we build stores from scratch using modern technologies.</li></ul><h4>Benefit for Your Business</h4><p>Expand your customer base, build a strong brand, and increase your profits through a sales channel that operates 24/7.</p>",
+                    blogModalTitle: "Blog Integration Service", blogModalContent: "<p>Adding a blog section to your site is a strategic investment to create valuable content that attracts visitors, builds trust, and establishes your expertise in your field.</p><h4>Key Features</h4><ul><li>Easy-to-use Content Management System (CMS).</li><li>Categorization of articles via tags and categories.</li><li>Ability to comment and share on social networks.</li><li>Article structure optimized for search engines.</li></ul><h4>Benefit for Your Business</h4><p>Increases free traffic from Google, establishes you as an expert in your field, and provides evergreen content to share with your audience.</p>",
+                    bookingModalTitle: "Booking Systems Service", bookingModalContent: "<p>An online booking system allows your customers to book appointments or services directly from your site at any time, from anywhere, saving both your time and theirs.</p><h4>Key Features</h4><ul><li>A calendar showing available appointments instantly.</li><li>Option for pre-payment to confirm bookings.</li><li>Automatic email confirmations and reminders.</li><li>A dashboard to manage bookings, staff, and services.</li></ul><h4>Benefit for Your Business</h4><p>Automates the appointment scheduling process, reduces no-shows, and increases the efficiency of managing your time and business.</p>",
+                    portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality photo and video galleries.</li><li>Categorization of works for easy Browse.</li><li>A page for each project with details and client testimonials.</li></ul><h4>Benefit for Your Business</h4><p>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</p>"
+                },
+                fr: {
+                    navHome: "Accueil", navAbout: "À propos", navServices: "Services", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
+                    heroTitle: ["Nous Créons Votre Identité Numérique Professionnelle", "Nous Transformons Vos Idées en Réalité", "Solutions Web Innovantes"],
+                    heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Demander une Consultation Gratuite",
+                    aboutTitle: "Solutions Numériques Innovantes Pour Votre Marque", founderName: "Amayas Berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas seulement une interface, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à des designs élégants et un code haute performance.",
+                    servicesTitle: "Nos Services", service1: "Pages d'Atterrissage", service2: "Sites Multi-Pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolio",
+                    planPopularBadge: "Le plus populaire", currencySuffix: "DZD", planCTA: "Commencer",
+                    plan1Name: "Forfait Essentiel", plan1Price: "30,000", plan1Feat1: "Page web unique (Landing Page)", plan1Feat2: "Responsive sur tous les écrans", plan1Feat3: "Formulaire de contact efficace", plan1Feat4: "Configuration SEO de base", plan1Feat5: "Système de gestion de contenu", plan1Feat6: "Boutique e-commerce complète",
+                    plan2Name: "Forfait Professionnel", plan2Price: "50,000", plan2Feat1: "Site multi-pages (jusqu'à 5 pages)", plan2Feat2: "Design responsive personnalisé", plan2Feat3: "Intégration CMS", plan2Feat4: "Optimisation SEO avancée", plan2Feat5: "1 mois de support technique", plan2Feat6: "Boutique e-commerce complète",
+                    plan3Name: "Forfait Premium", plan3Price: "120,000", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
+                    testTitle: "Votre Site Actuel Est-il Bon?", testQ1: "Votre site est-il responsive sur mobile?", testQ2: "Votre site se charge-t-il rapidement?", testQ3: "Le contenu est-il facile à parcourir?", testQ4: "Votre design semble-t-il professionnel?", testQ5: "Vos informations de contact sont-elles claires?",
+                    testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider!</a>",
+                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.", faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.", faqQ5: "Puis-je demander des fonctionnalités supplémentaires?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
+                    contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via:", formName: "Nom Complet", formEmail: "Adresse E-mail", formMessage: "Votre message...", formSubmit: "Envoyer le Message",
+                    formSending: "Envoi en cours...", formSuccess: "Merci! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue.",
+                    footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
+                    privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
+                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>En utilisant ce site, vous acceptez d'être lié par ces conditions d'utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont convenus formellement avant le début de tout travail. La réservation d'une consultation ne constitue pas un contrat contraignant.</p>",
+                    landingPageModalTitle: "Service de Pages d'Atterrissage", landingPageModalContent: "<p>Une page d'atterrissage est une page web unique conçue pour un objectif marketing spécifique. Son but est de convertir les visiteurs en prospects en les incitant à une action précise.</p><h4>Caractéristiques Clés</h4><ul><li>Design attractif et axé sur l'objectif.</li><li>Appel à l'action (CTA) clair.</li><li>Contenu concis et persuasif.</li><li>Formulaire simple pour collecter des données.</li><li>Entièrement responsive sur tous les écrans.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente l'efficacité de vos campagnes publicitaires, améliore les taux de conversion et fournit des données précises pour mesurer le succès.</p>",
+                    multiPageModalTitle: "Service de Sites Web Multi-Pages", multiPageModalContent: "<p>Un site web multi-pages est la vitrine numérique complète de votre entreprise, présentant votre identité, vos services et vos produits de manière complète et organisée sur plusieurs pages interconnectées.</p><h4>Caractéristiques Clés</h4><ul><li>Structure de navigation claire et facile à utiliser.</li><li>Pages spécialisées (À propos, Services, Contact, etc.).</li><li>Design qui reflète l'identité de votre marque.</li><li>Base solide pour l'optimisation des moteurs de recherche (SEO).</li><li>Contenu complet pour renforcer la confiance des clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Construit une forte crédibilité pour votre marque, fournit des informations complètes à votre public et sert de hub numérique pour toutes vos activités marketing.</p>",
+                    ecommerceModalTitle: "Service de Création de Boutique E-commerce", ecommerceModalContent: "<p>Nous transformons votre idée de boutique en une réalité numérique complète. Nous concevons et développons des boutiques e-commerce professionnelles qui vous aident à présenter vos produits de manière attrayante, à gérer vos opérations facilement et à augmenter vos ventes.</p><h4>Plateformes & Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un tableau de bord riche.</li><li><b>Shopify :</b> Nous personnalisons les thèmes et développons des applications spéciales pour correspondre à votre identité de marque.</li><li><b>Solutions sur Mesure :</b> Pour les projets uniques, nous construisons des boutiques à partir de zéro en utilisant des technologies modernes.</li></ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24h/24 et 7j/7.</p>",
+                    blogModalTitle: "Service d'Intégration de Blog", blogModalContent: "<p>Ajouter une section blog à votre site est un investissement stratégique pour créer un contenu de valeur qui attire les visiteurs, renforce la confiance et établit votre expertise dans votre domaine.</p><h4>Caractéristiques Clés</h4><ul><li>Système de gestion de contenu (CMS) facile à utiliser.</li><li>Catégorisation des articles par tags et catégories.</li><li>Possibilité de commenter et de partager sur les réseaux sociaux.</li><li>Structure des articles optimisée pour les moteurs de recherche.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente le trafic gratuit depuis Google, vous établit comme un expert dans votre domaine et fournit un contenu permanent à partager avec votre public.</p>",
+                    bookingModalTitle: "Service de Systèmes de Réservation", bookingModalContent: "<p>Un système de réservation en ligne permet à vos clients de réserver des rendez-vous ou des services directement depuis votre site, à tout moment et de n'importe où, vous faisant gagner du temps, à vous et à eux.</p><h4>Caractéristiques Clés</h4><ul><li>Un calendrier affichant les disponibilités instantanément.</li><li>Option de prépaiement pour confirmer les réservations.</li><li>Confirmations et rappels automatiques par e-mail.</li><li>Un tableau de bord pour gérer les réservations, le personnel et les services.</li></ul><h4>Avantage pour votre entreprise</h4><p>Automatise le processus de planification des rendez-vous, réduit les absences et augmente l'efficacité de la gestion de votre temps et de votre entreprise.</p>",
+                    portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>Un portfolio est le moyen le plus professionnel de présenter vos compétences et vos projets antérieurs. C'est votre CV visuel qui témoigne de la qualité de votre travail.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries de photos et de vidéos de haute qualité.</li><li>Catégorisation des œuvres pour une navigation facile.</li><li>Une page pour chaque projet avec des détails et des témoignages de clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit puissamment votre marque personnelle ou d'entreprise.</p>"
                 }
             };
             
@@ -712,7 +455,7 @@
             let typingTimeout;
             let textAnimationObserver;
             let scrollActivityTimeout; 
-            const langCycle = ['ar', 'en'];
+            const langCycle = ['ar', 'en', 'fr']; // <-- UPDATED: Added 'fr'
 
             // --- Element Selectors ---
             const scrollIndicator = document.getElementById('scroll-indicator');
@@ -787,6 +530,12 @@
                 document.querySelectorAll('.lang-toggle').forEach(toggle => {
                     toggle.textContent = langCode.toUpperCase();
                 });
+                
+                // Set title for the scroll-to-top button
+                if (scrollTopBtn) {
+                    const titles = { ar: 'العودة للأعلى', en: 'Back to top', fr: 'Retour en haut' };
+                    scrollTopBtn.title = titles[langCode];
+                }
 
                 startTypingEffect();
                 createFAQ();
@@ -864,7 +613,8 @@
             function startTypingEffect() {
                 const titleEl = document.getElementById('hero-title-animated');
                 if (!titleEl) return;
-                const phrases = translations[langCycle[currentLangIndex]].heroTitle;
+                const lang = langCycle[currentLangIndex];
+                const phrases = translations[lang].heroTitle;
                 if (!phrases || !Array.isArray(phrases)) {
                     titleEl.innerHTML = phrases || "";
                     return;
@@ -873,6 +623,7 @@
                 let phraseIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
+                titleEl.innerHTML = '<span class="typing-cursor"></span>';
                 function type() {
                     const currentPhrase = phrases[phraseIndex];
                     let typeSpeed;
@@ -896,7 +647,7 @@
                     }
                     typingTimeout = setTimeout(type, typeSpeed);
                 }
-                type();
+                setTimeout(type, 500); // Initial delay
             }
             
             async function handleFormSubmit(event) {
@@ -928,7 +679,9 @@
                 ['Q1','Q2','Q3','Q4','Q5'].forEach(key => {
                      const faqItem = document.createElement('div');
                      faqItem.classList.add('faq-item');
-                     faqItem.innerHTML = `<div class="faq-question"><span>${translations[lang]['faq'+key]}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${translations[lang]['faqA'+key.substring(1)]}</p></div>`;
+                     const questionKey = 'faq' + key;
+                     const answerKey = 'faqA' + key.substring(1);
+                     faqItem.innerHTML = `<div class="faq-question"><span>${translations[lang][questionKey]}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${translations[lang][answerKey]}</p></div>`;
                      faqContainer.appendChild(faqItem);
                 });
                 faqContainer.addEventListener('click', (e) => {
@@ -941,14 +694,17 @@
                         if (item !== faqItem) {
                             item.classList.remove('active');
                             item.querySelector('.faq-answer').style.maxHeight = '0';
+                            item.querySelector('.faq-question .faq-icon').style.transform = 'rotate(0deg)';
                         }
                     });
                     if (!isActive) {
                         faqItem.classList.add('active');
                         answer.style.maxHeight = answer.scrollHeight + 'px';
+                        question.querySelector('.faq-icon').style.transform = 'rotate(45deg)';
                     } else {
                         faqItem.classList.remove('active');
                         answer.style.maxHeight = '0';
+                        question.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
                     }
                 });
             }
@@ -963,9 +719,10 @@
                 const answers = {};
                 const qKeys = ['Q1','Q2','Q3','Q4','Q5'];
                 qKeys.forEach((key, i) => {
+                    const questionKey = 'test' + key;
                     const item = document.createElement('div');
                     item.classList.add('test-question-item');
-                    item.innerHTML = `<p>${translations[lang]['test'+key]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${translations[lang].testYes}</button><button value="no">${translations[lang].testNo}</button></div>`;
+                    item.innerHTML = `<p>${translations[lang][questionKey]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${translations[lang].testYes}</button><button value="no">${translations[lang].testNo}</button></div>`;
                     container.appendChild(item);
                 });
                 container.addEventListener('click', (e) => {
@@ -984,18 +741,10 @@
             }
             
             // --- Animation Initializers ---
-            function initTextAnimations() {
-                // ... same as before
-            }
-            function initServiceCardAnimations() {
-                // ... same as before
-            }
-            function initSectionEntryAnimations() {
-                // ... same as before
-            }
-            function handleParallaxEffect() {
-                // ... same as before
-            }
+            function initTextAnimations() { }
+            function initServiceCardAnimations() { }
+            function initSectionEntryAnimations() { }
+            function handleParallaxEffect() { }
 
             // --- Page Initialization ---
             function init() {
@@ -1003,13 +752,23 @@
                 document.body.classList.toggle('light-mode', savedTheme === 'light');
                 updateThemeIcons(savedTheme === 'light');
                 
+                // --- NEW: Browser Language Detection Logic ---
                 const savedLang = localStorage.getItem('siteLang');
-                let initialLang = 'ar';
-                if(savedLang && langCycle.includes(savedLang)) {
+                let initialLang = 'ar'; // Default language
+
+                if (savedLang && langCycle.includes(savedLang)) {
+                    // Use saved language if valid
                     initialLang = savedLang;
+                } else {
+                    // Otherwise, detect browser language
+                    const browserLang = navigator.language.split('-')[0];
+                    if (langCycle.includes(browserLang)) {
+                        initialLang = browserLang; // Use browser language if supported
+                    }
                 }
                 currentLangIndex = langCycle.indexOf(initialLang);
                 updateLanguage(initialLang);
+                // --- End of New Logic ---
                 
                 handleScroll();
                 
@@ -1019,20 +778,16 @@
                 document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
                 document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
                 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-                window.addEventListener('scroll', handleScroll);
+                window.addEventListener('scroll', handleScroll, { passive: true });
                 if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
                 
-                // --- يبدأ الكود الجديد ---
-                // التعامل مع نقرات أزرار الباقات
+                // Pricing plan button click handler
                 const pricingGrid = document.querySelector('.pricing-grid');
                 if (pricingGrid) {
                     pricingGrid.addEventListener('click', function(e) {
-                        // التأكد من أن المستخدم ضغط على الزر داخل بطاقة السعر
                         const planButton = e.target.closest('.pricing-card .btn');
                         if (planButton) {
-                            e.preventDefault(); // منع الانتقال الفوري للرابط
-
-                            // العثور على اسم الباقة من عنوان البطاقة
+                            e.preventDefault(); 
                             const card = e.target.closest('.pricing-card');
                             const titleElement = card.querySelector('h3[data-lang-key]');
                             const planKey = titleElement.getAttribute('data-lang-key');
@@ -1040,40 +795,31 @@
                             const currentLang = langCycle[currentLangIndex];
                             const planName = translations[currentLang][planKey];
 
-                            // إعداد الرسالة الجاهزة
-                            const message = `مرحباً،\n\nلقد اطلعت على باقاتكم وأنا مهتم بـ "${planName}".\n\nأرجو التواصل لمناقشة التفاصيل.`;
-
-                            // العثور على حقل الرسالة ووضع النص فيه
+                            const messages = {
+                                ar: `مرحباً،\n\nلقد اطلعت على باقاتكم وأنا مهتم بـ "${planName}".\n\nأرجو التواصل لمناقشة التفاصيل.`,
+                                en: `Hello,\n\nI have reviewed your plans and I am interested in the "${planName}".\n\nPlease contact me to discuss the details.`,
+                                fr: `Bonjour,\n\nJ'ai examiné vos forfaits et je suis intéressé(e) par le "${planName}".\n\nMerci de me contacter pour discuter des détails.`
+                            };
+                            
                             const contactTextarea = document.getElementById('contact-message');
                             if (contactTextarea) {
-                                contactTextarea.value = message;
+                                contactTextarea.value = messages[currentLang];
                             }
 
-                            // الانتقال السلس إلى قسم التواصل
                             const contactSection = document.getElementById('contact');
                             if (contactSection) {
-                                const headerOffset = document.querySelector('.header').offsetHeight;
-                                const elementPosition = contactSection.getBoundingClientRect().top;
-                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                           
-                                window.scrollTo({
-                                    top: offsetPosition,
-                                    behavior: "smooth"
-                                });
-
-                                // للتركيز على حقل الرسالة بعد الانتقال مباشرة
+                                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 if (contactTextarea) {
                                     setTimeout(() => {
                                         contactTextarea.focus();
-                                    }, 500); // تأخير بسيط لضمان اكتمال الانتقال
+                                    }, 600); 
                                 }
                             }
                         }
                     });
                 }
-                // --- ينتهي الكود الجديد ---
 
-
+                // Modal handlers
                 modalTriggers.forEach(trigger => {
                     trigger.addEventListener('click', (e) => {
                         const targetElement = e.target.closest('[data-modal-target]');
@@ -1091,6 +837,7 @@
                     });
                 });
 
+                // Smooth scroll for navigation links
                 document.querySelectorAll('.main-nav a, .footer-links a, .logo').forEach(link => {
                     link.addEventListener('click', function(e) {
                         const href = this.getAttribute('href');
@@ -1098,28 +845,20 @@
                             e.preventDefault();
                             const targetElement = document.querySelector(href);
                             if (targetElement) {
-                                 setTimeout(() => {
-                                    const headerOffset = document.querySelector('.header').offsetHeight;
-                                    const elementPosition = targetElement.getBoundingClientRect().top;
-                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                              
-                                    window.scrollTo({
-                                        top: offsetPosition,
-                                        behavior: "smooth"
-                                    });
-                                }, 50); 
+                                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             }
                         }
                     });
                 });
                 
+                // Set founder avatar
                 const founderAvatar = document.getElementById('founder-avatar');
                 if (founderAvatar) {
                     founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
                 }
             }
 
-            // Re-pasting the animation functions to be complete
+            // --- Re-define Animation functions ---
             initTextAnimations = function() {
                 const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
                 if (textAnimationObserver) {
@@ -1130,7 +869,7 @@
                         if (entry.isIntersecting) {
                             const container = entry.target;
                             const text = container.textContent;
-                            const words = text.trim().split(' ');
+                            const words = text.trim().split(/\s+/);
                             container.innerHTML = ''; 
                             container.classList.add('slide-up-words');
                             words.forEach((word, index) => {
@@ -1152,7 +891,7 @@
                     const key = el.getAttribute('data-lang-key');
                     const lang = langCycle[currentLangIndex];
                     if (key && translations[lang] && translations[lang][key]) {
-                        el.innerHTML = translations[lang][key];
+                        el.textContent = translations[lang][key];
                     }
                     textAnimationObserver.observe(el);
                 });
