@@ -553,7 +553,7 @@
             <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
                 <input type="text" name="name" required data-lang-placeholder="formName">
                 <input type="email" name="email" required data-lang-placeholder="formEmail">
-                <textarea name="message" required data-lang-placeholder="formMessage"></textarea>
+                <textarea id="contact-message" name="message" required data-lang-placeholder="formMessage"></textarea>
                 <button type="submit" class="btn" data-lang-key="formSubmit"></button>
             </form>
             <p id="form-status"></p>
@@ -1021,6 +1021,58 @@
                 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
                 window.addEventListener('scroll', handleScroll);
                 if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
+                
+                // --- يبدأ الكود الجديد ---
+                // التعامل مع نقرات أزرار الباقات
+                const pricingGrid = document.querySelector('.pricing-grid');
+                if (pricingGrid) {
+                    pricingGrid.addEventListener('click', function(e) {
+                        // التأكد من أن المستخدم ضغط على الزر داخل بطاقة السعر
+                        const planButton = e.target.closest('.pricing-card .btn');
+                        if (planButton) {
+                            e.preventDefault(); // منع الانتقال الفوري للرابط
+
+                            // العثور على اسم الباقة من عنوان البطاقة
+                            const card = e.target.closest('.pricing-card');
+                            const titleElement = card.querySelector('h3[data-lang-key]');
+                            const planKey = titleElement.getAttribute('data-lang-key');
+                            
+                            const currentLang = langCycle[currentLangIndex];
+                            const planName = translations[currentLang][planKey];
+
+                            // إعداد الرسالة الجاهزة
+                            const message = `مرحباً،\n\nلقد اطلعت على باقاتكم وأنا مهتم بـ "${planName}".\n\nأرجو التواصل لمناقشة التفاصيل.`;
+
+                            // العثور على حقل الرسالة ووضع النص فيه
+                            const contactTextarea = document.getElementById('contact-message');
+                            if (contactTextarea) {
+                                contactTextarea.value = message;
+                            }
+
+                            // الانتقال السلس إلى قسم التواصل
+                            const contactSection = document.getElementById('contact');
+                            if (contactSection) {
+                                const headerOffset = document.querySelector('.header').offsetHeight;
+                                const elementPosition = contactSection.getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                           
+                                window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: "smooth"
+                                });
+
+                                // للتركيز على حقل الرسالة بعد الانتقال مباشرة
+                                if (contactTextarea) {
+                                    setTimeout(() => {
+                                        contactTextarea.focus();
+                                    }, 500); // تأخير بسيط لضمان اكتمال الانتقال
+                                }
+                            }
+                        }
+                    });
+                }
+                // --- ينتهي الكود الجديد ---
+
 
                 modalTriggers.forEach(trigger => {
                     trigger.addEventListener('click', (e) => {
