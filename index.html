@@ -450,7 +450,7 @@
             align-items: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease; /* Added transform for animation */
             right: 15px; /* Always on the right */
             flex-direction: row-reverse; /* Puts nav items on the left and line on the right */
         }
@@ -458,12 +458,21 @@
         .scroll-indicator.show {
             opacity: 1;
             visibility: visible;
+            transform: translateY(-50%) translateX(0); /* Animate to final position */
+        }
+
+        .scroll-indicator.hide { /* New class for hiding after scroll inactivity */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-50%) translateX(20px); /* Move slightly right to disappear */
         }
 
         .scroll-indicator-line {
             width: 2px;
             height: 220px;
             background-color: var(--border-color);
+            position: relative;
+            z-index: 1; /* Ensure line is below dots if needed */
         }
 
         .scroll-indicator-nav ul {
@@ -489,11 +498,12 @@
             height: 8px;
             background-color: var(--subtle-text-color);
             border-radius: 50%;
-            transition: background-color var(--transition-speed), transform var(--transition-speed);
+            transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             right: -4px; /* Place the dot over the line */
+            z-index: 2; /* Ensure dot is above the line */
         }
 
         /* MODIFIED STYLES FOR SECTION NAME AS BUBBLE */
@@ -503,17 +513,17 @@
             font-size: 0.9rem;
             font-weight: 500;
             white-space: nowrap;
-            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out, text-shadow 0.3s ease-out; /* Added text-shadow transition */
             background-color: var(--surface-color);
-            color: var(--text-color); /* Ensure text color is readable */
-            padding: 6px 10px; /* Increased padding for better bubble look */
-            border-radius: 8px; /* More rounded corners for bubble */
-            transform: translateX(-10px); /* Initial shift to the left */
-            position: absolute; /* Absolute positioning relative to the 'a' tag */
-            right: calc(100% + 15px); /* Position to the left of the 'a' tag */
+            color: var(--text-color);
+            padding: 6px 10px;
+            border-radius: 8px;
+            transform: translateY(-50%) translateX(-15px); /* Initial shift to the left, slightly more */
+            position: absolute;
+            right: calc(100% + 10px); /* Adjusted closer to the dot */
             top: 50%;
-            transform: translateY(-50%) translateX(-10px); /* Adjust initial transform for bubble */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color); /* Added border to match theme */
         }
 
         /* Triangle for the bubble - Pseudo-element */
@@ -522,32 +532,37 @@
             position: absolute;
             width: 0;
             height: 0;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            border-left: 6px solid var(--surface-color); /* Matches bubble background */
+            border-top: 7px solid transparent; /* Slightly larger triangle */
+            border-bottom: 7px solid transparent;
+            border-left: 7px solid var(--surface-color); /* Matches bubble background */
             top: 50%;
-            left: 100%; /* Position to the right of the bubble */
+            left: 100%;
             transform: translateY(-50%);
         }
 
+        /* Fix for RTL direction text and triangle */
         html[dir="rtl"] .scroll-indicator-nav li a .section-name {
-            right: calc(100% + 15px); /* Same as LTR */
-            transform: translateY(-50%) translateX(-10px); /* Initial shift for RTL */
+            /* For RTL, the text bubble should still appear to the LEFT of the line/dot.
+               The 'right' property keeps it on the left of the 'a' tag.
+               The 'transform' ensures its animation. */
+            right: calc(100% + 10px); 
+            transform: translateY(-50%) translateX(-15px); /* Same as LTR for initial hidden state */
         }
 
         html[dir="rtl"] .scroll-indicator-nav li a .section-name::after {
-            border-left: none;
-            border-right: 6px solid var(--surface-color); /* Mirror for RTL */
-            left: auto;
+            border-left: none; /* Remove left border */
+            border-right: 7px solid var(--surface-color); /* Add right border for RTL arrow */
+            left: auto; /* Reset left */
             right: 100%; /* Position to the left of the bubble */
         }
 
-
+        /* Animation for appearance of section-name */
         .scroll-indicator-nav li a:hover .section-name,
         .scroll-indicator-nav li.active a .section-name {
             opacity: 1;
             visibility: visible;
             transform: translateY(-50%) translateX(0); /* Animate to its final position */
+            text-shadow: 0 0 8px var(--glow-color); /* Neon glow effect for text */
         }
         
         .scroll-indicator-nav li.active a {
@@ -557,7 +572,13 @@
         .scroll-indicator-nav li.active a .dot {
             background-color: var(--primary-color);
             transform: translateY(-50%) scale(1.7);
+            box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--primary-color); /* Neon glow for active dot */
         }
+
+        .scroll-indicator-nav li a:hover .dot { /* Neon glow for hovered dot */
+            box-shadow: 0 0 8px var(--glow-color), 0 0 15px var(--primary-color);
+        }
+
 
         @media (max-width: 992px) {
             .pricing-card.popular {
@@ -987,64 +1008,15 @@
                     multiPageModalTitle: "Multi-Page Websites Service", multiPageModalContent: "<p>A multi-page website is the complete digital presence for your company, showcasing your identity, services, and products in a comprehensive and organized manner across several linked pages.</p><h4>Key Features</h4><ul><li>Clear and easy-to-use navigation structure.</li><li>Dedicated pages (About, Services, Contact, etc.).</li><li>Design that reflects your brand identity.</li><li>Strong foundation for Search Engine Optimization (SEO).</li><li>Comprehensive content to build customer trust.</li></ul><h4>Benefit for Your Business</h4><p>Builds strong credibility for your brand, provides complete information to your audience, and serves as a central digital hub for all your marketing activities.</p>",
                     ecommerceModalTitle: "E-commerce Stores Service", ecommerceModalContent: "<p>We transform your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you showcase your products attractively, manage your operations easily, and achieve sales growth.</p><h4>Platforms & Technologies</h4><ul><li><b>WooCommerce:</b> For WordPress-based stores, providing easy management and a feature-rich control panel.</li><li><b>Shopify:</b> We customize themes and develop special apps to match your brand identity.</li><li><b>Custom Solutions:</b> For unique projects, we build stores from scratch using modern technologies.</li></ul><h4>Benefit for Your Business</h4><p>Expand your customer base, build a strong brand, and increase your profits through a 24/7 sales channel.</p>",
                     blogModalTitle: "Blog Integration Service", blogModalContent: "<p>Adding a blog section to your site is a strategic investment to create valuable content that attracts visitors, builds trust, and establishes your expertise in your field.</p><h4>Key Features</h4><ul><li>Easy-to-use Content Management System (CMS).</li><li>Post categorization via tags and categories.</li><li>Commenting and social sharing functionality.</li><li>SEO-friendly article structure.</li></ul><h4>Benefit for Your Business</h4><p>Increases organic traffic from Google, establishes you as an expert in your field, and provides evergreen content to share with your audience.</p>",
-                    bookingModalTitle: "Booking Systems Service", bookingModalContent: "<p>An online booking system allows your clients to book appointments or services directly from your website at any time, from anywhere, saving your time and theirs.</p><h4>Key Features</h4><ul><li>A calendar showing real-time availability.</li><li>Option for upfront payments to confirm bookings.</li><li>Automated email confirmations and reminders.</li><li>A dashboard to manage bookings, staff, and services.</li></ul><h4>Benefit for Your Business</h4><p>Automates the appointment scheduling process, reduces no-shows, and increases the efficiency of managing your time and business.</p>",
+                    bookingModalTitle: "Booking Systems Service", bookingModalContent: "<p>An online booking system allows your clients to book appointments or services directly from your website at any time, from anywhere, saving your time and theirs.</p><h4>Key Features</h4><ul><li>A calendar showing real-time availability.</li><li>Option for upfront payments to confirm bookings.</li><li>Showcasing of an updated and animated calendar.</li><li>Automated email confirmations and reminders.</li><li>A dashboard to manage bookings, staff, and services.</li></ul><h4>Benefit for Your Business</h4><p>Automates the appointment scheduling process, reduces no-shows, and increases the efficiency of managing your time and business.</p>",
                     portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality image and video galleries.</li><li>Project categorization for easy Browse.</li><li>A detail page for each project with descriptions and client testimonials.</li></ul><h4>Benefit for Your Business</h4><p>Visibly demonstrates your expertise, attracts new clients who value quality, and strongly builds your personal or company brand.</p>"
-                },
-                fr: {
-                    navHome: "Accueil", navAbout: "À propos", navServices: "Services", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
-                    heroTitle: ["Votre Identité Numérique", "Transformer les Idées en Réalité", "Solutions Web Innovantes"],
-                    heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Consultation Gratuite",
-                    aboutTitle: "Solutions Numériques Innovantes pour Votre Marque", founderName: "Amayas berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas juste une façade, mais un puissant outil de croissance. Ma mission est de transformer vos ideas en réalité numérique grâce à un design élégant et un code performant.",
-                    servicesTitle: "Nos Services", service1: "Pages de Destination", service2: "Sites Multi-pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolios",
-                    planPopularBadge: "Le plus populaire",
-                    currencySuffix: "DA",
-                    planCTA: "Commencer",
-                    plan1Name: "Basique",
-                    plan1Price: "3000",
-                    plan1Feat1: "Page Web Unique (Landing Page)",
-                    plan1Feat2: "Design Responsive",
-                    plan1Feat3: "Formulaire de Contact",
-                    plan1Feat4: "Configuration SEO de Base",
-                    plan1Feat5: "Système de Gestion de Contenu (CMS)",
-                    plan1Feat6: "Boutique E-commerce Complète",
-                    plan2Name: "Professionnel",
-                    plan2Price: "5000",
-                    plan2Feat1: "Site Multi-pages (jusqu'à 5)",
-                    plan2Feat2: "Design Personnalisé & Responsive",
-                    plan2Feat3: "Intégration CMS",
-                    plan2Feat4: "Optimisation SEO Avancée",
-                    plan2Feat5: "1 mois de support technique",
-                    plan2Feat6: "Boutique E-commerce Complète",
-                    plan3Name: "Intégral",
-                    plan3Price: "12000",
-                    plan3Feat1: "Site Multi-pages Illimité",
-                    plan3Feat2: "Design Unique et Moderne",
-                    plan3Feat3: "Intégration CMS",
-                    plan3Feat4: "Optimisation SEO Professionnelle",
-                    plan3Feat5: "3 mois de support technique",
-                    plan3Feat6: "E-commerce avec Passerelles de Paiement",
-                    testTitle: "Votre Site est-il Performant ?", testQ1: "Votre site est-il compatible mobile ?", testQ2: "Votre site se charge-t-il rapidement ?", testQ3: "Votre contenu est-il facile à naviguer ?", testQ4: "Le design est-il professionnel ?", testQ5: "Vos coordonnées sont-elles claires ?",
-                    testYes: "Oui", testNo: "Non",
-                    testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider !</a>",
-                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.",
-                    faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
-                    contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via :", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer",
-                    formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
-                    footerPrivacy: "Confidentialité", footerTerms: "Termes", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
-                    privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
-                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these Terms of Service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont formellement convenus avant le début de tout travail. Une consultation ne constitue pas un contrat contraignant.</p>",
-                    landingPageModalTitle: "Service de Pages de Destination", landingPageModalContent: "<p>Une page de destination (landing page) est une page web unique conçue pour un objectif marketing spécifique. Son but est de convertir les visiteurs en prospects en les incitant à effectuer une action précise.</p><h4>Caractéristiques Clés</h4><ul><li>Design attrayant et axé sur l'objectif.</li><li>Appel à l'action (CTA) clair.</li><li>Texte concis et persuasif.</li><li>Formulaire simple de collecte de données.</li><li>Entièrement responsive sur tous les écrans.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente l'efficacité de vos campagnes publicitaires, améliore les taux de conversion et fournit des données précises pour mesurer votre succès.</p>",
-                    multiPageModalTitle: "Service de Sites Multi-pages", multiPageModalContent: "<p>Un site multi-pages est la vitrine numérique complète de votre entreprise, présentant votre identité, vos services et vos produits de manière exhaustive et organisée sur plusieurs pages liées.</p><h4>Caractéristiques Clés</h4><ul><li>Structure de navigation claire et simple.</li><li>Pages dédiées (À propos, Services, Contact, etc.).</li><li>Design qui reflète l'identité de votre marque.</li><li>Base solide pour l'optimisation des moteurs de recherche (SEO).</li><li>Contenu complet pour renforcer la confiance des clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Renforce la crédibilité de votre marque, fournit des informations complètes à votre public et sert de hub numérique central pour toutes vos activités marketing.</p>",
-                    ecommerceModalTitle: "Service de Boutiques E-commerce", ecommerceModalContent: "<p>Nous transformons votre idée de boutique en une réalité numérique complète. Nous concevons des boutiques en ligne professionnelles qui vous aident à présenter vos produits, à gérer vos opérations et à augmenter vos ventes.</p><h4>Plateformes et Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un panel riche en fonctionnalités.</li><li><b>Shopify :</b> Nous personnalisons des thèmes et développons des applications pour correspondre à votre marque.</li><li><b>Solutions sur mesure :</b> Pour les projets uniques, nous construisons des boutiques de A à Z avec des technologies modernes.</li></ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24/7.</p>",
-                    blogModalTitle: "Service d'Intégration de Blog", blogModalContent: "<p>Ajouter une section blog à votre site est un investissement stratégique pour créer du contenu de valeur qui attire les visiteurs, instaure la confiance et établit votre expertise.</p><h4>Caractéristiques Clés</h4><ul><li>Système de gestion de contenu (CMS) facile à utiliser.</li><li>Catégorisation des articles par tags et catégories.</li><li>Fonctionnalité de commentaires et de partage social.</li><li>Structure d'article optimisée pour le SEO.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente le trafic organique de Google, vous positionne en tant qu'expert et fournit du contenu frais à partager avec votre audience.</p>",
-                    bookingModalTitle: "Service de Systèmes de Réservation", bookingModalContent: "<p>Un système de réservation en ligne permet à vos clients de prendre rendez-vous ou de réserver des services directement depuis votre site, à tout moment, ce qui vous fait gagner du temps, à vous et à eux.</p><h4>Caractéristiques Clés</h4><ul><li>Un calendrier affichant la disponibilité en temps réel.</li><li>Option de paiement anticipé pour confirmer les réservations.</li><li>Confirmations et rappels automatiques par e-mail.</li><li>Tableau de bord pour gérer les réservations, le personnel et les services.</li></ul><h4>Avantage pour votre entreprise</h4><p>Automatise la planification des rendez-vous, réduit les absences et augmente l'efficacité de la gestion de votre temps et de votre activité.</p>",
-                    portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>Un portfolio est le moyen le plus professionnel de présenter vos compétences et vos projets antérieurs. C'est votre CV visuel qui témoigne de la qualité de votre travail.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries d'images et de vidéos de haute qualité.</li><li>Catégorisation des projets pour une navigation facile.</li><li>Page de détail pour chaque projet avec descriptions et témoignages clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit solidement votre marque personnelle ou d'entreprise.</p>"
                 }
             };
             
             let currentLangIndex = 0;
             let typingTimeout;
             let textAnimationObserver;
+            let scrollTimeout; // New variable for scroll timeout
 
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const contactForm = document.getElementById('contact-form');
@@ -1055,6 +1027,12 @@
             const scrollIndicator = document.getElementById('scroll-indicator');
             const scrollIndicatorNav = document.getElementById('scroll-indicator-nav').querySelector('ul');
             const pageSections = document.querySelectorAll('main > section[id]');
+
+            // Initial state for scroll indicator
+            // It will be shown if user scrolls down after page load
+            if (window.pageYOffset > 200) {
+                scrollIndicator.classList.add('show');
+            }
 
             document.querySelectorAll('.main-nav a, .footer-links a, .logo').forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -1086,7 +1064,23 @@
             document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
             document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
             scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            window.addEventListener('scroll', handleScroll);
+            
+            // Modified handleScroll to manage show/hide based on scroll activity
+            window.addEventListener('scroll', () => {
+                handleScroll();
+                // Clear the timeout if scrolling resumes
+                clearTimeout(scrollTimeout);
+                // Show the indicator when scrolling
+                scrollIndicator.classList.remove('hide');
+                scrollIndicator.classList.add('show');
+                // Set a timeout to hide the indicator after a delay (e.g., 1.5 seconds) of inactivity
+                scrollTimeout = setTimeout(() => {
+                    scrollIndicator.classList.remove('show');
+                    scrollIndicator.classList.add('hide');
+                }, 1500); // Adjust delay as needed
+            });
+
+
             if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
 
             modalTriggers.forEach(trigger => {
@@ -1240,10 +1234,6 @@
             function handleScroll() {
                 if (scrollTopBtn) {
                     scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
-                }
-
-                if (scrollIndicator) {
-                    scrollIndicator.classList.toggle('show', window.pageYOffset > 200);
                 }
 
                 let currentSectionId = '';
@@ -1481,7 +1471,7 @@
                 
                 currentLangIndex = langCycle.indexOf(initialLang);
                 updateLanguage(initialLang);
-                handleScroll();
+                handleScroll(); // Initial call to set visibility on load
                 initServiceCardAnimations();
                 initSectionEntryAnimations();
             }
