@@ -106,8 +106,8 @@
         @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
         
-        #about, #services, #pricing, #website-test, #faq, #contact { opacity: 0; transform: translateY(40px); will-change: opacity, transform; transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); }
-        #about.is-visible, #services.is-visible, #pricing.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible { opacity: 1; transform: translateY(0); }
+        #about, #services, #process, #pricing, #website-test, #faq, #contact { opacity: 0; transform: translateY(40px); will-change: opacity, transform; transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); }
+        #about.is-visible, #services.is-visible, #process.is-visible, #pricing.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible { opacity: 1; transform: translateY(0); }
         #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 0 20px -8px var(--glow-color); transition-property: box-shadow, border-color, opacity, transform; }
         #about:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
         .founder-content { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
@@ -138,6 +138,99 @@
         .calendar-check { transition: transform 0.4s ease, opacity 0.4s ease; transform-origin: center; opacity: 0; transform: scale(0.5); }
         .portfolio-image { transition: transform 0.4s ease; }
         .service-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--text-color); margin-top: auto; }
+
+        /* Process Section Styles */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .process-grid::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 120px);
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 0;
+            display: none; /* Hidden by default, enable for larger screens with media query */
+        }
+        
+        html[dir="rtl"] .process-grid::before {
+            right: 50%;
+            left: initial;
+            transform: translateX(50%);
+        }
+
+        .process-step {
+            background-color: var(--surface-color);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s var(--ease-out-quart), transform 0.6s var(--ease-out-quart), box-shadow var(--transition-speed);
+        }
+
+        .process-step.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .process-step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 12px -2px var(--glow-color);
+        }
+
+        .process-icon-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem auto;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s ease, box-shadow var(--transition-speed);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .process-step:hover .process-icon-container {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3), 0 0 15px var(--glow-color);
+        }
+
+        .process-icon-container svg {
+            width: 45px;
+            height: 45px;
+            fill: none;
+            stroke: var(--primary-text-color);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .process-step h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .process-step p {
+            color: var(--subtle-text-color);
+            font-size: 0.95rem;
+        }
+
+
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; margin-top: 4rem; }
         .pricing-card { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); position: relative; }
         .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 15px -5px var(--glow-color); }
@@ -235,8 +328,21 @@
         .scroll-indicator-nav li.active a .dot { background-color: var(--primary-color); transform: translateY(-50%) scale(1.7); box-shadow: 0 0 12px var(--glow-color), 0 0 22px var(--primary-color); }
         .scroll-indicator-nav li:not(.active) a:hover .dot { transform: translateY(-50%) scale(1.4); box-shadow: 0 0 10px var(--glow-color); }
         .scroll-indicator-nav li:not(.active) a:hover .section-name { text-shadow: 0 0 6px var(--glow-color); }
+        @media (min-width: 769px) { /* Show line for process grid on larger screens */
+            .process-grid::before {
+                display: block;
+            }
+        }
         @media (max-width: 992px) { .pricing-card.popular { transform: scale(1); } .pricing-grid { grid-template-columns: 1fr; max-width: 450px; margin-inline: auto; } }
-        @media (max-width: 768px) { .main-nav { display: none; } }
+        @media (max-width: 768px) { 
+            .main-nav { display: none; } 
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            .process-grid::before {
+                display: none; /* Hide line on small screens */
+            }
+        }
     </style>
 </head>
 <body>
@@ -256,7 +362,7 @@
                     <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
                     <li><a href="#about" class="nav-link" data-lang-key="navAbout"></a></li>
                     <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
-                    <li><a href="#pricing" class="nav-link" data-lang-key="pricingTitle"></a></li>
+                    <li><a href="#process" class="nav-link" data-lang-key="navProcess"></a></li> <li><a href="#pricing" class="nav-link" data-lang-key="pricingTitle"></a></li>
                     <li><a href="#website-test" class="nav-link" data-lang-key="navTest"></a></li>
                     <li><a href="#faq" class="nav-link" data-lang-key="navFAQ"></a></li>
                     <li><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
@@ -301,6 +407,47 @@
             </div>
         </section>
 
+        <section id="process" class="container" data-section-name="منهجية العمل" data-section-name-en="Our Process" data-section-name-fr="Notre Processus">
+            <h2 class="section-title" data-lang-key="processTitle" data-animate="slide-up-words"></h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="process-icon-container">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M11 15h2v2h-2zm0-8h2v6h-2z"/>
+                        </svg>
+                    </div>
+                    <h3 data-lang-key="processStep1Title"></h3>
+                    <p data-lang-key="processStep1Desc"></p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon-container">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M17 3H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 16H9v-1h6v1zm2-4H7V5h10v10z"/>
+                        </svg>
+                    </div>
+                    <h3 data-lang-key="processStep2Title"></h3>
+                    <p data-lang-key="processStep2Desc"></p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon-container">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-4 0h-1V8c0-2.76-2.24-5-5-5S1 5.24 1 8c0 2.76 2.24 5 5 5h1c.55 0 1 .45 1 1v7h2v-8c0-.55-.45-1-1-1zm6 0c.55 0 1-.45 1-1V8c0-.55-.45-1-1-1s-1 .45-1 1v2c0 .55.45 1 1 1z"/>
+                        </svg>
+                    </div>
+                    <h3 data-lang-key="processStep3Title"></h3>
+                    <p data-lang-key="processStep3Desc"></p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon-container">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M22 10v6c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2h12l4 4zM4 8v8h16l-4-4H4zm14 0h-4V5c0-.55-.45-1-1-1H7c-.55 0-1 .45-1 1v3H4V5c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2v3h-2z"/>
+                        </svg>
+                    </div>
+                    <h3 data-lang-key="processStep4Title"></h3>
+                    <p data-lang-key="processStep4Desc"></p>
+                </div>
+            </div>
+        </section>
         <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
             <h2 class="section-title" data-lang-key="pricingTitle" data-animate="slide-up-words"></h2>
             <div class="pricing-grid">
@@ -374,11 +521,16 @@
             
             const translations = {
                 ar: {
-                    navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا", pricingTitle: "الأسعار",
+                    navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navProcess: "منهجية العمل", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا", pricingTitle: "الأسعار",
                     heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
                     heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
                     aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
                     servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
+                    processTitle: "منهجية العمل",
+                    processStep1Title: "الاستشارة والتحليل", processStep1Desc: "نتعمق في فهم رؤيتك، أهدافك، ومتطلبات مشروعك بدقة لضمان أفضل بداية.",
+                    processStep2Title: "التصميم الأولي (UI/UX)", processStep2Desc: "نصمم واجهات مستخدم جذابة وتجربة مستخدم سلسة، مع التركيز على سهولة الاستخدام والجاذبية البصرية.",
+                    processStep3Title: "التطوير والبرمجة", processStep3Desc: "نحول التصميم إلى واقع، نكتب كود نظيف وعالي الأداء، ونبني جميع الميزات المطلوبة بدقة واحترافية.",
+                    processStep4Title: "الإطلاق والدعم", processStep4Desc: "نطلق موقعك رسميًا، ونتأكد من عمل كل شيء بسلاسة، ثم نقدم دعمًا فنيًا مستمرًا لضمان استمرارية نجاحك.",
                     planPopularBadge: "الأكثر طلباً", currencySuffix: "د.ج", planCTA: "ابدأ الآن",
                     plan1Name: "الباقة الأساسية", plan1Price: "3500", plan1Feat1: "صفحة ويب واحدة (Landing Page)", plan1Feat2: "تصميم متجاوب مع كل الشاشات", plan1Feat3: "نموذج تواصل فعال", plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)", plan1Feat5: "نظام إدارة المحتوى", plan1Feat6: "متجر إلكتروني متكامل",
                     plan2Name: "الباقة الاحترافية", plan2Price: "5000", plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)", plan2Feat2: "تصميم متجاوب ومخصص", plan2Feat3: "ربط بلوحة تحكم (CMS)", plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)", plan2Feat5: "دعم فني لمدة شهر", plan2Feat6: "متجر إلكتروني متكامل",
@@ -399,11 +551,16 @@
                     portfolioModalTitle: "خدمة معرض الأعمال (Portfolio)", portfolioModalContent: "<p>معرض الأعمال هو الطريقة الأكثر احترافية لعرض مهاراتك ومشاريعك السابقة. إنه سيرتك الذاتية المرئية التي تتحدث عن جودة عملك.</p><h4>الميزات الأساسية</h4><ul><li>تصميم أنيق يركز على عرض أعمالك.</li><li>معارض صور وفيديو عالية الجودة.</li><li>تقسيم الأعمال حسب الفئة لتسهيل التصفح.</li><li>صفحة لكل مشروع تحتوي على تفاصيل وشهادات العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يعرض خبرتك بشكل ملموس، يجذب عملاء جدد يقدرون الجودة، ويبني علامتك الشخصية أو التجارية بقوة.</p>"
                 },
                 en: {
-                    navHome: "Home", navAbout: "About", navServices: "Services", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Pricing",
+                    navHome: "Home", navAbout: "About", navServices: "Services", navProcess: "Our Process", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Pricing",
                     heroTitle: ["We Design a Professional Digital Identity", "We Turn Your Ideas Into Reality", "Innovative Web Solutions"],
                     heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Request a Free Consultation",
                     aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas Berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just an interface, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant designs and high-performance code.",
                     servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-Page Websites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolio",
+                    processTitle: "Our Process",
+                    processStep1Title: "Consultation & Analysis", processStep1Desc: "We deeply understand your vision, goals, and project requirements to ensure the best start.",
+                    processStep2Title: "UI/UX Design", processStep2Desc: "We design appealing user interfaces and smooth user experiences, focusing on usability and visual appeal.",
+                    processStep3Title: "Development & Coding", processStep3Desc: "We bring the design to life, writing clean, high-performance code, and building all required features with precision and professionalism.",
+                    processStep4Title: "Launch & Support", processStep4Desc: "We officially launch your website, ensure everything works smoothly, and provide ongoing technical support to guarantee your continued success.",
                     planPopularBadge: "Most Popular", currencySuffix: "DZD", planCTA: "Get Started",
                     plan1Name: "Basic Plan", plan1Price: "3500", plan1Feat1: "Single Web Page (Landing Page)", plan1Feat2: "Responsive on all devices", plan1Feat3: "Effective contact form", plan1Feat4: "Basic SEO setup", plan1Feat5: "Content Management System", plan1Feat6: "Full E-commerce store",
                     plan2Name: "Professional Plan", plan2Price: "5000", plan2Feat1: "Multi-page site (up to 5 pages)", plan2Feat2: "Custom responsive design", plan2Feat3: "CMS Integration", plan2Feat4: "Advanced SEO optimization", plan2Feat5: "1-month technical support", plan2Feat6: "Full E-commerce store",
@@ -424,18 +581,23 @@
                     portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality photo and video galleries.</li><li>Categorization of works for easy Browse.</li><li>A page for each project with details and client testimonials.</li></ul><h4>Benefit for Your Business</h4><p>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</p>"
                 },
                 fr: {
-                    navHome: "Accueil", navAbout: "À propos", navServices: "Services", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
+                    navHome: "Accueil", navAbout: "À propos", navServices: "Services", navProcess: "Notre Processus", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
                     heroTitle: ["Nous Créons Votre Identité Numérique Professionnelle", "Nous Transformons Vos Idées en Réalité", "Solutions Web Innovantes"],
                     heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Demander une Consultation Gratuite",
                     aboutTitle: "Solutions Numériques Innovantes Pour Votre Marque", founderName: "Amayas Berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas seulement une interface, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à des designs élégants et un code haute performance.",
                     servicesTitle: "Nos Services", service1: "Pages d'Atterrissage", service2: "Sites Multi-Pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolio",
+                    processTitle: "Notre Processus",
+                    processStep1Title: "Consultation et Analyse", processStep1Desc: "Nous approfondissons votre vision, vos objectifs et les exigences de votre projet pour garantir le meilleur départ.",
+                    processStep2Title: "Conception UI/UX", processStep2Desc: "Nous concevons des interfaces utilisateur attrayantes et une expérience utilisateur fluide, en mettant l'accent sur la facilité d'utilisation et l'attrait visuel.",
+                    processStep3Title: "Développement et Codage", processStep3Desc: "Nous donnons vie à la conception, écrivons un code propre et performant, et intégrons toutes les fonctionnalités requises avec précision et professionnalisme.",
+                    processStep4Title: "Lancement et Support", processStep4Desc: "Nous lançons officiellement votre site web, nous nous assurons que tout fonctionne correctement, puis nous offrons un support technique continu pour garantir votre succès durable.",
                     planPopularBadge: "Le plus populaire", currencySuffix: "DZD", planCTA: "Commencer",
                     plan1Name: "Forfait Essentiel", plan1Price: "3500", plan1Feat1: "Page web unique (Landing Page)", plan1Feat2: "Responsive sur tous les écrans", plan1Feat3: "Formulaire de contact efficace", plan1Feat4: "Configuration SEO de base", plan1Feat5: "Système de gestion de contenu", plan1Feat6: "Boutique e-commerce complète",
                     plan2Name: "Forfait Professionnel", plan2Price: "5000", plan2Feat1: "Site multi-pages (jusqu'à 5 pages)", plan2Feat2: "Design responsive personnalisé", plan2Feat3: "Intégration CMS", plan2Feat4: "Optimisation SEO avancée", plan2Feat5: "1 mois de support technique", plan2Feat6: "Boutique e-commerce complète",
                     plan3Name: "Forfait Premium", plan3Price: "9500", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
                     testTitle: "Votre Site Actuel Est-il Bon?", testQ1: "Votre site est-il responsive sur mobile?", testQ2: "Votre site se charge-t-il rapidement?", testQ3: "Le contenu est-il facile à parcourir?", testQ4: "Votre design semble-t-il professionnel?", testQ5: "Vos informations de contact sont-elles claires?",
                     testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider!</a>",
-                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.", faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.", faqQ5: "Puis-je demander des fonctionnalités supplémentaires?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
+                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.", faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.", faqQ5: "Can I request additional features?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
                     contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via:", formName: "Nom Complet", formEmail: "Adresse E-mail", formMessage: "Votre message...", formSubmit: "Envoyer le Message",
                     formSending: "Envoi en cours...", formSuccess: "Merci! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
@@ -541,6 +703,7 @@
                 createTestQuestions();
                 initTextAnimations(); 
                 createScrollIndicator();
+                initProcessCardAnimations(); // Initialize process card animations
             }
 
             function createScrollIndicator() {
@@ -744,6 +907,7 @@
             function initServiceCardAnimations() { }
             function initSectionEntryAnimations() { }
             function handleParallaxEffect() { }
+            function initProcessCardAnimations() { } // Declare this before assignment
 
             // --- Page Initialization ---
             function init() {
@@ -768,6 +932,7 @@
                 
                 initServiceCardAnimations();
                 initSectionEntryAnimations();
+                initProcessCardAnimations(); // Call process card animations on init
 
                 document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
                 document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
@@ -902,8 +1067,26 @@
                     cardObserver.observe(card);
                 });
             }
+            initProcessCardAnimations = function() { // Define the function here
+                const processCards = document.querySelectorAll('.process-step');
+                if (!processCards.length) return;
+                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+                const cardObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                processCards.forEach((card, index) => {
+                    card.style.transitionDelay = `${index * 120}ms`; // Slightly different delay for variety
+                    cardObserver.observe(card);
+                });
+            }
             initSectionEntryAnimations = function() {
-                const sections = document.querySelectorAll('#about, #services, #pricing, #website-test, #faq, #contact');
+                // Ensure #process is included here
+                const sections = document.querySelectorAll('#about, #services, #process, #pricing, #website-test, #faq, #contact');
                 if (!sections.length) return;
                 const sectionObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
