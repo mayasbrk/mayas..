@@ -441,7 +441,7 @@
             visibility: visible;
         }
 
-        /* --- CORRECTED Styles for Side Scroll Indicator --- */
+        /* --- Styles for Side Scroll Indicator (Visible on Mobile) --- */
         .scroll-indicator {
             position: fixed;
             top: 50%;
@@ -460,12 +460,12 @@
         }
 
         html[dir="rtl"] .scroll-indicator {
-            left: 25px;
+            left: 15px; /* Adjusted for smaller screens */
             flex-direction: row-reverse;
         }
 
         html[dir="ltr"] .scroll-indicator {
-            right: 25px;
+            right: 15px; /* Adjusted for smaller screens */
             flex-direction: row;
         }
 
@@ -492,10 +492,10 @@
         }
         
         html[dir="rtl"] .scroll-indicator-nav li a {
-            padding-right: 25px;
+            padding-right: 20px;
         }
         html[dir="ltr"] .scroll-indicator-nav li a {
-            padding-left: 25px;
+            padding-left: 20px;
         }
 
         .scroll-indicator-nav li a .dot {
@@ -549,13 +549,9 @@
             transform: translateY(-50%) scale(1.7);
         }
 
-        /* --- Mobile Styles --- */
         @media (max-width: 992px) {
-            .scroll-indicator {
-                display: none; /* Hide indicator on smaller screens */
-            }
             .pricing-card.popular {
-                transform: scale(1); /* Remove scale on smaller screens to avoid layout issues */
+                transform: scale(1);
             }
              .pricing-grid {
                 grid-template-columns: 1fr;
@@ -1043,7 +1039,6 @@
             const modalTriggers = document.querySelectorAll('[data-modal-target]');
             const langCycle = ['ar', 'en', 'fr'];
             
-            // --- Elements for Side Scroll Indicator ---
             const scrollIndicator = document.getElementById('scroll-indicator');
             const scrollIndicatorNav = document.getElementById('scroll-indicator-nav').querySelector('ul');
             const pageSections = document.querySelectorAll('main > section[id]');
@@ -1169,7 +1164,7 @@
                 createFAQ();
                 createTestQuestions();
                 initTextAnimations(); 
-                createScrollIndicator(); // Regenerate scroll indicator on lang change
+                createScrollIndicator();
             }
             
             function startTypingEffect() {
@@ -1229,20 +1224,18 @@
                 });
             }
             
-            // --- CORRECTED Scroll Handler ---
             function handleScroll() {
                 if (scrollTopBtn) {
                     scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
                 }
 
-                // Logic for side scroll indicator visibility
                 if (scrollIndicator) {
                     scrollIndicator.classList.toggle('show', window.pageYOffset > 200);
                 }
 
                 let currentSectionId = '';
                 const headerOffset = document.querySelector('.header').offsetHeight;
-                const scrollPosition = window.pageYOffset + headerOffset + 50; // Offset from top
+                const scrollPosition = window.pageYOffset + headerOffset + 50;
 
                 pageSections.forEach(section => {
                     if (scrollPosition >= section.offsetTop) {
@@ -1250,12 +1243,10 @@
                     }
                 });
                 
-                // Update top nav
                 document.querySelectorAll('.main-nav a').forEach(a => {
                     a.classList.toggle('active', a.getAttribute('href') === '#' + currentSectionId);
                 });
 
-                // Update side scroll indicator
                 if (scrollIndicator) {
                     const indicatorLinks = scrollIndicatorNav.querySelectorAll('li');
                     indicatorLinks.forEach(li => {
@@ -1412,11 +1403,10 @@
                 });
             }
 
-            // --- CORRECTED function to create and manage the scroll indicator ---
             function createScrollIndicator() {
                 if (!scrollIndicatorNav || !pageSections.length) return;
                 
-                scrollIndicatorNav.innerHTML = ''; // Clear previous items
+                scrollIndicatorNav.innerHTML = '';
                 const currentLangCode = langCycle[currentLangIndex];
 
                 pageSections.forEach(section => {
