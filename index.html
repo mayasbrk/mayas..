@@ -472,6 +472,10 @@
             margin: 0;
         }
 
+        .scroll-indicator-nav li {
+            position: relative; /* Needed for absolute positioning of section-name */
+        }
+
         .scroll-indicator-nav li a {
             display: flex;
             align-items: center;
@@ -481,7 +485,7 @@
             text-decoration: none;
             color: var(--subtle-text-color);
             transition: color var(--transition-speed);
-            position: relative;
+            position: relative; /* For dot positioning */
         }
 
         .scroll-indicator-nav li a .dot {
@@ -496,17 +500,39 @@
             right: -4px; /* Place the dot over the line */
         }
 
+        /* Styles for the "pop-out" section name */
         .scroll-indicator-nav li a .section-name {
+            position: absolute; /* Position relative to its parent 'li a' */
+            left: auto; /* Reset left property */
+            right: 100%; /* Position to the left of the 'a' element */
+            margin-right: 15px; /* Space between the dot and the text */
             opacity: 0;
             visibility: hidden;
             font-size: 0.9rem;
             font-weight: 500;
             white-space: nowrap;
-            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
             background-color: var(--surface-color);
-            padding: 4px 8px;
-            border-radius: 4px;
-            transform: translateX(10px); /* Initially shifted to the right */
+            color: var(--text-color); /* Ensure text color is visible */
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color); /* Add a subtle border */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+            transition: opacity 0.3s var(--ease-out-quart), visibility 0.3s var(--ease-out-quart), transform 0.3s var(--ease-out-quart);
+            transform: translateX(10px); /* Initial state for slide-in effect */
+            pointer-events: none; /* Make text not clickable */
+        }
+
+        html[dir="rtl"] .scroll-indicator-nav li a .section-name {
+            right: 100%; /* For RTL, still appears on the left */
+            left: auto;
+            transform: translateX(10px); /* Initial state for slide-in effect */
+        }
+
+        html[dir="ltr"] .scroll-indicator-nav li a .section-name {
+            left: 100%; /* For LTR, appears on the left of the line */
+            right: auto;
+            margin-left: 15px; /* Space between the dot and the text */
+            transform: translateX(-10px); /* Initial state for slide-in effect */
         }
 
         .scroll-indicator-nav li a:hover .section-name,
@@ -952,7 +978,7 @@
                     landingPageModalTitle: "Landing Pages Service", landingPageModalContent: "<p>A landing page is a single web page designed for a specific marketing goal. Its purpose is to convert visitors into leads by encouraging them to take a specific action.</p><h4>Key Features</h4><ul><li>Attractive, goal-oriented design.</li><li>Clear Call-to-Action (CTA).</li><li>Concise and persuasive copy.</li><li>Simple lead generation form.</li><li>Fully responsive on all screens.</li></ul><h4>Benefit for Your Business</h4><p>Increases the effectiveness of your ad campaigns, boosts conversion rates, and provides accurate data to measure your success.</p>",
                     multiPageModalTitle: "Multi-Page Websites Service", multiPageModalContent: "<p>A multi-page website is the complete digital presence for your company, showcasing your identity, services, and products in a comprehensive and organized manner across several linked pages.</p><h4>Key Features</h4><ul><li>Clear and easy-to-use navigation structure.</li><li>Dedicated pages (About, Services, Contact, etc.).</li><li>Design that reflects your brand identity.</li><li>Strong foundation for Search Engine Optimization (SEO).</li><li>Comprehensive content to build customer trust.</li></ul><h4>Benefit for Your Business</h4><p>Builds strong credibility for your brand, provides complete information to your audience, and serves as a central digital hub for all your marketing activities.</p>",
                     ecommerceModalTitle: "E-commerce Stores Service", ecommerceModalContent: "<p>We transform your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you showcase your products attractively, manage your operations easily, and achieve sales growth.</p><h4>Platforms & Technologies</h4><ul><li><b>WooCommerce:</b> For WordPress-based stores, providing easy management and a feature-rich control panel.</li><li><b>Shopify:</b> We customize themes and develop special apps to match your brand identity.</li><li><b>Custom Solutions:</b> For unique projects, we build stores from scratch using modern technologies.</li></ul><h4>Benefit for Your Business</h4><p>Expand your customer base, build a strong brand, and increase your profits through a 24/7 sales channel.</p>",
-                    blogModalTitle: "Blog Integration Service", blogModalContent: "<p>Adding a blog section to your site is a strategic investment to create valuable content that attracts visitors, builds trust, and establishes your expertise in your field.</p><h4>Key Features</h4><ul><li>Easy-to-use Content Management System (CMS).</li><li>Post categorization via tags and categories.</li><li>Commenting and social sharing functionality.</li><li>SEO-friendly article structure.</li></ul><h4>Benefit for Your Business</h4><p>Increases organic traffic from Google, establishes you as an expert in your field, and provides evergreen content to share with your audience.</p>",
+                    blogModalTitle: "Blog Integration Service", blogModalContent: "<p>Adding a blog section to your site is a strategic investment to create valuable content that attracts visitors, builds trust, and establishes your expertise in your field.</p><h4>Key Features</h4><ul><li>Easy-to-use Content Management System (CMS).</li><li>Post categorization via tags and categories.</li><li>Commenting and social sharing functionality.</li><li>SEO-friendly article structure.</li><li>Content Management System (CMS).</li></ul><h4>Benefit for Your Business</h4><p>Increases organic traffic from Google, establishes you as an expert in your field, and provides evergreen content to share with your audience.</p>",
                     bookingModalTitle: "Booking Systems Service", bookingModalContent: "<p>An online booking system allows your clients to book appointments or services directly from your website at any time, from anywhere, saving your time and theirs.</p><h4>Key Features</h4><ul><li>A calendar showing real-time availability.</li><li>Option for upfront payments to confirm bookings.</li><li>Automated email confirmations and reminders.</li><li>A dashboard to manage bookings, staff, and services.</li></ul><h4>Benefit for Your Business</h4><p>Automates the appointment scheduling process, reduces no-shows, and increases the efficiency of managing your time and business.</p>",
                     portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality image and video galleries.</li><li>Project categorization for easy Browse.</li><li>A detail page for each project with descriptions and client testimonials.</li></ul><h4>Benefit for Your Business</h4><p>Visibly demonstrates your expertise, attracts new clients who value quality, and strongly builds your personal or company brand.</p>"
                 },
@@ -993,7 +1019,7 @@
                     testYes: "Oui", testNo: "Non",
                     testResultGood: "Excellent ! Votre site semble bien performer.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider !</a>",
                     faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps pour créer un site ?", faqA1: "Un site simple prend généralement 1 à 2 semaines, selon le projet.", faqQ2: "Offrez-vous un support après la livraison ?", faqA2: "Oui, nous offrons une période de support gratuit pour garantir que tout fonctionne.",
-                    faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Puis-je demander des fonctionnalités sup. ?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité nécessaire à votre activité.",
+                    faqQ3: "Puis-je payer après la livraison ?", faqA3: "Nous avons un système de paiement flexible : un acompte pour commencer et le solde à la livraison.", faqQ4: "Créez-vous des sites en arabe ?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites qui supportent pleinement l'arabe.", faqQ5: "Can I request extra features?", faqA5: "Yes, we can add any feature you need for your business.",
                     contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via :", formName: "Nom complet", formEmail: "Adresse e-mail", formMessage: "Votre message...", formSubmit: "Envoyer",
                     formSending: "Envoi en cours...", formSuccess: "Merci ! Votre message a été envoyé.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Termes", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
