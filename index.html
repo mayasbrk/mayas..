@@ -47,9 +47,10 @@
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
         
-        @keyframes animated-aurora { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes blink { 50% { border-color: transparent; } }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes animated-aurora {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -79,24 +80,19 @@
                 radial-gradient(circle at 20% 80%, #c084fc 0%, rgba(192, 132, 252, 0) 30%),
                 radial-gradient(circle at 80% 30%, #f3e8ff 0%, rgba(243, 232, 255, 0) 40%);
         }
-        
-        [data-animate] { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); transition-delay: var(--delay, 0s); }
-        [data-animate].is-visible { opacity: 1; transform: translateY(0); }
 
         html[lang="ar"] body { font-family: var(--font-cairo); }
-        .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 6rem 0; position: relative; z-index: 1; }
-        .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); margin-bottom: 4rem; text-align: center; font-weight: 700; color: var(--text-color);}
+        html[lang="fr"] body { font-family: var(--font-sans); } /* Or a specific French font */
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; position: relative; z-index: 1; }
+        .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); margin-bottom: 3rem; text-align: center; font-weight: 700; color: var(--text-color);}
         .btn { display: inline-block; background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); border: none; cursor: pointer; }
         .btn:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2), 0 0 10px var(--glow-color); }
         
-        .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed), border-color var(--transition-speed), top 0.3s ease-in-out; }
-        .header.hidden { top: -100px; }
+        .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed), border-color var(--transition-speed); }
         .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-color); text-decoration: none; }
         .nav-container { display: flex; align-items: center; gap: 1.5rem; }
         .main-nav { list-style: none; display: flex; gap: 2rem; }
-        .main-nav a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color var(--transition-speed), background-color 0.2s; position: relative; padding-bottom: 5px; }
-        .main-nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--primary-color); transition: width var(--transition-speed) var(--ease-out-quart); }
-        .main-nav a:hover::after, .main-nav a.active::after { width: 100%; }
+        .main-nav a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color var(--transition-speed), background-color 0.2s; }
         .main-nav a:hover, .main-nav a.active { color: var(--text-color); }
         .header-actions { display: flex; align-items: center; gap: 1rem; }
         .theme-toggle, .lang-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; transition: color var(--transition-speed), transform var(--transition-speed); }
@@ -107,7 +103,11 @@
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
         .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; }
         .hero-content .typing-cursor { border-right: 4px solid var(--primary-color); animation: blink 0.7s step-end infinite; }
+        @keyframes blink { 50% { border-color: transparent; } }
         .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
+        
+        #about, #services, #process, #pricing, #website-test, #faq, #contact { opacity: 0; transform: translateY(40px); will-change: opacity, transform; transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); }
+        #about.is-visible, #services.is-visible, #process.is-visible, #pricing.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible { opacity: 1; transform: translateY(0); }
         
         #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 0 20px -8px var(--glow-color); transition-property: box-shadow, border-color, opacity, transform; }
         #about:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
@@ -115,31 +115,117 @@
         .founder-avatar { width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center; flex-shrink: 0; border: 3px solid var(--primary-color); }
         .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
         .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
-        
+        .founder-avatar, .founder-bio { will-change: transform; transition: transform 0.3s ease-out; }
+        .slide-up-words span { display: inline-block; overflow: hidden; vertical-align: top; }
+        .slide-up-words span .word { display: inline-block; transform: translateY(110%); transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); transition-delay: var(--delay); }
+        .slide-up-words.is-visible span .word { transform: translateY(0); }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; display: flex; flex-direction: column; transition: transform 0.3s var(--ease-out-quart), box-shadow 0.3s var(--ease-out-quart); }
+        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; display: flex; flex-direction: column; opacity: 0; transform: translateY(40px); will-change: transform, opacity; transition: opacity 0.6s var(--ease-out-quart), transform 0.6s var(--ease-out-quart), box-shadow var(--transition-speed); }
+        .service-card.is-visible { opacity: 1; transform: translateY(0); }
         .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 12px -2px var(--glow-color); }
-        .service-card[data-modal-target] { cursor: pointer; }
-        .service-icon-container { width: 80px; height: 80px; margin: 0 auto 1.5rem auto; }
-        .service-icon-container svg { width: 100%; height: 100%; stroke: var(--primary-color); transition: transform 0.4s var(--ease-out-quart); }
-        .service-card:hover .service-icon-container svg { transform: scale(1.1); }
+        .service-card[data-modal-target], .service-card.blog-link { cursor: pointer; } /* Added blog-link cursor */
+        .service-icon-container { width: 100px; height: 100px; margin: 0 auto 1.5rem auto; }
+        .service-icon-container svg { width: 100%; height: 100%; stroke: var(--primary-color); }
+        .service-card:hover .page-corner { transform: rotate(-15deg); }
+        .service-card:hover .layer-top { transform: translateY(-2px); }
+        .service-card:hover .cart-wheel { animation: spin 1s linear infinite; }
+        .service-card:hover .blog-line { stroke-dashoffset: 0; }
+        .service-card:hover .calendar-check { transform: scale(1.2); opacity: 1; }
+        .service-card:hover .portfolio-image { transform: translateY(-5px); }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .page-corner { transition: transform 0.3s ease; transform-origin: bottom left; }
+        .layer-top { transition: transform 0.3s ease; }
+        .blog-line { stroke-dasharray: 50; stroke-dashoffset: 50; transition: stroke-dashoffset 0.8s ease; }
+        .calendar-check { transition: transform 0.4s ease, opacity 0.4s ease; transform-origin: center; opacity: 0; transform: scale(0.5); }
+        .portfolio-image { transition: transform 0.4s ease; }
         .service-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--text-color); margin-top: auto; }
 
-        #process { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; border: 1px solid var(--border-color); }
-        .process-timeline { display: flex; flex-direction: column; gap: 2rem; position: relative; max-width: 800px; margin: 2rem auto 0; }
-        .process-timeline::before { content: ''; position: absolute; top: 40px; bottom: 40px; background-color: var(--border-color); width: 2px; }
-        html[dir="rtl"] .process-timeline::before { right: calc(50% - 1px); }
-        html[dir="ltr"] .process-timeline::before { left: calc(50% - 1px); }
-        .process-step { display: flex; justify-content: space-between; align-items: center; width: 100%; position: relative; }
-        .process-step:nth-child(odd) { flex-direction: row-reverse; }
-        .process-content { width: calc(50% - 40px); background: var(--bg-color); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); }
-        .process-content h3 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem; }
-        .process-icon { width: 80px; height: 80px; background: var(--bg-color); border-radius: 50%; border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; z-index: 1; }
-        .process-icon svg { width: 40px; height: 40px; stroke: var(--primary-color); transition: transform 0.4s ease; }
-        .process-step:hover .process-icon svg { transform: rotateY(180deg); }
-        
+        /* Process Section Styles */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .process-step {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(40px); /* Initial state for animation */
+            box-shadow: 0 0 15px -8px var(--glow-color);
+        }
+        .process-step.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .process-step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 18px -5px var(--glow-color);
+            border-color: var(--primary-color);
+        }
+        .process-icon-container {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(139, 92, 246, 0.1);
+            border-radius: 50%;
+            border: 1px solid var(--primary-color);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .process-step:hover .process-icon-container {
+            background-color: var(--primary-color);
+            border-color: var(--primary-hover);
+        }
+        .process-icon-container svg {
+            width: 50px;
+            height: 50px;
+            stroke: var(--primary-color);
+            transition: stroke 0.3s;
+        }
+        .process-step:hover .process-icon-container svg {
+            stroke: var(--primary-text-color);
+        }
+        .process-step h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        .process-step p {
+            font-size: 1rem;
+            color: var(--subtle-text-color);
+            flex-grow: 1;
+        }
+        .process-step-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--border-color);
+            margin-bottom: 0.5rem;
+            position: absolute;
+            top: 15px;
+            opacity: 0.2;
+            transition: color 0.3s, opacity 0.3s;
+        }
+        .process-step:hover .process-step-number {
+            color: var(--primary-color);
+            opacity: 0.4;
+        }
+        html[dir="rtl"] .process-step-number { right: 20px; }
+        html[dir="ltr"] .process-step-number { left: 20px; }
+
+
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; margin-top: 4rem; }
-        .pricing-card { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); position: relative; overflow: hidden; }
+        .pricing-card { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); position: relative; }
         .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 15px -5px var(--glow-color); }
         .pricing-card.popular { transform: scale(1.05); border: 2px solid var(--primary-color); box-shadow: 0 0 30px -5px var(--glow-color); }
         .popular-badge { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
@@ -152,7 +238,6 @@
         .features-list li.disabled { color: var(--subtle-text-color); text-decoration: line-through; }
         .features-list li.disabled::before { content: '✖'; color: var(--subtle-text-color); }
         .pricing-card .btn { width: 100%; }
-        
         .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); transition: box-shadow var(--transition-speed), border-color var(--transition-speed); box-shadow: 0 0 20px -8px var(--glow-color); }
         .website-test-tool:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
         .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
@@ -164,7 +249,6 @@
         .test-result { text-align: center; margin-top: 2rem; padding: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
         .test-result.good { background-color: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #28a745; }
         .test-result.bad { background-color: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; color: #dc3545; }
-        
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item { background-color: var(--surface-color); margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; transition: box-shadow var(--transition-speed), border-color var(--transition-speed); }
         .faq-item:hover { box-shadow: 0 0 8px -2px var(--glow-color); border-color: var(--primary-color); }
@@ -174,7 +258,6 @@
         .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); color: var(--primary-color); }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease; }
         .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--subtle-text-color); }
-        
         #contact-form { max-width: 600px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.5rem; }
         #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
         #contact-form input:focus, #contact-form textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 8px var(--glow-color); outline: none; }
@@ -184,48 +267,74 @@
         .contact-direct-links { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
         .contact-direct-links a { color: var(--text-color); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.75rem; transition: color var(--transition-speed); }
         .contact-direct-links a:hover { color: var(--primary-hover); }
-        .contact-direct-links a svg { width: 22px; height: 22px; color: var(--subtle-text-color); transition: color var(--transition-speed); }
+        .contact-direct-links a svg { width: 22px; height: 22px; color: var(--subtle-text-color); }
         .contact-direct-links a:hover svg { color: var(--primary-hover); }
-        
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1002; display: flex; align-items: center; justify-content: center; background-color: var(--overlay-color); opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); }
         .modal.active { opacity: 1; visibility: visible; }
         .modal-content { background-color: var(--surface-color); padding: 2rem; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; transform: scale(0.95); transition: transform var(--transition-speed); border: 1px solid var(--border-color); }
         .modal.active .modal-content { transform: scale(1); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem; }
         .modal-title { font-size: 1.5rem; color: var(--text-color); }
-        .modal-close { background: none; border: none; font-size: 2rem; color: var(--subtle-text-color); cursor: pointer; transition: color 0.3s, transform 0.3s; }
-        .modal-close:hover { color: var(--primary-color); transform: rotate(90deg); }
+        .modal-close { background: none; border: none; font-size: 2rem; color: var(--subtle-text-color); cursor: pointer; }
         .modal-body p { margin-bottom: 1rem; }
         .modal-body h4 { margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--text-color); }
         .modal-body ul { list-style-position: inside; padding-inline-start: 1rem; }
         .modal-body li { margin-bottom: 0.5rem; }
-        
-        .footer { background-color: rgba(18, 18, 18, 0.8); border-top: 1px solid var(--border-color); padding: 3rem 1.5rem; text-align: center; margin-top: 4rem; }
-        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; max-width: 1100px; margin: 0 auto;}
+        .footer { background-color: var(--surface-color); border-top: 1px solid var(--border-color); padding: 3rem 0; text-align: center; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
         .footer-links { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-        .footer-legal button { background: none; border: none; color: var(--subtle-text-color); cursor: pointer; font-family: inherit; font-size: 1em; font-weight: 500; transition: color var(--transition-speed); }
+        .footer-legal button { background: none; border: none; color: var(--subtle-text-color); cursor: pointer; font-family: inherit; font-size: 1em; font-weight: 500; }
         .footer-legal button:hover { color: var(--primary-color); }
-        .footer-social a { color: var(--subtle-text-color); transition: color var(--transition-speed), transform var(--transition-speed); display: inline-block; }
-        .footer-social a:hover { color: var(--primary-color); transform: translateY(-3px); }
+        .footer-social a { color: var(--subtle-text-color); transition: color var(--transition-speed), transform var(--transition-speed); }
+        .footer-social a:hover { color: var(--primary-color); transform: scale(1.1); }
         .footer-copy { margin-top: 0; font-size: 0.9rem; color: #777; }
-        
-        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: all var(--transition-speed); pointer-events: none; border-radius: 50%; }
+        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed), background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed); pointer-events: none; border-radius: 50%; }
         html[dir="rtl"] #scrollTopBtn { left: 20px; }
         html[dir="ltr"] #scrollTopBtn { right: 20px; }
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        #scrollTopBtn:hover { background-color: var(--primary-color); color: var(--primary-text-color); border-color: var(--primary-color); transform: scale(1.1); }
-        
+        #scrollTopBtn:hover { background-color: var(--primary-color); color: var(--primary-text-color); border-color: var(--primary-color); }
+        .nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--overlay-color); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); }
+        body.nav-open .nav-overlay { opacity: 1; visibility: visible; }
+        .scroll-indicator { position: fixed; top: 50%; transform: translateY(-50%); z-index: 998; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        .scroll-indicator.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .scroll-indicator.visible { opacity: 1; visibility: visible; }
+        html[dir="rtl"] .scroll-indicator { right: 15px; }
+        html[dir="ltr"] .scroll-indicator { left: 15px; }
+        .scroll-indicator-line { width: 2px; height: 260px; background-color: var(--border-color); position: absolute; top: 50%; transform: translateY(-50%); }
+        html[dir="rtl"] .scroll-indicator-line { right: 4px; }
+        html[dir="ltr"] .scroll-indicator-line { left: 4px; }
+        .scroll-indicator-nav ul { list-style: none; padding: 0; margin: 0; position: relative; }
+        .scroll-indicator-nav li a { display: block; position: relative; text-decoration: none; color: var(--subtle-text-color); transition: color var(--transition-speed); }
+        html[dir="rtl"] .scroll-indicator-nav li a { padding: 15px 30px 15px 0; }
+        html[dir="ltr"] .scroll-indicator-nav li a { padding: 15px 0 15px 30px; }
+        .scroll-indicator-nav li a .dot { width: 10px; height: 10px; background-color: var(--subtle-text-color); border-radius: 50%; transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed); position: absolute; top: 50%; transform: translateY(-50%); }
+        html[dir="rtl"] .scroll-indicator-nav li a .dot { right: 0; }
+        html[dir="ltr"] .scroll-indicator-nav li a .dot { left: 0; }
+        .scroll-indicator-nav li a .section-name { position: absolute; top: 50%; opacity: 0; visibility: hidden; background-color: var(--surface-color); color: var(--text-color); padding: 8px 14px; border-radius: 8px; font-size: 1rem; font-weight: 500; white-space: nowrap; border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.2); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, text-shadow 0.3s ease; }
+        html[dir="rtl"] .scroll-indicator-nav li a .section-name { right: 30px; transform: translateY(-50%) translateX(15px); }
+        html[dir="ltr"] .scroll-indicator-nav li a .section-name { left: 30px; transform: translateY(-50%) translateX(-15px); }
+        .scroll-indicator-nav li a .section-name::after { content: ''; position: absolute; top: 50%; transform: translateY(-50%); border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+        html[dir="rtl"] .scroll-indicator-nav li a .section-name::after { left: 100%; border-left: 7px solid var(--surface-color); }
+        html[dir="ltr"] .scroll-indicator-nav li a .section-name::after { right: 100%; border-right: 7px solid var(--surface-color); }
+        .scroll-indicator-nav li a:hover .section-name, .scroll-indicator-nav li.active a .section-name { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); text-shadow: 0 0 8px var(--glow-color); }
+        .scroll-indicator-nav li.active a { color: var(--primary-color); }
+        .scroll-indicator-nav li.active a .dot { background-color: var(--primary-color); transform: translateY(-50%) scale(1.7); box-shadow: 0 0 12px var(--glow-color), 0 0 22px var(--primary-color); }
+        .scroll-indicator-nav li:not(.active) a:hover .dot { transform: translateY(-50%) scale(1.4); box-shadow: 0 0 10px var(--glow-color); }
+        .scroll-indicator-nav li:not(.active) a:hover .section-name { text-shadow: 0 0 6px var(--glow-color); }
         @media (max-width: 992px) { .pricing-card.popular { transform: scale(1); } .pricing-grid { grid-template-columns: 1fr; max-width: 450px; margin-inline: auto; } }
-        @media (max-width: 768px) { .main-nav { display: none; } #scroll-indicator { display: none; } 
-            .process-timeline::before { display: none; }
-            .process-step, .process-step:nth-child(odd) { flex-direction: column; align-items: center; gap: 1rem; }
-            .process-content { width: 100%; }
-        }
+        @media (max-width: 768px) { .main-nav { display: none; } }
     </style>
 </head>
 <body>
 
-    <header class="header" id="header">
+    <nav class="scroll-indicator hidden" id="scroll-indicator">
+        <div class="scroll-indicator-line"></div>
+        <div class="scroll-indicator-nav" id="scroll-indicator-nav">
+            <ul></ul>
+        </div>
+    </nav>
+
+    <header class="header">
         <a href="#hero" class="logo">solu_tion.dev</a>
         <div class="nav-container">
             <nav>
@@ -233,8 +342,8 @@
                     <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
                     <li><a href="#about" class="nav-link" data-lang-key="navAbout"></a></li>
                     <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
-                    <li><a href="#process" class="nav-link" data-lang-key="navProcess"></a></li>
-                    <li><a href="#pricing" class="nav-link" data-lang-key="pricingTitle"></a></li>
+                    <li><a href="#process" class="nav-link" data-lang-key="navProcess"></a></li> <li><a href="#pricing" class="nav-link" data-lang-key="pricingTitle"></a></li>
+                    <li><a href="#website-test" class="nav-link" data-lang-key="navTest"></a></li>
                     <li><a href="#faq" class="nav-link" data-lang-key="navFAQ"></a></li>
                     <li><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
                 </ul>
@@ -247,84 +356,107 @@
     </header>
 
     <main>
-        <section id="hero" class="hero">
+        <section id="hero" class="hero" data-section-name="الرئيسية" data-section-name-en="Home" data-section-name-fr="Accueil">
             <div class="hero-content">
-                <h1 id="hero-title-animated" data-animate></h1>
-                <p data-lang-key="heroSubtitle" data-animate style="--delay: 0.2s;"></p>
-                <a href="#contact" class="btn" data-lang-key="heroCTA" data-animate style="--delay: 0.4s;"></a>
+                <h1 id="hero-title-animated"></h1>
+                <p data-lang-key="heroSubtitle" data-animate="slide-up-words"></p>
+                <a href="#contact" class="btn" data-lang-key="heroCTA"></a>
             </div>
         </section>
 
-        <section id="about" class="container">
-            <h2 class="section-title" data-lang-key="aboutTitle" data-animate></h2>
-            <div class="founder-content" data-animate>
+        <section id="about" class="container" data-section-name="من نحن" data-section-name-en="About" data-section-name-fr="À propos">
+            <h2 class="section-title" data-lang-key="aboutTitle" data-animate="slide-up-words"></h2>
+            <div class="founder-content">
                 <div class="founder-avatar" id="founder-avatar"></div>
                 <div class="founder-bio">
-                    <h3 data-lang-key="founderName"></h3>
-                    <p data-lang-key="founderText"></p>
+                    <h3 data-lang-key="founderName" data-animate="slide-up-words"></h3>
+                    <p data-lang-key="founderText" data-animate="slide-up-words"></p>
                 </div>
             </div>
         </section>
 
-        <section id="services" class="container">
-            <h2 class="section-title" data-lang-key="servicesTitle" data-animate></h2>
+        <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
+            <h2 class="section-title" data-lang-key="servicesTitle" data-animate="slide-up-words"></h2>
             <div class="services-grid">
-                <div class="service-card" data-modal-target="landing-page-modal" data-animate style="--delay: 0.1s;"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
-                <div class="service-card" data-modal-target="multi-page-modal" data-animate style="--delay: 0.2s;"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
-                <div class="service-card" data-modal-target="ecommerce-modal" data-animate style="--delay: 0.3s;"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle> <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path> </svg> </div> <h3 data-lang-key="service3"></h3> </div>
-                <div class="service-card" data-modal-target="blog-modal" data-animate style="--delay: 0.4s;"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path> <line x1="15" y1="6" x2="18" y2="9"></line> </svg> </div> <h3 data-lang-key="service4"></h3> </div>
-                <div class="service-card" data-modal-target="booking-modal" data-animate style="--delay: 0.5s;"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line> <path d="m9 16 2 2 4-4"></path> </svg> </div> <h3 data-lang-key="service5"></h3> </div>
-                <div class="service-card" data-modal-target="portfolio-modal" data-animate style="--delay: 0.6s;"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect> <circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline> </svg> </div> <h3 data-lang-key="service6"></h3> </div>
+                <div class="service-card" data-modal-target="landing-page-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8" class="page-corner"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
+                <div class="service-card" data-modal-target="multi-page-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
+                <div class="service-card" data-modal-target="ecommerce-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="9" cy="21" r="1" class="cart-wheel"></circle><circle cx="20" cy="21" r="1" class="cart-wheel"></circle> <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path> </svg> </div> <h3 data-lang-key="service3"></h3> </div>
+                <div class="service-card blog-link"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path> <line class="blog-line" x1="15" y1="6" x2="18" y2="9"></line> </svg> </div> <h3 data-lang-key="service4"></h3> </div> <div class="service-card" data-modal-target="booking-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line> <path d="m9 16 2 2 4-4" class="calendar-check"></path> </svg> </div> <h3 data-lang-key="service5"></h3> </div>
+                <div class="service-card" data-modal-target="portfolio-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="portfolio-image"></rect> <circle cx="8.5" cy="8.5" r="1.5" class="portfolio-image"></circle><polyline points="21 15 16 10 5 21" class="portfolio-image"></polyline> </svg> </div> <h3 data-lang-key="service6"></h3> </div>
             </div>
         </section>
 
-        <section id="process" class="container">
-            <h2 class="section-title" data-lang-key="processTitle" data-animate></h2>
-            <div class="process-timeline">
-                <div class="process-step" data-animate>
-                    <div class="process-content"> <h3 data-lang-key="processStep1Title"></h3> <p data-lang-key="processStep1Desc"></p> </div>
-                    <div class="process-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line> </svg> </div>
+        <section id="process" class="container" data-section-name="منهجية العمل" data-section-name-en="Our Process" data-section-name-fr="Notre Processus">
+            <h2 class="section-title" data-lang-key="processTitle" data-animate="slide-up-words"></h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <span class="process-step-number">01</span>
+                    <div class="process-icon-container">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    </div>
+                    <h4 data-lang-key="process1Title"></h4>
+                    <p data-lang-key="process1Desc"></p>
                 </div>
-                <div class="process-step" data-animate>
-                    <div class="process-content"> <h3 data-lang-key="processStep2Title"></h3> <p data-lang-key="processStep2Desc"></p> </div>
-                    <div class="process-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle> </svg> </div>
+                <div class="process-step">
+                    <span class="process-step-number">02</span>
+                    <div class="process-icon-container">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    </div>
+                    <h4 data-lang-key="process2Title"></h4>
+                    <p data-lang-key="process2Desc"></p>
                 </div>
-                <div class="process-step" data-animate>
-                    <div class="process-content"> <h3 data-lang-key="processStep3Title"></h3> <p data-lang-key="processStep3Desc"></p> </div>
-                    <div class="process-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline> </svg> </div>
+                <div class="process-step">
+                    <span class="process-step-number">03</span>
+                    <div class="process-icon-container">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <h4 data-lang-key="process3Title"></h4>
+                    <p data-lang-key="process3Desc"></p>
                 </div>
-                <div class="process-step" data-animate>
-                    <div class="process-content"> <h3 data-lang-key="processStep4Title"></h3> <p data-lang-key="processStep4Desc"></p> </div>
-                    <div class="process-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><path d="M2 8c0-2.2.7-4.3 2-6"></path><path d="M22 8c0-2.2-.7-4.3-2-6"></path> </svg> </div>
+                <div class="process-step">
+                    <span class="process-step-number">04</span>
+                    <div class="process-icon-container">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 13.5V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4.5"></path><path d="M12 12L17.5 5.5 23 12M17.5 5.5L12 12"></path></svg>
+                    </div>
+                    <h4 data-lang-key="process4Title"></h4>
+                    <p data-lang-key="process4Desc"></p>
                 </div>
             </div>
         </section>
 
-        <section id="pricing" class="container">
-            <h2 class="section-title" data-lang-key="pricingTitle" data-animate></h2>
+        <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
+            <h2 class="section-title" data-lang-key="pricingTitle" data-animate="slide-up-words"></h2>
             <div class="pricing-grid">
-                <div class="pricing-card" data-animate style="--delay: 0.1s;"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
-                <div class="pricing-card popular" data-animate style="--delay: 0.2s;"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
-                <div class="pricing-card" data-animate style="--delay: 0.3s;"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan3Feat1"></li> <li data-lang-key="plan3Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan3Feat1"></li> <li data-lang-key="plan3Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
             </div>
         </section>
-        
-        <section id="faq" class="container">
-            <h2 class="section-title" data-lang-key="faqTitle" data-animate></h2>
-            <div class="faq-container" data-animate></div>
+
+        <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test Your Site" data-section-name-fr="Testez Votre Site">
+             <h2 class="section-title" data-lang-key="testTitle" data-animate="slide-up-words"></h2>
+             <div class="website-test-tool">
+                <div class="test-questions-container"></div>
+                <div id="test-result" class="test-result"></div>
+             </div>
         </section>
 
-        <section id="contact" class="container">
-            <h2 class="section-title" data-lang-key="contactTitle" data-animate></h2>
-            <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST" data-animate>
+        <section id="faq" class="container" data-section-name="الأسئلة الشائعة" data-section-name-en="FAQ" data-section-name-fr="FAQ">
+            <h2 class="section-title" data-lang-key="faqTitle" data-animate="slide-up-words"></h2>
+            <div class="faq-container"></div>
+        </section>
+
+        <section id="contact" class="container" data-section-name="اتصل بنا" data-section-name-en="Contact" data-section-name-fr="Contact">
+            <h2 class="section-title" data-lang-key="contactTitle" data-animate="slide-up-words"></h2>
+            <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
                 <input type="text" name="name" required data-lang-placeholder="formName">
                 <input type="email" name="email" required data-lang-placeholder="formEmail">
                 <textarea id="contact-message" name="message" required data-lang-placeholder="formMessage"></textarea>
                 <button type="submit" class="btn" data-lang-key="formSubmit"></button>
             </form>
             <p id="form-status"></p>
-            <p class="contact-direct-title" data-lang-key="contactSubtitle" data-animate style="--delay: 0.2s;"></p>
-            <div class="contact-direct-links" data-animate style="--delay: 0.4s;">
+            <p class="contact-direct-title" data-lang-key="contactSubtitle"></p>
+            <div class="contact-direct-links">
                 <a href="tel:+213542511548"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> <span>0542 51 15 48</span> </a>
                 <a href="mailto:solutiondev000@gmail.com"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <span>solutiondev000@gmail.com</span> </a>
             </div>
@@ -334,10 +466,9 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-links">
-                <div class="footer-social"> <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg> </a> </div>
+                <div class="footer-social"> <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594-.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg> </a> </div>
                 <div class="footer-legal">
                     <button data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
-                    <span>&bull;</span>
                     <button data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
                 </div>
             </div>
@@ -366,16 +497,22 @@
             
             const translations = {
                 ar: {
-                    navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navProcess: "منهجية العمل", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا", pricingTitle: "الأسعار",
+                    navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navProcess: "منهجية العمل", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا", pricingTitle: "الأسعار",
                     heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
                     heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
                     aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
                     servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
-                    processTitle: "منهجية عملنا", processStep1Title: "1. الاستشارة والتحليل", processStep1Desc: "نبدأ بجلسة لفهم أهدافك، جمهورك، ومتطلبات مشروعك بدقة.", processStep2Title: "2. التصميم و الواجهات (UI/UX)", processStep2Desc: "نصمم واجهة مستخدم جذابة وسهلة الاستخدام تعكس هوية علامتك التجارية.", processStep3Title: "3. التطوير والبرمجة", processStep3Desc: "نحول التصميم إلى موقع إلكتروني حقيقي باستخدام أحدث التقنيات لضمان الأداء العالي.", processStep4Title: "4. الإطلاق والدعم", processStep4Desc: "نطلق موقعك على الإنترنت ونقدم دعمًا فنيًا لضمان استقراره ونجاحه المستمر.",
+                    processTitle: "منهجية العمل",
+                    process1Title: "الاستشارة والتحليل", process1Desc: "نبني أساسًا متينًا لمشروعك من خلال فهم عميق لأهدافك ومتطلباتك، ونقدم لك حلولًا مخصصة.",
+                    process2Title: "التصميم الأولي (UI/UX)", process2Desc: "نحول أفكارك إلى واجهات مستخدم جذابة وسهلة الاستخدام، مع التركيز على تجربة العميل المثالية.",
+                    process3Title: "التطوير والبرمجة", process3Desc: "نبدأ بتحويل التصميمات إلى كود برمجي نظيف وفعّال، مع ضمان أعلى مستويات الجودة والأداء.",
+                    process4Title: "الإطلاق والدعم", process4Desc: "بعد اختبار شامل، نطلق موقعك ونوفر الدعم الفني المستمر لضمان عمله بكفاءة دون توقف.",
                     planPopularBadge: "الأكثر طلباً", currencySuffix: "د.ج", planCTA: "ابدأ الآن",
-                    plan1Name: "الباقة الأساسية", plan1Price: "3,500", plan1Feat1: "صفحة ويب واحدة (Landing Page)", plan1Feat2: "تصميم متجاوب مع كل الشاشات", plan1Feat3: "نموذج تواصل فعال", plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)", plan1Feat5: "نظام إدارة المحتوى", plan1Feat6: "متجر إلكتروني متكامل",
-                    plan2Name: "الباقة الاحترافية", plan2Price: "5,000", plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)", plan2Feat2: "تصميم متجاوب ومخصص", plan2Feat3: "ربط بلوحة تحكم (CMS)", plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)", plan2Feat5: "دعم فني لمدة شهر", plan2Feat6: "متجر إلكتروني متكامل",
-                    plan3Name: "الباقة المتكاملة", plan3Price: "9,500", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
+                    plan1Name: "الباقة الأساسية", plan1Price: "3500", plan1Feat1: "صفحة ويب واحدة (Landing Page)", plan1Feat2: "تصميم متجاوب مع كل الشاشات", plan1Feat3: "نموذج تواصل فعال", plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)", plan1Feat5: "نظام إدارة المحتوى", plan1Feat6: "متجر إلكتروني متكامل",
+                    plan2Name: "الباقة الاحترافية", plan2Price: "5000", plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)", plan2Feat2: "تصميم متجاوب ومخصص", plan2Feat3: "ربط بلوحة تحكم (CMS)", plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)", plan2Feat5: "دعم فني لمدة شهر", plan2Feat6: "متجر إلكتروني متكامل",
+                    plan3Name: "الباقة المتكاملة", plan3Price: "9500", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
+                    testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
+                    testYes: "نعم", testNo: "لا", testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
                     formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
@@ -390,16 +527,22 @@
                     portfolioModalTitle: "خدمة معرض الأعمال (Portfolio)", portfolioModalContent: "<p>معرض الأعمال هو الطريقة الأكثر احترافية لعرض مهاراتك ومشاريعك السابقة. إنه سيرتك الذاتية المرئية التي تتحدث عن جودة عملك.</p><h4>الميزات الأساسية</h4><ul><li>تصميم أنيق يركز على عرض أعمالك.</li><li>معارض صور وفيديو عالية الجودة.</li><li>تقسيم الأعمال حسب الفئة لتسهيل التصفح.</li><li>صفحة لكل مشروع تحتوي على تفاصيل وشهادات العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يعرض خبرتك بشكل ملموس، يجذب عملاء جدد يقدرون الجودة، ويبني علامتك الشخصية أو التجارية بقوة.</p>"
                 },
                 en: {
-                    navHome: "Home", navAbout: "About", navServices: "Services", navProcess: "Our Process", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Pricing",
+                    navHome: "Home", navAbout: "About", navServices: "Services", navProcess: "Our Process", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Pricing",
                     heroTitle: ["We Design a Professional Digital Identity", "We Turn Your Ideas Into Reality", "Innovative Web Solutions"],
                     heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Request a Free Consultation",
                     aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas Berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just an interface, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant designs and high-performance code.",
                     servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-Page Websites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolio",
-                    processTitle: "Our Process", processStep1Title: "1. Consultation & Analysis", processStep1Desc: "We start with a session to thoroughly understand your goals, audience, and project requirements.", processStep2Title: "2. UI/UX Design", processStep2Desc: "We design an attractive and user-friendly interface that reflects your brand's identity.", processStep3Title: "3. Development & Coding", processStep3Desc: "We turn the design into a real website using the latest technologies to ensure high performance.", processStep4Title: "4. Launch & Support", processStep4Desc: "We launch your site and provide technical support to ensure its stability and continued success.",
+                    processTitle: "Our Process",
+                    process1Title: "Consultation & Analysis", process1Desc: "We build a solid foundation for your project by deeply understanding your goals and requirements, offering tailored solutions.",
+                    process2Title: "UI/UX Design", process2Desc: "We transform your ideas into attractive and user-friendly interfaces, focusing on an optimal customer experience.",
+                    process3Title: "Development & Coding", process3Desc: "We start transforming designs into clean, efficient code, ensuring the highest levels of quality and performance.",
+                    process4Title: "Launch & Support", process4Desc: "After thorough testing, we launch your site and provide continuous technical support to ensure it operates efficiently without interruption.",
                     planPopularBadge: "Most Popular", currencySuffix: "DZD", planCTA: "Get Started",
-                    plan1Name: "Basic Plan", plan1Price: "3,500", plan1Feat1: "Single Web Page (Landing Page)", plan1Feat2: "Responsive on all devices", plan1Feat3: "Effective contact form", plan1Feat4: "Basic SEO setup", plan1Feat5: "Content Management System", plan1Feat6: "Full E-commerce store",
-                    plan2Name: "Professional Plan", plan2Price: "5,000", plan2Feat1: "Multi-page site (up to 5 pages)", plan2Feat2: "Custom responsive design", plan2Feat3: "CMS Integration", plan2Feat4: "Advanced SEO optimization", plan2Feat5: "1-month technical support", plan2Feat6: "Full E-commerce store",
-                    plan3Name: "Premium Plan", plan3Price: "9,500", plan3Feat1: "Unlimited multi-page site", plan3Feat2: "Unique and modern design", plan3Feat3: "CMS Integration", plan3Feat4: "Professional SEO optimization", plan3Feat5: "3-months technical support", plan3Feat6: "E-commerce with payment gateways",
+                    plan1Name: "Basic Plan", plan1Price: "3500", plan1Feat1: "Single Web Page (Landing Page)", plan1Feat2: "Responsive on all devices", plan1Feat3: "Effective contact form", plan1Feat4: "Basic SEO setup", plan1Feat5: "Content Management System", plan1Feat6: "Full E-commerce store",
+                    plan2Name: "Professional Plan", plan2Price: "5000", plan2Feat1: "Multi-page site (up to 5 pages)", plan2Feat2: "Custom responsive design", plan2Feat3: "CMS Integration", plan2Feat4: "Advanced SEO optimization", plan2Feat5: "1-month technical support", plan2Feat6: "Full E-commerce store",
+                    plan3Name: "Premium Plan", plan3Price: "9500", plan3Feat1: "Unlimited multi-page site", plan3Feat2: "Unique and modern design", plan3Feat3: "CMS Integration", plan3Feat4: "Professional SEO optimization", plan3Feat5: "3-months technical support", plan3Feat6: "E-commerce with payment gateways",
+                    testTitle: "Is Your Current Website Good?", testQ1: "Is your site mobile-responsive?", testQ2: "Does your site load quickly?", testQ3: "Is your content easy to navigate?", testQ4: "Does your design look professional?", testQ5: "Is your contact information clear?",
+                    testYes: "Yes", testNo: "No", testResultGood: "Great! It seems your website is performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
                     faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.", faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.", faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
                     contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your message...", formSubmit: "Send Message",
                     formSending: "Sending...", formSuccess: "Thank you! Your message has been sent successfully.", formError: "Sorry, an error occurred.",
@@ -414,17 +557,23 @@
                     portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality photo and video galleries.</li><li>Categorization of works for easy Browse.</li><li>A page for each project with details and client testimonials.</li></ul><h4>Benefit for Your Business</h4><p>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</p>"
                 },
                 fr: {
-                    navHome: "Accueil", navAbout: "À propos", navServices: "Services", navProcess: "Notre Processus", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
+                    navHome: "Accueil", navAbout: "À propos", navServices: "Services", navProcess: "Notre Processus", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
                     heroTitle: ["Nous Créons Votre Identité Numérique Professionnelle", "Nous Transformons Vos Idées en Réalité", "Solutions Web Innovantes"],
                     heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Demander une Consultation Gratuite",
                     aboutTitle: "Solutions Numériques Innovantes Pour Votre Marque", founderName: "Amayas Berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas seulement une interface, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à des designs élégants et un code haute performance.",
                     servicesTitle: "Nos Services", service1: "Pages d'Atterrissage", service2: "Sites Multi-Pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolio",
-                    processTitle: "Notre Processus de Travail", processStep1Title: "1. Consultation et Analyse", processStep1Desc: "Nous commençons par une session pour bien comprendre vos objectifs, votre public et les exigences de votre projet.", processStep2Title: "2. Conception UI/UX", processStep2Desc: "Nous concevons une interface utilisateur attrayante et facile à utiliser qui reflète l'identité de votre marque.", processStep3Title: "3. Développement et Codage", processStep3Desc: "Nous transformons le design en un site web réel en utilisant les dernières technologies pour garantir des performances élevées.", processStep4Title: "4. Lancement et Support", processStep4Desc: "Nous lançons votre site et fournissons un support technique pour assurer sa stabilité et son succès continu.",
+                    processTitle: "Notre Processus",
+                    process1Title: "Consultation et Analyse", process1Desc: "Nous établissons une base solide pour votre projet en comprenant en profondeur vos objectifs et vos besoins, en vous offrant des solutions sur mesure.",
+                    process2Title: "Conception UI/UX", process2Desc: "Nous transformons vos idées en des interfaces utilisateur attrayantes et intuitives, en mettant l'accent sur une expérience client optimale.",
+                    process3Title: "Développement et Codage", process3Desc: "Nous commençons à transformer les maquettes en un code propre et efficace, garantissant les plus hauts niveaux de qualité et de performance.",
+                    process4Title: "Lancement et Support", process4Desc: "Après des tests approfondis, nous lançons votre site et fournissons un support technique continu pour assurer son fonctionnement efficace sans interruption.",
                     planPopularBadge: "Le plus populaire", currencySuffix: "DZD", planCTA: "Commencer",
-                    plan1Name: "Forfait Essentiel", plan1Price: "3,500", plan1Feat1: "Page web unique (Landing Page)", plan1Feat2: "Responsive sur tous les écrans", plan1Feat3: "Formulaire de contact efficace", plan1Feat4: "Configuration SEO de base", plan1Feat5: "Système de gestion de contenu", plan1Feat6: "Boutique e-commerce complète",
-                    plan2Name: "Forfait Professionnel", plan2Price: "5,000", plan2Feat1: "Site multi-pages (jusqu'à 5 pages)", plan2Feat2: "Design responsive personnalisé", plan2Feat3: "Intégration CMS", plan2Feat4: "Optimisation SEO avancée", plan2Feat5: "1 mois de support technique", plan2Feat6: "Boutique e-commerce complète",
-                    plan3Name: "Forfait Premium", plan3Price: "9,500", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
-                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.", faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.", faqQ5: "Puis-je demander des fonctionnalités supplémentaires?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
+                    plan1Name: "Forfait Essentiel", plan1Price: "3500", plan1Feat1: "Page web unique (Landing Page)", plan1Feat2: "Responsive sur tous les écrans", plan1Feat3: "Formulaire de contact efficace", plan1Feat4: "Configuration SEO de base", plan1Feat5: "Système de gestion de contenu", plan1Feat6: "Boutique e-commerce complète",
+                    plan2Name: "Forfait Professionnel", plan2Price: "5000", plan2Feat1: "Site multi-pages (jusqu'à 5 pages)", plan2Feat2: "Design responsive personnalisé", plan2Feat3: "Intégration CMS", plan2Feat4: "Optimisation SEO avancée", plan2Feat5: "1 mois de support technique", plan2Feat6: "Boutique e-commerce complète",
+                    plan3Name: "Forfait Premium", plan3Price: "9500", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
+                    testTitle: "Votre Site Actuel Est-il Bon?", testQ1: "Votre site est-il responsive sur mobile?", testQ2: "Votre site se charge-t-il rapidement?", testQ3: "Le contenu est-il facile à parcourir?", testQ4: "Votre design semble-t-il professionnel?", testQ5: "Vos informations de contact sont-elles claires?",
+                    testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider!</a>",
+                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.", faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.", faqQ5: "Can I request additional features?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
                     contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via:", formName: "Nom Complet", formEmail: "Adresse E-mail", formMessage: "Votre message...", formSubmit: "Envoyer le Message",
                     formSending: "Envoi en cours...", formSuccess: "Merci! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
@@ -432,22 +581,74 @@
                     termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>En utilisant ce site, vous acceptez d'être lié par ces conditions d'utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont convenus formellement avant le début de tout travail. La réservation d'une consultation ne constitue pas un contrat contraignant.</p>",
                     landingPageModalTitle: "Service de Pages d'Atterrissage", landingPageModalContent: "<p>Une page d'atterrissage est une page web unique conçue pour un objectif marketing spécifique. Son but est de convertir les visiteurs en prospects en les incitant à une action précise.</p><h4>Caractéristiques Clés</h4><ul><li>Design attractif et axé sur l'objectif.</li><li>Appel à l'action (CTA) clair.</li><li>Contenu concis et persuasif.</li><li>Formulaire simple pour collecter des données.</li><li>Entièrement responsive sur tous les écrans.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente l'efficacité de vos campagnes publicitaires, améliore les taux de conversion et fournit des données précises pour mesurer le succès.</p>",
                     multiPageModalTitle: "Service de Sites Web Multi-Pages", multiPageModalContent: "<p>Un site web multi-pages est la vitrine numérique complète de votre entreprise, présentant votre identité, vos services et vos produits de manière complète et organisée sur plusieurs pages interconnectées.</p><h4>Caractéristiques Clés</h4><ul><li>Structure de navigation claire et facile à utiliser.</li><li>Pages spécialisées (À propos, Services, Contact, etc.).</li><li>Design qui reflète l'identité de votre marque.</li><li>Base solide pour l'optimisation des moteurs de recherche (SEO).</li><li>Contenu complet pour renforcer la confiance des clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Construit une forte crédibilité pour votre marque, fournit des informations complètes à votre public et sert de hub numérique pour toutes vos activités marketing.</p>",
-                    ecommerceModalTitle: "Service de Création de Boutique E-commerce", ecommerceModalContent: "<p>Nous transformons votre idée de boutique en une réalité numérique complète. Nous concevons et développons des boutiques e-commerce professionnelles qui vous aident à présenter vos produits de manière attrayante, à gérer vos opérations facilement et à augmenter vos ventes.</p><h4>Plateformes & Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un tableau de bord riche.</li><li><b>Shopify :</b> Nous personnalisons les thèmes et développons des applications spéciales pour correspondre à votre identité de marque.</li><li><b>Solutions sur Mesure :</b> Pour les projets uniques, nous construisons des boutiques à partir de zéro en utilisant des technologies modernes.</li></ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24h/24 et 7j/7.</p>",
+                    ecommerceModalTitle: "Service de Création de Boutique E-commerce", ecommerceModalContent: "<p>We transform your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Plateformes & Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un tableau de bord riche.</li><li><b>Shopify :</b> Nous personnalisons les thèmes et développons des applications spéciales pour correspondre à votre identité de marque.</li><li><b>Solutions sur Mesure :</b> Pour les projets uniques, nous construisons des boutiques à partir de zéro en utilisant des technologies modernes.</li></ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24h/24 et 7j/7.</p>",
                     blogModalTitle: "Service d'Intégration de Blog", blogModalContent: "<p>Ajouter une section blog à votre site est un investissement stratégique pour créer un contenu de valeur qui attire les visiteurs, renforce la confiance et établit votre expertise dans votre domaine.</p><h4>Caractéristiques Clés</h4><ul><li>Système de gestion de contenu (CMS) facile à utiliser.</li><li>Catégorisation des articles par tags et catégories.</li><li>Possibilité de commenter et de partager sur les réseaux sociaux.</li><li>Structure des articles optimisée pour les moteurs de recherche.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente le trafic gratuit depuis Google, vous établit comme un expert dans votre domaine et fournit un contenu permanent à partager avec votre public.</p>",
                     bookingModalTitle: "Service de Systèmes de Réservation", bookingModalContent: "<p>Un système de réservation en ligne permet à vos clients de réserver des rendez-vous ou des services directement depuis votre site, à tout moment et de n'importe où, vous faisant gagner du temps, à vous et à eux.</p><h4>Caractéristiques Clés</h4><ul><li>Un calendrier affichant les disponibilités instantanément.</li><li>Option de prépaiement pour confirmer les réservations.</li><li>Confirmations et rappels automatiques par e-mail.</li><li>Un tableau de bord pour gérer les réservations, le personnel et les services.</li></ul><h4>Avantage pour votre entreprise</h4><p>Automatise le processus de planification des rendez-vous, réduit les absences et augmente l'efficacité de la gestion de votre temps et de votre entreprise.</p>",
                     portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>Un portfolio est le moyen le plus professionnel de présenter vos compétences et vos projets antérieurs. C'est votre CV visuel qui témoigne de la qualité de votre travail.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries de photos et de vidéos de haute qualité.</li><li>Catégorisation des œuvres pour une navigation facile.</li><li>Une page pour chaque projet avec des détails et des témoignages de clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit puissamment votre marque personnelle ou d'entreprise.</p>"
                 }
             };
             
+            // --- Global Variables ---
             let currentLangIndex = 0;
-            const langCycle = ['ar', 'en', 'fr'];
             let typingTimeout;
+            let textAnimationObserver;
+            let scrollActivityTimeout; 
+            const langCycle = ['ar', 'en', 'fr'];
 
+            // --- Element Selectors ---
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            const scrollIndicatorNav = document.getElementById('scroll-indicator-nav').querySelector('ul');
+            const pageSections = document.querySelectorAll('main > section[id]');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
-            
-            function updateLanguage(langCode, isInitial = false) {
+            const modalTriggers = document.querySelectorAll('[data-modal-target]');
+
+            // --- Main Functions ---
+
+            function handleScroll() {
+                if (window.pageYOffset > 200) {
+                    scrollIndicator.classList.remove('hidden');
+                    scrollIndicator.classList.add('visible');
+                    
+                    clearTimeout(scrollActivityTimeout);
+                    scrollActivityTimeout = setTimeout(() => {
+                        scrollIndicator.classList.remove('visible');
+                        scrollIndicator.classList.add('hidden');
+                    }, 2000);
+                } else {
+                    scrollIndicator.classList.remove('visible');
+                    scrollIndicator.classList.add('hidden');
+                }
+
+                if (scrollTopBtn) {
+                    scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
+                }
+
+                let currentSectionId = '';
+                const headerOffset = document.querySelector('.header').offsetHeight;
+                const scrollPosition = window.pageYOffset + headerOffset + window.innerHeight / 2;
+
+                pageSections.forEach(section => {
+                    if (scrollPosition >= section.offsetTop) {
+                        currentSectionId = section.id;
+                    }
+                });
+                
+                document.querySelectorAll('.main-nav a').forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('href') === '#' + currentSectionId);
+                });
+
+                if (scrollIndicator) {
+                    scrollIndicatorNav.querySelectorAll('li').forEach(li => {
+                        li.classList.toggle('active', li.dataset.section === currentSectionId);
+                    });
+                }
+                
+                requestAnimationFrame(handleParallaxEffect);
+            }
+
+            function updateLanguage(langCode) {
                 const langData = translations[langCode];
                 document.documentElement.lang = langCode;
                 document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
@@ -475,12 +676,58 @@
 
                 startTypingEffect();
                 createFAQ();
-                
-                if (!isInitial) {
-                    initAnimationObserver();
-                }
+                createTestQuestions();
+                initTextAnimations(); 
+                createScrollIndicator();
             }
-            
+
+            function createScrollIndicator() {
+                if (!scrollIndicatorNav || !pageSections.length) return;
+                
+                scrollIndicatorNav.innerHTML = '';
+                const currentLangCode = langCycle[currentLangIndex];
+
+                pageSections.forEach(section => {
+                    const sectionId = section.id;
+                    const sectionNameAttr = `data-section-name-${currentLangCode}`;
+                    const sectionName = section.getAttribute(sectionNameAttr) || section.getAttribute('data-section-name') || sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+
+                    const li = document.createElement('li');
+                    li.dataset.section = sectionId;
+
+                    const a = document.createElement('a');
+                    a.href = `#${sectionId}`;
+                    a.setAttribute('aria-label', `Go to ${sectionName} section`);
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'section-name';
+                    nameSpan.textContent = sectionName;
+                    
+                    const dot = document.createElement('span');
+                    dot.className = 'dot';
+                    
+                    a.appendChild(nameSpan);
+                    a.appendChild(dot);
+                    li.appendChild(a);
+                    scrollIndicatorNav.appendChild(li);
+
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetElement = document.getElementById(sectionId);
+                        if (targetElement) {
+                             const headerOffset = document.querySelector('.header').offsetHeight;
+                             const elementPosition = targetElement.getBoundingClientRect().top;
+                             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                       
+                             window.scrollTo({
+                                 top: offsetPosition,
+                                 behavior: "smooth"
+                             });
+                        }
+                    });
+                });
+            }
+
             function handleLangToggle() {
                 currentLangIndex = (currentLangIndex + 1) % langCycle.length;
                 const newLang = langCycle[currentLangIndex];
@@ -510,9 +757,10 @@
                     return;
                 }
                 if (typingTimeout) clearTimeout(typingTimeout);
-                let phraseIndex = 0; let charIndex = 0; let isDeleting = false;
+                let phraseIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
                 titleEl.innerHTML = '<span class="typing-cursor"></span>';
-
                 function type() {
                     const currentPhrase = phrases[phraseIndex];
                     let typeSpeed;
@@ -536,7 +784,7 @@
                     }
                     typingTimeout = setTimeout(type, typeSpeed);
                 }
-                setTimeout(type, 500);
+                setTimeout(type, 500); // Initial delay
             }
             
             async function handleFormSubmit(event) {
@@ -579,131 +827,152 @@
                     const faqItem = question.parentElement;
                     const answer = faqItem.querySelector('.faq-answer');
                     const isActive = faqItem.classList.contains('active');
-                    
-                    document.querySelectorAll('.faq-item.active').forEach(item => {
+                    faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
                         if (item !== faqItem) {
                             item.classList.remove('active');
                             item.querySelector('.faq-answer').style.maxHeight = '0';
-                            item.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                            item.querySelector('.faq-question .faq-icon').style.transform = 'rotate(0deg)';
                         }
                     });
-
-                    faqItem.classList.toggle('active');
-                    if (faqItem.classList.contains('active')) {
+                    if (!isActive) {
+                        faqItem.classList.add('active');
                         answer.style.maxHeight = answer.scrollHeight + 'px';
                         question.querySelector('.faq-icon').style.transform = 'rotate(45deg)';
                     } else {
+                        faqItem.classList.remove('active');
                         answer.style.maxHeight = '0';
                         question.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
                     }
                 });
             }
             
-            function handleScroll() {
-                const header = document.getElementById('header');
-                const scrollPosition = window.pageYOffset;
-
-                // Active nav link
-                let currentSectionId = '';
-                const headerOffset = header.offsetHeight;
-                const scrollPosWithOffset = scrollPosition + headerOffset + window.innerHeight / 2;
-                document.querySelectorAll('main > section[id]').forEach(section => {
-                    if (scrollPosWithOffset >= section.offsetTop) {
-                        currentSectionId = section.id;
+            function createTestQuestions() {
+                const lang = langCycle[currentLangIndex];
+                const container = document.querySelector('.test-questions-container');
+                const resultEl = document.getElementById('test-result');
+                if (!container || !resultEl) return;
+                container.innerHTML = '';
+                resultEl.style.display = 'none';
+                const answers = {};
+                const qKeys = ['Q1','Q2','Q3','Q4','Q5'];
+                qKeys.forEach((key, i) => {
+                    const questionKey = 'test' + key;
+                    const item = document.createElement('div');
+                    item.classList.add('test-question-item');
+                    item.innerHTML = `<p>${translations[lang][questionKey]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${translations[lang].testYes}</button><button value="no">${translations[lang].testNo}</button></div>`;
+                    container.appendChild(item);
+                });
+                container.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'BUTTON') return;
+                    const qId = e.target.parentElement.dataset.id;
+                    answers[qId] = e.target.value;
+                    e.target.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+                    e.target.classList.add('selected');
+                    if (Object.keys(answers).length === qKeys.length) {
+                       let yes = Object.values(answers).filter(a => a === 'yes').length;
+                       resultEl.style.display = 'block';
+                       resultEl.innerHTML = translations[lang][yes >= 4 ? 'testResultGood' : 'testResultBad'];
+                       resultEl.className = `test-result ${yes >= 4 ? 'good' : 'bad'}`;
                     }
                 });
-                document.querySelectorAll('.nav-link').forEach(a => {
-                    a.classList.toggle('active', a.getAttribute('href') === '#' + currentSectionId);
-                });
-                
-                // Scroll Top Button
-                scrollTopBtn.classList.toggle('show', scrollPosition > 300);
             }
             
-            function initAnimationObserver() {
-                const animatedElements = document.querySelectorAll('[data-animate]');
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                animatedElements.forEach(el => {
-                    el.classList.remove('is-visible');
-                    observer.observe(el);
-                });
-            }
+            // --- Animation Initializers ---
+            function initTextAnimations() { }
+            function initServiceCardAnimations() { }
+            function initProcessStepAnimations() { } // New function for process steps
+            function initSectionEntryAnimations() { }
+            function handleParallaxEffect() { }
 
+            // --- Page Initialization ---
             function init() {
-                // Theme
                 const savedTheme = localStorage.getItem('theme') || 'dark';
                 document.body.classList.toggle('light-mode', savedTheme === 'light');
                 updateThemeIcons(savedTheme === 'light');
                 
-                // Language
                 const savedLang = localStorage.getItem('siteLang');
                 let initialLang = 'ar';
                 if (savedLang && langCycle.includes(savedLang)) {
                     initialLang = savedLang;
+                } else {
+                    const browserLang = navigator.language.split('-')[0];
+                    if (langCycle.includes(browserLang)) {
+                        initialLang = browserLang;
+                    }
                 }
                 currentLangIndex = langCycle.indexOf(initialLang);
-                updateLanguage(initialLang, true);
+                updateLanguage(initialLang);
                 
-                // Animations
-                initAnimationObserver();
+                handleScroll();
+                
+                initServiceCardAnimations();
+                initProcessStepAnimations(); // Initialize process step animations
+                initSectionEntryAnimations();
 
-                // Event Listeners
                 document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
                 document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
                 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
                 window.addEventListener('scroll', handleScroll, { passive: true });
                 if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
+                
+                const pricingGrid = document.querySelector('.pricing-grid');
+                if (pricingGrid) {
+                    pricingGrid.addEventListener('click', function(e) {
+                        const planButton = e.target.closest('.pricing-card .btn');
+                        if (planButton) {
+                            e.preventDefault(); 
+                            const card = e.target.closest('.pricing-card');
+                            const titleElement = card.querySelector('h3[data-lang-key]');
+                            const planKey = titleElement.getAttribute('data-lang-key');
+                            
+                            const currentLang = langCycle[currentLangIndex];
+                            const planName = translations[currentLang][planKey];
 
-                // Smooth scrolling for anchor links
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-                        if(targetElement) {
-                             const headerOffset = document.getElementById('header').offsetHeight;
-                             const elementPosition = targetElement.getBoundingClientRect().top;
-                             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                       
-                             window.scrollTo({
-                                 top: offsetPosition,
-                                 behavior: 'smooth'
-                             });
+                            const messages = {
+                                ar: `مرحباً،\n\nلقد اطلعت على باقاتكم وأنا مهتم بـ "${planName}".\n\nأرجو التواصل لمناقشة التفاصيل.`,
+                                en: `Hello,\n\nI have reviewed your plans and I am interested in the "${planName}".\n\nPlease contact me to discuss the details.`,
+                                fr: `Bonjour,\n\nJ'ai examiné vos forfaits et je suis intéressé(e) par le "${planName}".\n\nMerci de me contacter pour discuter des détails.`
+                            };
+                            
+                            const contactTextarea = document.getElementById('contact-message');
+                            if (contactTextarea) {
+                                contactTextarea.value = messages[currentLang];
+                            }
+
+                            const contactSection = document.getElementById('contact');
+                            if (contactSection) {
+                                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                if (contactTextarea) {
+                                    setTimeout(() => {
+                                        contactTextarea.focus();
+                                    }, 600); 
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Handle service card clicks (including blog link)
+                document.querySelectorAll('.service-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        if (card.classList.contains('blog-link')) {
+                            // Prevent default if it's a blog link and navigate to blog page
+                            e.preventDefault();
+                            // This assumes your blog page is at '/blog.html' or similar
+                            window.location.href = '/blog.html'; 
+                        } else {
+                            // For modal triggers
+                            const targetElement = e.target.closest('[data-modal-target]');
+                            if (targetElement) {
+                                const modalId = targetElement.dataset.modalTarget;
+                                const modal = document.getElementById(modalId);
+                                if (modal) modal.classList.add('active');
+                            }
                         }
                     });
                 });
-                
-                // Pricing plan button to contact form
-                document.querySelector('.pricing-grid').addEventListener('click', function(e) {
-                    if (e.target.closest('.pricing-card .btn')) {
-                        const card = e.target.closest('.pricing-card');
-                        const planKey = card.querySelector('h3[data-lang-key]').getAttribute('data-lang-key');
-                        const lang = langCycle[currentLangIndex];
-                        const planName = translations[lang][planKey];
-                        const messages = {
-                            ar: `مرحباً، أنا مهتم بـ "${planName}". أرجو التواصل لمناقشة التفاصيل.`,
-                            en: `Hello, I am interested in the "${planName}". Please contact me to discuss the details.`,
-                            fr: `Bonjour, je suis intéressé(e) par le "${planName}". Merci de me contacter pour discuter des détails.`
-                        };
-                        document.getElementById('contact-message').value = messages[lang];
-                        setTimeout(() => document.getElementById('contact-message').focus(), 600);
-                    }
-                });
 
-                // Modals
-                document.querySelectorAll('[data-modal-target]').forEach(trigger => {
-                    trigger.addEventListener('click', () => {
-                        const modal = document.getElementById(trigger.dataset.modalTarget);
-                        if (modal) modal.classList.add('active');
-                    });
-                });
+
                 document.querySelectorAll('.modal .modal-close, .modal').forEach(el => {
                     el.addEventListener('click', (e) => {
                         if (e.target === el) {
@@ -711,15 +980,131 @@
                         }
                     });
                 });
+
+                document.querySelectorAll('.main-nav a, .footer-links a, .logo').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        const href = this.getAttribute('href');
+                        if (href && href.startsWith('#')) {
+                            e.preventDefault();
+                            const targetElement = document.querySelector(href);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }
+                    });
+                });
                 
-                // Set Founder Avatar
                 const founderAvatar = document.getElementById('founder-avatar');
                 if (founderAvatar) {
                     founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
                 }
+            }
 
-                // Initial scroll handling
-                handleScroll();
+            initTextAnimations = function() {
+                const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
+                if (textAnimationObserver) {
+                    textAnimationObserver.disconnect();
+                }
+                textAnimationObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const container = entry.target;
+                            const text = container.textContent;
+                            const words = text.trim().split(/\s+/);
+                            container.innerHTML = ''; 
+                            container.classList.add('slide-up-words');
+                            words.forEach((word, index) => {
+                                const wordSpan = document.createElement('span');
+                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
+                                container.appendChild(wordSpan);
+                                if (index < words.length - 1) {
+                                    container.appendChild(document.createTextNode(' '));
+                                }
+                            });
+                            setTimeout(() => container.classList.add('is-visible'), 50);
+                            observer.unobserve(container);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                elementsToAnimate.forEach(el => {
+                    el.classList.remove('is-visible', 'slide-up-words');
+                    const key = el.getAttribute('data-lang-key');
+                    const lang = langCycle[currentLangIndex];
+                    if (key && translations[lang] && translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                    textAnimationObserver.observe(el);
+                });
+            }
+            initServiceCardAnimations = function() {
+                const serviceCards = document.querySelectorAll('.service-card');
+                if (!serviceCards.length) return;
+                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+                const cardObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target); 
+                        }
+                    });
+                }, observerOptions);
+                serviceCards.forEach((card, index) => {
+                    card.style.transitionDelay = `${index * 100}ms`;
+                    cardObserver.observe(card);
+                });
+            }
+            initProcessStepAnimations = function() { // New function implementation
+                const processSteps = document.querySelectorAll('.process-step');
+                if (!processSteps.length) return;
+                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+                const stepObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                processSteps.forEach((step, index) => {
+                    step.style.transitionDelay = `${index * 120}ms`; // Staggered animation
+                    stepObserver.observe(step);
+                });
+            }
+
+            initSectionEntryAnimations = function() {
+                // Modified to include '#process'
+                const sections = document.querySelectorAll('#about, #services, #process, #pricing, #website-test, #faq, #contact');
+                if (!sections.length) return;
+                const sectionObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                sections.forEach(section => {
+                    sectionObserver.observe(section);
+                });
+            }
+            handleParallaxEffect = function() {
+                const aboutSection = document.querySelector('#about');
+                if (!aboutSection) return;
+                const rect = aboutSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const avatar = document.querySelector('.founder-avatar');
+                    const bio = document.querySelector('.founder-bio');
+                    const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                    if (avatar) {
+                        const avatarY = scrollPercent * -80;
+                        avatar.style.transform = `translateY(${avatarY}px)`;
+                    }
+                    if (bio) {
+                        const bioY = scrollPercent * -40;
+                        bio.style.transform = `translateY(${bioY}px)`;
+                    }
+                }
             }
 
             init();
