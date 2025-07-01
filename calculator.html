@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة الباقات - solu_tion.dev</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
+    
+    <style>
+        :root {
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-cairo: 'Cairo', var(--font-sans);
+            --transition-speed: 0.4s;
+            --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        body {
+            --bg-color: #0d0d0d;
+            --surface-color: rgba(30, 30, 30, 0.9);
+            --text-color: #E0E0E0;
+            --subtle-text-color: #A0A0A0;
+            --border-color: rgba(70, 70, 70, 0.5);
+            --primary-color: #8B5CF6;
+            --primary-text-color: #FFFFFF;
+            --primary-hover: #A37FF7;
+            --glow-color: rgba(139, 92, 246, 0.7);
+        }
+
+        body.light-mode {
+            --bg-color: #f0f0f0;
+            --surface-color: rgba(255, 255, 255, 0.9);
+            --text-color: #121212;
+            --subtle-text-color: #555555;
+            --border-color: rgba(200, 200, 200, 0.5);
+            --primary-hover: #7C3AED;
+            --glow-color: rgba(139, 92, 246, 0.5);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
+
+        @keyframes animated-aurora {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pop-in {
+            0% { opacity: 0; transform: scale(0.8); }
+            80% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: var(--font-sans); 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            line-height: 1.7; 
+            transition: background-color var(--transition-speed), color var(--transition-speed); 
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: ''; position: fixed; top: -50%; left: -50%; width: 200vw; height: 200vh;
+            z-index: -1; pointer-events: none; background-color: #0d0d0d;
+            background-image:
+                radial-gradient(circle at 10% 90%, #8B5CF6 0%, rgba(139, 92, 246, 0) 35%),
+                radial-gradient(circle at 90% 10%, #4a23a0 0%, rgba(74, 35, 160, 0) 40%);
+            filter: blur(50px); animation: animated-aurora 40s linear infinite;
+            transition: background-image var(--transition-speed);
+        }
+
+        body.light-mode::before {
+            background-color: #ffffff;
+            background-image:
+                radial-gradient(circle at 15% 85%, #c084fc 0%, rgba(192, 132, 252, 0) 35%),
+                radial-gradient(circle at 85% 25%, #f3e8ff 0%, rgba(243, 232, 255, 0) 45%);
+        }
+
+        html[lang="ar"] body { font-family: var(--font-cairo); }
+        
+        .btn { display: inline-block; background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); border: none; cursor: pointer; }
+        .btn:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2), 0 0 10px var(--glow-color); }
+        
+        .calculator-container {
+            width: 90%;
+            max-width: 700px;
+            margin: 2rem auto;
+            background: var(--surface-color);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2), 0 0 25px -5px var(--glow-color);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .quiz-step {
+            display: none;
+            animation: fade-in-up 0.6s var(--ease-out-quart) forwards;
+        }
+        .quiz-step.active {
+            display: block;
+        }
+
+        .quiz-step h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .option-card {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .option-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-hover);
+            box-shadow: 0 0 15px -4px var(--glow-color);
+        }
+        .option-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .option-card p {
+            font-size: 0.9rem;
+            color: var(--subtle-text-color);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            margin-top: 2.5rem;
+            overflow: hidden;
+        }
+        .progress-bar-inner {
+            height: 100%;
+            width: 0;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        #result-step {
+            text-align: center;
+            animation: pop-in 0.8s var(--ease-out-quart) forwards;
+        }
+        
+        #result-step h2 {
+            margin-bottom: 1rem;
+        }
+        #result-step p {
+            color: var(--subtle-text-color);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-inline: auto;
+        }
+        
+        .result-card {
+             background-color: rgba(139, 92, 246, 0.1);
+             border: 2px solid var(--primary-color);
+             border-radius: 16px;
+             padding: 2rem;
+             box-shadow: 0 0 30px -5px var(--glow-color);
+        }
+
+        .result-card h3 {
+             font-size: 1.8rem;
+             font-weight: 700;
+             margin-bottom: 1rem;
+             color: var(--primary-color);
+        }
+
+        .features-list { list-style: none; text-align: start; margin-block: 2rem; max-width: 300px; margin-inline: auto; }
+        .features-list li { margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+        .features-list li::before { content: '✔'; color: var(--primary-color); font-weight: bold; font-size: 1.2rem; }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--subtle-text-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+         .back-to-home:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="calculator-container">
+        <div id="step-1" class="quiz-step active">
+            <h2 data-lang-key="q1Title"></h2>
+            <div class="options-grid">
+                <div class="option-card" data-score="1">
+                    <h3 data-lang-key="q1Opt1Title"></h3>
+                    <p data-lang-key="q1Opt1Desc"></p>
+                </div>
+                <div class="option-card" data-score="2">
+                    <h3 data-lang-key="q1Opt2Title"></h3>
+                    <p data-lang-key="q1Opt2Desc"></p>
+                </div>
+                 <div class="option-card" data-score="3">
+                    <h3 data-lang-key="q1Opt3Title"></h3>
+                    <p data-lang-key="q1Opt3Desc"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-2" class="quiz-step">
+            <h2 data-lang-key="q2Title"></h2>
+            <div class="options-grid">
+                <div class="option-card" data-score="1">
+                    <h3 data-lang-key="q2Opt1"></h3>
+                </div>
+                <div class="option-card" data-score="2">
+                    <h3 data-lang-key="q2Opt2"></h3>
+                </div>
+                <div class="option-card" data-score="3">
+                    <h3 data-lang-key="q2Opt3"></h3>
+                </div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="quiz-step">
+            <h2 data-lang-key="q3Title"></h2>
+            <div class="options-grid">
+                <div class="option-card" data-score="1">
+                    <h3 data-lang-key="q3Opt1"></h3>
+                </div>
+                <div class="option-card" data-score="2">
+                    <h3 data-lang-key="q3Opt2"></h3>
+                </div>
+                 <div class="option-card" data-score="3">
+                    <h3 data-lang-key="q3Opt3"></h3>
+                </div>
+            </div>
+        </div>
+
+        <div id="result-step" class="quiz-step">
+            <h2 data-lang-key="resultTitle"></h2>
+            <p data-lang-key="resultSubtitle"></p>
+            <div class="result-card">
+                <h3 id="recommended-plan-name"></h3>
+                <ul id="recommended-plan-features" class="features-list"></ul>
+                <a id="contact-btn" href="index.html#contact" class="btn" data-lang-key="planCTA"></a>
+            </div>
+            <a href="index.html" class="back-to-home" data-lang-key="backToHome"></a>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-bar-inner" id="progress-bar-inner"></div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const translations = {
+            ar: {
+                q1Title: "ما هو الهدف الرئيسي لموقعك؟",
+                q1Opt1Title: "موقع تعريفي", q1Opt1Desc: "لعرض المعلومات الأساسية ووسائل التواصل.",
+                q1Opt2Title: "موقع شركة", q1Opt2Desc: "لعرض الخدمات، المشاريع، وفريق العمل.",
+                q1Opt3Title: "بيع منتجات", q1Opt3Desc: "لإنشاء متجر إلكتروني متكامل.",
+                
+                q2Title: "كم عدد الصفحات التي تتوقعها؟",
+                q2Opt1: "صفحة واحدة فقط (Landing Page)",
+                q2Opt2: "عدة صفحات (2-5 صفحات)",
+                q2Opt3: "عدد كبير أو غير محدد",
+                
+                q3Title: "هل تحتاج إلى ميزات متقدمة؟",
+                q3Opt1: "فقط نموذج تواصل",
+                q3Opt2: "مدونة أو معرض أعمال",
+                q3Opt3: "متجر إلكتروني أو نظام حجز",
+
+                resultTitle: "الباقة المقترحة لك!",
+                resultSubtitle: "بناءً على إجاباتك، نعتقد أن هذه الباقة هي الأنسب لك. يمكنك التواصل معنا لمناقشة التفاصيل وتخصيصها.",
+                
+                plan1Name: "الباقة الأساسية",
+                plan1Feat1: "صفحة ويب واحدة (Landing Page)",
+                plan1Feat2: "تصميم متجاوب مع كل الشاشات",
+                plan1Feat3: "نموذج تواصل فعال",
+                
+                plan2Name: "الباقة الاحترافية",
+                plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)",
+                plan2Feat2: "تصميم متجاوب ومخصص",
+                plan2Feat3: "ربط بلوحة تحكم (CMS)",
+                
+                plan3Name: "الباقة المتكاملة",
+                plan3Feat1: "موقع متعدد الصفحات غير محدود",
+                plan3Feat2: "متجر إلكتروني مع بوابات دفع",
+                plan3Feat3: "دعم فني لمدة 3 أشهر",
+                
+                planCTA: "تواصل معنا للبدء",
+                backToHome: "العودة إلى الصفحة الرئيسية",
+            },
+            en: {
+                q1Title: "What is the main goal of your website?",
+                q1Opt1Title: "Informational Site", q1Opt1Desc: "To display basic information and contact details.",
+                q1Opt2Title: "Company Website", q1Opt2Desc: "To showcase services, projects, and the team.",
+                q1Opt3Title: "Sell Products", q1Opt3Desc: "To create a full-featured e-commerce store.",
+
+                q2Title: "How many pages do you expect?",
+                q2Opt1: "Just one page (Landing Page)",
+                q2Opt2: "A few pages (2-5 pages)",
+                q2Opt3: "Many or unlimited pages",
+
+                q3Title: "Do you need advanced features?",
+                q3Opt1: "Just a contact form",
+                q3Opt2: "A blog or a portfolio",
+                q3Opt3: "E-commerce or a booking system",
+
+                resultTitle: "Your Recommended Plan!",
+                resultSubtitle: "Based on your answers, we believe this plan is the best fit for you. You can contact us to discuss the details and customize it.",
+                
+                plan1Name: "Basic Plan",
+                plan1Feat1: "Single Web Page (Landing Page)",
+                plan1Feat2: "Responsive on all devices",
+                plan1Feat3: "Effective contact form",
+
+                plan2Name: "Professional Plan",
+                plan2Feat1: "Multi-page site (up to 5 pages)",
+                plan2Feat2: "Custom responsive design",
+                plan2Feat3: "CMS Integration",
+
+                plan3Name: "Premium Plan",
+                plan3Feat1: "Unlimited multi-page site",
+                plan3Feat2: "E-commerce with payment gateways",
+                plan3Feat3: "3-months technical support",
+                
+                planCTA: "Contact Us to Start",
+                backToHome: "Back to Homepage",
+            },
+            fr: {
+                q1Title: "Quel est l'objectif principal de votre site ?",
+                q1Opt1Title: "Site d'Information", q1Opt1Desc: "Pour afficher les informations de base et les contacts.",
+                q1Opt2Title: "Site d'Entreprise", q1Opt2Desc: "Pour présenter les services, les projets et l'équipe.",
+                q1Opt3Title: "Vendre des Produits", q1Opt3Desc: "Pour créer une boutique e-commerce complète.",
+                
+                q2Title: "Combien de pages attendez-vous ?",
+                q2Opt1: "Une seule page (Landing Page)",
+                q2Opt2: "Quelques pages (2-5 pages)",
+                q2Opt3: "Plusieurs pages ou illimitées",
+
+                q3Title: "Avez-vous besoin de fonctionnalités avancées ?",
+                q3Opt1: "Juste un formulaire de contact",
+                q3Opt2: "Un blog ou un portfolio",
+                q3Opt3: "E-commerce ou système de réservation",
+
+                resultTitle: "Votre Forfait Recommandé !",
+                resultSubtitle: "Sur la base de vos réponses, nous pensons que ce forfait est le plus adapté pour vous. Contactez-nous pour discuter des détails et le personnaliser.",
+                
+                plan1Name: "Forfait Essentiel",
+                plan1Feat1: "Page web unique (Landing Page)",
+                plan1Feat2: "Responsive sur tous les écrans",
+                plan1Feat3: "Formulaire de contact efficace",
+
+                plan2Name: "Forfait Professionnel",
+                plan2Feat1: "Site multi-pages (jusqu'à 5 pages)",
+                plan2Feat2: "Design responsive personnalisé",
+                plan2Feat3: "Intégration CMS",
+
+                plan3Name: "Forfait Premium",
+                plan3Feat1: "Site multi-pages illimité",
+                plan3Feat2: "E-commerce avec passerelles de paiement",
+                plan3Feat3: "3 mois de support technique",
+                
+                planCTA: "Contactez-nous pour commencer",
+                backToHome: "Retour à l'accueil",
+            }
+        };
+
+        const steps = document.querySelectorAll('.quiz-step');
+        const progressBar = document.getElementById('progress-bar-inner');
+        let currentStep = 0;
+        let totalScore = 0;
+        const totalQuestions = 3;
+        let currentLang = 'ar';
+
+        function updateLanguage(langCode) {
+            currentLang = langCode;
+            const langData = translations[langCode];
+            document.documentElement.lang = langCode;
+            document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
+
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (langData && langData[key]) {
+                    el.innerHTML = langData[key];
+                }
+            });
+        }
+        
+        function showStep(stepIndex) {
+            steps.forEach((step, index) => {
+                step.classList.toggle('active', index === stepIndex);
+            });
+            const progress = (stepIndex / totalQuestions) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function handleOptionClick(event) {
+            const selectedCard = event.currentTarget;
+            const score = parseInt(selectedCard.dataset.score, 10);
+            totalScore += score;
+            
+            currentStep++;
+            if (currentStep < totalQuestions) {
+                showStep(currentStep);
+            } else {
+                showResult();
+            }
+        }
+        
+        function showResult() {
+            // Hide all quiz steps and show the result step
+            steps.forEach(step => step.classList.remove('active'));
+            document.getElementById('result-step').classList.add('active');
+            progressBar.style.width = '100%';
+
+            let recommendedPlan;
+            if (totalScore <= 4) {
+                recommendedPlan = 'plan1'; // Basic
+            } else if (totalScore <= 7) {
+                recommendedPlan = 'plan2'; // Professional
+            } else {
+                recommendedPlan = 'plan3'; // Premium
+            }
+            
+            const langData = translations[currentLang];
+            const planName = langData[`${recommendedPlan}Name`];
+            
+            document.getElementById('recommended-plan-name').textContent = planName;
+            
+            const featuresList = document.getElementById('recommended-plan-features');
+            featuresList.innerHTML = '';
+            for(let i = 1; i <= 3; i++) {
+                const featureKey = `${recommendedPlan}Feat${i}`;
+                if(langData[featureKey]) {
+                    const li = document.createElement('li');
+                    li.textContent = langData[featureKey];
+                    featuresList.appendChild(li);
+                }
+            }
+        }
+
+        function init() {
+            // Detect language from main page's localStorage
+            const savedLang = localStorage.getItem('siteLang') || 'ar';
+            updateLanguage(savedLang);
+            
+            // Detect theme from main page's localStorage
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.classList.toggle('light-mode', savedTheme === 'light');
+
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.addEventListener('click', handleOptionClick);
+            });
+            
+            showStep(0);
+        }
+
+        init();
+    });
+    </script>
+</body>
+</html>
