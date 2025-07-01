@@ -13,8 +13,8 @@
         :root {
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --font-cairo: 'Cairo', var(--font-sans);
-            --transition-speed: 0.4s;
-            --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+            --transition-speed: 0.5s; /* زيادة طفيفة لسرعة الانتقال لتناسب الأنيميشن الجديد */
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body {
@@ -82,20 +82,20 @@
         }
 
         html[lang="ar"] body { font-family: var(--font-cairo); }
-        html[lang="fr"] body { font-family: var(--font-sans); } /* Or a specific French font */
+        html[lang="fr"] body { font-family: var(--font-sans); }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; position: relative; z-index: 1; }
         .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); margin-bottom: 3rem; text-align: center; font-weight: 700; color: var(--text-color);}
-        .btn { display: inline-block; background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); border: none; cursor: pointer; }
+        .btn { display: inline-block; background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s; border: none; cursor: pointer; }
         .btn:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2), 0 0 10px var(--glow-color); }
         
-        .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed), border-color var(--transition-speed); }
+        .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color 0.4s, border-color 0.4s; }
         .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-color); text-decoration: none; }
         .nav-container { display: flex; align-items: center; gap: 1.5rem; }
         .main-nav { list-style: none; display: flex; gap: 2rem; }
-        .main-nav a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color var(--transition-speed), background-color 0.2s; }
+        .main-nav a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color 0.4s, background-color 0.2s; }
         .main-nav a:hover, .main-nav a.active { color: var(--text-color); }
         .header-actions { display: flex; align-items: center; gap: 1rem; }
-        .theme-toggle, .lang-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; transition: color var(--transition-speed), transform var(--transition-speed); }
+        .theme-toggle, .lang-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.5rem; padding: 0.5rem; transition: color 0.4s, transform 0.4s; }
         .theme-toggle:hover, .lang-toggle:hover { color: var(--primary-hover); transform: scale(1.1); }
         .lang-toggle { font-size: 1rem; font-weight: 600; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.5rem 0.8rem; background-color: transparent; }
         .lang-toggle:hover { color: var(--primary-hover); border-color: var(--primary-hover); }
@@ -120,10 +120,10 @@
         .slide-up-words span .word { display: inline-block; transform: translateY(110%); transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); transition-delay: var(--delay); }
         .slide-up-words.is-visible span .word { transform: translateY(0); }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; display: flex; flex-direction: column; opacity: 0; transform: translateY(40px); will-change: transform, opacity; transition: opacity 0.6s var(--ease-out-quart), transform 0.6s var(--ease-out-quart), box-shadow var(--transition-speed); }
+        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; display: flex; flex-direction: column; opacity: 0; transform: translateY(40px); will-change: transform, opacity; transition: opacity 0.6s var(--ease-out-quart), transform 0.6s var(--ease-out-quart), box-shadow 0.4s; }
         .service-card.is-visible { opacity: 1; transform: translateY(0); }
         .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 12px -2px var(--glow-color); }
-        .service-card[data-modal-target], .service-card.blog-link { cursor: pointer; } /* Added blog-link cursor */
+        .service-card[data-modal-target], .service-card.blog-link { cursor: pointer; }
         .service-icon-container { width: 100px; height: 100px; margin: 0 auto 1.5rem auto; }
         .service-icon-container svg { width: 100%; height: 100%; stroke: var(--primary-color); }
         .service-card:hover .page-corner { transform: rotate(-15deg); }
@@ -132,7 +132,7 @@
         .service-card:hover .blog-line { stroke-dashoffset: 0; }
         .service-card:hover .calendar-check { transform: scale(1.2); opacity: 1; }
         .service-card:hover .portfolio-image { transform: translateY(-5px); }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: 360deg); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .page-corner { transition: transform 0.3s ease; transform-origin: bottom left; }
         .layer-top { transition: transform 0.3s ease; }
         .blog-line { stroke-dasharray: 50; stroke-dashoffset: 50; transition: stroke-dashoffset 0.8s ease; }
@@ -140,149 +140,68 @@
         .portfolio-image { transition: transform 0.4s ease; }
         .service-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--text-color); margin-top: auto; }
 
-        /* Process Section Styles - NEW ANIMATION */
-        @keyframes fade-in-up-delay {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-        .process-step {
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
-            opacity: 0; /* Initial state for animation */
-            transform: translateY(40px); /* Initial state for animation */
-            box-shadow: 0 0 15px -8px var(--glow-color);
-        }
-        .process-step.is-visible {
-            animation: fade-in-up-delay 0.8s var(--ease-out-quart) forwards;
-        }
-        .process-step:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 18px -5px var(--glow-color);
-            border-color: var(--primary-color);
-        }
-        .process-icon-container {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(139, 92, 246, 0.1);
-            border-radius: 50%;
-            border: 1px solid var(--primary-color);
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-        .process-step:hover .process-icon-container {
-            background-color: var(--primary-color);
-            border-color: var(--primary-hover);
-        }
-        .process-icon-container svg {
-            width: 50px;
-            height: 50px;
-            stroke: var(--primary-color);
-            transition: stroke 0.3s;
-        }
-        .process-step:hover .process-icon-container svg {
-            stroke: var(--primary-text-color);
-        }
-        .process-step h4 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-color);
-        }
-        .process-step p {
-            font-size: 1rem;
-            color: var(--subtle-text-color);
-            flex-grow: 1;
-        }
-        .process-step-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--border-color);
-            margin-bottom: 0.5rem;
-            position: absolute;
-            top: 15px;
-            opacity: 0.2;
-            transition: color 0.3s, opacity 0.3s;
-        }
-        .process-step:hover .process-step-number {
-            color: var(--primary-color);
-            opacity: 0.4;
-        }
+        @keyframes fade-in-up-delay { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .process-step { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s; opacity: 0; transform: translateY(40px); box-shadow: 0 0 15px -8px var(--glow-color); }
+        .process-step.is-visible { animation: fade-in-up-delay 0.8s var(--ease-out-quart) forwards; }
+        .process-step:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 18px -5px var(--glow-color); border-color: var(--primary-color); }
+        .process-icon-container { width: 80px; height: 80px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; background-color: rgba(139, 92, 246, 0.1); border-radius: 50%; border: 1px solid var(--primary-color); transition: background-color 0.3s, border-color 0.3s; }
+        .process-step:hover .process-icon-container { background-color: var(--primary-color); border-color: var(--primary-hover); }
+        .process-icon-container svg { width: 50px; height: 50px; stroke: var(--primary-color); transition: stroke 0.3s; }
+        .process-step:hover .process-icon-container svg { stroke: var(--primary-text-color); }
+        .process-step h4 { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-color); }
+        .process-step p { font-size: 1rem; color: var(--subtle-text-color); flex-grow: 1; }
+        .process-step-number { font-size: 2.5rem; font-weight: 700; color: var(--border-color); margin-bottom: 0.5rem; position: absolute; top: 15px; opacity: 0.2; transition: color 0.3s, opacity 0.3s; }
+        .process-step:hover .process-step-number { color: var(--primary-color); opacity: 0.4; }
         html[dir="rtl"] .process-step-number { right: 20px; }
         html[dir="ltr"] .process-step-number { left: 20px; }
 
-
-        /* Pricing Section Styles - HORIZONTAL CAROUSEL */
+        /* === MODIFIED PRICING SECTION STYLES === */
         .pricing-carousel-container {
             position: relative;
-            margin-top: 4rem;
-            padding-inline: 2rem; /* Add padding for arrows */
+            width: 100%;
+            height: 550px; /* Give the container a fixed height */
+            margin-top: 2rem;
+            perspective: 1200px; /* This creates the 3D space */
+            perspective-origin: center;
         }
 
         .pricing-grid {
-            display: flex;
-            overflow-x: auto; /* Enable horizontal scrolling */
-            scroll-snap-type: x mandatory; /* Snap to cards */
-            gap: 2rem;
-            padding-bottom: 1rem; /* Space for scrollbar */
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-            scrollbar-width: none; /* Hide scrollbar for Firefox */
-            -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d; /* This is crucial for 3D transforms */
         }
-        /* Hide scrollbar for Chrome, Safari, Opera */
-        .pricing-grid::-webkit-scrollbar {
-            display: none;
-        }
-
+        
         .pricing-card {
-            min-width: 320px; /* Adjust based on desired card size */
-            flex-shrink: 0; /* Prevent cards from shrinking */
-            scroll-snap-align: center; /* Snap to center of card */
+            position: absolute; /* All cards are positioned absolutely */
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 340px; 
+            min-width: 320px;
             background-color: var(--surface-color);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 2.5rem 2rem;
             text-align: center;
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed), opacity var(--transition-speed);
-            position: relative;
-            opacity: 0; /* Initial state for new animation */
-            transform: translateX(50px) scale(0.95); /* Initial state for new animation */
-        }
-        /* Animation for pricing cards */
-        @keyframes slide-in-fade {
-            0% { opacity: 0; transform: translateX(50px) scale(0.95); }
-            100% { opacity: 1; transform: translateX(0) scale(1); }
-        }
-        .pricing-card.is-active {
             opacity: 1;
-            transform: translateX(0) scale(1);
-            animation: slide-in-fade 0.6s var(--ease-out-quart) forwards;
-        }
-        .pricing-card.leaving { /* For cards moving out of view */
-            opacity: 0;
-            transform: translateX(-50px) scale(0.95);
-            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            /* The transition is now on the transform and opacity */
+            transition: transform var(--transition-speed) var(--ease-out-quart),
+                        opacity var(--transition-speed) var(--ease-out-quart),
+                        box-shadow var(--transition-speed);
+            cursor: pointer;
         }
 
+        .pricing-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 15px -5px var(--glow-color);
+        }
 
-        .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 15px -5px var(--glow-color); }
-        .pricing-card.popular { border: 2px solid var(--primary-color); box-shadow: 0 0 30px -5px var(--glow-color); } /* Keep popular styling */
+        .pricing-card.popular { 
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 30px -5px var(--glow-color);
+        }
+
         .popular-badge { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
         .pricing-card h3 { font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; }
         .pricing-card .price { font-size: 2.8rem; font-weight: 700; color: var(--primary-color); margin-bottom: 2rem; }
@@ -294,11 +213,10 @@
         .features-list li.disabled::before { content: '✖'; color: var(--subtle-text-color); }
         .pricing-card .btn { width: 100%; }
 
-        /* Carousel Navigation Buttons */
         .carousel-nav-btn {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
+            transform: translateY(-150%);
             background-color: var(--surface-color);
             border: 1px solid var(--border-color);
             color: var(--text-color);
@@ -306,8 +224,8 @@
             padding: 0.5rem;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 10;
-            transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed), transform var(--transition-speed);
+            z-index: 100;
+            transition: all 0.4s;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -318,64 +236,53 @@
             background-color: var(--primary-color);
             color: var(--primary-text-color);
             border-color: var(--primary-color);
-            transform: translateY(-50%) scale(1.1);
+            transform: translateY(-150%) scale(1.1);
         }
-        html[dir="rtl"] .carousel-nav-btn.prev {
-            right: 0;
-            transform: translateY(-50%) rotate(180deg);
-        }
-        html[dir="rtl"] .carousel-nav-btn.prev:hover {
-            transform: translateY(-50%) rotate(180deg) scale(1.1);
-        }
-        html[dir="rtl"] .carousel-nav-btn.next {
-            left: 0;
-        }
-        html[dir="ltr"] .carousel-nav-btn.prev {
-            left: 0;
-        }
-        html[dir="ltr"] .carousel-nav-btn.next {
-            right: 0;
-        }
-        
-        /* NEW: Cost Calculator Section */
-        #cost-calculator .container {
-            text-align: center;
-        }
+       
+        .carousel-nav-btn.prev { left: 10px; }
+        .carousel-nav-btn.next { right: 10px; }
 
-        .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); transition: box-shadow var(--transition-speed), border-color var(--transition-speed); box-shadow: 0 0 20px -8px var(--glow-color); }
+        @media (min-width: 768px) {
+            .carousel-nav-btn.prev { left: 15%; }
+            .carousel-nav-btn.next { right: 15%; }
+        }
+        /* === END OF MODIFIED PRICING STYLES === */
+        
+        #cost-calculator .container { text-align: center; }
+        .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); transition: box-shadow 0.4s, border-color 0.4s; box-shadow: 0 0 20px -8px var(--glow-color); }
         .website-test-tool:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
         .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
         .test-question-item:last-child { border-bottom: none; }
         .test-question-item p { margin: 0; flex-grow: 1; font-weight: 500; }
         .test-question-item .answers { display: flex; gap: 0.5rem; flex-shrink: 0; }
-        .test-question-item .answers button { background: var(--border-color); border: 1px solid transparent; color: var(--text-color); padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background-color var(--transition-speed), color var(--transition-speed); }
+        .test-question-item .answers button { background: var(--border-color); border: 1px solid transparent; color: var(--text-color); padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background-color 0.4s, color 0.4s; }
         .test-question-item .answers button.selected { background: var(--primary-color); color: var(--primary-text-color); }
         .test-result { text-align: center; margin-top: 2rem; padding: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
         .test-result.good { background-color: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #28a745; }
         .test-result.bad { background-color: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; color: #dc3545; }
         .faq-container { max-width: 800px; margin: 0 auto; }
-        .faq-item { background-color: var(--surface-color); margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; transition: box-shadow var(--transition-speed), border-color var(--transition-speed); }
+        .faq-item { background-color: var(--surface-color); margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; transition: box-shadow 0.4s, border-color 0.4s; }
         .faq-item:hover { box-shadow: 0 0 8px -2px var(--glow-color); border-color: var(--primary-color); }
         .faq-item.active { box-shadow: 0 0 10px -2px var(--glow-color); border-color: var(--primary-color); }
         .faq-question { padding: 1.25rem 1.5rem; font-weight: 600; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .faq-question .faq-icon { font-size: 1.5rem; transition: transform var(--transition-speed) ease; color: var(--subtle-text-color); }
+        .faq-question .faq-icon { font-size: 1.5rem; transition: transform 0.4s ease; color: var(--subtle-text-color); }
         .faq-item.active .faq-question .faq-icon { transform: rotate(45deg); color: var(--primary-color); }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
         .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--subtle-text-color); }
         #contact-form { max-width: 600px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.5rem; }
-        #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
+        #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color 0.4s, box-shadow 0.4s; }
         #contact-form input:focus, #contact-form textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 8px var(--glow-color); outline: none; }
         #contact-form textarea { resize: vertical; min-height: 150px; }
         #form-status { text-align: center; margin-top: 1.5rem; font-weight: 500; min-height: 1.6em; }
         .contact-direct-title { text-align: center; color: var(--subtle-text-color); margin-top: 2rem; font-weight: 500; }
         .contact-direct-links { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
-        .contact-direct-links a { color: var(--text-color); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.75rem; transition: color var(--transition-speed); }
+        .contact-direct-links a { color: var(--text-color); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.75rem; transition: color 0.4s; }
         .contact-direct-links a:hover { color: var(--primary-hover); }
-        .contact-direct-links a svg { width: 22px; height: 22px; color: var(--subtle-text-color); }
+        .contact-direct-links a svg { width: 22px; height: 22px; color: var(--subtle-text-color); transition: color 0.4s; }
         .contact-direct-links a:hover svg { color: var(--primary-hover); }
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1002; display: flex; align-items: center; justify-content: center; background-color: var(--overlay-color); opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1002; display: flex; align-items: center; justify-content: center; background-color: var(--overlay-color); opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s; }
         .modal.active { opacity: 1; visibility: visible; }
-        .modal-content { background-color: var(--surface-color); padding: 2rem; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; transform: scale(0.95); transition: transform var(--transition-speed); border: 1px solid var(--border-color); }
+        .modal-content { background-color: var(--surface-color); padding: 2rem; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; transform: scale(0.95); transition: transform 0.4s; border: 1px solid var(--border-color); }
         .modal.active .modal-content { transform: scale(1); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem; }
         .modal-title { font-size: 1.5rem; color: var(--text-color); }
@@ -389,16 +296,14 @@
         .footer-links { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
         .footer-legal button { background: none; border: none; color: var(--subtle-text-color); cursor: pointer; font-family: inherit; font-size: 1em; font-weight: 500; }
         .footer-legal button:hover { color: var(--primary-color); }
-        .footer-social a { color: var(--subtle-text-color); transition: color var(--transition-speed), transform var(--transition-speed); }
+        .footer-social a { color: var(--subtle-text-color); transition: color 0.4s, transform 0.4s; }
         .footer-social a:hover { color: var(--primary-color); transform: scale(1.1); }
         .footer-copy { margin-top: 0; font-size: 0.9rem; color: #777; }
-        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-speed), transform var(--transition-speed), background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed); pointer-events: none; border-radius: 50%; }
+        #scrollTopBtn { position: fixed; bottom: 20px; width: 50px; height: 50px; background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transform: translateY(20px); transition: opacity 0.4s, transform 0.4s, background-color 0.4s, color 0.4s, border-color 0.4s; pointer-events: none; border-radius: 50%; }
         html[dir="rtl"] #scrollTopBtn { left: 20px; }
         html[dir="ltr"] #scrollTopBtn { right: 20px; }
         #scrollTopBtn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
         #scrollTopBtn:hover { background-color: var(--primary-color); color: var(--primary-text-color); border-color: var(--primary-color); }
-        .nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--overlay-color); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); }
-        body.nav-open .nav-overlay { opacity: 1; visibility: visible; }
         .scroll-indicator { position: fixed; top: 50%; transform: translateY(-50%); z-index: 998; transition: opacity 0.5s ease, visibility 0.5s ease; }
         .scroll-indicator.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .scroll-indicator.visible { opacity: 1; visibility: visible; }
@@ -408,10 +313,10 @@
         html[dir="rtl"] .scroll-indicator-line { right: 4px; }
         html[dir="ltr"] .scroll-indicator-line { left: 4px; }
         .scroll-indicator-nav ul { list-style: none; padding: 0; margin: 0; position: relative; }
-        .scroll-indicator-nav li a { display: block; position: relative; text-decoration: none; color: var(--subtle-text-color); transition: color var(--transition-speed); }
+        .scroll-indicator-nav li a { display: block; position: relative; text-decoration: none; color: var(--subtle-text-color); transition: color 0.4s; }
         html[dir="rtl"] .scroll-indicator-nav li a { padding: 15px 30px 15px 0; }
         html[dir="ltr"] .scroll-indicator-nav li a { padding: 15px 0 15px 30px; }
-        .scroll-indicator-nav li a .dot { width: 10px; height: 10px; background-color: var(--subtle-text-color); border-radius: 50%; transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed); position: absolute; top: 50%; transform: translateY(-50%); }
+        .scroll-indicator-nav li a .dot { width: 10px; height: 10px; background-color: var(--subtle-text-color); border-radius: 50%; transition: background-color 0.4s, transform 0.4s, box-shadow 0.4s; position: absolute; top: 50%; transform: translateY(-50%); }
         html[dir="rtl"] .scroll-indicator-nav li a .dot { right: 0; }
         html[dir="ltr"] .scroll-indicator-nav li a .dot { left: 0; }
         .scroll-indicator-nav li a .section-name { position: absolute; top: 50%; opacity: 0; visibility: hidden; background-color: var(--surface-color); color: var(--text-color); padding: 8px 14px; border-radius: 8px; font-size: 1rem; font-weight: 500; white-space: nowrap; border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.2); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, text-shadow 0.3s ease; }
@@ -425,28 +330,6 @@
         .scroll-indicator-nav li.active a .dot { background-color: var(--primary-color); transform: translateY(-50%) scale(1.7); box-shadow: 0 0 12px var(--glow-color), 0 0 22px var(--primary-color); }
         .scroll-indicator-nav li:not(.active) a:hover .dot { transform: translateY(-50%) scale(1.4); box-shadow: 0 0 10px var(--glow-color); }
         .scroll-indicator-nav li:not(.active) a:hover .section-name { text-shadow: 0 0 6px var(--glow-color); }
-        @media (max-width: 992px) { 
-            .pricing-card.popular { transform: scale(1); } 
-            .pricing-grid { 
-                grid-template-columns: 1fr; 
-                max-width: 450px; 
-                margin-inline: auto; 
-                flex-wrap: nowrap; /* Ensure cards stay in a single row */
-            } 
-            .pricing-carousel-container {
-                padding-inline: 0.5rem; /* Reduce padding on small screens */
-            }
-            .carousel-nav-btn {
-                font-size: 1.5rem;
-                width: 40px;
-                height: 40px;
-                top: 50%;
-            }
-            html[dir="rtl"] .carousel-nav-btn.prev { right: -5px; }
-            html[dir="rtl"] .carousel-nav-btn.next { left: -5px; }
-            html[dir="ltr"] .carousel-nav-btn.prev { left: -5px; }
-            html[dir="ltr"] .carousel-nav-btn.next { right: -5px; }
-        }
         @media (max-width: 768px) { .main-nav { display: none; } }
     </style>
 </head>
@@ -553,7 +436,7 @@
         <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
             <h2 class="section-title" data-lang-key="pricingTitle" data-animate="slide-up-words"></h2>
             <div class="pricing-carousel-container">
-                <div class="pricing-grid" id="pricing-carousel">
+                <div class="pricing-grid" id="pricing-grid">
                     <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
                     <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
                     <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan3Feat1"></li> <li data-lang-key="plan3Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
@@ -629,691 +512,622 @@
     <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg> </button>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     
-            const icons = {
-                sun: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06z"></path></svg>`,
-                moon: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M9.37 5.51A7.35 7.35 0 009 6c0 4.42 3.58 8 8 8.01 1.07 0 2.09-.23 3-.64.42-.18.88.08 1.06.5.18.42-.08.88-.5 1.06-1.18.5-2.49.77-3.87.77-5.52 0-10-4.48-10-10 0-1.38.27-2.69.77-3.87.18-.42.64-.68 1.06-.5.42.18.68.64.5 1.06z"></path></svg>`
-            };
-            
-            const translations = {
-                ar: {
-                    navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navProcess: "منهجية العمل", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا", pricingTitle: "الأسعار",
-                    heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
-                    heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
-                    aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
-                    servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
-                    processTitle: "منهجية العمل",
-                    process1Title: "الاستشارة والتحليل", process1Desc: "نبني أساسًا متينًا لمشروعك من خلال فهم عميق لأهدافك ومتطلباتك، ونقدم لك حلولًا مخصصة.",
-                    process2Title: "التصميم الأولي (UI/UX)", process2Desc: "نحول أفكارك إلى واجهات مستخدم جذابة وسهلة الاستخدام، مع التركيز على تجربة العميل المثالية.",
-                    process3Title: "التطوير والبرمجة", process3Desc: "نبدأ بتحويل التصميمات إلى كود برمجي نظيف وفعّال، مع ضمان أعلى مستويات الجودة والأداء.",
-                    process4Title: "الإطلاق والدعم", process4Desc: "بعد اختبار شامل، نطلق موقعك ونوفر الدعم الفني المستمر لضمان عمله بكفاءة دون توقف.",
-                    planPopularBadge: "الأكثر طلباً", currencySuffix: "د.ج", planCTA: "ابدأ الآن",
-                    plan1Name: "الباقة الأساسية", plan1Price: "3500", plan1Feat1: "صفحة ويب واحدة (Landing Page)", plan1Feat2: "تصميم متجاوب مع كل الشاشات", plan1Feat3: "نموذج تواصل فعال", plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)", plan1Feat5: "نظام إدارة المحتوى", plan1Feat6: "متجر إلكتروني متكامل",
-                    plan2Name: "الباقة الاحترافية", plan2Price: "5000", plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)", plan2Feat2: "تصميم متجاوب ومخصص", plan2Feat3: "ربط بلوحة تحكم (CMS)", plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)", plan2Feat5: "دعم فني لمدة شهر", plan2Feat6: "متجر إلكتروني متكامل",
-                    plan3Name: "الباقة المتكاملة", plan3Price: "9500", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
-                    calculatorTitle: "لست متأكدًا أي باقة تختار؟", calculatorCTA: "جرّب الحاسبة التفاعلية",
-                    testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
-                    testYes: "نعم", testNo: "لا", testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
-                    faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
-                    contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
-                    formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
-                    footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerCredit: "جميع الحقوق محفوظة. © تم تطويره بواسطة Amayas Berkani",
-                    privacyTitle: "سياسة الخصوصية", privacyContent: "<h4>جمع المعلومات</h4><p>نقوم بجمع المعلومات التي تقدمها مباشرة عبر نموذج التواصل، مثل الاسم والبريد الإلكتروني، وذلك بهدف الرد على استفساراتك وتقديم خدماتنا.</p><h4>استخدام المعلومات</h4><p>تستخدم المعلومات التي نجمعها فقط للتواصل معك بخصوص طلباتك ولتحسين خدماتنا. نحن لا نشارك بياناتك الشخصية مع أي طرف ثالث دون موافقتك الصريحة.</p>",
-                    termsTitle: "شروط الخدمة", termsContent: "<h4>الاستخدام</h4><p>باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. نحتفظ بالحق في تعديل هذه الشروط في أي وقت.</p><h4>الخدمات</h4><p>يتم الاتفاق على تفاصيل الخدمات المقدمة، بما في ذلك النطاق والتكلفة والجداول الزمنية، بشكل رسمي قبل بدء أي عمل. حجز استشارة لا يشكل عقداً ملزماً.</p>",
-                    landingPageModalTitle: "خدمة صفحات الهبوط", landingPageModalContent: "<p>صفحة الهبوط هي صفحة ويب واحدة مصممة خصيصًا لهدف تسويقي محدد. هدفها هو تحويل الزوار إلى عملاء محتملين عن طريق تشجيعهم على اتخاذ إجراء معين.</p><h4>الميزات الأساسية</h4><ul><li>تصميم جذاب ومركز على الهدف.</li><li>دعوة واضحة لاتخاذ إجراء (Call-to-Action).</li><li>محتوى مقنع وموجز.</li><li>نموذج بسيط لجمع بيانات العملاء.</li><li>متوافقة تمامًا مع جميع الشاشات.</li></ul><h4>فائدة ذلك لعملك</h4><p>تزيد من فعالية حملاتك الإعلانية، ترفع معدلات التحويل، وتوفر بيانات دقيقة لقياس نجاحك.</p>",
-                    multiPageModalTitle: "خدمة المواقع متعددة الصفحات", multiPageModalContent: "<p>الموقع متعدد الصفحات هو الواجهة الرقمية الكاملة لشركتك، حيث يعرض هويتك، خدماتك، ومنتجاتك بشكل شامل ومنظم عبر عدة صفحات مترابطة.</p><h4>الميزات الأساسية</h4><ul><li>هيكل تنقل واضح وسهل الاستخدام.</li><li>صفحات متخصصة (من نحن، خدماتنا، اتصل بنا، ...).</li><li>تصميم يعكس هوية علامتك التجارية.</li><li>أساس قوي لتحسين محركات البحث (SEO).</li><li>محتوى شامل لبناء ثقة العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يبني مصداقية قوية لعلامتك التجارية، يوفر معلومات كاملة لجمهورك، ويعتبر مركزًا رقميًا لجميع أنشطتك التسويقية.</p>",
-                    ecommerceModalTitle: "خدمة تصميم المتاجر الإلكترونية", ecommerceModalContent: "<p>نحن نحول فكرة متجرك إلى واقع رقمي متكامل. نصمم ونطور متاجر إلكترونية احترافية تساعدك على عرض منتجاتك بأسلوب جذاب، إدارة عملياتك بسهولة، وتحقيق النمو في المبيعات.</p><h4>المنصات والتقنيات</h4><ul><li><b>ووكومرس (WooCommerce):</b> للمتاجر المبنية على ووردبريس، مما يوفر سهولة في الإدارة ولوحة تحكم غنية.</li><li><b>شوبيفاي (Shopify):</b> نقوم بتخصيص القوالب وتطوير تطبيقات خاصة لتناسب هوية علامتك التجارية.</li><li><b>حلول مخصصة (Custom):</b> للمشاريع الفريدة، نقوم ببناء متاجر من الصفر باستخدام تقنيات حديثة.</li></ul><h4>فائدة ذلك لعملك</h4><p>توسيع قاعدة عملائك، بناء علامة تجارية قوية، وزيادة أرباحك من خلال قناة بيع تعمل على مدار الساعة.</p>",
-                    blogModalTitle: "خدمة إضافة مدونة", blogModalContent: "<p>إضافة قسم للمدونة في موقعك هو استثمار استراتيجي لإنشاء محتوى قيم يجذب الزوار، يبني الثقة، ويثبت خبرتك في مجالك.</p><h4>الميزات الأساسية</h4><ul><li>نظام إدارة محتوى سهل الاستخدام (CMS).</li><li>تصنيف المقالات عبر الوسوم والفئات.</li><li>إمكانية التعليق والمشاركة على الشبكات الاجتماعية.</li><li>هيكلة المقالات لتكون صديقة لمحركات البحث.</li></ul><h4>فائدة ذلك لعملك</h4><p>زيادة الزيارات المجانية من جوجل، ترسيخ مكانتك كخبير في مجالك، وتوفير محتوى دائم لمشاركته مع جمهورك.</p>",
-                    bookingModalTitle: "خدمة أنظمة الحجز", bookingModalContent: "<p>نظام الحجز الإلكتروني يسمح لعملائك بحجز المواعيد أو الخدمات مباشرة من موقعك في أي وقت ومن أي مكان، مما يوفر وقتك ووقتهم.</p><h4>الميزات الأساسية</h4><ul><li>تقويم يعرض المواعيد المتاحة بشكل فوري.</li><li>إمكانية الدفع المسبق لتأكيد الحجوزات.</li><li>إرسال تأكيدات وتذكيرات آلية عبر البريد الإلكتروني.</li><li>لوحة تحكم لإدارة الحجوزات والموظفين والخدمات.</li></ul><h4>فائدة ذلك لعملك</h4><p>أتمتة عملية جدولة المواعيد، تقليل حالات عدم الحضور، وزيادة كفاءة إدارة وقتك وعملك.</p>",
-                    portfolioModalTitle: "خدمة معرض الأعمال (Portfolio)", portfolioModalContent: "<p>معرض الأعمال هو الطريقة الأكثر احترافية لعرض مهاراتك ومشاريعك السابقة. إنه سيرتك الذاتية المرئية التي تتحدث عن جودة عملك.</p><h4>الميزات الأساسية</h4><ul><li>تصميم أنيق يركز على عرض أعمالك.</li><li>معارض صور وفيديو عالية الجودة.</li><li>تقسيم الأعمال حسب الفئة لتسهيل التصفح.</li><li>صفحة لكل مشروع تحتوي على تفاصيل وشهادات العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يعرض خبرتك بشكل ملموس، يجذب عملاء جدد يقدرون الجودة، ويبني علامتك الشخصية أو التجارية بقوة.</p>"
-                },
-                en: {
-                    navHome: "Home", navAbout: "About", navServices: "Services", navProcess: "Our Process", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Pricing",
-                    heroTitle: ["We Design a Professional Digital Identity", "We Turn Your Ideas Into Reality", "Innovative Web Solutions"],
-                    heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Request a Free Consultation",
-                    aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas Berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just an interface, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant designs and high-performance code.",
-                    servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-Page Websites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolio",
-                    processTitle: "Our Process",
-                    process1Title: "Consultation & Analysis", process1Desc: "We build a solid foundation for your project by deeply understanding your goals and requirements, offering tailored solutions.",
-                    process2Title: "UI/UX Design", process2Desc: "We transform your ideas into attractive and user-friendly interfaces, focusing on an optimal customer experience.",
-                    process3Title: "Development & Coding", process3Desc: "We start transforming designs into clean, efficient code, ensuring the highest levels of quality and performance.",
-                    process4Title: "Launch & Support", process4Desc: "After thorough testing, we launch your site and provide continuous technical support to ensure it operates efficiently without interruption.",
-                    planPopularBadge: "Most Popular", currencySuffix: "DZD", planCTA: "Get Started",
-                    plan1Name: "Basic Plan", plan1Price: "3500", plan1Feat1: "Single Web Page (Landing Page)", plan1Feat2: "Responsive on all devices", plan1Feat3: "Effective contact form", plan1Feat4: "Basic SEO setup", plan1Feat5: "Content Management System", plan1Feat6: "Full E-commerce store",
-                    plan2Name: "Professional Plan", plan2Price: "5000", plan2Feat1: "Multi-page site (up to 5 pages)", plan2Feat2: "Custom responsive design", plan2Feat3: "CMS Integration", plan2Feat4: "Advanced SEO optimization", plan2Feat5: "1-month technical support", plan2Feat6: "Full E-commerce store",
-                    plan3Name: "Premium Plan", plan3Price: "9500", plan3Feat1: "Unlimited multi-page site", plan3Feat2: "Unique and modern design", plan3Feat3: "CMS Integration", plan3Feat4: "Professional SEO optimization", plan3Feat5: "3-months technical support", plan3Feat6: "E-commerce with payment gateways",
-                    calculatorTitle: "Not Sure Which Plan to Choose?", calculatorCTA: "Try the Interactive Calculator",
-                    testTitle: "Is Your Current Website Good?", testQ1: "Is your site mobile-responsive?", testQ2: "Does your site load quickly?", testQ3: "Is your content easy to navigate?", testQ4: "Does your design look professional?", testQ5: "Is your contact information clear?",
-                    testYes: "Yes", testNo: "No", testResultGood: "Great! It seems your website is performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
-                    faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.", faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.", faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
-                    contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your message...", formSubmit: "Send Message",
-                    formSending: "Sending...", formSuccess: "Thank you! Your message has been sent successfully.", formError: "Sorry, an error occurred.",
-                    footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "All rights reserved. © Developed by Amayas Berkani",
-                    privacyTitle: "Privacy Policy", privacyContent: "<h4>Information Collection</h4><p>We collect information you provide directly through the contact form, such as name and email, to respond to your inquiries and provide our services.</p><h4>Use of Information</h4><p>The information we collect is used only to communicate with you regarding your requests and to improve our services. We do not share your personal data with any third party without your explicit consent.</p>",
-                    termsTitle: "Terms of Service", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these terms of service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Details of the services provided, including scope, cost, and timelines, are formally agreed upon before any work begins. A consultation booking does not constitute a binding contract.</p>",
-                    landingPageModalTitle: "Landing Page Service", landingPageModalContent: "<p>A landing page is a single web page designed for a specific marketing goal. Its purpose is to convert visitors into leads by encouraging a specific action.</p><h4>Key Features</h4><ul><li>Attractive, goal-oriented design.</li><li>Clear Call-to-Action (CTA).</li><li>Concise and persuasive content.</li><li>Simple form to collect customer data.</li><li>Fully responsive on all screens.</li></ul><h4>Benefit for Your Business</h4><p>Increases the effectiveness of your ad campaigns, boosts conversion rates, and provides accurate data to measure success.</p>",
-                    multiPageModalTitle: "Multi-Page Website Service", multiPageModalContent: "<p>A multi-page website is the complete digital storefront for your company, showcasing your identity, services, and products in a comprehensive and organized manner across several interconnected pages.</p><h4>Key Features</h4><ul><li>Clear and easy-to-use navigation structure.</li><li>Specialized pages (About Us, Services, Contact, etc.).</li><li>Design that reflects your brand identity.</li><li>Strong foundation for Search Engine Optimization (SEO).</li><li>Comprehensive content to build customer trust.</li></ul><h4>Benefit for Your Business</h4><p>Builds strong credibility for your brand, provides complete information to your audience, and serves as a digital hub for all your marketing activities.</p>",
-                    ecommerceModalTitle: "E-commerce Store Design Service", ecommerceModalContent: "<p>We turn your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Platforms & Technologies</h4><ul><li><b>WooCommerce:</b> For stores built on WordPress, offering easy management and a rich dashboard.</li><li><b>Shopify:</b> We customize themes and develop special apps to match your brand identity.</li><li><b>Custom Solutions:</b> For unique projects, we build stores from scratch using modern technologies.</li></ul><h4>Benefit for Your Business</h4><p>Expand your customer base, build a strong brand, and increase your profits through a sales channel that operates 24/7.</p>",
-                    blogModalTitle: "Blog Integration Service", blogModalContent: "<p>Adding a blog section to your site is a strategic investment to create valuable content that attracts visitors, builds trust, and establishes your expertise in your field.</p><h4>Key Features</h4><ul><li>Easy-to-use Content Management System (CMS).</li><li>Categorization of articles via tags and categories.</li><li>Ability to comment and share on social networks.</li><li>Article structure optimized for search engines.</li></ul><h4>Benefit for Your Business</h4><p>Increases free traffic from Google, establishes you as an expert in your field, and provides evergreen content to share with your audience.</p>",
-                    bookingModalTitle: "Booking Systems Service", bookingModalContent: "<p>An online booking system allows your customers to book appointments or services directly from your site at any time, from anywhere, saving both your time and theirs.</p><h4>Key Features</h4><ul><li>A calendar showing available appointments instantly.</li><li>Option for pre-payment to confirm bookings.</li><li>Automatic email confirmations and reminders.</li><li>A dashboard to manage bookings, staff, and services.</li></ul><h4>Benefit for Your Business</h4><p>Automates the appointment scheduling process, reduces no-shows, and increases the efficiency of managing your time and business.</p>",
-                    portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality photo and video galleries.</li><li>Categorization of works for easy Browse.</li><li>A page for each project with details and client testimonials.</li></ul><h4>Benefit for Your Business</h4><p>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</p>"
-                },
-                fr: {
-                    navHome: "Accueil", navAbout: "À propos", navServices: "Services", navProcess: "Notre Processus", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
-                    heroTitle: ["Nous Créons Votre Identité Numérique Professionnelle", "Nous Transformons Vos Idées en Réalité", "Solutions Web Innovantes"],
-                    heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Demander une Consultation Gratuite",
-                    aboutTitle: "Solutions Numériques Innovantes Pour Votre Marque", founderName: "Amayas Berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas seulement une interface, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à des designs élégants et un code haute performance.",
-                    servicesTitle: "Nos Services", service1: "Pages d'Atterrissage", service2: "Sites Multi-Pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolio",
-                    processTitle: "Notre Processus",
-                    process1Title: "Consultation et Analyse", process1Desc: "Nous établissons une base solide pour votre projet en comprenant en profondeur vos objectifs et vos besoins, en vous offrant des solutions sur mesure.",
-                    process2Title: "Conception UI/UX", process2Desc: "Nous transformons vos idées en des interfaces utilisateur attrayantes et intuitives, en mettant l'accent sur une expérience client optimale.",
-                    process3Title: "Développement et Codage", process3Desc: "Nous commençons à transformer les maquettes en un code propre et efficace, garantissant les plus hauts niveaux de qualité et de performance.",
-                    process4Title: "Lancement et Support", process4Desc: "Après des tests approfondis, nous lançons votre site et fournissons un support technique continu pour assurer son fonctionnement efficace sans interruption.",
-                    planPopularBadge: "Le plus populaire", currencySuffix: "DZD", planCTA: "Commencer",
-                    plan1Name: "Forfait Essentiel", plan1Price: "3500", plan1Feat1: "Page web unique (Landing Page)", plan1Feat2: "Responsive sur tous les écrans", plan1Feat3: "Formulaire de contact efficace", plan1Feat4: "Configuration SEO de base", plan1Feat5: "Système de gestion de contenu", plan1Feat6: "Boutique e-commerce complète",
-                    plan2Name: "Forfait Professionnel", plan2Price: "5000", plan2Feat1: "Site multi-pages (jusqu'à 5 pages)", plan2Feat2: "Design responsive personnalisé", plan2Feat3: "Intégration CMS", plan2Feat4: "Optimisation SEO avancée", plan2Feat5: "1 mois de support technique", plan2Feat6: "Boutique e-commerce complète",
-                    plan3Name: "Forfait Premium", plan3Price: "9500", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
-                    calculatorTitle: "Pas Sûr Quel Forfait Choisir?", calculatorCTA: "Essayez le Calculateur Interactif",
-                    testTitle: "Votre Site Actuel Est-il Bon?", testQ1: "Votre site est-il responsive sur mobile?", testQ2: "Votre site se charge-t-il rapidement?", testQ3: "Le contenu est-il facile à parcourir?", testQ4: "Votre design semble-t-il professionnel?", testQ5: "Vos informations de contact sont-elles claires?",
-                    testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider!</a>",
-                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.", faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.", faqQ5: "Can I request additional features?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
-                    contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via:", formName: "Nom Complet", formEmail: "Adresse E-mail", formMessage: "Votre message...", formSubmit: "Envoyer le Message",
-                    formSending: "Envoi en cours...", formSuccess: "Merci! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue.",
-                    footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
-                    privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
-                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>By using this site, you agree to be bound by these terms of service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont convenus formellement avant le début de tout travail. La réservation d'une consultation ne constitue pas un contrat contraignant.</p>",
-                    landingPageModalTitle: "Service de Pages d'Atterrissage", landingPageModalContent: "<p>Une page d'atterrissage est une page web unique conçue pour un objectif marketing spécifique. Son but est de convertir les visiteurs en prospects en les incitant à une action précise.</p><h4>Caractéristiques Clés</h4><ul><li>Design attractif et axé sur l'objectif.</li><li>Appel à l'action (CTA) clair.</li><li>Contenu concis et persuasif.</li><li>Formulaire simple pour collecter des données.</li><li>Entièrement responsive sur tous les écrans.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente l'efficacité de vos campagnes publicitaires, améliore les taux de conversion et fournit des données précises pour mesurer le succès.</p>",
-                    multiPageModalTitle: "Service de Sites Web Multi-Pages", multiPageModalContent: "<p>Un site web multi-pages est la vitrine numérique complète de votre entreprise, présentant votre identité, vos services et vos produits de manière complète et organisée sur plusieurs pages interconnectées.</p><h4>Caractéristiques Clés</h4><ul><li>Structure de navigation claire et facile à utiliser.</li><li>Pages spécialisées (À propos, Services, Contact, etc.).</li><li>Design qui reflète l'identité de votre marque.</li><li>Base solide pour l'optimisation des moteurs de recherche (SEO).</li><li>Contenu complet pour renforcer la confiance des clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Construit une forte crédibilité pour votre marque, fournit des informations complètes à votre public et sert de hub numérique pour toutes vos activités marketing.</p>",
-                    ecommerceModalTitle: "Service de Création de Boutique E-commerce", ecommerceModalContent: "<p>We transform your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Plateformes & Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un tableau de bord riche.</li><li><b>Shopify :</b> Nous personnalisons les thèmes et développons des applications spéciales pour correspondre à votre identité de marque.</li><li><b>Solutions sur Mesure :</b> Pour les projets uniques, nous construisons des boutiques à partir de zéro en utilisant des technologies modernes.</li></ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24h/24 et 7j/7.</p>",
-                    blogModalTitle: "Service d'Intégration de Blog", blogModalContent: "<p>Ajouter une section blog à votre site est un investissement stratégique pour créer un contenu de valeur qui attire les visiteurs, renforce la confiance et établit votre expertise dans votre domaine.</p><h4>Caractéristiques Clés</h4><ul><li>Système de gestion de contenu (CMS) facile à utiliser.</li><li>Catégorisation des articles par tags et catégories.</li><li>Possibilité de commenter et de partager sur les réseaux sociaux.</li><li>Structure des articles optimisée pour les moteurs de recherche.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente le trafic gratuit depuis Google, vous établit comme un expert dans votre domaine et fournit un contenu permanent à partager avec votre public.</p>",
-                    bookingModalTitle: "Service de Systèmes de Réservation", bookingModalContent: "<p>Un système de réservation en ligne permet à vos clients de réserver des rendez-vous ou des services directement depuis votre site, à tout moment et de n'importe où, vous faisant gagner du temps, à vous et à eux.</p><h4>Caractéristiques Clés</h4><ul><li>Un calendrier affichant les disponibilités instantanément.</li><li>Option de prépaiement pour confirmer les réservations.</li><li>Confirmations et rappels automatiques par e-mail.</li><li>Un tableau de bord pour gérer les réservations, le personnel et les services.</li></ul><h4>Avantage pour votre entreprise</h4><p>Automatise le processus de planification des rendez-vous, réduit les absences et augmente l'efficacité de la gestion de votre temps et de votre entreprise.</p>",
-                    portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>A portfolio is the most professional way to present your skills and projects anterior. It's your visual resume that speaks to the quality of your work.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries de photos et de vidéos de haute qualité.</li><li>Catégorisation des œuvres pour une navigation facile.</li><li>Une page pour chaque projet avec des détails et des témoignages de clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit puissamment votre marque personnelle ou d'entreprise.</p>"
-                }
-            };
-            
-            // --- Global Variables ---
-            let currentLangIndex = 0;
-            let typingTimeout;
-            let textAnimationObserver;
-            let scrollActivityTimeout; 
-            const langCycle = ['ar', 'en', 'fr'];
+        const icons = {
+            sun: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06z"></path></svg>`,
+            moon: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M9.37 5.51A7.35 7.35 0 009 6c0 4.42 3.58 8 8 8.01 1.07 0 2.09-.23 3-.64.42-.18.88.08 1.06.5.18.42-.08.88-.5 1.06-1.18.5-2.49.77-3.87.77-5.52 0-10-4.48-10-10 0-1.38.27-2.69.77-3.87.18-.42.64-.68 1.06-.5.42.18.68.64.5 1.06z"></path></svg>`
+        };
+        
+        const translations = {
+            ar: {
+                navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navProcess: "منهجية العمل", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا", pricingTitle: "الأسعار",
+                heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
+                heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
+                aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
+                servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
+                processTitle: "منهجية العمل",
+                process1Title: "الاستشارة والتحليل", process1Desc: "نبني أساسًا متينًا لمشروعك من خلال فهم عميق لأهدافك ومتطلباتك، ونقدم لك حلولًا مخصصة.",
+                process2Title: "التصميم الأولي (UI/UX)", process2Desc: "نحول أفكارك إلى واجهات مستخدم جذابة وسهلة الاستخدام، مع التركيز على تجربة العميل المثالية.",
+                process3Title: "التطوير والبرمجة", process3Desc: "نبدأ بتحويل التصميمات إلى كود برمجي نظيف وفعّال، مع ضمان أعلى مستويات الجودة والأداء.",
+                process4Title: "الإطلاق والدعم", process4Desc: "بعد اختبار شامل، نطلق موقعك ونوفر الدعم الفني المستمر لضمان عمله بكفاءة دون توقف.",
+                planPopularBadge: "الأكثر طلباً", currencySuffix: "د.ج", planCTA: "ابدأ الآن",
+                plan1Name: "الباقة الأساسية", plan1Price: "3500", plan1Feat1: "صفحة ويب واحدة (Landing Page)", plan1Feat2: "تصميم متجاوب مع كل الشاشات", plan1Feat3: "نموذج تواصل فعال", plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)", plan1Feat5: "نظام إدارة المحتوى", plan1Feat6: "متجر إلكتروني متكامل",
+                plan2Name: "الباقة الاحترافية", plan2Price: "5000", plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)", plan2Feat2: "تصميم متجاوب ومخصص", plan2Feat3: "ربط بلوحة تحكم (CMS)", plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)", plan2Feat5: "دعم فني لمدة شهر", plan2Feat6: "متجر إلكتروني متكامل",
+                plan3Name: "الباقة المتكاملة", plan3Price: "9500", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
+                calculatorTitle: "لست متأكدًا أي باقة تختار؟", calculatorCTA: "جرّب الحاسبة التفاعلية",
+                testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
+                testYes: "نعم", testNo: "لا", testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
+                faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
+                contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
+                formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
+                footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerCredit: "جميع الحقوق محفوظة. © تم تطويره بواسطة Amayas Berkani",
+                privacyTitle: "سياسة الخصوصية", privacyContent: "<h4>جمع المعلومات</h4><p>نقوم بجمع المعلومات التي تقدمها مباشرة عبر نموذج التواصل، مثل الاسم والبريد الإلكتروني، وذلك بهدف الرد على استفساراتك وتقديم خدماتنا.</p><h4>استخدام المعلومات</h4><p>تستخدم المعلومات التي نجمعها فقط للتواصل معك بخصوص طلباتك ولتحسين خدماتنا. نحن لا نشارك بياناتك الشخصية مع أي طرف ثالث دون موافقتك الصريحة.</p>",
+                termsTitle: "شروط الخدمة", termsContent: "<h4>الاستخدام</h4><p>باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الخدمة هذه. نحتفظ بالحق في تعديل هذه الشروط في أي وقت.</p><h4>الخدمات</h4><p>يتم الاتفاق على تفاصيل الخدمات المقدمة، بما في ذلك النطاق والتكلفة والجداول الزمنية، بشكل رسمي قبل بدء أي عمل. حجز استشارة لا يشكل عقداً ملزماً.</p>",
+                landingPageModalTitle: "خدمة صفحات الهبوط", landingPageModalContent: "<p>صفحة الهبوط هي صفحة ويب واحدة مصممة خصيصًا لهدف تسويقي محدد. هدفها هو تحويل الزوار إلى عملاء محتملين عن طريق تشجيعهم على اتخاذ إجراء معين.</p><h4>الميزات الأساسية</h4><ul><li>تصميم جذاب ومركز على الهدف.</li><li>دعوة واضحة لاتخاذ إجراء (Call-to-Action).</li><li>محتوى مقنع وموجز.</li><li>نموذج بسيط لجمع بيانات العملاء.</li><li>متوافقة تمامًا مع جميع الشاشات.</li></ul><h4>فائدة ذلك لعملك</h4><p>تزيد من فعالية حملاتك الإعلانية، ترفع معدلات التحويل، وتوفر بيانات دقيقة لقياس نجاحك.</p>",
+                multiPageModalTitle: "خدمة المواقع متعددة الصفحات", multiPageModalContent: "<p>الموقع متعدد الصفحات هو الواجهة الرقمية الكاملة لشركتك، حيث يعرض هويتك، خدماتك، ومنتجاتك بشكل شامل ومنظم عبر عدة صفحات مترابطة.</p><h4>الميزات الأساسية</h4><ul><li>هيكل تنقل واضح وسهل الاستخدام.</li><li>صفحات متخصصة (من نحن، خدماتنا، اتصل بنا، ...).</li><li>تصميم يعكس هوية علامتك التجارية.</li><li>أساس قوي لتحسين محركات البحث (SEO).</li><li>محتوى شامل لبناء ثقة العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يبني مصداقية قوية لعلامتك التجارية، يوفر معلومات كاملة لجمهورك، ويعتبر مركزًا رقميًا لجميع أنشطتك التسويقية.</p>",
+                ecommerceModalTitle: "خدمة تصميم المتاجر الإلكترونية", ecommerceModalContent: "<p>نحن نحول فكرة متجرك إلى واقع رقمي متكامل. نصمم ونطور متاجر إلكترونية احترافية تساعدك على عرض منتجاتك بأسلوب جذاب، إدارة عملياتك بسهولة، وتحقيق النمو في المبيعات.</p><h4>المنصات والتقنيات</h4><ul><li><b>ووكومرس (WooCommerce):</b> للمتاجر المبنية على ووردبريس، مما يوفر سهولة في الإدارة ولوحة تحكم غنية.</li><li><b>شوبيفاي (Shopify):</b> نقوم بتخصيص القوالب وتطوير تطبيقات خاصة لتناسب هوية علامتك التجارية.</li><li><b>حلول مخصصة (Custom):</b> للمشاريع الفريدة، نقوم ببناء متاجر من الصفر باستخدام تقنيات حديثة.</li></ul><h4>فائدة ذلك لعملك</h4><p>توسيع قاعدة عملائك، بناء علامة تجارية قوية، وزيادة أرباحك من خلال قناة بيع تعمل على مدار الساعة.</p>",
+                blogModalTitle: "خدمة إضافة مدونة", blogModalContent: "<p>إضافة قسم للمدونة في موقعك هو استثمار استراتيجي لإنشاء محتوى قيم يجذب الزوار، يبني الثقة، ويثبت خبرتك في مجالك.</p><h4>الميزات الأساسية</h4><ul><li>نظام إدارة محتوى سهل الاستخدام (CMS).</li><li>تصنيف المقالات عبر الوسوم والفئات.</li><li>إمكانية التعليق والمشاركة على الشبكات الاجتماعية.</li><li>هيكلة المقالات لتكون صديقة لمحركات البحث.</li></ul><h4>فائدة ذلك لعملك</h4><p>زيادة الزيارات المجانية من جوجل، ترسيخ مكانتك كخبير في مجالك، وتوفير محتوى دائم لمشاركته مع جمهورك.</p>",
+                bookingModalTitle: "خدمة أنظمة الحجز", bookingModalContent: "<p>نظام الحجز الإلكتروني يسمح لعملائك بحجز المواعيد أو الخدمات مباشرة من موقعك في أي وقت ومن أي مكان، مما يوفر وقتك ووقتهم.</p><h4>الميزات الأساسية</h4><ul><li>تقويم يعرض المواعيد المتاحة بشكل فوري.</li><li>إمكانية الدفع المسبق لتأكيد الحجوزات.</li><li>إرسال تأكيدات وتذكيرات آلية عبر البريد الإلكتروني.</li><li>لوحة تحكم لإدارة الحجوزات والموظفين والخدمات.</li></ul><h4>فائدة ذلك لعملك</h4><p>أتمتة عملية جدولة المواعيد، تقليل حالات عدم الحضور، وزيادة كفاءة إدارة وقتك وعملك.</p>",
+                portfolioModalTitle: "خدمة معرض الأعمال (Portfolio)", portfolioModalContent: "<p>معرض الأعمال هو الطريقة الأكثر احترافية لعرض مهاراتك ومشاريعك السابقة. إنه سيرتك الذاتية المرئية التي تتحدث عن جودة عملك.</p><h4>الميزات الأساسية</h4><ul><li>تصميم أنيق يركز على عرض أعمالك.</li><li>معارض صور وفيديو عالية الجودة.</li><li>تقسيم الأعمال حسب الفئة لتسهيل التصفح.</li><li>صفحة لكل مشروع تحتوي على تفاصيل وشهادات العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يعرض خبرتك بشكل ملموس، يجذب عملاء جدد يقدرون الجودة، ويبني علامتك الشخصية أو التجارية بقوة.</p>"
+            },
+            en: {
+                navHome: "Home", navAbout: "About", navServices: "Services", navProcess: "Our Process", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Pricing",
+                heroTitle: ["We Design a Professional Digital Identity", "We Turn Your Ideas Into Reality", "Innovative Web Solutions"],
+                heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Request a Free Consultation",
+                aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas Berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just an interface, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant designs and high-performance code.",
+                servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-Page Websites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolio",
+                processTitle: "Our Process",
+                process1Title: "Consultation & Analysis", process1Desc: "We build a solid foundation for your project by deeply understanding your goals and requirements, offering tailored solutions.",
+                process2Title: "UI/UX Design", process2Desc: "We transform your ideas into attractive and user-friendly interfaces, focusing on an optimal customer experience.",
+                process3Title: "Development & Coding", process3Desc: "We start transforming designs into clean, efficient code, ensuring the highest levels of quality and performance.",
+                process4Title: "Launch & Support", process4Desc: "After thorough testing, we launch your site and provide continuous technical support to ensure it operates efficiently without interruption.",
+                planPopularBadge: "Most Popular", currencySuffix: "DZD", planCTA: "Get Started",
+                plan1Name: "Basic Plan", plan1Price: "3500", plan1Feat1: "Single Web Page (Landing Page)", plan1Feat2: "Responsive on all devices", plan1Feat3: "Effective contact form", plan1Feat4: "Basic SEO setup", plan1Feat5: "Content Management System", plan1Feat6: "Full E-commerce store",
+                plan2Name: "Professional Plan", plan2Price: "5000", plan2Feat1: "Multi-page site (up to 5 pages)", plan2Feat2: "Custom responsive design", plan2Feat3: "CMS Integration", plan2Feat4: "Advanced SEO optimization", plan2Feat5: "1-month technical support", plan2Feat6: "Full E-commerce store",
+                plan3Name: "Premium Plan", plan3Price: "9500", plan3Feat1: "Unlimited multi-page site", plan3Feat2: "Unique and modern design", plan3Feat3: "CMS Integration", plan3Feat4: "Professional SEO optimization", plan3Feat5: "3-months technical support", plan3Feat6: "E-commerce with payment gateways",
+                calculatorTitle: "Not Sure Which Plan to Choose?", calculatorCTA: "Try the Interactive Calculator",
+                testTitle: "Is Your Current Website Good?", testQ1: "Is your site mobile-responsive?", testQ2: "Does your site load quickly?", testQ3: "Is your content easy to navigate?", testQ4: "Does your design look professional?", testQ5: "Is your contact information clear?",
+                testYes: "Yes", testNo: "No", testResultGood: "Great! It seems your website is performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
+                faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.", faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.", faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
+                contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your message...", formSubmit: "Send Message",
+                formSending: "Sending...", formSuccess: "Thank you! Your message has been sent successfully.", formError: "Sorry, an error occurred.",
+                footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "All rights reserved. © Developed by Amayas Berkani",
+                privacyTitle: "Privacy Policy", privacyContent: "<h4>Information Collection</h4><p>We collect information you provide directly through the contact form, such as name and email, to respond to your inquiries and provide our services.</p><h4>Use of Information</h4><p>The information we collect is used only to communicate with you regarding your requests and to improve our services. We do not share your personal data with any third party without your explicit consent.</p>",
+                termsTitle: "Terms of Service", termsContent: "<h4>Usage</h4><p>By using this site, you agree to be bound by these terms of service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Details of the services provided, including scope, cost, and timelines, are formally agreed upon before any work begins. A consultation booking does not constitute a binding contract.</p>",
+                landingPageModalTitle: "Landing Page Service", landingPageModalContent: "<p>A landing page is a single web page designed for a specific marketing goal. Its purpose is to convert visitors into leads by encouraging a specific action.</p><h4>Key Features</h4><ul><li>Attractive, goal-oriented design.</li><li>Clear Call-to-Action (CTA).</li><li>Concise and persuasive content.</li><li>Simple form to collect customer data.</li><li>Fully responsive on all screens.</li></ul><h4>Benefit for Your Business</h4><p>Increases the effectiveness of your ad campaigns, boosts conversion rates, and provides accurate data to measure success.</p>",
+                multiPageModalTitle: "Multi-Page Website Service", multiPageModalContent: "<p>A multi-page website is the complete digital storefront for your company, showcasing your identity, services, and products in a comprehensive and organized manner across several interconnected pages.</p><h4>Key Features</h4><ul><li>Clear and easy-to-use navigation structure.</li><li>Specialized pages (About Us, Services, Contact, etc.).</li><li>Design that reflects your brand identity.</li><li>Strong foundation for Search Engine Optimization (SEO).</li><li>Comprehensive content to build customer trust.</li></ul><h4>Benefit for Your Business</h4><p>Builds strong credibility for your brand, provides complete information to your audience, and serves as a digital hub for all your marketing activities.</p>",
+                ecommerceModalTitle: "E-commerce Store Design Service", ecommerceModalContent: "<p>We turn your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Platforms & Technologies</h4><ul><li><b>WooCommerce:</b> For stores built on WordPress, offering easy management and a rich dashboard.</li><li><b>Shopify:</b> We customize themes and develop special apps to match your brand identity.</li><li><b>Custom Solutions:</b> For unique projects, we build stores from scratch using modern technologies.</li></ul><h4>Benefit for Your Business</h4><p>Expand your customer base, build a strong brand, and increase your profits through a sales channel that operates 24/7.</p>",
+                blogModalTitle: "Blog Integration Service", blogModalContent: "<p>Adding a blog section to your site is a strategic investment to create valuable content that attracts visitors, builds trust, and establishes your expertise in your field.</p><h4>Key Features</h4><ul><li>Easy-to-use Content Management System (CMS).</li><li>Categorization of articles via tags and categories.</li><li>Ability to comment and share on social networks.</li><li>Article structure optimized for search engines.</li></ul><h4>Benefit for Your Business</h4><p>Increases free traffic from Google, establishes you as an expert in your field, and provides evergreen content to share with your audience.</p>",
+                bookingModalTitle: "Booking Systems Service", bookingModalContent: "<p>An online booking system allows your customers to book appointments or services directly from your site at any time, from anywhere, saving both your time and theirs.</p><h4>Key Features</h4><ul><li>A calendar showing available appointments instantly.</li><li>Option for pre-payment to confirm bookings.</li><li>Automatic email confirmations and reminders.</li><li>A dashboard to manage bookings, staff, and services.</li></ul><h4>Benefit for Your Business</h4><p>Automates the appointment scheduling process, reduces no-shows, and increases the efficiency of managing your time and business.</p>",
+                portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality photo and video galleries.</li><li>Categorization of works for easy Browse.</li><li>A page for each project with details and client testimonials.</li></ul><h4>Benefit for Your Business</h4><p>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</p>"
+            },
+            fr: {
+                navHome: "Accueil", navAbout: "À propos", navServices: "Services", navProcess: "Notre Processus", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
+                heroTitle: ["Nous Créons Votre Identité Numérique Professionnelle", "Nous Transformons Vos Idées en Réalité", "Solutions Web Innovantes"],
+                heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Demander une Consultation Gratuite",
+                aboutTitle: "Solutions Numériques Innovantes Pour Votre Marque", founderName: "Amayas Berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas seulement une interface, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à des designs élégants et un code haute performance.",
+                servicesTitle: "Nos Services", service1: "Pages d'Atterrissage", service2: "Sites Multi-Pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolio",
+                processTitle: "Notre Processus",
+                process1Title: "Consultation et Analyse", process1Desc: "Nous établissons une base solide pour votre projet en comprenant en profondeur vos objectifs et vos besoins, en vous offrant des solutions sur mesure.",
+                process2Title: "Conception UI/UX", process2Desc: "Nous transformons vos idées en des interfaces utilisateur attrayantes et intuitives, en mettant l'accent sur une expérience client optimale.",
+                process3Title: "Développement et Codage", process3Desc: "Nous commençons à transformer les maquettes en un code propre et efficace, garantissant les plus hauts niveaux de qualité et de performance.",
+                process4Title: "Lancement et Support", process4Desc: "Après des tests approfondis, nous lançons votre site et fournissons un support technique continu pour assurer son fonctionnement efficace sans interruption.",
+                planPopularBadge: "Le plus populaire", currencySuffix: "DZD", planCTA: "Commencer",
+                plan1Name: "Forfait Essentiel", plan1Price: "3500", plan1Feat1: "Page web unique (Landing Page)", plan1Feat2: "Responsive sur tous les écrans", plan1Feat3: "Formulaire de contact efficace", plan1Feat4: "Configuration SEO de base", plan1Feat5: "Système de gestion de contenu", plan1Feat6: "Boutique e-commerce complète",
+                plan2Name: "Forfait Professionnel", plan2Price: "5000", plan2Feat1: "Site multi-pages (jusqu'à 5 pages)", plan2Feat2: "Design responsive personnalisé", plan2Feat3: "Intégration CMS", plan2Feat4: "Optimisation SEO avancée", plan2Feat5: "1 mois de support technique", plan2Feat6: "Boutique e-commerce complète",
+                plan3Name: "Forfait Premium", plan3Price: "9500", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
+                calculatorTitle: "Pas Sûr Quel Forfait Choisir?", calculatorCTA: "Essayez le Calculateur Interactif",
+                testTitle: "Votre Site Actuel Est-il Bon?", testQ1: "Votre site est-il responsive sur mobile?", testQ2: "Votre site se charge-t-il rapidement?", testQ3: "Le contenu est-il facile à parcourir?", testQ4: "Votre design semble-t-il professionnel?", testQ5: "Vos informations de contact sont-elles claires?",
+                testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider!</a>",
+                faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.",
+                faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.", faqQ5: "Can I request additional features?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
+                contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via:", formName: "Nom Complet", formEmail: "Adresse E-mail", formMessage: "Votre message...", formSubmit: "Envoyer le Message",
+                formSending: "Envoi en cours...", formSuccess: "Merci! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue.",
+                footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
+                privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
+                termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>By using this site, you agree to be bound by these terms of service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont convenus formellement avant le début de tout travail. La réservation d'une consultation ne constitue pas un contrat contraignant.</p>",
+                landingPageModalTitle: "Service de Pages d'Atterrissage", landingPageModalContent: "<p>Une page d'atterrissage est une page web unique conçue pour un objectif marketing spécifique. Son but est de convertir les visiteurs en prospects en les incitant à une action précise.</p><h4>Caractéristiques Clés</h4><ul><li>Design attractif et axé sur l'objectif.</li><li>Appel à l'action (CTA) clair.</li><li>Contenu concis et persuasif.</li><li>Formulaire simple pour collecter des données.</li><li>Entièrement responsive sur tous les écrans.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente l'efficacité de vos campagnes publicitaires, améliore les taux de conversion et fournit des données précises pour mesurer le succès.</p>",
+                multiPageModalTitle: "Service de Sites Web Multi-Pages", multiPageModalContent: "<p>Un site web multi-pages est la vitrine numérique complète de votre entreprise, présentant votre identité, vos services et vos produits de manière complète et organisée sur plusieurs pages interconnectées.</p><h4>Caractéristiques Clés</h4><ul><li>Structure de navigation claire et facile à utiliser.</li><li>Pages spécialisées (À propos, Services, Contact, etc.).</li><li>Design qui reflète l'identité de votre marque.</li><li>Base solide pour l'optimisation des moteurs de recherche (SEO).</li><li>Contenu complet pour renforcer la confiance des clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Construit une forte crédibilité pour votre marque, fournit des informations complètes à votre public et sert de hub numérique pour toutes vos activités marketing.</p>",
+                ecommerceModalTitle: "Service de Création de Boutique E-commerce", ecommerceModalContent: "<p>We transform your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Plateformes & Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un tableau de bord riche.</li><li><b>Shopify :</b> Nous personnalisons les thèmes et développons des applications spéciales pour correspondre à votre identité de marque.</li><li><b>Solutions sur Mesure :</b> Pour les projets uniques, nous construisons des boutiques à partir de zéro en utilisant des technologies modernes.</li></ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24h/24 et 7j/7.</p>",
+                blogModalTitle: "Service d'Intégration de Blog", blogModalContent: "<p>Ajouter une section blog à votre site est un investissement stratégique pour créer un contenu de valeur qui attire les visiteurs, renforce la confiance et établit votre expertise dans votre domaine.</p><h4>Caractéristiques Clés</h4><ul><li>Système de gestion de contenu (CMS) facile à utiliser.</li><li>Catégorisation des articles par tags et catégories.</li><li>Possibilité de commenter et de partager sur les réseaux sociaux.</li><li>Structure des articles optimisée pour les moteurs de recherche.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente le trafic gratuit depuis Google, vous établit comme un expert dans votre domaine et fournit un contenu permanent à partager avec votre public.</p>",
+                bookingModalTitle: "Service de Systèmes de Réservation", bookingModalContent: "<p>Un système de réservation en ligne permet à vos clients de réserver des rendez-vous ou des services directement depuis votre site, à tout moment et de n'importe où, vous faisant gagner du temps, à vous et à eux.</p><h4>Caractéristiques Clés</h4><ul><li>Un calendrier affichant les disponibilités instantanément.</li><li>Option de prépaiement pour confirmer les réservations.</li><li>Confirmations et rappels automatiques par e-mail.</li><li>Un tableau de bord pour gérer les réservations, le personnel et les services.</li></ul><h4>Avantage pour votre entreprise</h4><p>Automatise le processus de planification des rendez-vous, réduit les absences et augmente l'efficacité de la gestion de votre temps et de votre entreprise.</p>",
+                portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>A portfolio is the most professional way to present your skills and projects anterior. It's your visual resume that speaks to the quality of your work.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries de photos et de vidéos de haute qualité.</li><li>Catégorisation des œuvres pour une navigation facile.</li><li>Une page pour chaque projet avec des détails et des témoignages de clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit puissamment votre marque personnelle ou d'entreprise.</p>"
+            }
+        };
+        
+        let currentLangIndex = 0;
+        let typingTimeout;
+        let textAnimationObserver;
+        let scrollActivityTimeout; 
+        const langCycle = ['ar', 'en', 'fr'];
 
-            // --- Element Selectors ---
-            const scrollIndicator = document.getElementById('scroll-indicator');
-            const scrollIndicatorNav = document.getElementById('scroll-indicator-nav').querySelector('ul');
-            const pageSections = document.querySelectorAll('main > section[id]');
-            const scrollTopBtn = document.getElementById('scrollTopBtn');
-            const contactForm = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-            const modalTriggers = document.querySelectorAll('[data-modal-target]');
-            const pricingCarousel = document.getElementById('pricing-carousel');
-            const pricingCards = Array.from(document.querySelectorAll('.pricing-card'));
-            const prevBtn = document.querySelector('.carousel-nav-btn.prev');
-            const nextBtn = document.querySelector('.carousel-nav-btn.next');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        const scrollIndicatorNav = document.getElementById('scroll-indicator-nav').querySelector('ul');
+        const pageSections = document.querySelectorAll('main > section[id]');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        const modalTriggers = document.querySelectorAll('[data-modal-target]');
 
-            // --- Main Functions ---
+        // === MODIFIED PRICING CAROUSEL LOGIC ===
+        const pricingGrid = document.getElementById('pricing-grid');
+        const pricingCards = Array.from(pricingGrid.querySelectorAll('.pricing-card'));
+        const pricingPrevBtn = document.querySelector('#pricing .carousel-nav-btn.prev');
+        const pricingNextBtn = document.querySelector('#pricing .carousel-nav-btn.next');
+        let currentPricingCardIndex = 1;
 
-            function handleScroll() {
-                if (window.pageYOffset > 200) {
-                    scrollIndicator.classList.remove('hidden');
-                    scrollIndicator.classList.add('visible');
-                    
-                    clearTimeout(scrollActivityTimeout);
-                    scrollActivityTimeout = setTimeout(() => {
-                        scrollIndicator.classList.remove('visible');
-                        scrollIndicator.classList.add('hidden');
-                    }, 2000);
+        function updatePricingCarousel() {
+            if (!pricingGrid) return;
+            const isRTL = document.documentElement.dir === 'rtl';
+
+            pricingCards.forEach((card, index) => {
+                const offset = index - currentPricingCardIndex;
+                let transform = '';
+                let opacity = 1;
+                let zIndex = pricingCards.length - Math.abs(offset);
+
+                if (offset !== 0) {
+                    const direction = isRTL ? -1 : 1;
+                    const sign = Math.sign(offset);
+                    const translateX = (sign * direction * 60) + (offset * direction * 5);
+                    const scale = 1 - (Math.abs(offset) * 0.15);
+                    const rotateY = -sign * direction * 30;
+                    transform = `translateX(${translateX}%) scale(${scale}) rotateY(${rotateY}deg)`;
+                    opacity = 0.5;
                 } else {
+                    transform = 'translateX(0) scale(1) rotateY(0deg)';
+                    opacity = 1;
+                    zIndex = pricingCards.length + 1;
+                }
+                
+                card.style.transform = transform;
+                card.style.opacity = opacity;
+                card.style.zIndex = zIndex;
+            });
+        }
+
+        function showNextPricingCard() {
+            currentPricingCardIndex = (currentPricingCardIndex + 1) % pricingCards.length;
+            updatePricingCarousel();
+        }
+
+        function showPrevPricingCard() {
+            currentPricingCardIndex = (currentPricingCardIndex - 1 + pricingCards.length) % pricingCards.length;
+            updatePricingCarousel();
+        }
+        
+        function handleCardClick(index) {
+            currentPricingCardIndex = index;
+            updatePricingCarousel();
+        }
+        // === END OF MODIFIED PRICING CAROUSEL LOGIC ===
+
+        function handleScroll() {
+            if (window.pageYOffset > 200) {
+                scrollIndicator.classList.remove('hidden');
+                scrollIndicator.classList.add('visible');
+                
+                clearTimeout(scrollActivityTimeout);
+                scrollActivityTimeout = setTimeout(() => {
                     scrollIndicator.classList.remove('visible');
                     scrollIndicator.classList.add('hidden');
+                }, 2000);
+            } else {
+                scrollIndicator.classList.remove('visible');
+                scrollIndicator.classList.add('hidden');
+            }
+
+            if (scrollTopBtn) {
+                scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
+            }
+
+            let currentSectionId = '';
+            const headerOffset = document.querySelector('.header').offsetHeight;
+            const scrollPosition = window.pageYOffset + headerOffset + window.innerHeight / 2;
+
+            pageSections.forEach(section => {
+                if (scrollPosition >= section.offsetTop) {
+                    currentSectionId = section.id;
                 }
+            });
+            
+            document.querySelectorAll('.main-nav a').forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + currentSectionId);
+            });
 
-                if (scrollTopBtn) {
-                    scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
-                }
-
-                let currentSectionId = '';
-                const headerOffset = document.querySelector('.header').offsetHeight;
-                const scrollPosition = window.pageYOffset + headerOffset + window.innerHeight / 2;
-
-                pageSections.forEach(section => {
-                    if (scrollPosition >= section.offsetTop) {
-                        currentSectionId = section.id;
-                    }
-                });
-                
-                document.querySelectorAll('.main-nav a').forEach(a => {
-                    a.classList.toggle('active', a.getAttribute('href') === '#' + currentSectionId);
-                });
-
-                if (scrollIndicator) {
-                    scrollIndicatorNav.querySelectorAll('li').forEach(li => {
-                        li.classList.toggle('active', li.dataset.section === currentSectionId);
-                    });
-                }
-                
-                requestAnimationFrame(handleParallaxEffect);
-            }
-
-            function updateLanguage(langCode) {
-                const langData = translations[langCode];
-                document.documentElement.lang = langCode;
-                document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
-
-                document.querySelectorAll('[data-lang-key]').forEach(el => {
-                    const key = el.getAttribute('data-lang-key');
-                    if (langData && langData[key] && !Array.isArray(langData[key])) {
-                         el.innerHTML = langData[key];
-                    }
-                });
-                
-                document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
-                    const key = el.getAttribute('data-lang-placeholder');
-                    if(langData && langData[key]) el.placeholder = langData[key];
-                });
-                
-                document.querySelectorAll('.lang-toggle').forEach(toggle => {
-                    toggle.textContent = langCode.toUpperCase();
-                });
-                
-                if (scrollTopBtn) {
-                    const titles = { ar: 'العودة للأعلى', en: 'Back to top', fr: 'Retour en haut' };
-                    scrollTopBtn.title = titles[langCode];
-                }
-
-                startTypingEffect();
-                createFAQ();
-                createTestQuestions();
-                initTextAnimations(); 
-                createScrollIndicator();
-            }
-
-            function createScrollIndicator() {
-                if (!scrollIndicatorNav || !pageSections.length) return;
-                
-                scrollIndicatorNav.innerHTML = '';
-                const currentLangCode = langCycle[currentLangIndex];
-
-                pageSections.forEach(section => {
-                    const sectionId = section.id;
-                    const sectionNameAttr = `data-section-name-${currentLangCode}`;
-                    const sectionName = section.getAttribute(sectionNameAttr) || section.getAttribute('data-section-name') || sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
-
-                    const li = document.createElement('li');
-                    li.dataset.section = sectionId;
-
-                    const a = document.createElement('a');
-                    a.href = `#${sectionId}`;
-                    a.setAttribute('aria-label', `Go to ${sectionName} section`);
-                    
-                    const nameSpan = document.createElement('span');
-                    nameSpan.className = 'section-name';
-                    nameSpan.textContent = sectionName;
-                    
-                    const dot = document.createElement('span');
-                    dot.className = 'dot';
-                    
-                    a.appendChild(nameSpan);
-                    a.appendChild(dot);
-                    li.appendChild(a);
-                    scrollIndicatorNav.appendChild(li);
-
-                    a.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetElement = document.getElementById(sectionId);
-                        if (targetElement) {
-                             const headerOffset = document.querySelector('.header').offsetHeight;
-                             const elementPosition = targetElement.getBoundingClientRect().top;
-                             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                        
-                             window.scrollTo({
-                                 top: offsetPosition,
-                                 behavior: "smooth"
-                             });
-                        }
-                    });
-                });
-            }
-
-            function handleLangToggle() {
-                currentLangIndex = (currentLangIndex + 1) % langCycle.length;
-                const newLang = langCycle[currentLangIndex];
-                localStorage.setItem('siteLang', newLang);
-                updateLanguage(newLang);
-            }
-
-            function handleThemeToggle() {
-                const isLight = document.body.classList.toggle('light-mode');
-                localStorage.setItem('theme', isLight ? 'light' : 'dark');
-                updateThemeIcons(isLight);
-            }
-
-            function updateThemeIcons(isLight) {
-                document.querySelectorAll('.theme-toggle').forEach(toggle => {
-                    if (toggle) toggle.innerHTML = isLight ? icons.moon : icons.sun;
+            if (scrollIndicator) {
+                scrollIndicatorNav.querySelectorAll('li').forEach(li => {
+                    li.classList.toggle('active', li.dataset.section === currentSectionId);
                 });
             }
             
-            function startTypingEffect() {
-                const titleEl = document.getElementById('hero-title-animated');
-                if (!titleEl) return;
-                const lang = langCycle[currentLangIndex];
-                const phrases = translations[lang].heroTitle;
-                if (!phrases || !Array.isArray(phrases)) {
-                    titleEl.innerHTML = phrases || "";
-                    return;
+            requestAnimationFrame(handleParallaxEffect);
+        }
+
+        function updateLanguage(langCode) {
+            const langData = translations[langCode];
+            document.documentElement.lang = langCode;
+            document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
+
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (langData && langData[key] && !Array.isArray(langData[key])) {
+                     el.innerHTML = langData[key];
                 }
-                if (typingTimeout) clearTimeout(typingTimeout);
-                let phraseIndex = 0;
-                let charIndex = 0;
-                let isDeleting = false;
-                titleEl.innerHTML = '<span class="typing-cursor"></span>';
-                function type() {
-                    const currentPhrase = phrases[phraseIndex];
-                    let typeSpeed;
-                    if (isDeleting) {
-                        typeSpeed = 75;
-                        titleEl.innerHTML = `${currentPhrase.substring(0, charIndex--)}<span class="typing-cursor"></span>`;
-                        if (charIndex < 0) {
-                            isDeleting = false;
-                            phraseIndex = (phraseIndex + 1) % phrases.length;
-                            charIndex = 0; 
-                            typeSpeed = 500; 
-                        }
-                    } else {
-                        typeSpeed = 150;
-                        titleEl.innerHTML = `${currentPhrase.substring(0, charIndex++)}<span class="typing-cursor"></span>`;
-                        if (charIndex > currentPhrase.length) {
-                            isDeleting = true;
-                            charIndex = currentPhrase.length; 
-                            typeSpeed = 2000; 
-                        }
-                    }
-                    typingTimeout = setTimeout(type, typeSpeed);
-                }
-                setTimeout(type, 500); // Initial delay
-            }
+            });
             
-            async function handleFormSubmit(event) {
-                event.preventDefault();
-                const lang = langCycle[currentLangIndex];
-                formStatus.textContent = translations[lang].formSending;
-                formStatus.style.color = 'var(--subtle-text-color)';
-                try {
-                    const response = await fetch(event.target.action, { method: contactForm.method, body: new FormData(event.target), headers: { 'Accept': 'application/json' } });
-                    if (response.ok) {
-                        formStatus.textContent = translations[lang].formSuccess;
-                        formStatus.style.color = "#28a745";
-                        contactForm.reset();
-                    } else {
-                        formStatus.textContent = translations[lang].formError;
-                        formStatus.style.color = "#dc3545";
+            document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-lang-placeholder');
+                if(langData && langData[key]) el.placeholder = langData[key];
+            });
+            
+            document.querySelectorAll('.lang-toggle').forEach(toggle => {
+                toggle.textContent = langCode.toUpperCase();
+            });
+            
+            if (scrollTopBtn) {
+                const titles = { ar: 'العودة للأعلى', en: 'Back to top', fr: 'Retour en haut' };
+                scrollTopBtn.title = titles[langCode];
+            }
+
+            startTypingEffect();
+            createFAQ();
+            createTestQuestions();
+            initTextAnimations(); 
+            createScrollIndicator();
+            updatePricingCarousel(); // Re-run carousel update for RTL/LTR
+        }
+
+        function createScrollIndicator() {
+            if (!scrollIndicatorNav || !pageSections.length) return;
+            
+            scrollIndicatorNav.innerHTML = '';
+            const currentLangCode = langCycle[currentLangIndex];
+
+            pageSections.forEach(section => {
+                const sectionId = section.id;
+                const sectionNameAttr = `data-section-name-${currentLangCode}`;
+                const sectionName = section.getAttribute(sectionNameAttr) || section.getAttribute('data-section-name') || sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+
+                const li = document.createElement('li');
+                li.dataset.section = sectionId;
+
+                const a = document.createElement('a');
+                a.href = `#${sectionId}`;
+                a.setAttribute('aria-label', `Go to ${sectionName} section`);
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'section-name';
+                nameSpan.textContent = sectionName;
+                
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                
+                a.appendChild(nameSpan);
+                a.appendChild(dot);
+                li.appendChild(a);
+                scrollIndicatorNav.appendChild(li);
+
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetElement = document.getElementById(sectionId);
+                    if (targetElement) {
+                         const headerOffset = document.querySelector('.header').offsetHeight;
+                         const elementPosition = targetElement.getBoundingClientRect().top;
+                         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                         window.scrollTo({
+                             top: offsetPosition,
+                             behavior: "smooth"
+                         });
                     }
-                } catch (error) {
+                });
+            });
+        }
+
+        function handleLangToggle() {
+            currentLangIndex = (currentLangIndex + 1) % langCycle.length;
+            const newLang = langCycle[currentLangIndex];
+            localStorage.setItem('siteLang', newLang);
+            updateLanguage(newLang);
+        }
+
+        function handleThemeToggle() {
+            const isLight = document.body.classList.toggle('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            updateThemeIcons(isLight);
+        }
+
+        function updateThemeIcons(isLight) {
+            document.querySelectorAll('.theme-toggle').forEach(toggle => {
+                if (toggle) toggle.innerHTML = isLight ? icons.moon : icons.sun;
+            });
+        }
+        
+        function startTypingEffect() {
+            const titleEl = document.getElementById('hero-title-animated');
+            if (!titleEl) return;
+            const lang = langCycle[currentLangIndex];
+            const phrases = translations[lang].heroTitle;
+            if (!phrases || !Array.isArray(phrases)) {
+                titleEl.innerHTML = phrases || "";
+                return;
+            }
+            if (typingTimeout) clearTimeout(typingTimeout);
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            titleEl.innerHTML = '<span class="typing-cursor"></span>';
+            function type() {
+                const currentPhrase = phrases[phraseIndex];
+                let typeSpeed;
+                if (isDeleting) {
+                    typeSpeed = 75;
+                    titleEl.innerHTML = `${currentPhrase.substring(0, charIndex--)}<span class="typing-cursor"></span>`;
+                    if (charIndex < 0) {
+                        isDeleting = false;
+                        phraseIndex = (phraseIndex + 1) % phrases.length;
+                        charIndex = 0; 
+                        typeSpeed = 500; 
+                    }
+                } else {
+                    typeSpeed = 150;
+                    titleEl.innerHTML = `${currentPhrase.substring(0, charIndex++)}<span class="typing-cursor"></span>`;
+                    if (charIndex > currentPhrase.length) {
+                        isDeleting = true;
+                        charIndex = currentPhrase.length; 
+                        typeSpeed = 2000; 
+                    }
+                }
+                typingTimeout = setTimeout(type, typeSpeed);
+            }
+            setTimeout(type, 500);
+        }
+        
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            const lang = langCycle[currentLangIndex];
+            formStatus.textContent = translations[lang].formSending;
+            formStatus.style.color = 'var(--subtle-text-color)';
+            try {
+                const response = await fetch(event.target.action, { method: contactForm.method, body: new FormData(event.target), headers: { 'Accept': 'application/json' } });
+                if (response.ok) {
+                    formStatus.textContent = translations[lang].formSuccess;
+                    formStatus.style.color = "#28a745";
+                    contactForm.reset();
+                } else {
                     formStatus.textContent = translations[lang].formError;
                     formStatus.style.color = "#dc3545";
                 }
+            } catch (error) {
+                formStatus.textContent = translations[lang].formError;
+                formStatus.style.color = "#dc3545";
             }
-            
-            function createFAQ() {
-                const lang = langCycle[currentLangIndex];
-                const faqContainer = document.querySelector('.faq-container');
-                if (!faqContainer) return;
-                faqContainer.innerHTML = '';
-                ['Q1','Q2','Q3','Q4','Q5'].forEach(key => {
-                     const faqItem = document.createElement('div');
-                     faqItem.classList.add('faq-item');
-                     const questionKey = 'faq' + key;
-                     const answerKey = 'faqA' + key.substring(1);
-                     faqItem.innerHTML = `<div class="faq-question"><span>${translations[lang][questionKey]}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${translations[lang][answerKey]}</p></div>`;
-                     faqContainer.appendChild(faqItem);
-                });
-                faqContainer.addEventListener('click', (e) => {
-                    const question = e.target.closest('.faq-question');
-                    if (!question) return;
-                    const faqItem = question.parentElement;
-                    const answer = faqItem.querySelector('.faq-answer');
-                    const isActive = faqItem.classList.contains('active');
-                    faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
-                        if (item !== faqItem) {
-                            item.classList.remove('active');
-                            item.querySelector('.faq-answer').style.maxHeight = '0';
-                            item.querySelector('.faq-question .faq-icon').style.transform = 'rotate(0deg)';
-                        }
-                    });
-                    if (!isActive) {
-                        faqItem.classList.add('active');
-                        answer.style.maxHeight = answer.scrollHeight + 'px';
-                        question.querySelector('.faq-icon').style.transform = 'rotate(45deg)';
-                    } else {
-                        faqItem.classList.remove('active');
-                        answer.style.maxHeight = '0';
-                        question.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+        }
+        
+        function createFAQ() {
+            const lang = langCycle[currentLangIndex];
+            const faqContainer = document.querySelector('.faq-container');
+            if (!faqContainer) return;
+            faqContainer.innerHTML = '';
+            ['Q1','Q2','Q3','Q4','Q5'].forEach(key => {
+                 const faqItem = document.createElement('div');
+                 faqItem.classList.add('faq-item');
+                 const questionKey = 'faq' + key;
+                 const answerKey = 'faqA' + key.substring(1);
+                 faqItem.innerHTML = `<div class="faq-question"><span>${translations[lang][questionKey]}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${translations[lang][answerKey]}</p></div>`;
+                 faqContainer.appendChild(faqItem);
+            });
+            faqContainer.addEventListener('click', (e) => {
+                const question = e.target.closest('.faq-question');
+                if (!question) return;
+                const faqItem = question.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const isActive = faqItem.classList.contains('active');
+                faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                        item.querySelector('.faq-answer').style.maxHeight = '0';
+                        item.querySelector('.faq-question .faq-icon').style.transform = 'rotate(0deg)';
                     }
                 });
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    question.querySelector('.faq-icon').style.transform = 'rotate(45deg)';
+                } else {
+                    faqItem.classList.remove('active');
+                    answer.style.maxHeight = '0';
+                    question.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+        
+        function createTestQuestions() {
+            const lang = langCycle[currentLangIndex];
+            const container = document.querySelector('.test-questions-container');
+            const resultEl = document.getElementById('test-result');
+            if (!container || !resultEl) return;
+            container.innerHTML = '';
+            resultEl.style.display = 'none';
+            const answers = {};
+            const qKeys = ['Q1','Q2','Q3','Q4','Q5'];
+            qKeys.forEach((key, i) => {
+                const questionKey = 'test' + key;
+                const item = document.createElement('div');
+                item.classList.add('test-question-item');
+                item.innerHTML = `<p>${translations[lang][questionKey]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${translations[lang].testYes}</button><button value="no">${translations[lang].testNo}</button></div>`;
+                container.appendChild(item);
+            });
+            container.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'BUTTON') return;
+                const qId = e.target.parentElement.dataset.id;
+                answers[qId] = e.target.value;
+                e.target.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+                e.target.classList.add('selected');
+                if (Object.keys(answers).length === qKeys.length) {
+                   let yes = Object.values(answers).filter(a => a === 'yes').length;
+                   resultEl.style.display = 'block';
+                   resultEl.innerHTML = translations[lang][yes >= 4 ? 'testResultGood' : 'testResultBad'];
+                   resultEl.className = `test-result ${yes >= 4 ? 'good' : 'bad'}`;
+                }
+            });
+        }
+        
+        function initTextAnimations() {
+             const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
+            if (textAnimationObserver) {
+                textAnimationObserver.disconnect();
             }
-            
-            function createTestQuestions() {
-                const lang = langCycle[currentLangIndex];
-                const container = document.querySelector('.test-questions-container');
-                const resultEl = document.getElementById('test-result');
-                if (!container || !resultEl) return;
-                container.innerHTML = '';
-                resultEl.style.display = 'none';
-                const answers = {};
-                const qKeys = ['Q1','Q2','Q3','Q4','Q5'];
-                qKeys.forEach((key, i) => {
-                    const questionKey = 'test' + key;
-                    const item = document.createElement('div');
-                    item.classList.add('test-question-item');
-                    item.innerHTML = `<p>${translations[lang][questionKey]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${translations[lang].testYes}</button><button value="no">${translations[lang].testNo}</button></div>`;
-                    container.appendChild(item);
-                });
-                container.addEventListener('click', (e) => {
-                    if (e.target.tagName !== 'BUTTON') return;
-                    const qId = e.target.parentElement.dataset.id;
-                    answers[qId] = e.target.value;
-                    e.target.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
-                    e.target.classList.add('selected');
-                    if (Object.keys(answers).length === qKeys.length) {
-                       let yes = Object.values(answers).filter(a => a === 'yes').length;
-                       resultEl.style.display = 'block';
-                       resultEl.innerHTML = translations[lang][yes >= 4 ? 'testResultGood' : 'testResultBad'];
-                       resultEl.className = `test-result ${yes >= 4 ? 'good' : 'bad'}`;
+            textAnimationObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const container = entry.target;
+                        const text = container.textContent;
+                        const words = text.trim().split(/\s+/);
+                        container.innerHTML = ''; 
+                        container.classList.add('slide-up-words');
+                        words.forEach((word, index) => {
+                            const wordSpan = document.createElement('span');
+                            wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
+                            container.appendChild(wordSpan);
+                            if (index < words.length - 1) {
+                                container.appendChild(document.createTextNode(' '));
+                            }
+                        });
+                        setTimeout(() => container.classList.add('is-visible'), 50);
+                        observer.unobserve(container);
                     }
                 });
+            }, { threshold: 0.1 });
+
+            elementsToAnimate.forEach(el => {
+                el.classList.remove('is-visible', 'slide-up-words');
+                const key = el.getAttribute('data-lang-key');
+                const lang = langCycle[currentLangIndex];
+                if (key && translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+                textAnimationObserver.observe(el);
+            });
+        }
+        function initServiceCardAnimations() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            if (!serviceCards.length) return;
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const cardObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+            serviceCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 100}ms`;
+                cardObserver.observe(card);
+            });
+        }
+        function initProcessStepAnimations() {
+            const processSteps = document.querySelectorAll('.process-step');
+            if (!processSteps.length) return;
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const stepObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}ms`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            processSteps.forEach((step, index) => {
+                step.dataset.delay = index * 120;
+                stepObserver.observe(step);
+            });
+        }
+
+        function initSectionEntryAnimations() {
+            const sections = document.querySelectorAll('#about, #services, #process, #pricing, #cost-calculator, #website-test, #faq, #contact');
+            if (!sections.length) return;
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+        }
+        function handleParallaxEffect() {
+            const aboutSection = document.querySelector('#about');
+            if (!aboutSection) return;
+            const rect = aboutSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const avatar = document.querySelector('.founder-avatar');
+                const bio = document.querySelector('.founder-bio');
+                const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                if (avatar) {
+                    const avatarY = scrollPercent * -80;
+                    avatar.style.transform = `translateY(${avatarY}px)`;
+                }
+                if (bio) {
+                    const bioY = scrollPercent * -40;
+                    bio.style.transform = `translateY(${bioY}px)`;
+                }
             }
+        }
+
+        function init() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.classList.toggle('light-mode', savedTheme === 'light');
+            updateThemeIcons(savedTheme === 'light');
             
-            // --- Animation Initializers ---
-            function initTextAnimations() { }
-            function initServiceCardAnimations() { }
-            function initProcessStepAnimations() { } // New function for process steps
-            function initSectionEntryAnimations() { }
-            function handleParallaxEffect() { }
+            const savedLang = localStorage.getItem('siteLang');
+            let initialLang = 'ar';
+            if (savedLang && langCycle.includes(savedLang)) {
+                initialLang = savedLang;
+            } else {
+                const browserLang = navigator.language.split('-')[0];
+                if (langCycle.includes(browserLang)) {
+                    initialLang = browserLang;
+                }
+            }
+            currentLangIndex = langCycle.indexOf(initialLang);
+            
+            initServiceCardAnimations();
+            initProcessStepAnimations();
+            initSectionEntryAnimations();
 
-            // --- Pricing Carousel Logic ---
-            let currentPricingCardIndex = 0;
-
-            function updatePricingCarousel() {
+            document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
+            document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
+            scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
+            
+            if (pricingGrid) {
+                pricingPrevBtn.addEventListener('click', showPrevPricingCard);
+                pricingNextBtn.addEventListener('click', showNextPricingCard);
                 pricingCards.forEach((card, index) => {
-                    card.classList.remove('is-active', 'leaving');
-                    if (index === currentPricingCardIndex) {
-                        card.classList.add('is-active');
-                        // Ensure the active card is fully in view
-                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    card.addEventListener('click', () => handleCardClick(index));
+                });
+            }
+
+            document.querySelectorAll('.modal .modal-close, .modal').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    if (e.target === el) {
+                       el.closest('.modal').classList.remove('active');
                     }
                 });
-            }
+            });
 
-            function showNextPricingCard() {
-                if (currentPricingCardIndex < pricingCards.length - 1) {
-                    pricingCards[currentPricingCardIndex].classList.add('leaving'); // Animate current card out
-                    currentPricingCardIndex++;
-                    updatePricingCarousel();
-                } else {
-                    // Loop back to the first card if at the end
-                    pricingCards[currentPricingCardIndex].classList.add('leaving');
-                    currentPricingCardIndex = 0;
-                    updatePricingCarousel();
-                }
-            }
-
-            function showPrevPricingCard() {
-                if (currentPricingCardIndex > 0) {
-                    pricingCards[currentPricingCardIndex].classList.add('leaving'); // Animate current card out
-                    currentPricingCardIndex--;
-                    updatePricingCarousel();
-                } else {
-                    // Loop to the last card if at the beginning
-                    pricingCards[currentPricingCardIndex].classList.add('leaving');
-                    currentPricingCardIndex = pricingCards.length - 1;
-                    updatePricingCarousel();
-                }
-            }
-
-            // --- Page Initialization ---
-            function init() {
-                const savedTheme = localStorage.getItem('theme') || 'dark';
-                document.body.classList.toggle('light-mode', savedTheme === 'light');
-                updateThemeIcons(savedTheme === 'light');
-                
-                const savedLang = localStorage.getItem('siteLang');
-                let initialLang = 'ar';
-                if (savedLang && langCycle.includes(savedLang)) {
-                    initialLang = savedLang;
-                } else {
-                    const browserLang = navigator.language.split('-')[0];
-                    if (langCycle.includes(browserLang)) {
-                        initialLang = browserLang;
+            document.querySelectorAll('.main-nav a, .footer-links a, .logo, .hero-content .btn, .pricing-card .btn').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
                     }
-                }
-                currentLangIndex = langCycle.indexOf(initialLang);
-                updateLanguage(initialLang);
-                
-                handleScroll();
-                
-                initServiceCardAnimations();
-                initProcessStepAnimations(); // Initialize process step animations
-                initSectionEntryAnimations();
-
-                document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
-                document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
-                scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-                window.addEventListener('scroll', handleScroll, { passive: true });
-                if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
-                
-                const pricingGrid = document.querySelector('.pricing-grid');
-                if (pricingGrid) {
-                    pricingGrid.addEventListener('click', function(e) {
-                        const planButton = e.target.closest('.pricing-card .btn');
-                        if (planButton) {
-                            e.preventDefault(); 
-                            const card = e.target.closest('.pricing-card');
-                            const titleElement = card.querySelector('h3[data-lang-key]');
-                            const planKey = titleElement.getAttribute('data-lang-key');
-                            
-                            const currentLang = langCycle[currentLangIndex];
-                            const planName = translations[currentLang][planKey];
-
-                            const messages = {
-                                ar: `مرحباً،\n\nلقد اطلعت على باقاتكم وأنا مهتم بـ "${planName}".\n\nأرجو التواصل لمناقشة التفاصيل.`,
-                                en: `Hello,\n\nI have reviewed your plans and I am interested in the "${planName}".\n\nPlease contact me to discuss the details.`,
-                                fr: `Bonjour,\n\nJ'ai examiné vos forfaits et je suis intéressé(e) par le "${planName}".\n\nMerci de me contacter pour discuter des détails.`
-                            };
-                            
-                            const contactTextarea = document.getElementById('contact-message');
-                            if (contactTextarea) {
-                                contactTextarea.value = messages[currentLang];
-                            }
-
-                            const contactSection = document.getElementById('contact');
-                            if (contactSection) {
-                                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                if (contactTextarea) {
-                                    setTimeout(() => {
-                                        contactTextarea.focus();
-                                    }, 600); 
-                                }
-                            }
-                        }
-                    });
-                }
-
-                // Initialize pricing carousel
-                if (pricingCarousel && pricingCards.length > 0) {
-                    updatePricingCarousel(); // Show the first card
-                    prevBtn.addEventListener('click', showPrevPricingCard);
-                    nextBtn.addEventListener('click', showNextPricingCard);
-                    // Optional: Add keyboard navigation for carousel
-                    document.addEventListener('keydown', (e) => {
-                        if (e.key === 'ArrowLeft') {
-                            showPrevPricingCard();
-                        } else if (e.key === 'ArrowRight') {
-                            showNextPricingCard();
-                        }
-                    });
-                }
-
-
-                // Handle service card clicks (including blog link)
-                document.querySelectorAll('.service-card').forEach(card => {
-                    card.addEventListener('click', (e) => {
-                        if (card.classList.contains('blog-link')) {
-                            // Prevent default if it's a blog link and navigate to blog page
-                            e.preventDefault();
-                            // This assumes your blog page is at '/blog.html' or similar
-                            window.location.href = '/blog.html'; 
-                        } else {
-                            // For modal triggers
-                            const targetElement = e.target.closest('[data-modal-target]');
-                            if (targetElement) {
-                                const modalId = targetElement.dataset.modalTarget;
-                                const modal = document.getElementById(modalId);
-                                if (modal) modal.classList.add('active');
-                            }
-                        }
-                    });
                 });
-
-
-                document.querySelectorAll('.modal .modal-close, .modal').forEach(el => {
-                    el.addEventListener('click', (e) => {
-                        if (e.target === el) {
-                           el.closest('.modal').classList.remove('active');
-                        }
-                    });
-                });
-
-                document.querySelectorAll('.main-nav a, .footer-links a, .logo').forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        const href = this.getAttribute('href');
-                        if (href && href.startsWith('#')) {
-                            e.preventDefault();
-                            const targetElement = document.querySelector(href);
-                            if (targetElement) {
-                                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            }
-                        }
-                    });
-                });
-                
-                const founderAvatar = document.getElementById('founder-avatar');
-                if (founderAvatar) {
-                    founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
-                }
+            });
+            
+            const founderAvatar = document.getElementById('founder-avatar');
+            if (founderAvatar) {
+                founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
             }
+            
+            updateLanguage(initialLang);
+        }
 
-            initTextAnimations = function() {
-                const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
-                if (textAnimationObserver) {
-                    textAnimationObserver.disconnect();
-                }
-                textAnimationObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const container = entry.target;
-                            const text = container.textContent;
-                            const words = text.trim().split(/\s+/);
-                            container.innerHTML = ''; 
-                            container.classList.add('slide-up-words');
-                            words.forEach((word, index) => {
-                                const wordSpan = document.createElement('span');
-                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
-                                container.appendChild(wordSpan);
-                                if (index < words.length - 1) {
-                                    container.appendChild(document.createTextNode(' '));
-                                }
-                            });
-                            setTimeout(() => container.classList.add('is-visible'), 50);
-                            observer.unobserve(container);
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                elementsToAnimate.forEach(el => {
-                    el.classList.remove('is-visible', 'slide-up-words');
-                    const key = el.getAttribute('data-lang-key');
-                    const lang = langCycle[currentLangIndex];
-                    if (key && translations[lang] && translations[lang][key]) {
-                        el.textContent = translations[lang][key];
-                    }
-                    textAnimationObserver.observe(el);
-                });
-            }
-            initServiceCardAnimations = function() {
-                const serviceCards = document.querySelectorAll('.service-card');
-                if (!serviceCards.length) return;
-                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-                const cardObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            observer.unobserve(entry.target); 
-                        }
-                    });
-                }, observerOptions);
-                serviceCards.forEach((card, index) => {
-                    card.style.transitionDelay = `${index * 100}ms`;
-                    cardObserver.observe(card);
-                });
-            }
-            initProcessStepAnimations = function() { // New function implementation
-                const processSteps = document.querySelectorAll('.process-step');
-                if (!processSteps.length) return;
-                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-                const stepObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}ms`; // Apply delay from data-attribute
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
-                processSteps.forEach((step, index) => {
-                    step.dataset.delay = index * 120; // Staggered animation delay
-                    stepObserver.observe(step);
-                });
-            }
-
-            initSectionEntryAnimations = function() {
-                // Modified to include '#process'
-                const sections = document.querySelectorAll('#about, #services, #process, #pricing, #cost-calculator, #website-test, #faq, #contact');
-                if (!sections.length) return;
-                const sectionObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15 });
-                sections.forEach(section => {
-                    sectionObserver.observe(section);
-                });
-            }
-            handleParallaxEffect = function() {
-                const aboutSection = document.querySelector('#about');
-                if (!aboutSection) return;
-                const rect = aboutSection.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    const avatar = document.querySelector('.founder-avatar');
-                    const bio = document.querySelector('.founder-bio');
-                    const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-                    if (avatar) {
-                        const avatarY = scrollPercent * -80;
-                        avatar.style.transform = `translateY(${avatarY}px)`;
-                    }
-                    if (bio) {
-                        const bioY = scrollPercent * -40;
-                        bio.style.transform = `translateY(${bioY}px)`;
-                    }
-                }
-            }
-
-            init();
-        });
+        init();
+    });
     </script>
 </body>
 </html>
