@@ -15,10 +15,7 @@
             --font-cairo: 'Cairo', var(--font-sans);
             --transition-speed: 0.4s;
             --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
-            /* Cursor Spotlight Effect Variables */
-            --cursor-x: 50vw;
-            --cursor-y: 50vh;
-            --spotlight-size: 300px; /* Size of the spotlight circle */
+            --spotlight-color: rgba(139, 92, 246, 0.1);
         }
 
         body {
@@ -27,7 +24,7 @@
             --text-color: #E0E0E0;
             --subtle-text-color: #A0A0A0;
             --border-color: rgba(70, 70, 70, 0.5);
-            --primary-color: #8B5CF6; /* Purple Accent */
+            --primary-color: #8B5CF6;  /* Purple Accent */
             --primary-text-color: #FFFFFF; /* White text on purple */
             --primary-hover: #A37FF7; /* Lighter Purple for hover */
             --overlay-color: rgba(0, 0, 0, 0.7);
@@ -47,6 +44,7 @@
             --overlay-color: rgba(0, 0, 0, 0.6);
             --header-bg: rgba(245, 245, 245, 0.7);
             --glow-color: rgba(139, 92, 246, 0.5); /* Purple Neon Glow for Light Mode */
+            --spotlight-color: rgba(139, 92, 246, 0.08);
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
@@ -66,14 +64,6 @@
             line-height: 1.7; 
             transition: background-color var(--transition-speed), color var(--transition-speed); 
             overflow-x: hidden;
-            /* Cursor Spotlight effect background */
-            background-image: radial-gradient(
-                circle at var(--cursor-x) var(--cursor-y),
-                rgba(139, 92, 246, 0.1) 0%, /* Primary color with transparency at center */
-                transparent calc(var(--spotlight-size) / 2)
-            ), var(--bg-color);
-            background-attachment: fixed; /* Keep spotlight fixed relative to viewport */
-            cursor: default; /* Ensure default cursor is visible */
         }
 
         body::before {
@@ -93,8 +83,24 @@
                 radial-gradient(circle at 80% 30%, #f3e8ff 0%, rgba(243, 232, 255, 0) 40%);
         }
 
+        .spotlight-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 990; 
+            background: radial-gradient(
+                circle 350px at var(--mouse-x, -400px) var(--mouse-y, -400px),
+                var(--spotlight-color),
+                transparent 70%
+            );
+            transition: background var(--transition-speed);
+        }
+
         html[lang="ar"] body { font-family: var(--font-cairo); }
-        html[lang="fr"] body { font-family: var(--font-sans); } /* Or a specific French font */
+        html[lang="fr"] body { font-family: var(--font-sans); }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0; position: relative; z-index: 1; }
         .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); margin-bottom: 3rem; text-align: center; font-weight: 700; color: var(--text-color);}
         .btn { display: inline-block; background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); border: none; cursor: pointer; }
@@ -132,177 +138,78 @@
         .slide-up-words span .word { display: inline-block; transform: translateY(110%); transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); transition-delay: var(--delay); }
         .slide-up-words.is-visible span .word { transform: translateY(0); }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .service-card { background-color: var(--surface-color); padding: 2.5rem 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; display: flex; flex-direction: column; opacity: 0; transform: translateY(40px); will-change: transform, opacity; transition: opacity 0.6s var(--ease-out-quart), transform 0.6s var(--ease-out-quart), box-shadow var(--transition-speed); }
-        .service-card.is-visible { opacity: 1; transform: translateY(0); }
-        .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 12px -2px var(--glow-color); }
-        .service-card[data-modal-target], .service-card.blog-link { cursor: pointer; } /* Added blog-link cursor */
-        .service-icon-container { width: 100px; height: 100px; margin: 0 auto 1.5rem auto; }
+        
+        /* Modified for 3D Tilt Effect */
+        .service-card {
+            background-color: var(--surface-color);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(40px); /* Initial animation state */
+            will-change: transform, opacity;
+            transition: opacity 0.6s var(--ease-out-quart), transform 0.6s var(--ease-out-quart), box-shadow var(--transition-speed);
+            transform-style: preserve-3d; /* Required for 3D effect */
+        }
+        .service-card.is-visible { 
+            opacity: 1; 
+            transform: translateY(0) perspective(1000px); /* Add perspective on visible */
+        }
+        .service-card:hover { 
+            /* The vanilla-tilt.js library will handle the transform on hover */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 12px -2px var(--glow-color); 
+        }
+
+        .service-card[data-modal-target], .service-card.blog-link { cursor: pointer; }
+        .service-icon-container { width: 100px; height: 100px; margin: 0 auto 1.5rem auto; transform: translateZ(20px); /* Make icon pop out a bit */ }
         .service-icon-container svg { width: 100%; height: 100%; stroke: var(--primary-color); }
+        .service-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--text-color); margin-top: auto; transform: translateZ(15px); /* Make text pop out a bit */ }
+
+        /* Icon hover animations (no changes needed here) */
         .service-card:hover .page-corner { transform: rotate(-15deg); }
         .service-card:hover .layer-top { transform: translateY(-2px); }
         .service-card:hover .cart-wheel { animation: spin 1s linear infinite; }
         .service-card:hover .blog-line { stroke-dashoffset: 0; }
         .service-card:hover .calendar-check { transform: scale(1.2); opacity: 1; }
         .service-card:hover .portfolio-image { transform: translateY(-5px); }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } /* Fixed typo */
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .page-corner { transition: transform 0.3s ease; transform-origin: bottom left; }
         .layer-top { transition: transform 0.3s ease; }
         .blog-line { stroke-dasharray: 50; stroke-dashoffset: 50; transition: stroke-dashoffset 0.8s ease; }
         .calendar-check { transition: transform 0.4s ease, opacity 0.4s ease; transform-origin: center; opacity: 0; transform: scale(0.5); }
         .portfolio-image { transition: transform 0.4s ease; }
-        .service-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--text-color); margin-top: auto; }
 
-        /* Process Section Styles - NEW ANIMATION */
+        /* Process Section Styles */
         @keyframes fade-in-up-delay {
             0% { opacity: 0; transform: translateY(40px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-        .process-step {
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
-            opacity: 0; /* Initial state for animation */
-            transform: translateY(40px); /* Initial state for animation */
-            box-shadow: 0 0 15px -8px var(--glow-color);
-        }
-        .process-step.is-visible {
-            animation: fade-in-up-delay 0.8s var(--ease-out-quart) forwards;
-        }
-        .process-step:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 18px -5px var(--glow-color);
-            border-color: var(--primary-color);
-        }
-        .process-icon-container {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(139, 92, 246, 0.1);
-            border-radius: 50%;
-            border: 1px solid var(--primary-color);
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-        .process-step:hover .process-icon-container {
-            background-color: var(--primary-color);
-            border-color: var(--primary-hover);
-        }
-        .process-icon-container svg {
-            width: 50px;
-            height: 50px;
-            stroke: var(--primary-color);
-            transition: stroke 0.3s;
-        }
-        .process-step:hover .process-icon-container svg {
-            stroke: var(--primary-text-color);
-        }
-        .process-step h4 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-color);
-        }
-        .process-step p {
-            font-size: 1rem;
-            color: var(--subtle-text-color);
-            flex-grow: 1;
-        }
-        .process-step-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--border-color);
-            margin-bottom: 0.5rem;
-            position: absolute;
-            top: 15px;
-            opacity: 0.2;
-            transition: color 0.3s, opacity 0.3s;
-        }
-        .process-step:hover .process-step-number {
-            color: var(--primary-color);
-            opacity: 0.4;
-        }
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .process-step { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed); opacity: 0; transform: translateY(40px); box-shadow: 0 0 15px -8px var(--glow-color); }
+        .process-step.is-visible { animation: fade-in-up-delay 0.8s var(--ease-out-quart) forwards; }
+        .process-step:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 18px -5px var(--glow-color); border-color: var(--primary-color); }
+        .process-icon-container { width: 80px; height: 80px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; background-color: rgba(139, 92, 246, 0.1); border-radius: 50%; border: 1px solid var(--primary-color); transition: background-color 0.3s, border-color 0.3s; }
+        .process-step:hover .process-icon-container { background-color: var(--primary-color); border-color: var(--primary-hover); }
+        .process-icon-container svg { width: 50px; height: 50px; stroke: var(--primary-color); transition: stroke 0.3s; }
+        .process-step:hover .process-icon-container svg { stroke: var(--primary-text-color); }
+        .process-step h4 { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-color); }
+        .process-step p { font-size: 1rem; color: var(--subtle-text-color); flex-grow: 1; }
+        .process-step-number { font-size: 2.5rem; font-weight: 700; color: var(--border-color); margin-bottom: 0.5rem; position: absolute; top: 15px; opacity: 0.2; transition: color 0.3s, opacity 0.3s; }
+        .process-step:hover .process-step-number { color: var(--primary-color); opacity: 0.4; }
         html[dir="rtl"] .process-step-number { right: 20px; }
         html[dir="ltr"] .process-step-number { left: 20px; }
 
-        /* === Pricing Section: NEW ANIMATION STYLES === */
-        .pricing-carousel-container {
-            position: relative;
-            margin-top: 4rem;
-            padding-inline: 1rem; 
-        }
-
-        .pricing-grid {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory; 
-            scroll-behavior: smooth; /* Important for JS scrolling */
-            gap: 2rem;
-            padding-block: 2rem; /* Add vertical padding for the scale effect */
-            padding-inline: calc(50% - 160px); /* Centers the first/last card */
-            -webkit-overflow-scrolling: touch; 
-            scrollbar-width: none; 
-            -ms-overflow-style: none; 
-        }
-
-        .pricing-grid::-webkit-scrollbar {
-            display: none;
-        }
-
-        .pricing-card {
-            min-width: 320px;
-            flex-shrink: 0;
-            scroll-snap-align: center;
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            position: relative;
-            /* New Transition for smooth scaling and opacity */
-            transition: transform 0.5s var(--ease-out-quart), opacity 0.5s var(--ease-out-quart), box-shadow var(--transition-speed);
-            opacity: 0.6;
-            transform: scale(0.9);
-        }
-
-        .pricing-card.is-active {
-            opacity: 1;
-            transform: scale(1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 15px -5px var(--glow-color);
-        }
-        
-        .pricing-card.popular.is-active {
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 0 30px -5px var(--glow-color);
-        }
-        
-        .popular-badge { 
-            position: absolute; 
-            top: -18px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            background-color: var(--primary-color); 
-            color: var(--primary-text-color); 
-            padding: 0.4rem 1.2rem; 
-            border-radius: 20px; 
-            font-size: 0.9rem; 
-            font-weight: 600; 
-            white-space: nowrap; 
-        }
+        /* Pricing Section Styles */
+        .pricing-carousel-container { position: relative; margin-top: 4rem; padding-inline: 1rem; }
+        .pricing-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 2rem; padding-block: 2rem; padding-inline: calc(50% - 160px); -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
+        .pricing-grid::-webkit-scrollbar { display: none; }
+        .pricing-card { min-width: 320px; flex-shrink: 0; scroll-snap-align: center; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; position: relative; transition: transform 0.5s var(--ease-out-quart), opacity 0.5s var(--ease-out-quart), box-shadow var(--transition-speed); opacity: 0.6; transform: scale(0.9); }
+        .pricing-card.is-active { opacity: 1; transform: scale(1); box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 15px -5px var(--glow-color); }
+        .pricing-card.popular.is-active { border: 2px solid var(--primary-color); box-shadow: 0 0 30px -5px var(--glow-color); }
+        .popular-badge { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
         .pricing-card h3 { font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; }
         .pricing-card .price { font-size: 2.8rem; font-weight: 700; color: var(--primary-color); margin-bottom: 2rem; }
         .pricing-card .price small { font-size: 1rem; font-weight: 400; color: var(--subtle-text-color); margin-inline-start: 0.5rem; }
@@ -312,62 +219,139 @@
         .features-list li.disabled { color: var(--subtle-text-color); text-decoration: line-through; }
         .features-list li.disabled::before { content: '✖'; color: var(--subtle-text-color); }
         .pricing-card .btn { width: 100%; }
+        .carousel-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); font-size: 1.8rem; padding: 0.5rem; border-radius: 50%; cursor: pointer; z-index: 10; transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed), transform var(--transition-speed); display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; }
+        .carousel-nav-btn:hover { background-color: var(--primary-color); color: var(--primary-text-color); border-color: var(--primary-color); transform: translateY(-50%) scale(1.1); }
+        html[dir="rtl"] .carousel-nav-btn.prev { right: -10px; }
+        html[dir="rtl"] .carousel-nav-btn.next { left: -10px; }
+        html[dir="ltr"] .carousel-nav-btn.prev { left: -10px; }
+        html[dir="ltr"] .carousel-nav-btn.next { right: -10px; }
+        
+        #cost-calculator .container { text-align: center; }
 
-        /* Carousel Navigation Buttons */
-        .carousel-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+        /* --- NEW STYLES FOR WEBSITE TEST TOOL --- */
+        .website-test-tool {
+            max-width: 700px;
+            margin: 0 auto;
             background-color: var(--surface-color);
+            padding: 2.5rem;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            color: var(--text-color);
-            font-size: 1.8rem;
-            padding: 0.5rem;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed), transform var(--transition-speed);
+            transition: box-shadow var(--transition-speed), border-color var(--transition-speed);
+            box-shadow: 0 0 20px -8px var(--glow-color);
+            overflow: hidden; /* Important for animations */
+        }
+        .website-test-tool:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
+
+        #test-card-container {
+            position: relative;
+            min-height: 220px; /* Adjust as needed */
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
-        }
-        .carousel-nav-btn:hover {
-            background-color: var(--primary-color);
-            color: var(--primary-text-color);
-            border-color: var(--primary-color);
-            transform: translateY(-50%) scale(1.1);
-        }
-        html[dir="rtl"] .carousel-nav-btn.prev {
-            right: -10px; /* Adjusted position */
-        }
-        html[dir="rtl"] .carousel-nav-btn.next {
-            left: -10px; /* Adjusted position */
-        }
-        html[dir="ltr"] .carousel-nav-btn.prev {
-            left: -10px; /* Adjusted position */
-        }
-        html[dir="ltr"] .carousel-nav-btn.next {
-            right: -10px; /* Adjusted position */
-        }
-        
-        /* NEW: Cost Calculator Section */
-        #cost-calculator .container {
-            text-align: center;
         }
 
-        .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); transition: box-shadow var(--transition-speed), border-color var(--transition-speed); box-shadow: 0 0 20px -8px var(--glow-color); }
-        .website-test-tool:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
-        .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
-        .test-question-item:last-child { border-bottom: none; }
-        .test-question-item p { margin: 0; flex-grow: 1; font-weight: 500; }
-        .test-question-item .answers { display: flex; gap: 0.5rem; flex-shrink: 0; }
-        .test-question-item .answers button { background: var(--border-color); border: 1px solid transparent; color: var(--text-color); padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; transition: background-color var(--transition-speed), color var(--transition-speed); }
-        .test-question-item .answers button.selected { background: var(--primary-color); color: var(--primary-text-color); }
-        .test-result { text-align: center; margin-top: 2rem; padding: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
-        .test-result.good { background-color: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #28a745; }
-        .test-result.bad { background-color: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; color: #dc3545; }
+        .test-card {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.5s var(--ease-out-quart), opacity 0.5s var(--ease-out-quart);
+        }
+
+        .test-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .test-card.exiting {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .test-card h3 {
+            font-size: clamp(1.3rem, 4vw, 1.6rem);
+            font-weight: 600;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .test-card .answers {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .test-card .answers button {
+            background: var(--border-color);
+            border: 2px solid transparent;
+            color: var(--text-color);
+            padding: 0.7rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .test-card .answers button:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-hover);
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2);
+        }
+
+        #test-progress-container {
+            width: 100%;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            margin-top: 2rem;
+            overflow: hidden;
+        }
+
+        #test-progress-bar {
+            width: 0%;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.5s var(--ease-out-quart);
+        }
+
+        #test-result-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.5rem;
+        }
+        
+        #test-result-card .result-icon {
+            font-size: 3.5rem;
+        }
+
+        #test-result-card .result-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            max-width: 90%;
+        }
+
+        #test-result-card .result-text.good { color: #28a745; }
+        #test-result-card .result-text.bad { color: #dc3545; }
+
+        #test-result-card .btn.retake {
+            margin-top: 1rem;
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        #test-result-card .btn.retake:hover {
+             background-color: var(--primary-color);
+             color: var(--primary-text-color);
+        }
+        /* --- END OF NEW STYLES --- */
+
+
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item { background-color: var(--surface-color); margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; transition: box-shadow var(--transition-speed), border-color var(--transition-speed); }
         .faq-item:hover { box-shadow: 0 0 8px -2px var(--glow-color); border-color: var(--primary-color); }
@@ -442,28 +426,24 @@
         .scroll-indicator-nav li:not(.active) a:hover .section-name { text-shadow: 0 0 6px var(--glow-color); }
         
         @media (max-width: 992px) { 
-            .pricing-grid {
-                padding-inline: calc(50% - 160px); /* Keep centering for tablets */
-            }
-            .pricing-carousel-container {
-                padding-inline: 0; /* No padding for nav buttons */
-            }
-            .carousel-nav-btn {
-                font-size: 1.5rem;
-                width: 40px;
-                height: 40px;
-                top: 50%;
-            }
+            .pricing-grid { padding-inline: calc(50% - 160px); }
+            .pricing-carousel-container { padding-inline: 0; }
+            .carousel-nav-btn { font-size: 1.5rem; width: 40px; height: 40px; top: 50%; }
             html[dir="rtl"] .carousel-nav-btn.prev { right: 5px; }
             html[dir="rtl"] .carousel-nav-btn.next { left: 5px; }
             html[dir="ltr"] .carousel-nav-btn.prev { left: 5px; }
             html[dir="ltr"] .carousel-nav-btn.next { right: 5px; }
         }
 
-        @media (max-width: 768px) { .main-nav { display: none; } }
+        @media (max-width: 768px) { 
+            .main-nav { display: none; }
+            .spotlight-effect { display: none; }
+        }
     </style>
 </head>
 <body>
+
+    <div class="spotlight-effect"></div>
 
     <nav class="scroll-indicator hidden" id="scroll-indicator">
         <div class="scroll-indicator-line"></div>
@@ -517,11 +497,12 @@
         <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
             <h2 class="section-title" data-lang-key="servicesTitle" data-animate="slide-up-words"></h2>
             <div class="services-grid">
-                <div class="service-card" data-modal-target="landing-page-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8" class="page-corner"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
-                <div class="service-card" data-modal-target="multi-page-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
-                <div class="service-card" data-modal-target="ecommerce-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="9" cy="21" r="1" class="cart-wheel"></circle><circle cx="20" cy="21" r="1" class="cart-wheel"></circle> <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path> </svg> </div> <h3 data-lang-key="service3"></h3> </div>
-                <div class="service-card blog-link"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path> <line class="blog-line" x1="15" y1="6" x2="18" y2="9"></line> </svg> </div> <h3 data-lang-key="service4"></h3> </div> <div class="service-card" data-modal-target="booking-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line> <path d="m9 16 2 2 4-4" class="calendar-check"></path> </svg> </div> <h3 data-lang-key="service5"></h3> </div>
-                <div class="service-card" data-modal-target="portfolio-modal"> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="portfolio-image"></rect> <circle cx="8.5" cy="8.5" r="1.5" class="portfolio-image"></circle><polyline points="21 15 16 10 5 21" class="portfolio-image"></polyline> </svg> </div> <h3 data-lang-key="service6"></h3> </div>
+                <div class="service-card" data-modal-target="landing-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8" class="page-corner"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
+                <div class="service-card" data-modal-target="multi-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
+                <div class="service-card" data-modal-target="ecommerce-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="9" cy="21" r="1" class="cart-wheel"></circle><circle cx="20" cy="21" r="1" class="cart-wheel"></circle> <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path> </svg> </div> <h3 data-lang-key="service3"></h3> </div>
+                <div class="service-card blog-link" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path> <line class="blog-line" x1="15" y1="6" x2="18" y2="9"></line> </svg> </div> <h3 data-lang-key="service4"></h3> </div>
+                <div class="service-card" data-modal-target="booking-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line> <path d="m9 16 2 2 4-4" class="calendar-check"></path> </svg> </div> <h3 data-lang-key="service5"></h3> </div>
+                <div class="service-card" data-modal-target="portfolio-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="portfolio-image"></rect> <circle cx="8.5" cy="8.5" r="1.5" class="portfolio-image"></circle><polyline points="21 15 16 10 5 21" class="portfolio-image"></polyline> </svg> </div> <h3 data-lang-key="service6"></h3> </div>
             </div>
         </section>
 
@@ -569,7 +550,7 @@
                 <div class="pricing-grid" id="pricing-carousel">
                     <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
                     <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
-                    <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan3Feat1"></li> <li data-lang-key="plan3Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                    <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
                 </div>
                 <button class="carousel-nav-btn prev" aria-label="Previous Plan">
                     <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path></svg>
@@ -587,13 +568,20 @@
             </div>
         </section>
 
+        <!-- === MODIFIED WEBSITE TEST SECTION === -->
         <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test Your Site" data-section-name-fr="Testez Votre Site">
              <h2 class="section-title" data-lang-key="testTitle" data-animate="slide-up-words"></h2>
              <div class="website-test-tool">
-                 <div class="test-questions-container"></div>
-                 <div id="test-result" class="test-result"></div>
+                <div id="test-card-container">
+                    <!-- Interactive cards will be injected here by JavaScript -->
+                </div>
+                <div id="test-progress-container">
+                    <div id="test-progress-bar"></div>
+                </div>
              </div>
         </section>
+        <!-- === END OF MODIFIED SECTION === -->
+
 
         <section id="faq" class="container" data-section-name="الأسئلة الشائعة" data-section-name-en="FAQ" data-section-name-fr="FAQ">
             <h2 class="section-title" data-lang-key="faqTitle" data-animate="slide-up-words"></h2>
@@ -640,10 +628,12 @@
     <div class="modal" id="portfolio-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="portfolioModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="portfolioModalContent"></div> </div> </div>
 
     <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg> </button>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
+    
             const icons = {
                 sun: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06z"></path></svg>`,
                 moon: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M9.37 5.51A7.35 7.35 0 009 6c0 4.42 3.58 8 8 8.01 1.07 0 2.09-.23 3-.64.42-.18.88.08 1.06.5.18.42-.08.88-.5 1.06-1.18.5-2.49.77-3.87.77-5.52 0-10-4.48-10-10 0-1.38.27-2.69.77-3.87.18-.42.64-.68 1.06-.5.42.18.68.64.5 1.06z"></path></svg>`
@@ -667,7 +657,7 @@
                     plan3Name: "الباقة المتكاملة", plan3Price: "9500", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
                     calculatorTitle: "لست متأكدًا أي باقة تختار؟", calculatorCTA: "جرّب الحاسبة التفاعلية",
                     testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
-                    testYes: "نعم", testNo: "لا", testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>",
+                    testYes: "نعم", testNo: "لا", testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>", testRetake: "أعد الاختبار",
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
                     formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
@@ -698,8 +688,9 @@
                     plan3Name: "Premium Plan", plan3Price: "9500", plan3Feat1: "Unlimited multi-page site", plan3Feat2: "Unique and modern design", plan3Feat3: "CMS Integration", plan3Feat4: "Professional SEO optimization", plan3Feat5: "3-months technical support", plan3Feat6: "E-commerce with payment gateways",
                     calculatorTitle: "Not Sure Which Plan to Choose?", calculatorCTA: "Try the Interactive Calculator",
                     testTitle: "Is Your Current Website Good?", testQ1: "Is your site mobile-responsive?", testQ2: "Does your site load quickly?", testQ3: "Is your content easy to navigate?", testQ4: "Does your design look professional?", testQ5: "Is your contact information clear?",
-                    testYes: "Yes", testNo: "No", testResultGood: "Great! It seems your website is performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>",
-                    faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.", faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.", faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.", faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
+                    testYes: "Yes", testNo: "No", testResultGood: "Great! It seems your website is performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>", testRetake: "Retake Test",
+                    faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.", faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.",
+                    faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.", faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
                     contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your message...", formSubmit: "Send Message",
                     formSending: "Sending...", formSuccess: "Thank you! Your message has been sent successfully.", formError: "Sorry, an error occurred.",
                     footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "All rights reserved. © Developed by Amayas Berkani",
@@ -729,8 +720,12 @@
                     plan3Name: "Forfait Premium", plan3Price: "9500", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
                     calculatorTitle: "Pas Sûr Quel Forfait Choisir?", calculatorCTA: "Essayez le Calculateur Interactif",
                     testTitle: "Votre Site Actuel Est-il Bon?", testQ1: "Votre site est-il responsive sur mobile?", testQ2: "Votre site se charge-t-il rapidement?", testQ3: "Le contenu est-il facile à parcourir?", testQ4: "Votre design semble-t-il professionnel?", testQ5: "Vos informations de contact sont-elles claires?",
-                    testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider!</a>",
-                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.", faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.", faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.", faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.", faqQ5: "Can I request additional features?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
+                    testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider!</a>", testRetake: "Refaire le test",
+                    faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.",
+                    faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.",
+                    faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.",
+                    faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.",
+                    faqQ5: "Can I request additional features?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
                     contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via:", formName: "Nom Complet", formEmail: "Adresse E-mail", formMessage: "Votre message...", formSubmit: "Envoyer le Message",
                     formSending: "Envoi en cours...", formSuccess: "Merci! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
@@ -745,33 +740,26 @@
                 }
             };
             
-            // --- Global Variables ---
             let currentLangIndex = 0;
             let typingTimeout;
             let textAnimationObserver;
             let scrollActivityTimeout; 
             const langCycle = ['ar', 'en', 'fr'];
-
-            // --- Element Selectors ---
             const scrollIndicator = document.getElementById('scroll-indicator');
             const scrollIndicatorNav = document.getElementById('scroll-indicator-nav').querySelector('ul');
             const pageSections = document.querySelectorAll('main > section[id]');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
-            const modalTriggers = document.querySelectorAll('[data-modal-target]');
             const pricingCarousel = document.getElementById('pricing-carousel');
             const pricingCards = Array.from(document.querySelectorAll('.pricing-card'));
             const prevBtn = document.querySelector('.carousel-nav-btn.prev');
             const nextBtn = document.querySelector('.carousel-nav-btn.next');
 
-            // --- Main Functions ---
-
             function handleScroll() {
                 if (window.pageYOffset > 200) {
                     scrollIndicator.classList.remove('hidden');
                     scrollIndicator.classList.add('visible');
-                    
                     clearTimeout(scrollActivityTimeout);
                     scrollActivityTimeout = setTimeout(() => {
                         scrollIndicator.classList.remove('visible');
@@ -781,31 +769,25 @@
                     scrollIndicator.classList.remove('visible');
                     scrollIndicator.classList.add('hidden');
                 }
-
                 if (scrollTopBtn) {
                     scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
                 }
-
                 let currentSectionId = '';
                 const headerOffset = document.querySelector('.header').offsetHeight;
                 const scrollPosition = window.pageYOffset + headerOffset + window.innerHeight / 2;
-
                 pageSections.forEach(section => {
                     if (scrollPosition >= section.offsetTop) {
                         currentSectionId = section.id;
                     }
                 });
-                
                 document.querySelectorAll('.main-nav a').forEach(a => {
                     a.classList.toggle('active', a.getAttribute('href') === '#' + currentSectionId);
                 });
-
                 if (scrollIndicator) {
                     scrollIndicatorNav.querySelectorAll('li').forEach(li => {
                         li.classList.toggle('active', li.dataset.section === currentSectionId);
                     });
                 }
-                
                 requestAnimationFrame(handleParallaxEffect);
             }
 
@@ -813,35 +795,64 @@
                 const langData = translations[langCode];
                 document.documentElement.lang = langCode;
                 document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
-
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
                     if (langData && langData[key] && !Array.isArray(langData[key])) {
-                            el.innerHTML = langData[key];
+                         el.innerHTML = langData[key];
                     }
                 });
-                
                 document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-lang-placeholder');
                     if(langData && langData[key]) el.placeholder = langData[key];
                 });
-                
                 document.querySelectorAll('.lang-toggle').forEach(toggle => {
                     toggle.textContent = langCode.toUpperCase();
                 });
-                
                 if (scrollTopBtn) {
                     const titles = { ar: 'العودة للأعلى', en: 'Back to top', fr: 'Retour en haut' };
                     scrollTopBtn.title = titles[langCode];
                 }
-                
-                // Re-initialize components that depend on language
                 startTypingEffect();
                 createFAQ();
-                createTestQuestions();
+                initWebsiteTestTool(); // Re-initialize the test tool for the new language
                 initTextAnimations(); 
                 createScrollIndicator();
-                initPricingCarousel(); // Re-initialize carousel for potential RTL/LTR changes
+                initPricingCarousel();
+            }
+
+            function createScrollIndicator() {
+                if (!scrollIndicatorNav || !pageSections.length) return;
+                scrollIndicatorNav.innerHTML = '';
+                const currentLangCode = langCycle[currentLangIndex];
+                pageSections.forEach(section => {
+                    const sectionId = section.id;
+                    const sectionNameAttr = `data-section-name-${currentLangCode}`;
+                    const sectionName = section.getAttribute(sectionNameAttr) || section.getAttribute('data-section-name') || sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+                    const li = document.createElement('li');
+                    li.dataset.section = sectionId;
+                    const a = document.createElement('a');
+                    a.href = `#${sectionId}`;
+                    a.setAttribute('aria-label', `Go to ${sectionName} section`);
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'section-name';
+                    nameSpan.textContent = sectionName;
+                    const dot = document.createElement('span');
+                    dot.className = 'dot';
+                    a.appendChild(nameSpan);
+                    a.appendChild(dot);
+                    li.appendChild(a);
+                    scrollIndicatorNav.appendChild(li);
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetElement = document.getElementById(sectionId);
+                        if (targetElement) {
+                             const headerOffset = document.querySelector('.header').offsetHeight;
+                             const elementPosition = targetElement.getBoundingClientRect().top;
+                             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                             window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                        }
+                    });
+                });
             }
 
             function handleLangToggle() {
@@ -900,7 +911,7 @@
                     }
                     typingTimeout = setTimeout(type, typeSpeed);
                 }
-                setTimeout(type, 500); // Initial delay
+                setTimeout(type, 500);
             }
             
             async function handleFormSubmit(event) {
@@ -962,64 +973,117 @@
                 });
             }
             
-            function createTestQuestions() {
+            // --- NEW INTERACTIVE TEST TOOL LOGIC ---
+            function initWebsiteTestTool() {
+                const container = document.getElementById('test-card-container');
+                const progressBar = document.getElementById('test-progress-bar');
+                if (!container || !progressBar) return;
+
+                let currentQuestionIndex = 0;
+                let answers = [];
+                let isAnimating = false;
                 const lang = langCycle[currentLangIndex];
-                const container = document.querySelector('.test-questions-container');
-                const resultEl = document.getElementById('test-result');
-                if (!container || !resultEl) return;
-                container.innerHTML = '';
-                resultEl.style.display = 'none';
-                const answers = {};
-                const qKeys = ['Q1','Q2','Q3','Q4','Q5'];
-                qKeys.forEach((key, i) => {
-                    const questionKey = 'test' + key;
-                    const item = document.createElement('div');
-                    item.classList.add('test-question-item');
-                    item.innerHTML = `<p>${translations[lang][questionKey]}</p><div class="answers" data-id="q${i+1}"><button value="yes">${translations[lang].testYes}</button><button value="no">${translations[lang].testNo}</button></div>`;
-                    container.appendChild(item);
-                });
-                container.addEventListener('click', (e) => {
-                    if (e.target.tagName !== 'BUTTON') return;
-                    const qId = e.target.parentElement.dataset.id;
-                    answers[qId] = e.target.value;
-                    e.target.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
-                    e.target.classList.add('selected');
-                    if (Object.keys(answers).length === qKeys.length) {
-                       let yes = Object.values(answers).filter(a => a === 'yes').length;
-                       resultEl.style.display = 'block';
-                       resultEl.innerHTML = translations[lang][yes >= 4 ? 'testResultGood' : 'testResultBad'];
-                       resultEl.className = `test-result ${yes >= 4 ? 'good' : 'bad'}`;
+                const qKeys = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+
+                const resetTest = () => {
+                    container.innerHTML = '';
+                    progressBar.style.width = '0%';
+                    currentQuestionIndex = 0;
+                    answers = [];
+                    isAnimating = false;
+                    showQuestion(0);
+                };
+
+                const showResult = () => {
+                    const yesCount = answers.filter(a => a === 'yes').length;
+                    const isGood = yesCount >= 4;
+                    const resultText = translations[lang][isGood ? 'testResultGood' : 'testResultBad'];
+                    const resultIcon = isGood ? '👍' : '🤔';
+
+                    const resultCard = document.createElement('div');
+                    resultCard.className = 'test-card';
+                    resultCard.id = 'test-result-card';
+                    resultCard.innerHTML = `
+                        <div class="result-icon">${resultIcon}</div>
+                        <div class="result-text ${isGood ? 'good' : 'bad'}">${resultText}</div>
+                        <button class="btn retake">${translations[lang].testRetake}</button>
+                    `;
+                    
+                    container.appendChild(resultCard);
+                    
+                    // Animate in
+                    setTimeout(() => {
+                        resultCard.classList.add('active');
+                    }, 10);
+
+                    resultCard.querySelector('.retake').addEventListener('click', resetTest);
+                };
+
+                const showQuestion = (index) => {
+                    if (index >= qKeys.length) {
+                        showResult();
+                        return;
                     }
-                });
+
+                    const questionKey = 'test' + qKeys[index];
+                    const questionText = translations[lang][questionKey];
+
+                    const card = document.createElement('div');
+                    card.className = 'test-card';
+                    card.innerHTML = `
+                        <h3>${questionText}</h3>
+                        <div class="answers">
+                            <button value="yes">${translations[lang].testYes}</button>
+                            <button value="no">${translations[lang].testNo}</button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+
+                    // Animate in
+                    setTimeout(() => {
+                        card.classList.add('active');
+                        isAnimating = false;
+                    }, 10);
+
+                    card.querySelector('.answers').addEventListener('click', (e) => {
+                        if (e.target.tagName !== 'BUTTON' || isAnimating) return;
+                        
+                        isAnimating = true;
+                        answers.push(e.target.value);
+                        
+                        // Update progress bar
+                        const progress = ((currentQuestionIndex + 1) / qKeys.length) * 100;
+                        progressBar.style.width = `${progress}%`;
+                        
+                        // Animate out current card
+                        card.classList.remove('active');
+                        card.classList.add('exiting');
+                        
+                        setTimeout(() => {
+                            container.removeChild(card);
+                            currentQuestionIndex++;
+                            showQuestion(currentQuestionIndex);
+                        }, 500); // Match CSS transition duration
+                    });
+                };
+
+                resetTest(); // Start the test
             }
-            
-            // --- Animation Initializers ---
+            // --- END OF NEW LOGIC ---
+
             function initTextAnimations() {}
             function initServiceCardAnimations() {}
-            function initProcessStepAnimations() {} // New function for process steps
+            function initProcessStepAnimations() {}
             function initSectionEntryAnimations() {}
             function handleParallaxEffect() {}
 
-            // === START: NEW PRICING CAROUSEL LOGIC ===
-            let currentPricingCardIndex = 1; // Start with the popular plan
+            let currentPricingCardIndex = 1;
             let pricingObserver;
-
             function initPricingCarousel() {
                 if (!pricingCarousel || pricingCards.length === 0) return;
-                
-                // Set initial state without smooth scrolling
                 setActivePricingCard(currentPricingCardIndex, 'auto');
-
-                // Disconnect previous observer if it exists
                 if(pricingObserver) pricingObserver.disconnect();
-
-                // Setup observer for manual scrolling
-                const observerOptions = {
-                    root: pricingCarousel,
-                    rootMargin: '0px',
-                    threshold: 0.6 // Trigger when 60% of the card is visible
-                };
-
+                const observerOptions = { root: pricingCarousel, rootMargin: '0px', threshold: 0.6 };
                 pricingObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1029,14 +1093,11 @@
                         }
                     });
                 }, observerOptions);
-
                 pricingCards.forEach(card => pricingObserver.observe(card));
-
                 nextBtn.onclick = () => {
                     const nextIndex = (currentPricingCardIndex + 1) % pricingCards.length;
                     setActivePricingCard(nextIndex);
                 };
-
                 prevBtn.onclick = () => {
                     const prevIndex = (currentPricingCardIndex - 1 + pricingCards.length) % pricingCards.length;
                     setActivePricingCard(prevIndex);
@@ -1046,30 +1107,18 @@
             function setActivePricingCard(index, behavior = 'smooth') {
                 currentPricingCardIndex = index;
                 const targetCard = pricingCards[index];
-                
                 if (targetCard) {
                     const carousel = targetCard.parentElement;
                     const cardWidth = targetCard.offsetWidth;
-                    const cardGap = parseInt(window.getComputedStyle(carousel).gap, 10) || 0;
-                    
-                    // Calculate the position to center the card
-                    // It's the card's starting position (offsetLeft) minus half the carousel's width, plus half the card's width
                     let scrollPosition = targetCard.offsetLeft - (carousel.offsetWidth / 2) + (cardWidth / 2);
-                    
-                    // Adjust for RTL layout
                     if (document.documentElement.dir === 'rtl') {
-                        // In RTL, scrollLeft is negative or works differently depending on the browser.
-                        // A more reliable way is to calculate from the right.
+                        // RTL scroll calculation might need adjustment based on browser behavior
+                        // This is a common approach
                         const totalScrollWidth = carousel.scrollWidth;
-                        scrollPosition = targetCard.offsetLeft - (carousel.offsetWidth / 2) + (cardWidth / 2);
-                        // This calculation might need adjustment based on specific browser implementations for RTL scroll.
-                        // A simpler RTL approach is to let the browser handle it if we reverse the button logic, but explicit calculation is more robust.
+                        const rtlOffset = totalScrollWidth - targetCard.offsetLeft - cardWidth;
+                        scrollPosition = rtlOffset - (carousel.offsetWidth / 2) + (cardWidth / 2);
                     }
-
-                    carousel.scrollTo({
-                        left: scrollPosition,
-                        behavior: behavior
-                    });
+                    carousel.scrollTo({ left: scrollPosition, behavior: behavior });
                 }
                 updateActiveClasses();
             }
@@ -1079,31 +1128,11 @@
                     card.classList.toggle('is-active', i === currentPricingCardIndex);
                 });
             }
-            // === END: NEW PRICING CAROUSEL LOGIC ===
 
-            // --- Cursor Spotlight Effect ---
-            let mouseX = 0;
-            let mouseY = 0;
-            let currentX = 0;
-            let currentY = 0;
-            const easingFactor = 0.1; // Controls smoothness
-
-            function updateCursorSpotlight() {
-                currentX += (mouseX - currentX) * easingFactor;
-                currentY += (mouseY - currentY) * easingFactor;
-
-                document.documentElement.style.setProperty('--cursor-x', `${currentX}px`);
-                document.documentElement.style.setProperty('--cursor-y', `${currentY}px`);
-
-                requestAnimationFrame(updateCursorSpotlight);
-            }
-
-            // --- Page Initialization ---
             function init() {
                 const savedTheme = localStorage.getItem('theme') || 'dark';
                 document.body.classList.toggle('light-mode', savedTheme === 'light');
                 updateThemeIcons(savedTheme === 'light');
-                
                 const savedLang = localStorage.getItem('siteLang');
                 let initialLang = 'ar';
                 if (savedLang && langCycle.includes(savedLang)) {
@@ -1117,12 +1146,31 @@
                 currentLangIndex = langCycle.indexOf(initialLang);
                 updateLanguage(initialLang);
                 
-                handleScroll();
-                
-                initServiceCardAnimations();
-                initProcessStepAnimations(); // Initialize process step animations
-                initSectionEntryAnimations();
+                const spotlight = document.querySelector('.spotlight-effect');
+                if (spotlight) {
+                    window.addEventListener('mousemove', (e) => {
+                        requestAnimationFrame(() => {
+                            spotlight.style.setProperty('--mouse-x', e.clientX + 'px');
+                            spotlight.style.setProperty('--mouse-y', e.clientY + 'px');
+                        });
+                    });
+                }
 
+                // NEW: Initialize 3D Tilt Effect for Service Cards
+                if (typeof VanillaTilt !== 'undefined') {
+                    VanillaTilt.init(document.querySelectorAll(".service-card"), {
+                        max: 15,
+                        speed: 400,
+                        glare: true,
+                        "max-glare": 0.4,
+                        perspective: 1000
+                    });
+                }
+
+                handleScroll();
+                initServiceCardAnimations();
+                initProcessStepAnimations();
+                initSectionEntryAnimations();
                 document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
                 document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
                 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
@@ -1138,44 +1186,34 @@
                             const card = e.target.closest('.pricing-card');
                             const titleElement = card.querySelector('h3[data-lang-key]');
                             const planKey = titleElement.getAttribute('data-lang-key');
-                            
                             const currentLang = langCycle[currentLangIndex];
                             const planName = translations[currentLang][planKey];
-
                             const messages = {
                                 ar: `مرحباً،\n\nلقد اطلعت على باقاتكم وأنا مهتم بـ "${planName}".\n\nأرجو التواصل لمناقشة التفاصيل.`,
                                 en: `Hello,\n\nI have reviewed your plans and I am interested in the "${planName}".\n\nPlease contact me to discuss the details.`,
                                 fr: `Bonjour,\n\nJ'ai examiné vos forfaits et je suis intéressé(e) par le "${planName}".\n\nMerci de me contacter pour discuter des détails.`
                             };
-                            
                             const contactTextarea = document.getElementById('contact-message');
                             if (contactTextarea) {
                                 contactTextarea.value = messages[currentLang];
                             }
-
                             const contactSection = document.getElementById('contact');
                             if (contactSection) {
                                 contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 if (contactTextarea) {
-                                    setTimeout(() => {
-                                        contactTextarea.focus();
-                                    }, 600); 
+                                    setTimeout(() => { contactTextarea.focus(); }, 600); 
                                 }
                             }
                         }
                     });
                 }
 
-                // Handle service card clicks (including blog link)
                 document.querySelectorAll('.service-card').forEach(card => {
                     card.addEventListener('click', (e) => {
                         if (card.classList.contains('blog-link')) {
-                            // Prevent default if it's a blog link and navigate to blog page
                             e.preventDefault();
-                            // This assumes your blog page is at '/blog.html' or similar
                             window.location.href = 'blog.html'; 
                         } else {
-                            // For modal triggers
                             const targetElement = e.target.closest('[data-modal-target]');
                             if (targetElement) {
                                 const modalId = targetElement.dataset.modalTarget;
@@ -1211,13 +1249,6 @@
                 if (founderAvatar) {
                     founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
                 }
-
-                // Initialize cursor spotlight animation
-                document.body.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                });
-                requestAnimationFrame(updateCursorSpotlight);
             }
 
             initTextAnimations = function() {
@@ -1246,7 +1277,6 @@
                         }
                     });
                 }, { threshold: 0.1 });
-
                 elementsToAnimate.forEach(el => {
                     el.classList.remove('is-visible', 'slide-up-words');
                     const key = el.getAttribute('data-lang-key');
@@ -1257,7 +1287,6 @@
                     textAnimationObserver.observe(el);
                 });
             }
-
             initServiceCardAnimations = function() {
                 const serviceCards = document.querySelectorAll('.service-card');
                 if (!serviceCards.length) return;
@@ -1275,8 +1304,7 @@
                     cardObserver.observe(card);
                 });
             }
-
-            initProcessStepAnimations = function() { // New function implementation
+            initProcessStepAnimations = function() {
                 const processSteps = document.querySelectorAll('.process-step');
                 if (!processSteps.length) return;
                 const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
@@ -1284,19 +1312,18 @@
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('is-visible');
-                            entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}ms`; // Apply delay from data-attribute
+                            entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}ms`;
                             observer.unobserve(entry.target);
                         }
                     });
                 }, observerOptions);
                 processSteps.forEach((step, index) => {
-                    step.dataset.delay = index * 120; // Staggered animation delay
+                    step.dataset.delay = index * 120;
                     stepObserver.observe(step);
                 });
             }
 
             initSectionEntryAnimations = function() {
-                // Modified to include '#process'
                 const sections = document.querySelectorAll('#about, #services, #process, #pricing, #cost-calculator, #website-test, #faq, #contact');
                 if (!sections.length) return;
                 const sectionObserver = new IntersectionObserver((entries, observer) => {
@@ -1311,7 +1338,6 @@
                     sectionObserver.observe(section);
                 });
             }
-
             handleParallaxEffect = function() {
                 const aboutSection = document.querySelector('#about');
                 if (!aboutSection) return;
