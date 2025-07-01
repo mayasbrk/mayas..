@@ -132,7 +132,7 @@
         .service-card:hover .blog-line { stroke-dashoffset: 0; }
         .service-card:hover .calendar-check { transform: scale(1.2); opacity: 1; }
         .service-card:hover .portfolio-image { transform: translateY(-5px); }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: 360deg); } }
         .page-corner { transition: transform 0.3s ease; transform-origin: bottom left; }
         .layer-top { transition: transform 0.3s ease; }
         .blog-line { stroke-dasharray: 50; stroke-dashoffset: 50; transition: stroke-dashoffset 0.8s ease; }
@@ -140,7 +140,12 @@
         .portfolio-image { transition: transform 0.4s ease; }
         .service-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--text-color); margin-top: auto; }
 
-        /* Process Section Styles */
+        /* Process Section Styles - NEW ANIMATION */
+        @keyframes fade-in-up-delay {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         .process-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -162,8 +167,7 @@
             box-shadow: 0 0 15px -8px var(--glow-color);
         }
         .process-step.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+            animation: fade-in-up-delay 0.8s var(--ease-out-quart) forwards;
         }
         .process-step:hover {
             transform: translateY(-8px);
@@ -224,10 +228,61 @@
         html[dir="ltr"] .process-step-number { left: 20px; }
 
 
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; margin-top: 4rem; }
-        .pricing-card { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; transition: transform var(--transition-speed), box-shadow var(--transition-speed); position: relative; }
+        /* Pricing Section Styles - HORIZONTAL CAROUSEL */
+        .pricing-carousel-container {
+            position: relative;
+            margin-top: 4rem;
+            padding-inline: 2rem; /* Add padding for arrows */
+        }
+
+        .pricing-grid {
+            display: flex;
+            overflow-x: auto; /* Enable horizontal scrolling */
+            scroll-snap-type: x mandatory; /* Snap to cards */
+            gap: 2rem;
+            padding-bottom: 1rem; /* Space for scrollbar */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+            -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+        }
+        /* Hide scrollbar for Chrome, Safari, Opera */
+        .pricing-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        .pricing-card {
+            min-width: 320px; /* Adjust based on desired card size */
+            flex-shrink: 0; /* Prevent cards from shrinking */
+            scroll-snap-align: center; /* Snap to center of card */
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed), opacity var(--transition-speed);
+            position: relative;
+            opacity: 0; /* Initial state for new animation */
+            transform: translateX(50px) scale(0.95); /* Initial state for new animation */
+        }
+        /* Animation for pricing cards */
+        @keyframes slide-in-fade {
+            0% { opacity: 0; transform: translateX(50px) scale(0.95); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        .pricing-card.is-active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            animation: slide-in-fade 0.6s var(--ease-out-quart) forwards;
+        }
+        .pricing-card.leaving { /* For cards moving out of view */
+            opacity: 0;
+            transform: translateX(-50px) scale(0.95);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+
         .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 15px -5px var(--glow-color); }
-        .pricing-card.popular { transform: scale(1.05); border: 2px solid var(--primary-color); box-shadow: 0 0 30px -5px var(--glow-color); }
+        .pricing-card.popular { border: 2px solid var(--primary-color); box-shadow: 0 0 30px -5px var(--glow-color); } /* Keep popular styling */
         .popular-badge { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
         .pricing-card h3 { font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; }
         .pricing-card .price { font-size: 2.8rem; font-weight: 700; color: var(--primary-color); margin-bottom: 2rem; }
@@ -238,6 +293,50 @@
         .features-list li.disabled { color: var(--subtle-text-color); text-decoration: line-through; }
         .features-list li.disabled::before { content: '✖'; color: var(--subtle-text-color); }
         .pricing-card .btn { width: 100%; }
+
+        /* Carousel Navigation Buttons */
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-size: 1.8rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed), transform var(--transition-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+        }
+        .carousel-nav-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--primary-text-color);
+            border-color: var(--primary-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+        html[dir="rtl"] .carousel-nav-btn.prev {
+            right: 0;
+            transform: translateY(-50%) rotate(180deg);
+        }
+        html[dir="rtl"] .carousel-nav-btn.prev:hover {
+            transform: translateY(-50%) rotate(180deg) scale(1.1);
+        }
+        html[dir="rtl"] .carousel-nav-btn.next {
+            left: 0;
+        }
+        html[dir="ltr"] .carousel-nav-btn.prev {
+            left: 0;
+        }
+        html[dir="ltr"] .carousel-nav-btn.next {
+            right: 0;
+        }
+
         .website-test-tool { max-width: 800px; margin: 0 auto; background-color: var(--surface-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); transition: box-shadow var(--transition-speed), border-color var(--transition-speed); box-shadow: 0 0 20px -8px var(--glow-color); }
         .website-test-tool:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
         .test-question-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
@@ -316,12 +415,33 @@
         .scroll-indicator-nav li a .section-name::after { content: ''; position: absolute; top: 50%; transform: translateY(-50%); border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
         html[dir="rtl"] .scroll-indicator-nav li a .section-name::after { left: 100%; border-left: 7px solid var(--surface-color); }
         html[dir="ltr"] .scroll-indicator-nav li a .section-name::after { right: 100%; border-right: 7px solid var(--surface-color); }
-        .scroll-indicator-nav li a:hover .section-name, .scroll-indicator-nav li.active a .section-name { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); text-shadow: 0 0 8px var(--glow-color); }
+        .scroll-indicator-nav li:hover .section-name, .scroll-indicator-nav li.active a .section-name { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0); text-shadow: 0 0 8px var(--glow-color); }
         .scroll-indicator-nav li.active a { color: var(--primary-color); }
         .scroll-indicator-nav li.active a .dot { background-color: var(--primary-color); transform: translateY(-50%) scale(1.7); box-shadow: 0 0 12px var(--glow-color), 0 0 22px var(--primary-color); }
         .scroll-indicator-nav li:not(.active) a:hover .dot { transform: translateY(-50%) scale(1.4); box-shadow: 0 0 10px var(--glow-color); }
         .scroll-indicator-nav li:not(.active) a:hover .section-name { text-shadow: 0 0 6px var(--glow-color); }
-        @media (max-width: 992px) { .pricing-card.popular { transform: scale(1); } .pricing-grid { grid-template-columns: 1fr; max-width: 450px; margin-inline: auto; } }
+        @media (max-width: 992px) { 
+            .pricing-card.popular { transform: scale(1); } 
+            .pricing-grid { 
+                grid-template-columns: 1fr; 
+                max-width: 450px; 
+                margin-inline: auto; 
+                flex-wrap: nowrap; /* Ensure cards stay in a single row */
+            } 
+            .pricing-carousel-container {
+                padding-inline: 0.5rem; /* Reduce padding on small screens */
+            }
+            .carousel-nav-btn {
+                font-size: 1.5rem;
+                width: 40px;
+                height: 40px;
+                top: 50%;
+            }
+            html[dir="rtl"] .carousel-nav-btn.prev { right: -5px; }
+            html[dir="rtl"] .carousel-nav-btn.next { left: -5px; }
+            html[dir="ltr"] .carousel-nav-btn.prev { left: -5px; }
+            html[dir="ltr"] .carousel-nav-btn.next { right: -5px; }
+        }
         @media (max-width: 768px) { .main-nav { display: none; } }
     </style>
 </head>
@@ -426,10 +546,18 @@
 
         <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
             <h2 class="section-title" data-lang-key="pricingTitle" data-animate="slide-up-words"></h2>
-            <div class="pricing-grid">
-                <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
-                <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
-                <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan3Feat1"></li> <li data-lang-key="plan3Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+            <div class="pricing-carousel-container">
+                <div class="pricing-grid" id="pricing-carousel">
+                    <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                    <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                    <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan3Feat1"></li> <li data-lang-key="plan3Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                </div>
+                <button class="carousel-nav-btn prev" aria-label="Previous Plan">
+                    <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path></svg>
+                </button>
+                <button class="carousel-nav-btn next" aria-label="Next Plan">
+                    <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg>
+                </button>
             </div>
         </section>
 
@@ -578,13 +706,13 @@
                     formSending: "Envoi en cours...", formSuccess: "Merci! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
                     privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
-                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>En utilisant ce site, vous acceptez d'être lié par ces conditions d'utilisation. Nous nous réservons le droit de modifier ces conditions à tout moment.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont convenus formellement avant le début de tout travail. La réservation d'une consultation ne constitue pas un contrat contraignant.</p>",
+                    termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>By using this site, you agree to be bound by these terms of service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont convenus formellement avant le début de tout travail. La réservation d'une consultation ne constitue pas un contrat contraignant.</p>",
                     landingPageModalTitle: "Service de Pages d'Atterrissage", landingPageModalContent: "<p>Une page d'atterrissage est une page web unique conçue pour un objectif marketing spécifique. Son but est de convertir les visiteurs en prospects en les incitant à une action précise.</p><h4>Caractéristiques Clés</h4><ul><li>Design attractif et axé sur l'objectif.</li><li>Appel à l'action (CTA) clair.</li><li>Contenu concis et persuasif.</li><li>Formulaire simple pour collecter des données.</li><li>Entièrement responsive sur tous les écrans.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente l'efficacité de vos campagnes publicitaires, améliore les taux de conversion et fournit des données précises pour mesurer le succès.</p>",
                     multiPageModalTitle: "Service de Sites Web Multi-Pages", multiPageModalContent: "<p>Un site web multi-pages est la vitrine numérique complète de votre entreprise, présentant votre identité, vos services et vos produits de manière complète et organisée sur plusieurs pages interconnectées.</p><h4>Caractéristiques Clés</h4><ul><li>Structure de navigation claire et facile à utiliser.</li><li>Pages spécialisées (À propos, Services, Contact, etc.).</li><li>Design qui reflète l'identité de votre marque.</li><li>Base solide pour l'optimisation des moteurs de recherche (SEO).</li><li>Contenu complet pour renforcer la confiance des clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Construit une forte crédibilité pour votre marque, fournit des informations complètes à votre public et sert de hub numérique pour toutes vos activités marketing.</p>",
                     ecommerceModalTitle: "Service de Création de Boutique E-commerce", ecommerceModalContent: "<p>We transform your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Plateformes & Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un tableau de bord riche.</li><li><b>Shopify :</b> Nous personnalisons les thèmes et développons des applications spéciales pour correspondre à votre identité de marque.</li><li><b>Solutions sur Mesure :</b> Pour les projets uniques, nous construisons des boutiques à partir de zéro en utilisant des technologies modernes.</li></ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24h/24 et 7j/7.</p>",
                     blogModalTitle: "Service d'Intégration de Blog", blogModalContent: "<p>Ajouter une section blog à votre site est un investissement stratégique pour créer un contenu de valeur qui attire les visiteurs, renforce la confiance et établit votre expertise dans votre domaine.</p><h4>Caractéristiques Clés</h4><ul><li>Système de gestion de contenu (CMS) facile à utiliser.</li><li>Catégorisation des articles par tags et catégories.</li><li>Possibilité de commenter et de partager sur les réseaux sociaux.</li><li>Structure des articles optimisée pour les moteurs de recherche.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente le trafic gratuit depuis Google, vous établit comme un expert dans votre domaine et fournit un contenu permanent à partager avec votre public.</p>",
                     bookingModalTitle: "Service de Systèmes de Réservation", bookingModalContent: "<p>Un système de réservation en ligne permet à vos clients de réserver des rendez-vous ou des services directement depuis votre site, à tout moment et de n'importe où, vous faisant gagner du temps, à vous et à eux.</p><h4>Caractéristiques Clés</h4><ul><li>Un calendrier affichant les disponibilités instantanément.</li><li>Option de prépaiement pour confirmer les réservations.</li><li>Confirmations et rappels automatiques par e-mail.</li><li>Un tableau de bord pour gérer les réservations, le personnel et les services.</li></ul><h4>Avantage pour votre entreprise</h4><p>Automatise le processus de planification des rendez-vous, réduit les absences et augmente l'efficacité de la gestion de votre temps et de votre entreprise.</p>",
-                    portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>Un portfolio est le moyen le plus professionnel de présenter vos compétences et vos projets antérieurs. C'est votre CV visuel qui témoigne de la qualité de votre travail.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries de photos et de vidéos de haute qualité.</li><li>Catégorisation des œuvres pour une navigation facile.</li><li>Une page pour chaque projet avec des détails et des témoignages de clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit puissamment votre marque personnelle ou d'entreprise.</p>"
+                    portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>A portfolio is the most professional way to present your skills and projects anterior. It's your visual resume that speaks to the quality of your work.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries de photos et de vidéos de haute qualité.</li><li>Catégorisation des œuvres pour une navigation facile.</li><li>Une page pour chaque projet avec des détails et des témoignages de clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit puissamment votre marque personnelle ou d'entreprise.</p>"
                 }
             };
             
@@ -603,6 +731,10 @@
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
             const modalTriggers = document.querySelectorAll('[data-modal-target]');
+            const pricingCarousel = document.getElementById('pricing-carousel');
+            const pricingCards = Array.from(document.querySelectorAll('.pricing-card'));
+            const prevBtn = document.querySelector('.carousel-nav-btn.prev');
+            const nextBtn = document.querySelector('.carousel-nav-btn.next');
 
             // --- Main Functions ---
 
@@ -884,6 +1016,46 @@
             function initSectionEntryAnimations() { }
             function handleParallaxEffect() { }
 
+            // --- Pricing Carousel Logic ---
+            let currentPricingCardIndex = 0;
+
+            function updatePricingCarousel() {
+                pricingCards.forEach((card, index) => {
+                    card.classList.remove('is-active', 'leaving');
+                    if (index === currentPricingCardIndex) {
+                        card.classList.add('is-active');
+                        // Ensure the active card is fully in view
+                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
+                });
+            }
+
+            function showNextPricingCard() {
+                if (currentPricingCardIndex < pricingCards.length - 1) {
+                    pricingCards[currentPricingCardIndex].classList.add('leaving'); // Animate current card out
+                    currentPricingCardIndex++;
+                    updatePricingCarousel();
+                } else {
+                    // Loop back to the first card if at the end
+                    pricingCards[currentPricingCardIndex].classList.add('leaving');
+                    currentPricingCardIndex = 0;
+                    updatePricingCarousel();
+                }
+            }
+
+            function showPrevPricingCard() {
+                if (currentPricingCardIndex > 0) {
+                    pricingCards[currentPricingCardIndex].classList.add('leaving'); // Animate current card out
+                    currentPricingCardIndex--;
+                    updatePricingCarousel();
+                } else {
+                    // Loop to the last card if at the beginning
+                    pricingCards[currentPricingCardIndex].classList.add('leaving');
+                    currentPricingCardIndex = pricingCards.length - 1;
+                    updatePricingCarousel();
+                }
+            }
+
             // --- Page Initialization ---
             function init() {
                 const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -951,6 +1123,22 @@
                         }
                     });
                 }
+
+                // Initialize pricing carousel
+                if (pricingCarousel && pricingCards.length > 0) {
+                    updatePricingCarousel(); // Show the first card
+                    prevBtn.addEventListener('click', showPrevPricingCard);
+                    nextBtn.addEventListener('click', showNextPricingCard);
+                    // Optional: Add keyboard navigation for carousel
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowLeft') {
+                            showPrevPricingCard();
+                        } else if (e.key === 'ArrowRight') {
+                            showNextPricingCard();
+                        }
+                    });
+                }
+
 
                 // Handle service card clicks (including blog link)
                 document.querySelectorAll('.service-card').forEach(card => {
@@ -1062,12 +1250,13 @@
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('is-visible');
+                            entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}ms`; // Apply delay from data-attribute
                             observer.unobserve(entry.target);
                         }
                     });
                 }, observerOptions);
                 processSteps.forEach((step, index) => {
-                    step.style.transitionDelay = `${index * 120}ms`; // Staggered animation
+                    step.dataset.delay = index * 120; // Staggered animation delay
                     stepObserver.observe(step);
                 });
             }
