@@ -184,7 +184,7 @@
         #about, #services, #process, #pricing, #cost-calculator, #website-test, #faq, #contact { opacity: 0; transform: translateY(40px); will-change: opacity, transform; transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); }
         #about.is-visible, #services.is-visible, #process.is-visible, #pricing.is-visible, #cost-calculator.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible { opacity: 1; transform: translateY(0); }
         
-        /* --- NEW BLUR-IN ANIMATION STYLES --- */
+        /* --- BLUR-IN ANIMATION STYLES --- */
         @keyframes blur-in-effect {
             to {
                 opacity: 1;
@@ -205,6 +205,27 @@
             animation-delay: var(--delay);
         }
         /* --- END BLUR-IN ANIMATION STYLES --- */
+        
+        /* --- SHINY TEXT ANIMATION --- */
+        .shiny-title {
+            background: linear-gradient(90deg, var(--subtle-text-color) 20%, var(--text-color) 40%, var(--primary-color) 50%, var(--text-color) 60%, var(--subtle-text-color) 80%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine-animation 6s linear infinite;
+            will-change: background-position;
+        }
+
+        @keyframes shine-animation {
+            0% {
+                background-position: 150% 0;
+            }
+            100% {
+                background-position: -150% 0;
+            }
+        }
+        /* --- END SHINY TEXT ANIMATION --- */
 
         #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 0 20px -8px var(--glow-color); transition-property: box-shadow, border-color, opacity, transform; }
         #about:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
@@ -629,7 +650,7 @@
         </section>
 
         <section id="about" class="container" data-section-name="من نحن" data-section-name-en="About" data-section-name-fr="À propos">
-            <h2 class="section-title" data-lang-key="aboutTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
+            <h2 class="section-title shiny-title" data-lang-key="aboutTitle"></h2>
             <div class="founder-content">
                 <div class="founder-avatar" id="founder-avatar"></div>
                 <div class="founder-bio">
@@ -640,7 +661,7 @@
         </section>
 
         <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
-            <h2 class="section-title" data-lang-key="servicesTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
+            <h2 class="section-title shiny-title" data-lang-key="servicesTitle"></h2>
             <div class="services-grid">
                 <div class="service-card" data-modal-target="landing-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8" class="page-corner"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
                 <div class="service-card" data-modal-target="multi-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
@@ -652,7 +673,7 @@
         </section>
 
         <section id="process" class="container" data-section-name="منهجية العمل" data-section-name-en="Our Process" data-section-name-fr="Notre Processus">
-            <h2 class="section-title" data-lang-key="processTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
+            <h2 class="section-title shiny-title" data-lang-key="processTitle"></h2>
             <div class="process-grid">
                 <div class="process-step">
                     <span class="process-step-number">01</span>
@@ -690,7 +711,7 @@
         </section>
 
         <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
-            <h2 class="section-title" data-lang-key="pricingTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
+            <h2 class="section-title shiny-title" data-lang-key="pricingTitle"></h2>
             <div class="pricing-carousel-container">
                 <div class="pricing-grid" id="pricing-carousel">
                     <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
@@ -708,29 +729,29 @@
 
         <section id="cost-calculator" class="container" data-section-name="حاسبة التكلفة" data-section-name-en="Cost Calculator" data-section-name-fr="Calculateur de Coût">
              <div class="container" style="padding-top: 2rem; padding-bottom: 2rem; text-align: center;">
-                 <h2 class="section-title" data-lang-key="calculatorTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80" style="margin-bottom: 1.5rem;"></h2>
+                 <h2 class="section-title shiny-title" data-lang-key="calculatorTitle" style="margin-bottom: 1.5rem;"></h2>
                  <a href="calculator.html" class="btn" data-lang-key="calculatorCTA" style="font-size: 1.1rem; padding: 1rem 2.5rem;"></a>
              </div>
         </section>
 
         <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test Your Site" data-section-name-fr="Testez Votre Site">
-             <h2 class="section-title" data-lang-key="testTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
+             <h2 class="section-title shiny-title" data-lang-key="testTitle"></h2>
              <div class="website-test-tool">
                  <div id="test-card-container">
                  </div>
                  <div id="test-progress-container">
-                       <div id="test-progress-bar"></div>
+                         <div id="test-progress-bar"></div>
                  </div>
              </div>
         </section>
 
         <section id="faq" class="container" data-section-name="الأسئلة الشائعة" data-section-name-en="FAQ" data-section-name-fr="FAQ">
-            <h2 class="section-title" data-lang-key="faqTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
+            <h2 class="section-title shiny-title" data-lang-key="faqTitle"></h2>
             <div class="faq-container"></div>
         </section>
 
         <section id="contact" class="container" data-section-name="اتصل بنا" data-section-name-en="Contact" data-section-name-fr="Contact">
-            <h2 class="section-title" data-lang-key="contactTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
+            <h2 class="section-title shiny-title" data-lang-key="contactTitle"></h2>
             <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
                 <input type="text" name="name" required data-lang-placeholder="formName">
                 <input type="email" name="email" required data-lang-placeholder="formEmail">
