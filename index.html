@@ -338,9 +338,16 @@
 
         #test-result-card .result-text.good { color: #28a745; }
         #test-result-card .result-text.bad { color: #dc3545; }
+        
+        #test-result-card .result-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
 
         #test-result-card .btn.retake {
-            margin-top: 1rem;
             background-color: transparent;
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
@@ -657,7 +664,15 @@
                     plan3Name: "الباقة المتكاملة", plan3Price: "9500", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
                     calculatorTitle: "لست متأكدًا أي باقة تختار؟", calculatorCTA: "جرّب الحاسبة التفاعلية",
                     testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
-                    testYes: "نعم", testNo: "لا", testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "قد تحتاج إلى ترقية. <a href='#contact' style='color: inherit; text-decoration: underline;'>دعنا نساعدك!</a>", testRetake: "أعد الاختبار",
+                    testYes: "نعم", testNo: "لا", testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "موقعك بحاجة لبعض التحسينات. دعنا نساعدك!", testRetake: "أعد الاختبار", testFixIssues: "ساعدوني في حل المشاكل",
+                    testIssues: {
+                        testQ1: "عدم تجاوب الموقع مع الهاتف",
+                        testQ2: "بطء تحميل الموقع",
+                        testQ3: "صعوبة تصفح المحتوى",
+                        testQ4: "تصميم غير احترافي",
+                        testQ5: "معلومات الاتصال غير واضحة"
+                    },
+                    testResultBadAutomatedMessage: "مرحباً،\n\nلقد استخدمت أداة اختبار الموقع وظهرت لدي بعض المشاكل، وأهمها:\n- {issues}\n\nأود الحصول على استشارة لتحسين موقعي. شكراً لكم.",
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
                     formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
@@ -688,7 +703,15 @@
                     plan3Name: "Premium Plan", plan3Price: "9500", plan3Feat1: "Unlimited multi-page site", plan3Feat2: "Unique and modern design", plan3Feat3: "CMS Integration", plan3Feat4: "Professional SEO optimization", plan3Feat5: "3-months technical support", plan3Feat6: "E-commerce with payment gateways",
                     calculatorTitle: "Not Sure Which Plan to Choose?", calculatorCTA: "Try the Interactive Calculator",
                     testTitle: "Is Your Current Website Good?", testQ1: "Is your site mobile-responsive?", testQ2: "Does your site load quickly?", testQ3: "Is your content easy to navigate?", testQ4: "Does your design look professional?", testQ5: "Is your contact information clear?",
-                    testYes: "Yes", testNo: "No", testResultGood: "Great! It seems your website is performing well.", testResultBad: "You might need an upgrade. <a href='#contact' style='color: inherit; text-decoration: underline;'>Let us help!</a>", testRetake: "Retake Test",
+                    testYes: "Yes", testNo: "No", testResultGood: "Great! It seems your website is performing well.", testResultBad: "Your site could use some improvements. Let us help!", testRetake: "Retake Test", testFixIssues: "Help Me Fix These Issues",
+                    testIssues: {
+                        testQ1: "Site is not mobile-responsive",
+                        testQ2: "Site loads slowly",
+                        testQ3: "Content is difficult to navigate",
+                        testQ4: "Design looks unprofessional",
+                        testQ5: "Contact information is not clear"
+                    },
+                    testResultBadAutomatedMessage: "Hello,\n\nI used your site testing tool and identified a few issues, including:\n- {issues}\n\nI'd like a consultation to improve my site. Thank you.",
                     faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.", faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.",
                     faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.", faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
                     contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your message...", formSubmit: "Send Message",
@@ -720,7 +743,15 @@
                     plan3Name: "Forfait Premium", plan3Price: "9500", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
                     calculatorTitle: "Pas Sûr Quel Forfait Choisir?", calculatorCTA: "Essayez le Calculateur Interactif",
                     testTitle: "Votre Site Actuel Est-il Bon?", testQ1: "Votre site est-il responsive sur mobile?", testQ2: "Votre site se charge-t-il rapidement?", testQ3: "Le contenu est-il facile à parcourir?", testQ4: "Votre design semble-t-il professionnel?", testQ5: "Vos informations de contact sont-elles claires?",
-                    testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Vous pourriez avoir besoin d'une mise à niveau. <a href='#contact' style='color: inherit; text-decoration: underline;'>Laissez-nous vous aider!</a>", testRetake: "Refaire le test",
+                    testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Votre site a besoin d'améliorations. Laissez-nous vous aider!", testRetake: "Refaire le test", testFixIssues: "Aidez-moi à résoudre ces problèmes",
+                     testIssues: {
+                        testQ1: "Le site n'est pas responsive sur mobile",
+                        testQ2: "Le site se charge lentement",
+                        testQ3: "Le contenu est difficile à naviguer",
+                        testQ4: "Le design semble non professionnel",
+                        testQ5: "Les informations de contact ne sont pas claires"
+                    },
+                    testResultBadAutomatedMessage: "Bonjour,\n\nJ'ai utilisé votre outil de test de site et j'ai identifié quelques problèmes, notamment:\n- {issues}\n\nJ'aimerais une consultation pour améliorer mon site. Merci.",
                     faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.",
                     faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.",
                     faqQ3: "Puis-je payer après la livraison?", faqA3: "Nous utilisons un système de paiement flexible: un acompte au début et le reste à la livraison finale.",
@@ -980,9 +1011,10 @@
                 if (!container || !progressBar) return;
 
                 let currentQuestionIndex = 0;
-                let answers = [];
+                let answers = []; // Will store objects: {key: 'testQ1', answer: 'no'}
                 let isAnimating = false;
                 const lang = langCycle[currentLangIndex];
+                const langData = translations[lang];
                 const qKeys = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
 
                 const resetTest = () => {
@@ -995,28 +1027,56 @@
                 };
 
                 const showResult = () => {
-                    const yesCount = answers.filter(a => a === 'yes').length;
+                    const yesCount = answers.filter(a => a.answer === 'yes').length;
                     const isGood = yesCount >= 4;
-                    const resultText = translations[lang][isGood ? 'testResultGood' : 'testResultBad'];
-                    const resultIcon = isGood ? '👍' : '🤔';
-
+                    
                     const resultCard = document.createElement('div');
                     resultCard.className = 'test-card';
                     resultCard.id = 'test-result-card';
-                    resultCard.innerHTML = `
-                        <div class="result-icon">${resultIcon}</div>
-                        <div class="result-text ${isGood ? 'good' : 'bad'}">${resultText}</div>
-                        <button class="btn retake">${translations[lang].testRetake}</button>
-                    `;
+
+                    if (isGood) {
+                        resultCard.innerHTML = `
+                            <div class="result-icon">👍</div>
+                            <div class="result-text good">${langData.testResultGood}</div>
+                            <div class="result-actions">
+                                <button class="btn retake">${langData.testRetake}</button>
+                            </div>
+                        `;
+                    } else {
+                        resultCard.innerHTML = `
+                            <div class="result-icon">🤔</div>
+                            <div class="result-text bad">${langData.testResultBad}</div>
+                            <div class="result-actions">
+                                <button class="btn" id="fix-my-site-btn">${langData.testFixIssues}</button>
+                                <button class="btn retake">${langData.testRetake}</button>
+                            </div>
+                        `;
+                    }
                     
                     container.appendChild(resultCard);
                     
-                    // Animate in
                     setTimeout(() => {
                         resultCard.classList.add('active');
                     }, 10);
 
                     resultCard.querySelector('.retake').addEventListener('click', resetTest);
+
+                    if (!isGood) {
+                        resultCard.querySelector('#fix-my-site-btn').addEventListener('click', () => {
+                            const noAnswers = answers.filter(a => a.answer === 'no');
+                            const issues = noAnswers.map(a => langData.testIssues[a.key]).join('\n- ');
+                            const finalMessage = langData.testResultBadAutomatedMessage.replace('{issues}', issues);
+                            
+                            const contactTextarea = document.getElementById('contact-message');
+                            const contactSection = document.getElementById('contact');
+
+                            if (contactTextarea && contactSection) {
+                                contactTextarea.value = finalMessage;
+                                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                setTimeout(() => { contactTextarea.focus(); }, 800); // Wait for scroll to finish
+                            }
+                        });
+                    }
                 };
 
                 const showQuestion = (index) => {
@@ -1026,20 +1086,19 @@
                     }
 
                     const questionKey = 'test' + qKeys[index];
-                    const questionText = translations[lang][questionKey];
+                    const questionText = langData[questionKey];
 
                     const card = document.createElement('div');
                     card.className = 'test-card';
                     card.innerHTML = `
                         <h3>${questionText}</h3>
                         <div class="answers">
-                            <button value="yes">${translations[lang].testYes}</button>
-                            <button value="no">${translations[lang].testNo}</button>
+                            <button value="yes">${langData.testYes}</button>
+                            <button value="no">${langData.testNo}</button>
                         </div>
                     `;
                     container.appendChild(card);
 
-                    // Animate in
                     setTimeout(() => {
                         card.classList.add('active');
                         isAnimating = false;
@@ -1049,25 +1108,25 @@
                         if (e.target.tagName !== 'BUTTON' || isAnimating) return;
                         
                         isAnimating = true;
-                        answers.push(e.target.value);
+                        answers.push({ key: questionKey, answer: e.target.value });
                         
-                        // Update progress bar
                         const progress = ((currentQuestionIndex + 1) / qKeys.length) * 100;
                         progressBar.style.width = `${progress}%`;
                         
-                        // Animate out current card
                         card.classList.remove('active');
                         card.classList.add('exiting');
                         
                         setTimeout(() => {
-                            container.removeChild(card);
+                            if (container.contains(card)) {
+                                container.removeChild(card);
+                            }
                             currentQuestionIndex++;
                             showQuestion(currentQuestionIndex);
-                        }, 500); // Match CSS transition duration
+                        }, 500);
                     });
                 };
 
-                resetTest(); // Start the test
+                resetTest();
             }
             // --- END OF NEW LOGIC ---
 
@@ -1111,13 +1170,7 @@
                     const carousel = targetCard.parentElement;
                     const cardWidth = targetCard.offsetWidth;
                     let scrollPosition = targetCard.offsetLeft - (carousel.offsetWidth / 2) + (cardWidth / 2);
-                    if (document.documentElement.dir === 'rtl') {
-                        // RTL scroll calculation might need adjustment based on browser behavior
-                        // This is a common approach
-                        const totalScrollWidth = carousel.scrollWidth;
-                        const rtlOffset = totalScrollWidth - targetCard.offsetLeft - cardWidth;
-                        scrollPosition = rtlOffset - (carousel.offsetWidth / 2) + (cardWidth / 2);
-                    }
+                    
                     carousel.scrollTo({ left: scrollPosition, behavior: behavior });
                 }
                 updateActiveClasses();
@@ -1156,7 +1209,6 @@
                     });
                 }
 
-                // NEW: Initialize 3D Tilt Effect for Service Cards
                 if (typeof VanillaTilt !== 'undefined') {
                     VanillaTilt.init(document.querySelectorAll(".service-card"), {
                         max: 15,
