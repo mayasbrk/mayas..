@@ -155,7 +155,56 @@
         .btn:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2), 0 0 10px var(--glow-color); }
         
         .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed), border-color var(--transition-speed); }
-        .logo { font-size: 1.8rem; font-weight: 700; color: var(--text-color); text-decoration: none; }
+        
+        /* --- GLITCH LOGO --- */
+        .logo {
+            position: relative;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            line-height: 1;
+        }
+        .logo > span {
+            position: relative;
+            z-index: 2;
+        }
+        .logo::before,
+        .logo::after {
+            content: 'solu_tion.dev';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--header-bg);
+            opacity: 0.8;
+            clip-path: inset(50% 0 50% 0);
+        }
+        .logo::before {
+            left: -2px;
+            text-shadow: 1px 0 var(--primary-hover);
+            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+        }
+        .logo::after {
+            left: 2px;
+            text-shadow: -1px 0 var(--glow-color);
+            animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+            0%, 15%, 17%, 48%, 52%, 73%, 77%, 100% { clip-path: inset(40% 0 61% 0); }
+            16% { clip-path: inset(10% 0 91% 0); }
+            50% { clip-path: inset(50% 0 51% 0); }
+            75% { clip-path: inset(30% 0 71% 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0%, 14%, 18%, 47%, 53%, 74%, 78%, 100% { clip-path: inset(20% 0 81% 0); }
+            16% { clip-path: inset(90% 0 11% 0); }
+            50% { clip-path: inset(40% 0 61% 0); }
+            76% { clip-path: inset(10% 0 91% 0); }
+        }
+        /* --- END GLITCH LOGO --- */
+
         .nav-container { display: flex; align-items: center; gap: 1.5rem; }
         .main-nav { list-style: none; display: flex; gap: 2rem; }
         .main-nav a { color: var(--subtle-text-color); text-decoration: none; font-weight: 500; transition: color var(--transition-speed), background-color 0.2s; }
@@ -618,7 +667,7 @@
     </nav>
 
     <header class="header">
-        <a href="#hero" class="logo">solu_tion.dev</a>
+        <a href="#hero" class="logo"><span>solu_tion.dev</span></a>
         <div class="nav-container">
             <nav>
                 <ul class="main-nav" id="main-nav">
