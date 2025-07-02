@@ -92,6 +92,78 @@
                 radial-gradient(circle at 80% 30%, #f3e8ff 0%, rgba(243, 232, 255, 0) 40%);
         }
 
+        /* --- INTRO OVERLAY --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 20000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 0.8s ease-out;
+        }
+        #intro-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .intro-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: intro-fade-in 1.5s ease-out 0.5s forwards;
+        }
+        .intro-content h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--glow-color);
+        }
+        .intro-content p {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--subtle-text-color);
+            margin-bottom: 2rem;
+        }
+        .intro-enter-prompt {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes intro-fade-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; text-shadow: 0 0 10px var(--glow-color); }
+            100% { opacity: 0.6; }
+        }
+        /* --- END INTRO OVERLAY --- */
+
+        #main-content.hidden {
+            display: none;
+        }
+
         .spotlight-effect {
             position: fixed;
             top: 0;
@@ -165,12 +237,8 @@
             text-decoration: none;
             line-height: 1;
         }
-        .logo > span {
-            position: relative;
-            z-index: 2;
-        }
-        .logo::before,
-        .logo::after {
+        .logo.glitch-active::before,
+        .logo.glitch-active::after {
             content: 'solu_tion.dev';
             position: absolute;
             top: 0;
@@ -181,12 +249,12 @@
             opacity: 0.8;
             clip-path: inset(50% 0 50% 0);
         }
-        .logo::before {
+        .logo.glitch-active::before {
             left: -2px;
             text-shadow: 1px 0 var(--primary-hover);
             animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
         }
-        .logo::after {
+        .logo.glitch-active::after {
             left: 2px;
             text-shadow: -1px 0 var(--glow-color);
             animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
@@ -652,193 +720,205 @@
     </style>
 </head>
 <body>
-
-    <!-- Custom Cursor Elements -->
-    <div class="custom-cursor-dot"></div>
-    <div class="custom-cursor-outline"></div>
-
-    <div class="spotlight-effect"></div>
-
-    <nav class="scroll-indicator hidden" id="scroll-indicator">
-        <div class="scroll-indicator-line"></div>
-        <div class="scroll-indicator-nav" id="scroll-indicator-nav">
-            <ul></ul>
+    <!-- Intro Overlay -->
+    <div id="intro-overlay">
+        <canvas id="matrix-canvas"></canvas>
+        <div class="intro-content">
+            <h1 data-lang-key="introWelcome"></h1>
+            <p data-lang-key="introExpertise"></p>
+            <p class="intro-enter-prompt" data-lang-key="introEnter"></p>
         </div>
-    </nav>
+    </div>
 
-    <header class="header">
-        <a href="#hero" class="logo"><span>solu_tion.dev</span></a>
-        <div class="nav-container">
-            <nav>
-                <ul class="main-nav" id="main-nav">
-                    <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
-                    <li><a href="#about" class="nav-link" data-lang-key="navAbout"></a></li>
-                    <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
-                    <li><a href="#process" class="nav-link" data-lang-key="navProcess"></a></li>
-                    <li><a href="#pricing" class="nav-link" data-lang-key="pricingTitle"></a></li>
-                    <li><a href="#website-test" class="nav-link" data-lang-key="navTest"></a></li>
-                    <li><a href="#faq" class="nav-link" data-lang-key="navFAQ"></a></li>
-                    <li><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="header-actions">
-            <button class="lang-toggle" id="header-lang-toggle" aria-label="Change language">AR</button>
-            <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme"></button>
-        </div>
-    </header>
+    <!-- Main Content (Initially Hidden) -->
+    <div id="main-content" class="hidden">
+        <!-- Custom Cursor Elements -->
+        <div class="custom-cursor-dot"></div>
+        <div class="custom-cursor-outline"></div>
 
-    <main>
-        <section id="hero" class="hero" data-section-name="الرئيسية" data-section-name-en="Home" data-section-name-fr="Accueil">
-            <canvas id="hero-canvas"></canvas>
-            <div class="hero-content">
-                <h1 id="hero-title-animated"></h1>
-                <p data-lang-key="heroSubtitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></p>
-                <a href="#contact" class="btn" data-lang-key="heroCTA"></a>
+        <div class="spotlight-effect"></div>
+
+        <nav class="scroll-indicator hidden" id="scroll-indicator">
+            <div class="scroll-indicator-line"></div>
+            <div class="scroll-indicator-nav" id="scroll-indicator-nav">
+                <ul></ul>
             </div>
-        </section>
+        </nav>
 
-        <section id="about" class="container" data-section-name="من نحن" data-section-name-en="About" data-section-name-fr="À propos">
-            <h2 class="section-title shiny-title" data-lang-key="aboutTitle"></h2>
-            <div class="founder-content">
-                <div class="founder-avatar" id="founder-avatar"></div>
-                <div class="founder-bio">
-                    <h3 data-lang-key="founderName" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h3>
-                    <p data-lang-key="founderText" data-animate="blur-in" data-animate-by="words" data-animate-delay="50"></p>
+        <header class="header">
+            <a href="#hero" class="logo">solu_tion.dev</a>
+            <div class="nav-container">
+                <nav>
+                    <ul class="main-nav" id="main-nav">
+                        <li><a href="#hero" class="nav-link" data-lang-key="navHome"></a></li>
+                        <li><a href="#about" class="nav-link" data-lang-key="navAbout"></a></li>
+                        <li><a href="#services" class="nav-link" data-lang-key="navServices"></a></li>
+                        <li><a href="#process" class="nav-link" data-lang-key="navProcess"></a></li>
+                        <li><a href="#pricing" class="nav-link" data-lang-key="pricingTitle"></a></li>
+                        <li><a href="#website-test" class="nav-link" data-lang-key="navTest"></a></li>
+                        <li><a href="#faq" class="nav-link" data-lang-key="navFAQ"></a></li>
+                        <li><a href="#contact" class="nav-link" data-lang-key="navContact"></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-actions">
+                <button class="lang-toggle" id="header-lang-toggle" aria-label="Change language">AR</button>
+                <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme"></button>
+            </div>
+        </header>
+
+        <main>
+            <section id="hero" class="hero" data-section-name="الرئيسية" data-section-name-en="Home" data-section-name-fr="Accueil">
+                <canvas id="hero-canvas"></canvas>
+                <div class="hero-content">
+                    <h1 id="hero-title-animated"></h1>
+                    <p data-lang-key="heroSubtitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></p>
+                    <a href="#contact" class="btn" data-lang-key="heroCTA"></a>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
-            <h2 class="section-title shiny-title" data-lang-key="servicesTitle"></h2>
-            <div class="services-grid">
-                <div class="service-card" data-modal-target="landing-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8" class="page-corner"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
-                <div class="service-card" data-modal-target="multi-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
-                <div class="service-card" data-modal-target="ecommerce-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="9" cy="21" r="1" class="cart-wheel"></circle><circle cx="20" cy="21" r="1" class="cart-wheel"></circle> <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path> </svg> </div> <h3 data-lang-key="service3"></h3> </div>
-                <div class="service-card" data-modal-target="blog-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path> <line class="blog-line" x1="15" y1="6" x2="18" y2="9"></line> </svg> </div> <h3 data-lang-key="service4"></h3> </div>
-                <div class="service-card" data-modal-target="booking-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line> <path d="m9 16 2 2 4-4" class="calendar-check"></path> </svg> </div> <h3 data-lang-key="service5"></h3> </div>
-                <div class="service-card" data-modal-target="portfolio-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="portfolio-image"></rect> <circle cx="8.5" cy="8.5" r="1.5" class="portfolio-image"></circle><polyline points="21 15 16 10 5 21" class="portfolio-image"></polyline> </svg> </div> <h3 data-lang-key="service6"></h3> </div>
-            </div>
-        </section>
-
-        <section id="process" class="container" data-section-name="منهجية العمل" data-section-name-en="Our Process" data-section-name-fr="Notre Processus">
-            <h2 class="section-title shiny-title" data-lang-key="processTitle"></h2>
-            <div class="process-grid">
-                <div class="process-step">
-                    <span class="process-step-number">01</span>
-                    <div class="process-icon-container">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <section id="about" class="container" data-section-name="من نحن" data-section-name-en="About" data-section-name-fr="À propos">
+                <h2 class="section-title shiny-title" data-lang-key="aboutTitle"></h2>
+                <div class="founder-content">
+                    <div class="founder-avatar" id="founder-avatar"></div>
+                    <div class="founder-bio">
+                        <h3 data-lang-key="founderName" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h3>
+                        <p data-lang-key="founderText" data-animate="blur-in" data-animate-by="words" data-animate-delay="50"></p>
                     </div>
-                    <h4 data-lang-key="process1Title"></h4>
-                    <p data-lang-key="process1Desc"></p>
                 </div>
-                <div class="process-step">
-                    <span class="process-step-number">02</span>
-                    <div class="process-icon-container">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                    </div>
-                    <h4 data-lang-key="process2Title"></h4>
-                    <p data-lang-key="process2Desc"></p>
-                </div>
-                <div class="process-step">
-                    <span class="process-step-number">03</span>
-                    <div class="process-icon-container">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                    </div>
-                    <h4 data-lang-key="process3Title"></h4>
-                    <p data-lang-key="process3Desc"></p>
-                </div>
-                <div class="process-step">
-                    <span class="process-step-number">04</span>
-                    <div class="process-icon-container">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 13.5V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4.5"></path><path d="M12 12L17.5 5.5 23 12M17.5 5.5L12 12"></path></svg>
-                    </div>
-                    <h4 data-lang-key="process4Title"></h4>
-                    <p data-lang-key="process4Desc"></p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
-            <h2 class="section-title shiny-title" data-lang-key="pricingTitle"></h2>
-            <div class="pricing-carousel-container">
-                <div class="pricing-grid" id="pricing-carousel">
-                    <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
-                    <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
-                    <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+            <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
+                <h2 class="section-title shiny-title" data-lang-key="servicesTitle"></h2>
+                <div class="services-grid">
+                    <div class="service-card" data-modal-target="landing-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8" class="page-corner"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
+                    <div class="service-card" data-modal-target="multi-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
+                    <div class="service-card" data-modal-target="ecommerce-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="9" cy="21" r="1" class="cart-wheel"></circle><circle cx="20" cy="21" r="1" class="cart-wheel"></circle> <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path> </svg> </div> <h3 data-lang-key="service3"></h3> </div>
+                    <div class="service-card" data-modal-target="blog-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path> <line class="blog-line" x1="15" y1="6" x2="18" y2="9"></line> </svg> </div> <h3 data-lang-key="service4"></h3> </div>
+                    <div class="service-card" data-modal-target="booking-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line> <path d="m9 16 2 2 4-4" class="calendar-check"></path> </svg> </div> <h3 data-lang-key="service5"></h3> </div>
+                    <div class="service-card" data-modal-target="portfolio-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="portfolio-image"></rect> <circle cx="8.5" cy="8.5" r="1.5" class="portfolio-image"></circle><polyline points="21 15 16 10 5 21" class="portfolio-image"></polyline> </svg> </div> <h3 data-lang-key="service6"></h3> </div>
                 </div>
-                <button class="carousel-nav-btn prev" aria-label="Previous Plan">
-                    <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path></svg>
-                </button>
-                <button class="carousel-nav-btn next" aria-label="Next Plan">
-                    <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg>
-                </button>
-            </div>
-        </section>
+            </section>
 
-        <section id="cost-calculator" class="container" data-section-name="حاسبة التكلفة" data-section-name-en="Cost Calculator" data-section-name-fr="Calculateur de Coût">
-             <div class="container" style="padding-top: 2rem; padding-bottom: 2rem; text-align: center;">
-                 <h2 class="section-title shiny-title" data-lang-key="calculatorTitle" style="margin-bottom: 1.5rem;"></h2>
-                 <a href="calculator.html" class="btn" data-lang-key="calculatorCTA" style="font-size: 1.1rem; padding: 1rem 2.5rem;"></a>
-             </div>
-        </section>
+            <section id="process" class="container" data-section-name="منهجية العمل" data-section-name-en="Our Process" data-section-name-fr="Notre Processus">
+                <h2 class="section-title shiny-title" data-lang-key="processTitle"></h2>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <span class="process-step-number">01</span>
+                        <div class="process-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        </div>
+                        <h4 data-lang-key="process1Title"></h4>
+                        <p data-lang-key="process1Desc"></p>
+                    </div>
+                    <div class="process-step">
+                        <span class="process-step-number">02</span>
+                        <div class="process-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        </div>
+                        <h4 data-lang-key="process2Title"></h4>
+                        <p data-lang-key="process2Desc"></p>
+                    </div>
+                    <div class="process-step">
+                        <span class="process-step-number">03</span>
+                        <div class="process-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        </div>
+                        <h4 data-lang-key="process3Title"></h4>
+                        <p data-lang-key="process3Desc"></p>
+                    </div>
+                    <div class="process-step">
+                        <span class="process-step-number">04</span>
+                        <div class="process-icon-container">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 13.5V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4.5"></path><path d="M12 12L17.5 5.5 23 12M17.5 5.5L12 12"></path></svg>
+                        </div>
+                        <h4 data-lang-key="process4Title"></h4>
+                        <p data-lang-key="process4Desc"></p>
+                    </div>
+                </div>
+            </section>
 
-        <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test Your Site" data-section-name-fr="Testez Votre Site">
-             <h2 class="section-title shiny-title" data-lang-key="testTitle"></h2>
-             <div class="website-test-tool">
-                 <div id="test-card-container">
+            <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
+                <h2 class="section-title shiny-title" data-lang-key="pricingTitle"></h2>
+                <div class="pricing-carousel-container">
+                    <div class="pricing-grid" id="pricing-carousel">
+                        <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                        <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                        <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                    </div>
+                    <button class="carousel-nav-btn prev" aria-label="Previous Plan">
+                        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path></svg>
+                    </button>
+                    <button class="carousel-nav-btn next" aria-label="Next Plan">
+                        <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg>
+                    </button>
+                </div>
+            </section>
+
+            <section id="cost-calculator" class="container" data-section-name="حاسبة التكلفة" data-section-name-en="Cost Calculator" data-section-name-fr="Calculateur de Coût">
+                 <div class="container" style="padding-top: 2rem; padding-bottom: 2rem; text-align: center;">
+                     <h2 class="section-title shiny-title" data-lang-key="calculatorTitle" style="margin-bottom: 1.5rem;"></h2>
+                     <a href="calculator.html" class="btn" data-lang-key="calculatorCTA" style="font-size: 1.1rem; padding: 1rem 2.5rem;"></a>
                  </div>
-                 <div id="test-progress-container">
-                         <div id="test-progress-bar"></div>
+            </section>
+
+            <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test Your Site" data-section-name-fr="Testez Votre Site">
+                 <h2 class="section-title shiny-title" data-lang-key="testTitle"></h2>
+                 <div class="website-test-tool">
+                     <div id="test-card-container">
+                     </div>
+                     <div id="test-progress-container">
+                             <div id="test-progress-bar"></div>
+                     </div>
                  </div>
-             </div>
-        </section>
+            </section>
 
-        <section id="faq" class="container" data-section-name="الأسئلة الشائعة" data-section-name-en="FAQ" data-section-name-fr="FAQ">
-            <h2 class="section-title shiny-title" data-lang-key="faqTitle"></h2>
-            <div class="faq-container"></div>
-        </section>
+            <section id="faq" class="container" data-section-name="الأسئلة الشائعة" data-section-name-en="FAQ" data-section-name-fr="FAQ">
+                <h2 class="section-title shiny-title" data-lang-key="faqTitle"></h2>
+                <div class="faq-container"></div>
+            </section>
 
-        <section id="contact" class="container" data-section-name="اتصل بنا" data-section-name-en="Contact" data-section-name-fr="Contact">
-            <h2 class="section-title shiny-title" data-lang-key="contactTitle"></h2>
-            <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
-                <input type="text" name="name" required data-lang-placeholder="formName">
-                <input type="email" name="email" required data-lang-placeholder="formEmail">
-                <textarea id="contact-message" name="message" required data-lang-placeholder="formMessage"></textarea>
-                <button type="submit" class="btn" data-lang-key="formSubmit"></button>
-            </form>
-            <p id="form-status"></p>
-            <p class="contact-direct-title" data-lang-key="contactSubtitle"></p>
-            <div class="contact-direct-links">
-                <a href="tel:+213542511548"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> <span>0542 51 15 48</span> </a>
-                <a href="mailto:solutiondev000@gmail.com"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <span>solutiondev000@gmail.com</span> </a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <div class="footer-social"> <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594-.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg> </a> </div>
-                <div class="footer-legal">
-                    <button data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
-                    <button data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
+            <section id="contact" class="container" data-section-name="اتصل بنا" data-section-name-en="Contact" data-section-name-fr="Contact">
+                <h2 class="section-title shiny-title" data-lang-key="contactTitle"></h2>
+                <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
+                    <input type="text" name="name" required data-lang-placeholder="formName">
+                    <input type="email" name="email" required data-lang-placeholder="formEmail">
+                    <textarea id="contact-message" name="message" required data-lang-placeholder="formMessage"></textarea>
+                    <button type="submit" class="btn" data-lang-key="formSubmit"></button>
+                </form>
+                <p id="form-status"></p>
+                <p class="contact-direct-title" data-lang-key="contactSubtitle"></p>
+                <div class="contact-direct-links">
+                    <a href="tel:+213542511548"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> <span>0542 51 15 48</span> </a>
+                    <a href="mailto:solutiondev000@gmail.com"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <span>solutiondev000@gmail.com</span> </a>
                 </div>
-            </div>
-            <p class="footer-copy" data-lang-key="footerCredit"></p>
-        </div>
-    </footer>
-    
-    <div class="modal" id="privacy-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="privacyTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="privacyContent"></div> </div> </div>
-    <div class="modal" id="terms-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="termsTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="termsContent"></div> </div> </div>
-    <div class="modal" id="landing-page-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="landingPageModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="landingPageModalContent"></div> </div> </div>
-    <div class="modal" id="multi-page-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="multiPageModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="multiPageModalContent"></div> </div> </div>
-    <div class="modal" id="ecommerce-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="ecommerceModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="ecommerceModalContent"></div> </div> </div>
-    <div class="modal" id="blog-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="blogModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="blogModalContent"></div> </div> </div>
-    <div class="modal" id="booking-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="bookingModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="bookingModalContent"></div> </div> </div>
-    <div class="modal" id="portfolio-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="portfolioModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="portfolioModalContent"></div> </div> </div>
+            </section>
+        </main>
 
-    <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg> </button>
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <div class="footer-social"> <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594-.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg> </a> </div>
+                    <div class="footer-legal">
+                        <button data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
+                        <button data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
+                    </div>
+                </div>
+                <p class="footer-copy" data-lang-key="footerCredit"></p>
+            </div>
+        </footer>
+        
+        <div class="modal" id="privacy-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="privacyTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="privacyContent"></div> </div> </div>
+        <div class="modal" id="terms-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="termsTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="termsContent"></div> </div> </div>
+        <div class="modal" id="landing-page-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="landingPageModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="landingPageModalContent"></div> </div> </div>
+        <div class="modal" id="multi-page-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="multiPageModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="multiPageModalContent"></div> </div> </div>
+        <div class="modal" id="ecommerce-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="ecommerceModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="ecommerceModalContent"></div> </div> </div>
+        <div class="modal" id="blog-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="blogModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="blogModalContent"></div> </div> </div>
+        <div class="modal" id="booking-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="bookingModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="bookingModalContent"></div> </div> </div>
+        <div class="modal" id="portfolio-modal"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title" data-lang-key="portfolioModalTitle"></h3> <button class="modal-close" aria-label="Close modal">&times;</button> </div> <div class="modal-body" data-lang-key="portfolioModalContent"></div> </div> </div>
+
+        <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg> </button>
+    </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -850,6 +930,7 @@
             
             const translations = {
                 ar: {
+                    introWelcome: "أهلاً بك في عالمي الرقمي", introExpertise: "حيث تتحول الأفكار إلى تجارب إبداعية", introEnter: "انقر للدخول",
                     navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navProcess: "منهجية العمل", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا", pricingTitle: "الأسعار",
                     heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
                     heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
@@ -889,6 +970,7 @@
                     portfolioModalTitle: "خدمة معرض الأعمال (Portfolio)", portfolioModalContent: "<p>معرض الأعمال هو الطريقة الأكثر احترافية لعرض مهاراتك ومشاريعك السابقة. إنه سيرتك الذاتية المرئية التي تتحدث عن جودة عملك.</p><h4>الميزات الأساسية</h4><ul><li>تصميم أنيق يركز على عرض أعمالك.</li><li>معارض صور وفيديو عالية الجودة.</li><li>تقسيم الأعمال حسب الفئة لتسهيل التصفح.</li><li>صفحة لكل مشروع تحتوي على تفاصيل وشهادات العملاء.</li></ul><h4>فائدة ذلك لعملك</h4><p>يعرض خبرتك بشكل ملموس، يجذب عملاء جدد يقدرون الجودة، ويبني علامتك الشخصية أو التجارية بقوة.</p>"
                 },
                 en: {
+                    introWelcome: "Welcome to My Digital Realm", introExpertise: "Where Ideas are Forged into Creative Experiences", introEnter: "Click to Enter",
                     navHome: "Home", navAbout: "About", navServices: "Services", navProcess: "Our Process", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Pricing",
                     heroTitle: ["We Design a Professional Digital Identity", "We Turn Your Ideas Into Reality", "Innovative Web Solutions"],
                     heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Request a Free Consultation",
@@ -929,6 +1011,7 @@
                     portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality photo and video galleries.</li><li>Categorization of works for easy Browse.</li><li>A page for each project with details and client testimonials.</li><li>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</li></ul><h4>Benefit for Your Business</h4><p>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</p>"
                 },
                 fr: {
+                    introWelcome: "Bienvenue dans Mon Monde Numérique", introExpertise: "Où les idées se transforment en expériences créatives", introEnter: "Cliquez pour Entrer",
                     navHome: "Accueil", navAbout: "À propos", navServices: "Services", navProcess: "Notre Processus", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
                     heroTitle: ["Nous Créons Votre Identité Numérique Professionnelle", "Nous Transformons Vos Idées en Réalité", "Solutions Web Innovantes"],
                     heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Demander une Consultation Gratuite",
@@ -978,6 +1061,8 @@
             let blurInAnimationObserver;
             let scrollActivityTimeout; 
             const langCycle = ['ar', 'en', 'fr'];
+            const introOverlay = document.getElementById('intro-overlay');
+            const mainContent = document.getElementById('main-content');
             const scrollIndicator = document.getElementById('scroll-indicator');
             const scrollIndicatorNav = document.getElementById('scroll-indicator-nav').querySelector('ul');
             const pageSections = document.querySelectorAll('main > section[id]');
@@ -1185,13 +1270,17 @@
                     const titles = { ar: 'العودة للأعلى', en: 'Back to top', fr: 'Retour en haut' };
                     scrollTopBtn.title = titles[langCode];
                 }
-                startTypingEffect();
-                createFAQ();
-                initWebsiteTestTool();
-                initBlurInAnimation();
-                createScrollIndicator();
-                initPricingCarousel();
-                setupCursorHoverEffects();
+                
+                // Defer main site animations until after intro
+                if (!mainContent.classList.contains('hidden')) {
+                    startTypingEffect();
+                    createFAQ();
+                    initWebsiteTestTool();
+                    initBlurInAnimation();
+                    createScrollIndicator();
+                    initPricingCarousel();
+                    setupCursorHoverEffects();
+                }
             }
 
             function createScrollIndicator() {
@@ -1626,49 +1715,22 @@
                 });
             }
 
-            function init() {
-                const savedTheme = localStorage.getItem('theme') || 'dark';
-                document.body.classList.toggle('light-mode', savedTheme === 'light');
-                updateThemeIcons(savedTheme === 'light');
-                const savedLang = localStorage.getItem('siteLang');
-                let initialLang = 'ar';
-                if (savedLang && langCycle.includes(savedLang)) {
-                    initialLang = savedLang;
-                } else {
-                    const browserLang = navigator.language.split('-')[0];
-                    if (langCycle.includes(browserLang)) {
-                        initialLang = browserLang;
-                    }
-                }
-                currentLangIndex = langCycle.indexOf(initialLang);
-                updateLanguage(initialLang);
-                
-                const spotlight = document.querySelector('.spotlight-effect');
-                if (spotlight) {
-                    window.addEventListener('mousemove', (e) => {
-                        requestAnimationFrame(() => {
-                            spotlight.style.setProperty('--mouse-x', e.clientX + 'px');
-                            spotlight.style.setProperty('--mouse-y', e.clientY + 'px');
-                        });
-                    });
+            function initMainSite() {
+                // This function initializes all features of the main site
+                const logo = document.querySelector('.logo');
+                if (logo) {
+                    // Activate glitch animation after a short delay for better effect
+                    setTimeout(() => {
+                        logo.classList.add('glitch-active');
+                    }, 500);
                 }
 
-                if (typeof VanillaTilt !== 'undefined') {
-                    VanillaTilt.init(document.querySelectorAll(".service-card"), {
-                        max: 15, speed: 400, glare: true, "max-glare": 0.4, perspective: 1000
-                    });
-                }
-                
-                document.body.addEventListener('click', initSoundEngine, { once: true });
-                document.body.addEventListener('mouseover', initSoundEngine, { once: true });
-                
-                // Initialize all functionalities
                 applyMicroInteractions();
                 init3DHero();
                 handleScroll();
                 initSectionEntryAnimations();
                 initServiceCardAnimations();
-                initProcessStepAnimations(); // This is now correctly implemented and called
+                initProcessStepAnimations();
                 
                 document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
                 document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
@@ -1745,9 +1807,91 @@
                 if (founderAvatar) {
                     founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
                 }
+
+                // Call updateLanguage again to trigger animations that depend on it
+                updateLanguage(langCycle[currentLangIndex]);
             }
 
-            init();
+            function initIntro() {
+                const canvas = document.getElementById('matrix-canvas');
+                const ctx = canvas.getContext('2d');
+
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+                const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const nums = '0123456789';
+                const alphabet = katakana + latin + nums;
+
+                const fontSize = 16;
+                const columns = canvas.width / fontSize;
+                const rainDrops = [];
+
+                for (let x = 0; x < columns; x++) {
+                    rainDrops[x] = 1;
+                }
+
+                const draw = () => {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.fillStyle = '#8B5CF6'; // Use primary color for the rain
+                    ctx.font = fontSize + 'px monospace';
+
+                    for (let i = 0; i < rainDrops.length; i++) {
+                        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                            rainDrops[i] = 0;
+                        }
+                        rainDrops[i]++;
+                    }
+                };
+
+                const introAnimationInterval = setInterval(draw, 33);
+
+                introOverlay.addEventListener('click', () => {
+                    playSound('click', 'E5');
+                    introOverlay.classList.add('hidden');
+                    mainContent.classList.remove('hidden');
+                    
+                    // Stop intro animation and clean up
+                    clearInterval(introAnimationInterval);
+                    
+                    setTimeout(() => {
+                        introOverlay.style.display = 'none';
+                        // Initialize the main site's functionality
+                        initMainSite();
+                    }, 800); // Match transition duration
+                }, { once: true });
+            }
+
+            // Initial setup
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.classList.toggle('light-mode', savedTheme === 'light');
+            updateThemeIcons(savedTheme === 'light');
+            const savedLang = localStorage.getItem('siteLang');
+            let initialLang = 'ar';
+            if (savedLang && langCycle.includes(savedLang)) {
+                initialLang = savedLang;
+            } else {
+                const browserLang = navigator.language.split('-')[0];
+                if (langCycle.includes(browserLang)) {
+                    initialLang = browserLang;
+                }
+            }
+            currentLangIndex = langCycle.indexOf(initialLang);
+            
+            // Set intro text before showing it
+            const langData = translations[initialLang];
+            document.querySelector('.intro-content h1').textContent = langData.introWelcome;
+            document.querySelector('.intro-content p:not(.intro-enter-prompt)').textContent = langData.introExpertise;
+            document.querySelector('.intro-enter-prompt').textContent = langData.introEnter;
+
+            initIntro();
+
         });
     </script>
 </body>
