@@ -9,8 +9,10 @@
     <title>solu_tion.dev | تصميم مواقع احترافية</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
     
+    <!-- External Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <!-- Three.js Library for 3D element -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.165.0/three.min.js"></script>
 
     <style>
@@ -125,7 +127,7 @@
         .lang-toggle:hover { color: var(--primary-hover); border-color: var(--primary-hover); }
         
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-        /* NEW STYLE for 3D Canvas */
+        /* Style for the 3D Canvas */
         #hero-canvas {
             position: absolute;
             top: 0;
@@ -244,7 +246,7 @@
         
         #cost-calculator .container { text-align: center; }
 
-        /* --- NEW STYLES FOR WEBSITE TEST TOOL --- */
+        /* --- STYLES FOR WEBSITE TEST TOOL --- */
         .website-test-tool {
             max-width: 700px;
             margin: 0 auto;
@@ -372,7 +374,7 @@
              background-color: var(--primary-color);
              color: var(--primary-text-color);
         }
-        /* --- END OF NEW STYLES --- */
+        /* --- END OF TEST TOOL STYLES --- */
 
 
         .faq-container { max-width: 800px; margin: 0 auto; }
@@ -448,7 +450,7 @@
         .scroll-indicator-nav li:not(.active) a:hover .dot { transform: translateY(-50%) scale(1.4); box-shadow: 0 0 10px var(--glow-color); }
         .scroll-indicator-nav li:not(.active) a:hover .section-name { text-shadow: 0 0 6px var(--glow-color); }
         
-        /* --- NEW: Micro-interaction Styles --- */
+        /* --- Micro-interaction Styles --- */
         @keyframes shake-error {
             0%, 100% { transform: translateX(0); }
             10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
@@ -510,6 +512,7 @@
 
     <main>
         <section id="hero" class="hero" data-section-name="الرئيسية" data-section-name-en="Home" data-section-name-fr="Accueil">
+            <!-- Canvas for 3D Element -->
             <canvas id="hero-canvas"></canvas>
             <div class="hero-content">
                 <h1 id="hero-title-animated"></h1>
@@ -607,12 +610,14 @@
              <h2 class="section-title" data-lang-key="testTitle" data-animate="slide-up-words"></h2>
              <div class="website-test-tool">
                  <div id="test-card-container">
-                     </div>
+                     <!-- Interactive cards will be injected here by JavaScript -->
+                 </div>
                  <div id="test-progress-container">
                      <div id="test-progress-bar"></div>
                  </div>
              </div>
         </section>
+
         <section id="faq" class="container" data-section-name="الأسئلة الشائعة" data-section-name-en="FAQ" data-section-name-fr="FAQ">
             <h2 class="section-title" data-lang-key="faqTitle" data-animate="slide-up-words"></h2>
             <div class="faq-container"></div>
@@ -808,17 +813,13 @@
             const prevBtn = document.querySelector('.carousel-nav-btn.prev');
             const nextBtn = document.querySelector('.carousel-nav-btn.next');
 
-            // --- NEW: Sound Engine & Micro-interactions ---
-
+            // --- Sound Engine & Micro-interactions ---
             let soundEnabled = false;
             let synths = {};
 
-            // Initialize sounds on first user interaction to comply with browser autoplay policies
             function initSoundEngine() {
                 if (soundEnabled || typeof Tone === 'undefined') return;
-                
                 Tone.start();
-                
                 synths.click = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 0.1 }, volume: -18 }).toDestination();
                 synths.hover = new Tone.MembraneSynth({ pitchDecay: 0.008, octaves: 2, envelope: { attack: 0.0006, decay: 0.2, sustain: 0 }, volume: -24 }).toDestination();
                 synths.toggleOn = new Tone.Synth({ oscillator: { type: 'triangle' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.01, release: 0.1 }, volume: -18 }).toDestination();
@@ -826,11 +827,9 @@
                 synths.success = new Tone.Synth({ oscillator: { type: 'triangle' }, envelope: { attack: 0.005, decay: 0.2, sustain: 0.1, release: 0.1 }, volume: -16 }).toDestination();
                 synths.error = new Tone.Synth({ oscillator: { type: 'square' }, envelope: { attack: 0.01, decay: 0.3, sustain: 0, release: 0.1 }, volume: -18 }).toDestination();
                 synths.formFocus = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.001, decay: 0.1, sustain: 0.1, release: 0.1 }, volume: -25 }).toDestination();
-                
                 soundEnabled = true;
             }
 
-            // Sound playing functions
             const playSound = (type, note = 'C5', duration = '16n') => {
                 if (soundEnabled && synths[type]) {
                     synths[type].triggerAttackRelease(note, duration);
@@ -838,16 +837,9 @@
             };
             
             function applyMicroInteractions() {
-                // General interactive elements for hover and click effects
-                const interactiveElements = document.querySelectorAll(
-                    '.btn, .theme-toggle, .lang-toggle, .main-nav a, .faq-question, .carousel-nav-btn, .footer-legal button, .scroll-indicator-nav li a, .service-card, .process-step, .contact-direct-links a, .modal-close'
-                );
-
+                const interactiveElements = document.querySelectorAll('.btn, .theme-toggle, .lang-toggle, .main-nav a, .faq-question, .carousel-nav-btn, .footer-legal button, .scroll-indicator-nav li a, .service-card, .process-step, .contact-direct-links a, .modal-close');
                 interactiveElements.forEach(el => {
-                    // Hover sound
                     el.addEventListener('mouseenter', () => playSound('hover', 'C3', '32n'));
-                    
-                    // Click sound and visual feedback
                     el.addEventListener('mousedown', () => {
                         playSound('click', 'C5', '8n');
                         el.style.transition = 'transform 0.1s ease';
@@ -857,7 +849,6 @@
                     el.addEventListener('mouseleave', () => el.style.transform = el.style.transform.replace(' scale(0.95)', ''));
                 });
 
-                // Form validation and sound feedback
                 const formInputs = document.querySelectorAll('#contact-form input, #contact-form textarea');
                 formInputs.forEach(input => {
                     input.addEventListener('focus', () => playSound('formFocus', 'C4'));
@@ -874,10 +865,9 @@
                                 setTimeout(() => input.classList.remove('shake-error'), 500);
                             }
                         } else {
-                            input.style.borderColor = ''; // Reset
+                            input.style.borderColor = '';
                         }
                     });
-                     // Reset border on new input to provide instant feedback
                     input.addEventListener('input', () => {
                         if (input.style.borderColor !== 'var(--border-color)') {
                            input.style.borderColor = '';
@@ -886,9 +876,7 @@
                 });
             }
 
-            // --- END: Sound Engine & Micro-interactions ---
-
-            // --- NEW: 3D HERO ELEMENT LOGIC ---
+            // --- 3D HERO ELEMENT LOGIC (Optimized for Mobile) ---
             function init3DHero() {
                 if (typeof THREE === 'undefined') {
                     console.error("Three.js library is not loaded.");
@@ -900,8 +888,7 @@
 
                 const scene = new THREE.Scene();
                 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                camera.position.z = 5;
-
+                
                 const renderer = new THREE.WebGLRenderer({
                     canvas: canvas,
                     alpha: true, // Transparent background
@@ -910,13 +897,16 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-                // The 3D Shape
-                const geometry = new THREE.IcosahedronGeometry(2.2, 0); // Radius 2.2, subdivision 0
+                // --- MODIFICATION: Adjust size and camera for mobile ---
+                const isMobile = window.innerWidth < 768;
+                const geometry = new THREE.IcosahedronGeometry(isMobile ? 1.8 : 2.2, 0); 
+                camera.position.z = isMobile ? 6 : 5;
+                // --- END MODIFICATION ---
+
                 const material = new THREE.MeshNormalMaterial({ flatShading: true });
                 const shape = new THREE.Mesh(geometry, material);
                 scene.add(shape);
 
-                // Mouse interaction variables
                 let mouseX = 0;
                 let mouseY = 0;
                 let targetX = 0;
@@ -931,26 +921,20 @@
                 }
                 document.addEventListener('mousemove', onDocumentMouseMove);
 
-                // Animation loop
                 const clock = new THREE.Clock();
                 const animate = () => {
                     targetX = mouseX * .002;
                     targetY = mouseY * .002;
 
-                    const elapsedTime = clock.getElapsedTime();
-
-                    // Automatic rotation + mouse follow
                     shape.rotation.y += .002 + (targetX - shape.rotation.y) * .05;
                     shape.rotation.x += .002 + (targetY - shape.rotation.x) * .05;
                     shape.rotation.z += .002;
-
 
                     renderer.render(scene, camera);
                     window.requestAnimationFrame(animate);
                 };
                 animate();
 
-                // Handle window resizing
                 window.addEventListener('resize', () => {
                     camera.aspect = window.innerWidth / window.innerHeight;
                     camera.updateProjectionMatrix();
@@ -958,7 +942,6 @@
                     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 }, { passive: true });
             }
-            // --- END OF 3D HERO LOGIC ---
 
 
             function handleScroll() {
@@ -1019,7 +1002,7 @@
                 }
                 startTypingEffect();
                 createFAQ();
-                initWebsiteTestTool(); // Re-initialize the test tool for the new language
+                initWebsiteTestTool();
                 initTextAnimations(); 
                 createScrollIndicator();
                 initPricingCarousel();
@@ -1165,7 +1148,6 @@
                     const answer = faqItem.querySelector('.faq-answer');
                     const isActive = faqItem.classList.contains('active');
                     
-                    // Close other active items
                     faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
                         if (item !== faqItem) {
                             item.classList.remove('active');
@@ -1174,7 +1156,6 @@
                         }
                     });
 
-                    // Toggle current item
                     if (!isActive) {
                         playSound('toggleOn', 'E5');
                         faqItem.classList.add('active');
@@ -1189,14 +1170,13 @@
                 });
             }
             
-            // --- NEW INTERACTIVE TEST TOOL LOGIC ---
             function initWebsiteTestTool() {
                 const container = document.getElementById('test-card-container');
                 const progressBar = document.getElementById('test-progress-bar');
                 if (!container || !progressBar) return;
 
                 let currentQuestionIndex = 0;
-                let answers = []; // Will store objects: {key: 'testQ1', answer: 'no'}
+                let answers = [];
                 let isAnimating = false;
                 const lang = langCycle[currentLangIndex];
                 const langData = translations[lang];
@@ -1260,7 +1240,7 @@
                             if (contactTextarea && contactSection) {
                                 contactTextarea.value = finalMessage;
                                 contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                setTimeout(() => { contactTextarea.focus(); }, 800); // Wait for scroll to finish
+                                setTimeout(() => { contactTextarea.focus(); }, 800);
                             }
                         });
                     }
@@ -1315,7 +1295,6 @@
 
                 resetTest();
             }
-            // --- END OF NEW LOGIC ---
 
             function initTextAnimations() {}
             function initServiceCardAnimations() {}
@@ -1406,12 +1385,10 @@
                     });
                 }
                 
-                // Initialize sound and interactions
                 document.body.addEventListener('click', initSoundEngine, { once: true });
                 document.body.addEventListener('mouseover', initSoundEngine, { once: true });
                 applyMicroInteractions();
                 
-                // NEW: Initialize the 3D Hero
                 init3DHero();
 
                 handleScroll();
