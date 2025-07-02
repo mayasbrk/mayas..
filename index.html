@@ -127,16 +127,15 @@
         .lang-toggle:hover { color: var(--primary-hover); border-color: var(--primary-hover); }
         
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-        /* Style for the 3D Canvas */
         #hero-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* Behind hero content, in front of body::before */
+            z-index: 0;
         }
-        .hero-content { position: relative; z-index: 1; /* Ensure content is on top of the canvas */ }
+        .hero-content { position: relative; z-index: 1; }
         .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; }
         .hero-content .typing-cursor { border-right: 4px solid var(--primary-color); animation: blink 0.7s step-end infinite; }
         @keyframes blink { 50% { border-color: transparent; } }
@@ -157,7 +156,6 @@
         .slide-up-words.is-visible span .word { transform: translateY(0); }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         
-        /* Modified for 3D Tilt Effect */
         .service-card {
             background-color: var(--surface-color);
             padding: 2.5rem 2rem;
@@ -167,26 +165,24 @@
             display: flex;
             flex-direction: column;
             opacity: 0;
-            transform: translateY(40px); /* Initial animation state */
+            transform: translateY(40px);
             will-change: transform, opacity;
             transition: opacity 0.6s var(--ease-out-quart), transform 0.6s var(--ease-out-quart), box-shadow var(--transition-speed);
-            transform-style: preserve-3d; /* Required for 3D effect */
+            transform-style: preserve-3d;
         }
         .service-card.is-visible { 
             opacity: 1; 
-            transform: translateY(0) perspective(1000px); /* Add perspective on visible */
+            transform: translateY(0) perspective(1000px);
         }
         .service-card:hover { 
-            /* The vanilla-tilt.js library will handle the transform on hover */
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 12px -2px var(--glow-color); 
         }
 
         .service-card[data-modal-target], .service-card.blog-link { cursor: pointer; }
-        .service-icon-container { width: 100px; height: 100px; margin: 0 auto 1.5rem auto; transform: translateZ(20px); /* Make icon pop out a bit */ }
+        .service-icon-container { width: 100px; height: 100px; margin: 0 auto 1.5rem auto; transform: translateZ(20px); }
         .service-icon-container svg { width: 100%; height: 100%; stroke: var(--primary-color); }
-        .service-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--text-color); margin-top: auto; transform: translateZ(15px); /* Make text pop out a bit */ }
+        .service-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--text-color); margin-top: auto; transform: translateZ(15px); }
 
-        /* Icon hover animations (no changes needed here) */
         .service-card:hover .page-corner { transform: rotate(-15deg); }
         .service-card:hover .layer-top { transform: translateY(-2px); }
         .service-card:hover .cart-wheel { animation: spin 1s linear infinite; }
@@ -200,7 +196,6 @@
         .calendar-check { transition: transform 0.4s ease, opacity 0.4s ease; transform-origin: center; opacity: 0; transform: scale(0.5); }
         .portfolio-image { transition: transform 0.4s ease; }
 
-        /* Process Section Styles */
         @keyframes fade-in-up-delay {
             0% { opacity: 0; transform: translateY(40px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -220,7 +215,6 @@
         html[dir="rtl"] .process-step-number { right: 20px; }
         html[dir="ltr"] .process-step-number { left: 20px; }
 
-        /* Pricing Section Styles */
         .pricing-carousel-container { position: relative; margin-top: 4rem; padding-inline: 1rem; }
         .pricing-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 2rem; padding-block: 2rem; padding-inline: calc(50% - 160px); -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
         .pricing-grid::-webkit-scrollbar { display: none; }
@@ -256,16 +250,18 @@
             border: 1px solid var(--border-color);
             transition: box-shadow var(--transition-speed), border-color var(--transition-speed);
             box-shadow: 0 0 20px -8px var(--glow-color);
-            overflow: hidden; /* Important for animations */
+            overflow: hidden;
         }
         .website-test-tool:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
 
+        /* FINAL FIX: Let container height be flexible and override position for result card */
         #test-card-container {
             position: relative;
-            min-height: 220px; /* Adjust as needed */
+            min-height: 250px; /* Keep a minimum height for question cards */
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: min-height 0.5s ease;
         }
 
         .test-card {
@@ -280,7 +276,19 @@
             transition: transform 0.5s var(--ease-out-quart), opacity 0.5s var(--ease-out-quart);
         }
 
-        .test-card.active {
+        #test-result-card {
+            position: relative; /* Override absolute positioning */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .test-card.active, #test-result-card.active {
             opacity: 1;
             transform: translateY(0);
         }
@@ -290,7 +298,7 @@
             transform: translateY(-20px);
         }
 
-        .test-card h3 {
+        .test-card h3, #test-result-card h3 {
             font-size: clamp(1.3rem, 4vw, 1.6rem);
             font-weight: 600;
             text-align: center;
@@ -335,14 +343,6 @@
             border-radius: 4px;
             transition: width 0.5s var(--ease-out-quart);
         }
-
-        #test-result-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 1.5rem;
-        }
         
         #test-result-card .result-icon {
             font-size: 3.5rem;
@@ -362,7 +362,13 @@
             flex-direction: column;
             gap: 1rem;
             align-items: center;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+
+        #test-result-card .result-actions .btn {
+            width: 90%;
+            max-width: 350px;
         }
 
         #test-result-card .btn.retake {
@@ -450,7 +456,6 @@
         .scroll-indicator-nav li:not(.active) a:hover .dot { transform: translateY(-50%) scale(1.4); box-shadow: 0 0 10px var(--glow-color); }
         .scroll-indicator-nav li:not(.active) a:hover .section-name { text-shadow: 0 0 6px var(--glow-color); }
         
-        /* --- Micro-interaction Styles --- */
         @keyframes shake-error {
             0%, 100% { transform: translateX(0); }
             10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
@@ -459,7 +464,6 @@
         .shake-error {
             animation: shake-error 0.5s ease-in-out;
         }
-        /* --- END: Micro-interaction Styles --- */
 
         @media (max-width: 992px) { 
             .pricing-grid { padding-inline: calc(50% - 160px); }
@@ -512,7 +516,6 @@
 
     <main>
         <section id="hero" class="hero" data-section-name="الرئيسية" data-section-name-en="Home" data-section-name-fr="Accueil">
-            <!-- Canvas for 3D Element -->
             <canvas id="hero-canvas"></canvas>
             <div class="hero-content">
                 <h1 id="hero-title-animated"></h1>
@@ -610,7 +613,6 @@
              <h2 class="section-title" data-lang-key="testTitle" data-animate="slide-up-words"></h2>
              <div class="website-test-tool">
                  <div id="test-card-container">
-                     <!-- Interactive cards will be injected here by JavaScript -->
                  </div>
                  <div id="test-progress-container">
                      <div id="test-progress-bar"></div>
@@ -813,7 +815,6 @@
             const prevBtn = document.querySelector('.carousel-nav-btn.prev');
             const nextBtn = document.querySelector('.carousel-nav-btn.next');
 
-            // --- Sound Engine & Micro-interactions ---
             let soundEnabled = false;
             let synths = {};
 
@@ -876,65 +877,38 @@
                 });
             }
 
-            // --- 3D HERO ELEMENT LOGIC (Optimized for Mobile) ---
             function init3DHero() {
-                if (typeof THREE === 'undefined') {
-                    console.error("Three.js library is not loaded.");
-                    return;
-                }
-
+                if (typeof THREE === 'undefined') return;
                 const canvas = document.getElementById('hero-canvas');
                 if (!canvas) return;
-
                 const scene = new THREE.Scene();
                 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                
-                const renderer = new THREE.WebGLRenderer({
-                    canvas: canvas,
-                    alpha: true, // Transparent background
-                    antialias: true
-                });
+                const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-                // --- MODIFICATION: Adjust size and camera for mobile ---
                 const isMobile = window.innerWidth < 768;
                 const geometry = new THREE.IcosahedronGeometry(isMobile ? 1.8 : 2.2, 0); 
                 camera.position.z = isMobile ? 6 : 5;
-                // --- END MODIFICATION ---
-
                 const material = new THREE.MeshNormalMaterial({ flatShading: true });
                 const shape = new THREE.Mesh(geometry, material);
                 scene.add(shape);
-
-                let mouseX = 0;
-                let mouseY = 0;
-                let targetX = 0;
-                let targetY = 0;
-
+                let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
                 const windowHalfX = window.innerWidth / 2;
                 const windowHalfY = window.innerHeight / 2;
-
-                function onDocumentMouseMove(event) {
+                document.addEventListener('mousemove', (event) => {
                     mouseX = (event.clientX - windowHalfX);
                     mouseY = (event.clientY - windowHalfY);
-                }
-                document.addEventListener('mousemove', onDocumentMouseMove);
-
-                const clock = new THREE.Clock();
+                });
                 const animate = () => {
                     targetX = mouseX * .002;
                     targetY = mouseY * .002;
-
                     shape.rotation.y += .002 + (targetX - shape.rotation.y) * .05;
                     shape.rotation.x += .002 + (targetY - shape.rotation.x) * .05;
                     shape.rotation.z += .002;
-
                     renderer.render(scene, camera);
                     window.requestAnimationFrame(animate);
                 };
                 animate();
-
                 window.addEventListener('resize', () => {
                     camera.aspect = window.innerWidth / window.innerHeight;
                     camera.updateProjectionMatrix();
@@ -942,7 +916,6 @@
                     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 }, { passive: true });
             }
-
 
             function handleScroll() {
                 if (window.pageYOffset > 200) {
@@ -1074,9 +1047,7 @@
                     return;
                 }
                 if (typingTimeout) clearTimeout(typingTimeout);
-                let phraseIndex = 0;
-                let charIndex = 0;
-                let isDeleting = false;
+                let phraseIndex = 0, charIndex = 0, isDeleting = false;
                 titleEl.innerHTML = '<span class="typing-cursor"></span>';
                 function type() {
                     const currentPhrase = phrases[phraseIndex];
@@ -1134,12 +1105,12 @@
                 if (!faqContainer) return;
                 faqContainer.innerHTML = '';
                 ['Q1','Q2','Q3','Q4','Q5'].forEach(key => {
-                     const faqItem = document.createElement('div');
-                     faqItem.classList.add('faq-item');
-                     const questionKey = 'faq' + key;
-                     const answerKey = 'faqA' + key.substring(1);
-                     faqItem.innerHTML = `<div class="faq-question"><span>${translations[lang][questionKey]}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${translations[lang][answerKey]}</p></div>`;
-                     faqContainer.appendChild(faqItem);
+                      const faqItem = document.createElement('div');
+                      faqItem.classList.add('faq-item');
+                      const questionKey = 'faq' + key;
+                      const answerKey = 'faqA' + key.substring(1);
+                      faqItem.innerHTML = `<div class="faq-question"><span>${translations[lang][questionKey]}</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>${translations[lang][answerKey]}</p></div>`;
+                      faqContainer.appendChild(faqItem);
                 });
                 faqContainer.addEventListener('click', (e) => {
                     const question = e.target.closest('.faq-question');
@@ -1147,7 +1118,6 @@
                     const faqItem = question.parentElement;
                     const answer = faqItem.querySelector('.faq-answer');
                     const isActive = faqItem.classList.contains('active');
-                    
                     faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
                         if (item !== faqItem) {
                             item.classList.remove('active');
@@ -1155,7 +1125,6 @@
                             item.querySelector('.faq-question .faq-icon').style.transform = 'rotate(0deg)';
                         }
                     });
-
                     if (!isActive) {
                         playSound('toggleOn', 'E5');
                         faqItem.classList.add('active');
@@ -1170,14 +1139,13 @@
                 });
             }
             
+            // FINAL FIX: JS logic for the test tool
             function initWebsiteTestTool() {
                 const container = document.getElementById('test-card-container');
                 const progressBar = document.getElementById('test-progress-bar');
                 if (!container || !progressBar) return;
 
-                let currentQuestionIndex = 0;
-                let answers = [];
-                let isAnimating = false;
+                let currentQuestionIndex = 0, answers = [], isAnimating = false;
                 const lang = langCycle[currentLangIndex];
                 const langData = translations[lang];
                 const qKeys = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
@@ -1188,43 +1156,30 @@
                     currentQuestionIndex = 0;
                     answers = [];
                     isAnimating = false;
+                    container.style.minHeight = '250px'; // Reset height for questions
                     showQuestion(0);
                 };
 
                 const showResult = () => {
                     const yesCount = answers.filter(a => a.answer === 'yes').length;
                     const isGood = yesCount >= 4;
-                    
                     const resultCard = document.createElement('div');
-                    resultCard.className = 'test-card';
-                    resultCard.id = 'test-result-card';
-
+                    // Use the ID but not the .test-card class to avoid absolute positioning
+                    resultCard.id = 'test-result-card'; 
+                    
                     if (isGood) {
                         playSound('success', 'G5');
-                        resultCard.innerHTML = `
-                            <div class="result-icon">👍</div>
-                            <div class="result-text good">${langData.testResultGood}</div>
-                            <div class="result-actions">
-                                <button class="btn retake">${langData.testRetake}</button>
-                            </div>
-                        `;
+                        resultCard.innerHTML = `<div class="result-icon">👍</div><div class="result-text good">${langData.testResultGood}</div><div class="result-actions"><button class="btn retake">${langData.testRetake}</button></div>`;
                     } else {
                         playSound('error', 'A4');
-                        resultCard.innerHTML = `
-                            <div class="result-icon">🤔</div>
-                            <div class="result-text bad">${langData.testResultBad}</div>
-                            <div class="result-actions">
-                                <button class="btn" id="fix-my-site-btn">${langData.testFixIssues}</button>
-                                <button class="btn retake">${langData.testRetake}</button>
-                            </div>
-                        `;
+                        resultCard.innerHTML = `<div class="result-icon">🤔</div><div class="result-text bad">${langData.testResultBad}</div><div class="result-actions"><button class="btn" id="fix-my-site-btn">${langData.testFixIssues}</button><button class="btn retake">${langData.testRetake}</button></div>`;
                     }
                     
+                    container.innerHTML = ''; // Clear previous cards
                     container.appendChild(resultCard);
-                    
-                    setTimeout(() => {
-                        resultCard.classList.add('active');
-                    }, 10);
+                    container.style.minHeight = '0px'; // Let the result card define the height
+
+                    setTimeout(() => resultCard.classList.add('active'), 10);
 
                     resultCard.querySelector('.retake').addEventListener('click', resetTest);
 
@@ -1233,10 +1188,8 @@
                             const noAnswers = answers.filter(a => a.answer === 'no');
                             const issues = noAnswers.map(a => langData.testIssues[a.key]).join('\n- ');
                             const finalMessage = langData.testResultBadAutomatedMessage.replace('{issues}', issues);
-                            
                             const contactTextarea = document.getElementById('contact-message');
                             const contactSection = document.getElementById('contact');
-
                             if (contactTextarea && contactSection) {
                                 contactTextarea.value = finalMessage;
                                 contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1247,52 +1200,31 @@
                 };
 
                 const showQuestion = (index) => {
-                    if (index >= qKeys.length) {
-                        showResult();
-                        return;
-                    }
-
+                    if (index >= qKeys.length) { showResult(); return; }
                     const questionKey = 'test' + qKeys[index];
                     const questionText = langData[questionKey];
-
                     const card = document.createElement('div');
-                    card.className = 'test-card';
-                    card.innerHTML = `
-                        <h3>${questionText}</h3>
-                        <div class="answers">
-                            <button value="yes">${langData.testYes}</button>
-                            <button value="no">${langData.testNo}</button>
-                        </div>
-                    `;
+                    card.className = 'test-card'; // Question cards are absolute
+                    card.innerHTML = `<h3>${questionText}</h3><div class="answers"><button value="yes">${langData.testYes}</button><button value="no">${langData.testNo}</button></div>`;
                     container.appendChild(card);
 
-                    setTimeout(() => {
-                        card.classList.add('active');
-                        isAnimating = false;
-                    }, 10);
+                    setTimeout(() => { card.classList.add('active'); isAnimating = false; }, 10);
 
                     card.querySelector('.answers').addEventListener('click', (e) => {
                         if (e.target.tagName !== 'BUTTON' || isAnimating) return;
-                        
                         isAnimating = true;
                         answers.push({ key: questionKey, answer: e.target.value });
-                        
                         const progress = ((currentQuestionIndex + 1) / qKeys.length) * 100;
                         progressBar.style.width = `${progress}%`;
-                        
                         card.classList.remove('active');
                         card.classList.add('exiting');
-                        
                         setTimeout(() => {
-                            if (container.contains(card)) {
-                                container.removeChild(card);
-                            }
+                            if (container.contains(card)) container.removeChild(card);
                             currentQuestionIndex++;
                             showQuestion(currentQuestionIndex);
                         }, 500);
                     });
                 };
-
                 resetTest();
             }
 
@@ -1336,7 +1268,6 @@
                     const carousel = targetCard.parentElement;
                     const cardWidth = targetCard.offsetWidth;
                     let scrollPosition = targetCard.offsetLeft - (carousel.offsetWidth / 2) + (cardWidth / 2);
-                    
                     carousel.scrollTo({ left: scrollPosition, behavior: behavior });
                 }
                 updateActiveClasses();
@@ -1377,11 +1308,7 @@
 
                 if (typeof VanillaTilt !== 'undefined') {
                     VanillaTilt.init(document.querySelectorAll(".service-card"), {
-                        max: 15,
-                        speed: 400,
-                        glare: true,
-                        "max-glare": 0.4,
-                        perspective: 1000
+                        max: 15, speed: 400, glare: true, "max-glare": 0.4, perspective: 1000
                     });
                 }
                 
@@ -1390,7 +1317,6 @@
                 applyMicroInteractions();
                 
                 init3DHero();
-
                 handleScroll();
                 initServiceCardAnimations();
                 initProcessStepAnimations();
@@ -1469,9 +1395,7 @@
 
             initTextAnimations = function() {
                 const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
-                if (textAnimationObserver) {
-                    textAnimationObserver.disconnect();
-                }
+                if (textAnimationObserver) textAnimationObserver.disconnect();
                 textAnimationObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1484,9 +1408,7 @@
                                 const wordSpan = document.createElement('span');
                                 wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
                                 container.appendChild(wordSpan);
-                                if (index < words.length - 1) {
-                                    container.appendChild(document.createTextNode(' '));
-                                }
+                                if (index < words.length - 1) container.appendChild(document.createTextNode(' '));
                             });
                             setTimeout(() => container.classList.add('is-visible'), 50);
                             observer.unobserve(container);
