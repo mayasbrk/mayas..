@@ -9,6 +9,10 @@
     <title>solu_tion.dev | تصميم مواقع احترافية</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
     
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+
     <style>
         :root {
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -30,6 +34,8 @@
             --overlay-color: rgba(0, 0, 0, 0.7);
             --header-bg: rgba(18, 18, 18, 0.7);
             --glow-color: rgba(139, 92, 246, 0.7); /* Purple Neon Glow */
+            --success-color: #28a745;
+            --error-color: #dc3545;
         }
 
         body.light-mode {
@@ -336,8 +342,8 @@
             max-width: 90%;
         }
 
-        #test-result-card .result-text.good { color: #28a745; }
-        #test-result-card .result-text.bad { color: #dc3545; }
+        #test-result-card .result-text.good { color: var(--success-color); }
+        #test-result-card .result-text.bad { color: var(--error-color); }
         
         #test-result-card .result-actions {
             display: flex;
@@ -369,7 +375,7 @@
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height var(--transition-speed) ease; }
         .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--subtle-text-color); }
         #contact-form { max-width: 600px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.5rem; }
-        #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
+        #contact-form input, #contact-form textarea { width: 100%; padding: 1rem; background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); font-size: 1rem; font-family: inherit; transition: border-color var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed); }
         #contact-form input:focus, #contact-form textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 8px var(--glow-color); outline: none; }
         #contact-form textarea { resize: vertical; min-height: 150px; }
         #form-status { text-align: center; margin-top: 1.5rem; font-weight: 500; min-height: 1.6em; }
@@ -432,6 +438,17 @@
         .scroll-indicator-nav li:not(.active) a:hover .dot { transform: translateY(-50%) scale(1.4); box-shadow: 0 0 10px var(--glow-color); }
         .scroll-indicator-nav li:not(.active) a:hover .section-name { text-shadow: 0 0 6px var(--glow-color); }
         
+        /* --- NEW: Micro-interaction Styles --- */
+        @keyframes shake-error {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .shake-error {
+            animation: shake-error 0.5s ease-in-out;
+        }
+        /* --- END: Micro-interaction Styles --- */
+
         @media (max-width: 992px) { 
             .pricing-grid { padding-inline: calc(50% - 160px); }
             .pricing-carousel-container { padding-inline: 0; }
@@ -507,7 +524,8 @@
                 <div class="service-card" data-modal-target="landing-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8" class="page-corner"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
                 <div class="service-card" data-modal-target="multi-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
                 <div class="service-card" data-modal-target="ecommerce-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="9" cy="21" r="1" class="cart-wheel"></circle><circle cx="20" cy="21" r="1" class="cart-wheel"></circle> <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path> </svg> </div> <h3 data-lang-key="service3"></h3> </div>
-                <div class="service-card blog-link" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path> <line class="blog-line" x1="15" y1="6" x2="18" y2="9"></line> </svg> </div> <h3 data-lang-key="service4"></h3> </div>
+                <!-- MODIFIED: Removed blog-link class and added data-modal-target -->
+                <div class="service-card" data-modal-target="blog-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path> <line class="blog-line" x1="15" y1="6" x2="18" y2="9"></line> </svg> </div> <h3 data-lang-key="service4"></h3> </div>
                 <div class="service-card" data-modal-target="booking-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line> <path d="m9 16 2 2 4-4" class="calendar-check"></path> </svg> </div> <h3 data-lang-key="service5"></h3> </div>
                 <div class="service-card" data-modal-target="portfolio-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="portfolio-image"></rect> <circle cx="8.5" cy="8.5" r="1.5" class="portfolio-image"></circle><polyline points="21 15 16 10 5 21" class="portfolio-image"></polyline> </svg> </div> <h3 data-lang-key="service6"></h3> </div>
             </div>
@@ -570,21 +588,21 @@
 
         <section id="cost-calculator" class="container" data-section-name="حاسبة التكلفة" data-section-name-en="Cost Calculator" data-section-name-fr="Calculateur de Coût">
              <div class="container" style="padding-top: 2rem; padding-bottom: 2rem; text-align: center;">
-                <h2 class="section-title" data-lang-key="calculatorTitle" data-animate="slide-up-words" style="margin-bottom: 1.5rem;"></h2>
-                <a href="calculator.html" class="btn" data-lang-key="calculatorCTA" style="font-size: 1.1rem; padding: 1rem 2.5rem;"></a>
-            </div>
+                 <h2 class="section-title" data-lang-key="calculatorTitle" data-animate="slide-up-words" style="margin-bottom: 1.5rem;"></h2>
+                 <a href="calculator.html" class="btn" data-lang-key="calculatorCTA" style="font-size: 1.1rem; padding: 1rem 2.5rem;"></a>
+             </div>
         </section>
 
         <!-- === MODIFIED WEBSITE TEST SECTION === -->
         <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test Your Site" data-section-name-fr="Testez Votre Site">
              <h2 class="section-title" data-lang-key="testTitle" data-animate="slide-up-words"></h2>
              <div class="website-test-tool">
-                <div id="test-card-container">
-                    <!-- Interactive cards will be injected here by JavaScript -->
-                </div>
-                <div id="test-progress-container">
-                    <div id="test-progress-bar"></div>
-                </div>
+                 <div id="test-card-container">
+                     <!-- Interactive cards will be injected here by JavaScript -->
+                 </div>
+                 <div id="test-progress-container">
+                     <div id="test-progress-bar"></div>
+                 </div>
              </div>
         </section>
         <!-- === END OF MODIFIED SECTION === -->
@@ -636,11 +654,9 @@
 
     <button id="scrollTopBtn" title="العودة للأعلى" aria-label="Scroll to top"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg> </button>
     
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    
+        
             const icons = {
                 sun: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06z"></path></svg>`,
                 moon: `<svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M9.37 5.51A7.35 7.35 0 009 6c0 4.42 3.58 8 8 8.01 1.07 0 2.09-.23 3-.64.42-.18.88.08 1.06.5.18.42-.08.88-.5 1.06-1.18.5-2.49.77-3.87.77-5.52 0-10-4.48-10-10 0-1.38.27-2.69.77-3.87.18-.42.64-.68 1.06-.5.42.18.68.64.5 1.06z"></path></svg>`
@@ -724,7 +740,7 @@
                     ecommerceModalTitle: "E-commerce Store Design Service", ecommerceModalContent: "<p>We turn your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Platforms & Technologies</h4><ul><li><b>WooCommerce:</b> For stores built on WordPress, offering easy management and a rich dashboard.</li><li><b>Shopify:</b> We customize themes and develop special apps to match your brand identity.</li><li><b>Custom Solutions:</b> For unique projects, we build stores from scratch using modern technologies.</li></ul><h4>Benefit for Your Business</h4><p>Expand your customer base, build a strong brand, and increase your profits through a sales channel that operates 24/7.</p>",
                     blogModalTitle: "Blog Integration Service", blogModalContent: "<p>Adding a blog section to your site is a strategic investment to create valuable content that attracts visitors, builds trust, and establishes your expertise in your field.</p><h4>Key Features</h4><ul><li>Easy-to-use Content Management System (CMS).</li><li>Categorization of articles via tags and categories.</li><li>Ability to comment and share on social networks.</li><li>Article structure optimized for search engines.</li></ul><h4>Benefit for Your Business</h4><p>Increases free traffic from Google, establishes you as an expert in your field, and provides evergreen content to share with your audience.</p>",
                     bookingModalTitle: "Booking Systems Service", bookingModalContent: "<p>An online booking system allows your customers to book appointments or services directly from your site at any time, from anywhere, saving both your time and theirs.</p><h4>Key Features</h4><ul><li>A calendar showing available appointments instantly.</li><li>Option for pre-payment to confirm bookings.</li><li>Automatic email confirmations and reminders.</li><li>A dashboard to manage bookings, staff, and services.</li></ul><h4>Benefit for Your Business</h4><p>Automates the appointment scheduling process, reduces no-shows, and increases the efficiency of managing your time and business.</p>",
-                    portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality photo and video galleries.</li><li>Categorization of works for easy Browse.</li><li>A page for each project with details and client testimonials.</li></ul><h4>Benefit for Your Business</h4><p>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</p>"
+                    portfolioModalTitle: "Portfolio Service", portfolioModalContent: "<p>A portfolio is the most professional way to showcase your skills and past projects. It's your visual resume that speaks to the quality of your work.</p><h4>Key Features</h4><ul><li>Elegant design focused on showcasing your work.</li><li>High-quality photo and video galleries.</li><li>Categorization of works for easy Browse.</li><li>A page for each project with details and client testimonials.</li><li>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</li></ul><h4>Benefit for Your Business</h4><p>Tangibly demonstrates your expertise, attracts new clients who value quality, and powerfully builds your personal or company brand.</p>"
                 },
                 fr: {
                     navHome: "Accueil", navAbout: "À propos", navServices: "Services", navProcess: "Notre Processus", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
@@ -744,7 +760,7 @@
                     calculatorTitle: "Pas Sûr Quel Forfait Choisir?", calculatorCTA: "Essayez le Calculateur Interactif",
                     testTitle: "Votre Site Actuel Est-il Bon?", testQ1: "Votre site est-il responsive sur mobile?", testQ2: "Votre site se charge-t-il rapidement?", testQ3: "Le contenu est-il facile à parcourir?", testQ4: "Votre design semble-t-il professionnel?", testQ5: "Vos informations de contact sont-elles claires?",
                     testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Votre site a besoin d'améliorations. Laissez-nous vous aider!", testRetake: "Refaire le test", testFixIssues: "Aidez-moi à résoudre ces problèmes",
-                     testIssues: {
+                    testIssues: {
                         testQ1: "Le site n'est pas responsive sur mobile",
                         testQ2: "Le site se charge lentement",
                         testQ3: "Le contenu est difficile à naviguer",
@@ -764,10 +780,10 @@
                     termsTitle: "Conditions d'Utilisation", termsContent: "<h4>Utilisation</h4><p>By using this site, you agree to be bound by these terms of service. We reserve the right to modify these terms at any time.</p><h4>Services</h4><p>Les détails des services fournis, y compris la portée, le coût et les délais, sont convenus formellement avant le début de tout travail. La réservation d'une consultation ne constitue pas un contrat contraignant.</p>",
                     landingPageModalTitle: "Service de Pages d'Atterrissage", landingPageModalContent: "<p>Une page d'atterrissage est une page web unique conçue pour un objectif marketing spécifique. Son but est de convertir les visiteurs en prospects en les incitant à une action précise.</p><h4>Caractéristiques Clés</h4><ul><li>Design attractif et axé sur l'objectif.</li><li>Appel à l'action (CTA) clair.</li><li>Contenu concis et persuasif.</li><li>Formulaire simple pour collecter des données.</li><li>Entièrement responsive sur tous les écrans.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente l'efficacité de vos campagnes publicitaires, améliore les taux de conversion et fournit des données précises pour mesurer le succès.</p>",
                     multiPageModalTitle: "Service de Sites Web Multi-Pages", multiPageModalContent: "<p>Un site web multi-pages est la vitrine numérique complète de votre entreprise, présentant votre identité, vos services et vos produits de manière complète et organisée sur plusieurs pages interconnectées.</p><h4>Caractéristiques Clés</h4><ul><li>Structure de navigation claire et facile à utiliser.</li><li>Pages spécialisées (À propos, Services, Contact, etc.).</li><li>Design qui reflète l'identité de votre marque.</li><li>Base solide pour l'optimisation des moteurs de recherche (SEO).</li><li>Contenu complet pour renforcer la confiance des clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Construit une forte crédibilité pour votre marque, fournit des informations complètes à votre public et sert de hub numérique pour toutes vos activités marketing.</p>",
-                    ecommerceModalTitle: "Service de Création de Boutique E-commerce", ecommerceModalContent: "<p>We transform your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Plateformes & Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un tableau de bord riche.</li><li><b>Shopify :</b> Nous personnalisons les thèmes et développons des applications spéciales pour correspondre à votre identité de marque.</li><li><b>Solutions sur Mesure :</b> Pour les projets uniques, nous construisons des boutiques à partir de zéro en utilisant des technologies modernes.</li></ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24h/24 et 7j/7.</p>",
+                    ecommerceModalTitle: "Service de Création de Boutique E-commerce", ecommerceModalContent: "<p>We transform your store idea into a complete digital reality. We design and develop professional e-commerce stores that help you display your products attractively, manage your operations easily, and grow your sales.</p><h4>Plateformes & Technologies</h4><ul><li><b>WooCommerce :</b> Pour les boutiques basées sur WordPress, offrant une gestion facile et un tableau de bord riche.</li><li><b>Shopify :</b> Nous personnalisons les thèmes et développons des applications spéciales pour correspondre à votre identité de marque.</li><li><b>Solutions sur Mesure :</b> Pour les projets uniques, nous construisons des boutiques à partir de zéro en utilisant des technologies modernes.</ul><h4>Avantage pour votre entreprise</h4><p>Élargissez votre clientèle, construisez une marque forte et augmentez vos bénéfices grâce à un canal de vente ouvert 24h/24 et 7j/7.</p>",
                     blogModalTitle: "Service d'Intégration de Blog", blogModalContent: "<p>Ajouter une section blog à votre site est un investissement stratégique pour créer un contenu de valeur qui attire les visiteurs, renforce la confiance et établit votre expertise dans votre domaine.</p><h4>Caractéristiques Clés</h4><ul><li>Système de gestion de contenu (CMS) facile à utiliser.</li><li>Catégorisation des articles par tags et catégories.</li><li>Possibilité de commenter et de partager sur les réseaux sociaux.</li><li>Structure des articles optimisée pour les moteurs de recherche.</li></ul><h4>Avantage pour votre entreprise</h4><p>Augmente le trafic gratuit depuis Google, vous établit comme un expert dans votre domaine et fournit un contenu permanent à partager avec votre public.</p>",
                     bookingModalTitle: "Service de Systèmes de Réservation", bookingModalContent: "<p>Un système de réservation en ligne permet à vos clients de réserver des rendez-vous ou des services directement depuis votre site, à tout moment et de n'importe où, vous faisant gagner du temps, à vous et à eux.</p><h4>Caractéristiques Clés</h4><ul><li>Un calendrier affichant les disponibilités instantanément.</li><li>Option de prépaiement pour confirmer les réservations.</li><li>Confirmations et rappels automatiques par e-mail.</li><li>Un tableau de bord pour gérer les réservations, le personnel et les services.</li></ul><h4>Avantage pour votre entreprise</h4><p>Automatise le processus de planification des rendez-vous, réduit les absences et augmente l'efficacité de la gestion de votre temps et de votre entreprise.</p>",
-                    portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>A portfolio is the most professional way to present your skills and projects anterior. It's your visual resume that speaks to the quality of your work.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries de photos et de vidéos de haute qualité.</li><li>Catégorisation des œuvres pour une navigation facile.</li><li>Une page pour chaque projet avec des détails et des témoignages de clients.</li></ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit puissamment votre marque personnelle ou d'entreprise.</p>"
+                    portfolioModalTitle: "Service de Portfolio", portfolioModalContent: "<p>A portfolio is the most professional way to present your skills and projects anterior. It's your visual resume that speaks to the quality of your work.</p><h4>Caractéristiques Clés</h4><ul><li>Design élégant axé sur la mise en valeur de votre travail.</li><li>Galeries de photos et de vidéos de haute qualité.</li><li>Catégorisation des œuvres pour une navigation facile.</li><li>Une page pour chaque projet avec des détails et des témoignages de clients.</ul><h4>Avantage pour votre entreprise</h4><p>Démontre concrètement votre expertise, attire de nouveaux clients qui apprécient la qualité et construit puissamment votre marque personnelle ou d'entreprise.</p>"
                 }
             };
             
@@ -786,6 +802,87 @@
             const pricingCards = Array.from(document.querySelectorAll('.pricing-card'));
             const prevBtn = document.querySelector('.carousel-nav-btn.prev');
             const nextBtn = document.querySelector('.carousel-nav-btn.next');
+
+            // --- NEW: Sound Engine & Micro-interactions ---
+
+            let soundEnabled = false;
+            let synths = {};
+
+            // Initialize sounds on first user interaction to comply with browser autoplay policies
+            function initSoundEngine() {
+                if (soundEnabled || typeof Tone === 'undefined') return;
+                
+                Tone.start();
+                
+                synths.click = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 0.1 }, volume: -18 }).toDestination();
+                synths.hover = new Tone.MembraneSynth({ pitchDecay: 0.008, octaves: 2, envelope: { attack: 0.0006, decay: 0.2, sustain: 0 }, volume: -24 }).toDestination();
+                synths.toggleOn = new Tone.Synth({ oscillator: { type: 'triangle' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.01, release: 0.1 }, volume: -18 }).toDestination();
+                synths.toggleOff = new Tone.Synth({ oscillator: { type: 'triangle' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.01, release: 0.1 }, volume: -22 }).toDestination();
+                synths.success = new Tone.Synth({ oscillator: { type: 'triangle' }, envelope: { attack: 0.005, decay: 0.2, sustain: 0.1, release: 0.1 }, volume: -16 }).toDestination();
+                synths.error = new Tone.Synth({ oscillator: { type: 'square' }, envelope: { attack: 0.01, decay: 0.3, sustain: 0, release: 0.1 }, volume: -18 }).toDestination();
+                synths.formFocus = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.001, decay: 0.1, sustain: 0.1, release: 0.1 }, volume: -25 }).toDestination();
+                
+                soundEnabled = true;
+            }
+
+            // Sound playing functions
+            const playSound = (type, note = 'C5', duration = '16n') => {
+                if (soundEnabled && synths[type]) {
+                    synths[type].triggerAttackRelease(note, duration);
+                }
+            };
+            
+            function applyMicroInteractions() {
+                // General interactive elements for hover and click effects
+                const interactiveElements = document.querySelectorAll(
+                    '.btn, .theme-toggle, .lang-toggle, .main-nav a, .faq-question, .carousel-nav-btn, .footer-legal button, .scroll-indicator-nav li a, .service-card, .process-step, .contact-direct-links a, .modal-close'
+                );
+
+                interactiveElements.forEach(el => {
+                    // Hover sound
+                    el.addEventListener('mouseenter', () => playSound('hover', 'C3', '32n'));
+                    
+                    // Click sound and visual feedback
+                    el.addEventListener('mousedown', () => {
+                        playSound('click', 'C5', '8n');
+                        el.style.transition = 'transform 0.1s ease';
+                        el.style.transform += ' scale(0.95)';
+                    });
+                    el.addEventListener('mouseup', () => el.style.transform = el.style.transform.replace(' scale(0.95)', ''));
+                    el.addEventListener('mouseleave', () => el.style.transform = el.style.transform.replace(' scale(0.95)', ''));
+                });
+
+                // Form validation and sound feedback
+                const formInputs = document.querySelectorAll('#contact-form input, #contact-form textarea');
+                formInputs.forEach(input => {
+                    input.addEventListener('focus', () => playSound('formFocus', 'C4'));
+                    input.addEventListener('blur', () => {
+                        const isValid = input.checkValidity();
+                        if (input.value.length > 0) {
+                            if (isValid) {
+                                input.style.borderColor = 'var(--success-color)';
+                                playSound('success', 'G5');
+                            } else {
+                                input.style.borderColor = 'var(--error-color)';
+                                input.classList.add('shake-error');
+                                playSound('error', 'A3');
+                                setTimeout(() => input.classList.remove('shake-error'), 500);
+                            }
+                        } else {
+                            input.style.borderColor = ''; // Reset
+                        }
+                    });
+                     // Reset border on new input to provide instant feedback
+                    input.addEventListener('input', () => {
+                        if (input.style.borderColor !== 'var(--border-color)') {
+                           input.style.borderColor = '';
+                        }
+                    });
+                });
+            }
+
+            // --- END: Sound Engine & Micro-interactions ---
+
 
             function handleScroll() {
                 if (window.pageYOffset > 200) {
@@ -887,6 +984,7 @@
             }
 
             function handleLangToggle() {
+                playSound('toggleOn', 'E5');
                 currentLangIndex = (currentLangIndex + 1) % langCycle.length;
                 const newLang = langCycle[currentLangIndex];
                 localStorage.setItem('siteLang', newLang);
@@ -895,6 +993,7 @@
 
             function handleThemeToggle() {
                 const isLight = document.body.classList.toggle('light-mode');
+                playSound(isLight ? 'toggleOn' : 'toggleOff', 'C5');
                 localStorage.setItem('theme', isLight ? 'light' : 'dark');
                 updateThemeIcons(isLight);
             }
@@ -953,16 +1052,19 @@
                 try {
                     const response = await fetch(event.target.action, { method: contactForm.method, body: new FormData(event.target), headers: { 'Accept': 'application/json' } });
                     if (response.ok) {
+                        playSound('success', 'G5');
                         formStatus.textContent = translations[lang].formSuccess;
-                        formStatus.style.color = "#28a745";
+                        formStatus.style.color = "var(--success-color)";
                         contactForm.reset();
                     } else {
+                        playSound('error', 'A3');
                         formStatus.textContent = translations[lang].formError;
-                        formStatus.style.color = "#dc3545";
+                        formStatus.style.color = "var(--error-color)";
                     }
                 } catch (error) {
+                    playSound('error', 'A3');
                     formStatus.textContent = translations[lang].formError;
-                    formStatus.style.color = "#dc3545";
+                    formStatus.style.color = "var(--error-color)";
                 }
             }
             
@@ -985,6 +1087,8 @@
                     const faqItem = question.parentElement;
                     const answer = faqItem.querySelector('.faq-answer');
                     const isActive = faqItem.classList.contains('active');
+                    
+                    // Close other active items
                     faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
                         if (item !== faqItem) {
                             item.classList.remove('active');
@@ -992,11 +1096,15 @@
                             item.querySelector('.faq-question .faq-icon').style.transform = 'rotate(0deg)';
                         }
                     });
+
+                    // Toggle current item
                     if (!isActive) {
+                        playSound('toggleOn', 'E5');
                         faqItem.classList.add('active');
                         answer.style.maxHeight = answer.scrollHeight + 'px';
                         question.querySelector('.faq-icon').style.transform = 'rotate(45deg)';
                     } else {
+                        playSound('toggleOff', 'C5');
                         faqItem.classList.remove('active');
                         answer.style.maxHeight = '0';
                         question.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
@@ -1035,6 +1143,7 @@
                     resultCard.id = 'test-result-card';
 
                     if (isGood) {
+                        playSound('success', 'G5');
                         resultCard.innerHTML = `
                             <div class="result-icon">👍</div>
                             <div class="result-text good">${langData.testResultGood}</div>
@@ -1043,6 +1152,7 @@
                             </div>
                         `;
                     } else {
+                        playSound('error', 'A4');
                         resultCard.innerHTML = `
                             <div class="result-icon">🤔</div>
                             <div class="result-text bad">${langData.testResultBad}</div>
@@ -1218,6 +1328,11 @@
                         perspective: 1000
                     });
                 }
+                
+                // Initialize sound and interactions
+                document.body.addEventListener('click', initSoundEngine, { once: true });
+                document.body.addEventListener('mouseover', initSoundEngine, { once: true });
+                applyMicroInteractions();
 
                 handleScroll();
                 initServiceCardAnimations();
@@ -1260,19 +1375,11 @@
                     });
                 }
 
-                document.querySelectorAll('.service-card').forEach(card => {
-                    card.addEventListener('click', (e) => {
-                        if (card.classList.contains('blog-link')) {
-                            e.preventDefault();
-                            window.location.href = 'blog.html'; 
-                        } else {
-                            const targetElement = e.target.closest('[data-modal-target]');
-                            if (targetElement) {
-                                const modalId = targetElement.dataset.modalTarget;
-                                const modal = document.getElementById(modalId);
-                                if (modal) modal.classList.add('active');
-                            }
-                        }
+                document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                    trigger.addEventListener('click', (e) => {
+                        const modalId = trigger.dataset.modalTarget;
+                        const modal = document.getElementById(modalId);
+                        if (modal) modal.classList.add('active');
                     });
                 });
 
