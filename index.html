@@ -184,6 +184,28 @@
         #about, #services, #process, #pricing, #cost-calculator, #website-test, #faq, #contact { opacity: 0; transform: translateY(40px); will-change: opacity, transform; transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); }
         #about.is-visible, #services.is-visible, #process.is-visible, #pricing.is-visible, #cost-calculator.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible { opacity: 1; transform: translateY(0); }
         
+        /* --- NEW BLUR-IN ANIMATION STYLES --- */
+        @keyframes blur-in-effect {
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateY(0);
+            }
+        }
+        .blur-in-text span {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(8px);
+            transform: translateY(20px);
+            will-change: opacity, filter, transform;
+            vertical-align: top; /* Fix alignment issue */
+        }
+        .blur-in-text.is-visible span {
+            animation: blur-in-effect 0.8s var(--ease-out-quart) forwards;
+            animation-delay: var(--delay);
+        }
+        /* --- END BLUR-IN ANIMATION STYLES --- */
+
         #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 0 20px -8px var(--glow-color); transition-property: box-shadow, border-color, opacity, transform; }
         #about:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
         .founder-content { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
@@ -191,9 +213,7 @@
         .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
         .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
         .founder-avatar, .founder-bio { will-change: transform; transition: transform 0.3s ease-out; }
-        .slide-up-words span { display: inline-block; overflow: hidden; vertical-align: top; }
-        .slide-up-words span .word { display: inline-block; transform: translateY(110%); transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); transition-delay: var(--delay); }
-        .slide-up-words.is-visible span .word { transform: translateY(0); }
+
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         
         .service-card {
@@ -603,24 +623,24 @@
             <canvas id="hero-canvas"></canvas>
             <div class="hero-content">
                 <h1 id="hero-title-animated"></h1>
-                <p data-lang-key="heroSubtitle" data-animate="slide-up-words"></p>
+                <p data-lang-key="heroSubtitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></p>
                 <a href="#contact" class="btn" data-lang-key="heroCTA"></a>
             </div>
         </section>
 
         <section id="about" class="container" data-section-name="من نحن" data-section-name-en="About" data-section-name-fr="À propos">
-            <h2 class="section-title" data-lang-key="aboutTitle" data-animate="slide-up-words"></h2>
+            <h2 class="section-title" data-lang-key="aboutTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
             <div class="founder-content">
                 <div class="founder-avatar" id="founder-avatar"></div>
                 <div class="founder-bio">
-                    <h3 data-lang-key="founderName" data-animate="slide-up-words"></h3>
-                    <p data-lang-key="founderText" data-animate="slide-up-words"></p>
+                    <h3 data-lang-key="founderName" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h3>
+                    <p data-lang-key="founderText" data-animate="blur-in" data-animate-by="words" data-animate-delay="50"></p>
                 </div>
             </div>
         </section>
 
         <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
-            <h2 class="section-title" data-lang-key="servicesTitle" data-animate="slide-up-words"></h2>
+            <h2 class="section-title" data-lang-key="servicesTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
             <div class="services-grid">
                 <div class="service-card" data-modal-target="landing-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path> <polyline points="14 2 14 8 20 8" class="page-corner"></polyline> <line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line> </svg> </div> <h3 data-lang-key="service1"></h3> </div>
                 <div class="service-card" data-modal-target="multi-page-modal" data-tilt> <div class="service-icon-container"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> <polygon points="12 2 2 7 12 12 22 7 12 2" class="layer-top"></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline> </svg> </div> <h3 data-lang-key="service2"></h3> </div>
@@ -632,7 +652,7 @@
         </section>
 
         <section id="process" class="container" data-section-name="منهجية العمل" data-section-name-en="Our Process" data-section-name-fr="Notre Processus">
-            <h2 class="section-title" data-lang-key="processTitle" data-animate="slide-up-words"></h2>
+            <h2 class="section-title" data-lang-key="processTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
             <div class="process-grid">
                 <div class="process-step">
                     <span class="process-step-number">01</span>
@@ -670,7 +690,7 @@
         </section>
 
         <section id="pricing" class="container" data-section-name="الأسعار" data-section-name-en="Pricing" data-section-name-fr="Tarifs">
-            <h2 class="section-title" data-lang-key="pricingTitle" data-animate="slide-up-words"></h2>
+            <h2 class="section-title" data-lang-key="pricingTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
             <div class="pricing-carousel-container">
                 <div class="pricing-grid" id="pricing-carousel">
                     <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
@@ -688,29 +708,29 @@
 
         <section id="cost-calculator" class="container" data-section-name="حاسبة التكلفة" data-section-name-en="Cost Calculator" data-section-name-fr="Calculateur de Coût">
              <div class="container" style="padding-top: 2rem; padding-bottom: 2rem; text-align: center;">
-                 <h2 class="section-title" data-lang-key="calculatorTitle" data-animate="slide-up-words" style="margin-bottom: 1.5rem;"></h2>
+                 <h2 class="section-title" data-lang-key="calculatorTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80" style="margin-bottom: 1.5rem;"></h2>
                  <a href="calculator.html" class="btn" data-lang-key="calculatorCTA" style="font-size: 1.1rem; padding: 1rem 2.5rem;"></a>
              </div>
         </section>
 
         <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test Your Site" data-section-name-fr="Testez Votre Site">
-             <h2 class="section-title" data-lang-key="testTitle" data-animate="slide-up-words"></h2>
+             <h2 class="section-title" data-lang-key="testTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
              <div class="website-test-tool">
                  <div id="test-card-container">
                  </div>
                  <div id="test-progress-container">
-                      <div id="test-progress-bar"></div>
+                       <div id="test-progress-bar"></div>
                  </div>
              </div>
         </section>
 
         <section id="faq" class="container" data-section-name="الأسئلة الشائعة" data-section-name-en="FAQ" data-section-name-fr="FAQ">
-            <h2 class="section-title" data-lang-key="faqTitle" data-animate="slide-up-words"></h2>
+            <h2 class="section-title" data-lang-key="faqTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
             <div class="faq-container"></div>
         </section>
 
         <section id="contact" class="container" data-section-name="اتصل بنا" data-section-name-en="Contact" data-section-name-fr="Contact">
-            <h2 class="section-title" data-lang-key="contactTitle" data-animate="slide-up-words"></h2>
+            <h2 class="section-title" data-lang-key="contactTitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h2>
             <form id="contact-form" action="https://formspree.io/f/xblyqwne" method="POST">
                 <input type="text" name="name" required data-lang-placeholder="formName">
                 <input type="email" name="email" required data-lang-placeholder="formEmail">
@@ -885,7 +905,7 @@
             
             let currentLangIndex = 0;
             let typingTimeout;
-            let textAnimationObserver;
+            let blurInAnimationObserver;
             let scrollActivityTimeout; 
             const langCycle = ['ar', 'en', 'fr'];
             const scrollIndicator = document.getElementById('scroll-indicator');
@@ -1098,7 +1118,7 @@
                 startTypingEffect();
                 createFAQ();
                 initWebsiteTestTool();
-                initTextAnimations(); 
+                initBlurInAnimation();
                 createScrollIndicator();
                 initPricingCarousel();
                 setupCursorHoverEffects();
@@ -1222,13 +1242,11 @@
                 }
             }
             
-            // --- NEW & IMPROVED FAQ FUNCTION ---
             function createFAQ() {
                 const lang = langCycle[currentLangIndex];
                 const faqContainer = document.querySelector('.faq-container');
                 if (!faqContainer) return;
 
-                // To prevent multiple event listeners, we clone and replace the container
                 const newContainer = faqContainer.cloneNode(false);
                 faqContainer.parentNode.replaceChild(newContainer, faqContainer);
 
@@ -1258,7 +1276,6 @@
                     const answer = currentItem.querySelector('.faq-answer');
                     const isOpening = !currentItem.classList.contains('active');
 
-                    // Close all other items before opening the new one
                     newContainer.querySelectorAll('.faq-item').forEach(item => {
                         if (item !== currentItem) {
                             item.classList.remove('active');
@@ -1267,7 +1284,6 @@
                         }
                     });
 
-                    // Toggle the clicked item
                     if (isOpening) {
                         currentItem.classList.add('active');
                         question.setAttribute('aria-expanded', 'true');
@@ -1279,7 +1295,6 @@
                     }
                 });
 
-                // Add keyboard accessibility (Enter/Space to open/close)
                 newContainer.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         const question = e.target.closest('.faq-question');
@@ -1290,7 +1305,6 @@
                     }
                 });
                 
-                // Re-apply cursor effects to the newly created interactive elements
                 setupCursorHoverEffects();
             }
             
@@ -1380,12 +1394,122 @@
                 };
                 resetTest();
             }
+            
+            function initBlurInAnimation() {
+                const elementsToAnimate = document.querySelectorAll('[data-animate="blur-in"]');
+                if (blurInAnimationObserver) blurInAnimationObserver.disconnect();
+                
+                blurInAnimationObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const container = entry.target;
+                            const text = container.textContent;
+                            const delay = parseInt(container.dataset.animateDelay) || 80;
+                            const animateBy = container.dataset.animateBy || 'words';
+                            
+                            const parts = (animateBy === 'chars') ? text.split('') : text.trim().split(/\s+/);
 
-            function initTextAnimations() {}
-            function initServiceCardAnimations() {}
-            function initProcessStepAnimations() {}
-            function initSectionEntryAnimations() {}
-            function handleParallaxEffect() {}
+                            container.innerHTML = ''; 
+                            container.classList.add('blur-in-text');
+                            
+                            parts.forEach((part, index) => {
+                                const partSpan = document.createElement('span');
+                                partSpan.textContent = part;
+                                partSpan.style.setProperty('--delay', `${index * delay}ms`);
+                                container.appendChild(partSpan);
+                                if (animateBy === 'words' && index < parts.length - 1) {
+                                    container.appendChild(document.createTextNode(' '));
+                                }
+                            });
+
+                            setTimeout(() => container.classList.add('is-visible'), 50);
+                            observer.unobserve(container);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                elementsToAnimate.forEach(el => {
+                    el.classList.remove('is-visible', 'blur-in-text');
+                    const key = el.getAttribute('data-lang-key');
+                    const lang = langCycle[currentLangIndex];
+                    if (key && translations[lang] && translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                    blurInAnimationObserver.observe(el);
+                });
+            }
+
+            function initServiceCardAnimations() {
+                const serviceCards = document.querySelectorAll('.service-card');
+                if (!serviceCards.length) return;
+                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+                const cardObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target); 
+                        }
+                    });
+                }, observerOptions);
+                serviceCards.forEach((card, index) => {
+                    card.style.transitionDelay = `${index * 100}ms`;
+                    cardObserver.observe(card);
+                });
+            }
+
+            function initProcessStepAnimations() {
+                const processSteps = document.querySelectorAll('.process-step');
+                if (!processSteps.length) return;
+                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+                const stepObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}ms`;
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                processSteps.forEach((step, index) => {
+                    step.dataset.delay = index * 120;
+                    stepObserver.observe(step);
+                });
+            }
+
+            function initSectionEntryAnimations() {
+                const sections = document.querySelectorAll('#about, #services, #process, #pricing, #cost-calculator, #website-test, #faq, #contact');
+                if (!sections.length) return;
+                const sectionObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                sections.forEach(section => {
+                    sectionObserver.observe(section);
+                });
+            }
+
+            function handleParallaxEffect() {
+                const aboutSection = document.querySelector('#about');
+                if (!aboutSection) return;
+                const rect = aboutSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const avatar = document.querySelector('.founder-avatar');
+                    const bio = document.querySelector('.founder-bio');
+                    const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                    if (avatar) {
+                        const avatarY = scrollPercent * -80;
+                        avatar.style.transform = `translateY(${avatarY}px)`;
+                    }
+                    if (bio) {
+                        const bioY = scrollPercent * -40;
+                        bio.style.transform = `translateY(${bioY}px)`;
+                    }
+                }
+            }
 
             let currentPricingCardIndex = 1;
             let pricingObserver;
@@ -1467,19 +1591,42 @@
                 
                 document.body.addEventListener('click', initSoundEngine, { once: true });
                 document.body.addEventListener('mouseover', initSoundEngine, { once: true });
-                applyMicroInteractions();
                 
+                // Initialize all functionalities
+                applyMicroInteractions();
                 init3DHero();
                 handleScroll();
-                initServiceCardAnimations();
-                initProcessStepAnimations();
                 initSectionEntryAnimations();
+                initServiceCardAnimations();
+                initProcessStepAnimations(); // This is now correctly implemented and called
+                
                 document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
                 document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
                 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
                 window.addEventListener('scroll', handleScroll, { passive: true });
                 if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
                 
+                document.body.addEventListener('click', function(e) {
+                    const modalTrigger = e.target.closest('[data-modal-target]');
+                    if (modalTrigger) {
+                        const modalId = modalTrigger.dataset.modalTarget;
+                        const modal = document.getElementById(modalId);
+                        if (modal) {
+                            modal.classList.add('active');
+                            playSound('click', 'E5');
+                        }
+                        return; 
+                    }
+
+                    if (e.target.matches('.modal-close') || e.target.matches('.modal.active')) {
+                        const activeModal = document.querySelector('.modal.active');
+                        if (activeModal) {
+                            activeModal.classList.remove('active');
+                            playSound('click', 'C4');
+                        }
+                    }
+                });
+
                 const pricingGrid = document.querySelector('.pricing-grid');
                 if (pricingGrid) {
                     pricingGrid.addEventListener('click', function(e) {
@@ -1511,22 +1658,6 @@
                     });
                 }
 
-                document.querySelectorAll('[data-modal-target]').forEach(trigger => {
-                    trigger.addEventListener('click', (e) => {
-                        const modalId = trigger.dataset.modalTarget;
-                        const modal = document.getElementById(modalId);
-                        if (modal) modal.classList.add('active');
-                    });
-                });
-
-                document.querySelectorAll('.modal .modal-close, .modal').forEach(el => {
-                    el.addEventListener('click', (e) => {
-                        if (e.target === el) {
-                           el.closest('.modal').classList.remove('active');
-                        }
-                    });
-                });
-
                 document.querySelectorAll('.main-nav a, .footer-links a, .logo').forEach(link => {
                     link.addEventListener('click', function(e) {
                         const href = this.getAttribute('href');
@@ -1543,108 +1674,6 @@
                 const founderAvatar = document.getElementById('founder-avatar');
                 if (founderAvatar) {
                     founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
-                }
-            }
-
-            initTextAnimations = function() {
-                const elementsToAnimate = document.querySelectorAll('[data-animate="slide-up-words"]');
-                if (textAnimationObserver) textAnimationObserver.disconnect();
-                textAnimationObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const container = entry.target;
-                            const text = container.textContent;
-                            const words = text.trim().split(/\s+/);
-                            container.innerHTML = ''; 
-                            container.classList.add('slide-up-words');
-                            words.forEach((word, index) => {
-                                const wordSpan = document.createElement('span');
-                                wordSpan.innerHTML = `<span class="word" style="--delay: ${index * 0.08}s">${word}</span>`;
-                                container.appendChild(wordSpan);
-                                if (index < words.length - 1) container.appendChild(document.createTextNode(' '));
-                            });
-                            setTimeout(() => container.classList.add('is-visible'), 50);
-                            observer.unobserve(container);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                elementsToAnimate.forEach(el => {
-                    el.classList.remove('is-visible', 'slide-up-words');
-                    const key = el.getAttribute('data-lang-key');
-                    const lang = langCycle[currentLangIndex];
-                    if (key && translations[lang] && translations[lang][key]) {
-                        el.textContent = translations[lang][key];
-                    }
-                    textAnimationObserver.observe(el);
-                });
-            }
-            initServiceCardAnimations = function() {
-                const serviceCards = document.querySelectorAll('.service-card');
-                if (!serviceCards.length) return;
-                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-                const cardObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            observer.unobserve(entry.target); 
-                        }
-                    });
-                }, observerOptions);
-                serviceCards.forEach((card, index) => {
-                    card.style.transitionDelay = `${index * 100}ms`;
-                    cardObserver.observe(card);
-                });
-            }
-            initProcessStepAnimations = function() {
-                const processSteps = document.querySelectorAll('.process-step');
-                if (!processSteps.length) return;
-                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-                const stepObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}ms`;
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
-                processSteps.forEach((step, index) => {
-                    step.dataset.delay = index * 120;
-                    stepObserver.observe(step);
-                });
-            }
-
-            initSectionEntryAnimations = function() {
-                const sections = document.querySelectorAll('#about, #services, #process, #pricing, #cost-calculator, #website-test, #faq, #contact');
-                if (!sections.length) return;
-                const sectionObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15 });
-                sections.forEach(section => {
-                    sectionObserver.observe(section);
-                });
-            }
-            handleParallaxEffect = function() {
-                const aboutSection = document.querySelector('#about');
-                if (!aboutSection) return;
-                const rect = aboutSection.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    const avatar = document.querySelector('.founder-avatar');
-                    const bio = document.querySelector('.founder-bio');
-                    const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-                    if (avatar) {
-                        const avatarY = scrollPercent * -80;
-                        avatar.style.transform = `translateY(${avatarY}px)`;
-                    }
-                    if (bio) {
-                        const bioY = scrollPercent * -40;
-                        bio.style.transform = `translateY(${bioY}px)`;
-                    }
                 }
             }
 
