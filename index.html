@@ -1725,6 +1725,13 @@
                     }, 500);
                 }
 
+                // *** FIX: Initialize VanillaTilt.js here ***
+                if (typeof VanillaTilt !== 'undefined') {
+                    VanillaTilt.init(document.querySelectorAll(".service-card"), {
+                        max: 15, speed: 400, glare: true, "max-glare": 0.4, perspective: 1000
+                    });
+                }
+
                 applyMicroInteractions();
                 init3DHero();
                 handleScroll();
