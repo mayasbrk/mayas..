@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="solu_tion.dev - تصميم مواقع احترافية وسريعة في الجزائر للشركات والأفراد بأسعار معقولة.">
-    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, solu_tion.dev, تطوير ويب, مبرمج, مستقل, Amayas berkani">
+    <meta name="keywords" content="تصميم مواقع, الجزائر, web design, algeria, solu_tion.dev, تطوير ويب, مبرمج, مستقل, Amayas berkani, حجز استشارة">
     
     <title>solu_tion.dev | تصميم مواقع احترافية</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
@@ -226,6 +226,18 @@
         .btn { display: inline-block; background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); border: none; cursor: none; } /* Changed cursor to none */
         .btn:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2), 0 0 10px var(--glow-color); }
         
+        /* New Secondary Button Style */
+        .btn.btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: calc(0.8rem - 2px) calc(2rem - 2px); /* Adjust padding for border */
+        }
+        .btn.btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--primary-text-color);
+        }
+
         .header { position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%; background-color: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); transition: background-color var(--transition-speed), border-color var(--transition-speed); }
         
         /* --- GLITCH LOGO --- */
@@ -296,7 +308,16 @@
         .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; line-height: 1.2; font-weight: 700; color: var(--text-color); min-height: 2.5em; }
         .hero-content .typing-cursor { border-right: 4px solid var(--primary-color); animation: blink 0.7s step-end infinite; }
         @keyframes blink { 50% { border-color: transparent; } }
-        .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 2.5rem; }
+        .hero-content p { font-size: 1.2rem; color: var(--subtle-text-color); max-width: 650px; margin: 0 auto 1.5rem; }
+        
+        .hero-buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
         
         #about, #services, #process, #pricing, #cost-calculator, #website-test, #faq, #contact { opacity: 0; transform: translateY(40px); will-change: opacity, transform; transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); }
         #about.is-visible, #services.is-visible, #process.is-visible, #pricing.is-visible, #cost-calculator.is-visible, #website-test.is-visible, #faq.is-visible, #contact.is-visible { opacity: 1; transform: translateY(0); }
@@ -575,7 +596,7 @@
         }
         #test-result-card .btn.retake:hover {
              background-color: var(--primary-color);
-             color: var(--primary-text-color);
+              color: var(--primary-text-color);
         }
         /* --- END OF TEST TOOL STYLES --- */
 
@@ -773,7 +794,10 @@
                 <div class="hero-content">
                     <h1 id="hero-title-animated"></h1>
                     <p data-lang-key="heroSubtitle" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></p>
-                    <a href="#contact" class="btn" data-lang-key="heroCTA"></a>
+                    <div class="hero-buttons-container">
+                        <a href="booking.html" class="btn" data-lang-key="heroBookCall"></a>
+                        <a href="#contact" class="btn btn-secondary" data-lang-key="heroCTA"></a>
+                    </div>
                 </div>
             </section>
 
@@ -887,6 +911,9 @@
                     <button type="submit" class="btn" data-lang-key="formSubmit"></button>
                 </form>
                 <p id="form-status"></p>
+                <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
+                    <a href="booking.html" class="btn" data-lang-key="contactBookCall"></a>
+                </div>
                 <p class="contact-direct-title" data-lang-key="contactSubtitle"></p>
                 <div class="contact-direct-links">
                     <a href="tel:+213542511548"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> <span>0542 51 15 48</span> </a>
@@ -898,7 +925,7 @@
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-links">
-                    <div class="footer-social"> <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594-.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952 2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg> </a> </div>
+                    <div class="footer-social"> <a href="https://instagram.com/solu_tion.dev" target="_blank" aria-label="Instagram"> <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.252-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.644-.069-4.849s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.117 0-3.486.011-4.71.066-2.884.133-4.004 1.243-4.138 4.138-.055 1.225-.066 1.594-.066 4.71s.011 3.486.066 4.71c.133 2.895 1.254 4.004 4.138 4.138 1.225.055 1.593.066 4.71.066s3.486-.011 4.71-.066c2.884-.133 4.004-1.243 4.138-4.138.055-1.225.066-1.594-.066-4.71s-.011-3.486-.066-4.71c-.133-2.895-1.254-4.004-4.138-4.138-1.225-.055-1.593-.066-4.71-.066zm0 2.999c-2.405 0-4.38 1.975-4.38 4.38s1.975 4.38 4.38 4.38 4.38-1.975 4.38-4.38-1.975-4.38-4.38-4.38zm0 7.332c-1.636 0-2.952-1.316-2.952-2.952s1.316-2.952 2.952-2.952 2.952 1.316 2.952 2.952-1.316 2.952-2.952-2.952zm4.952-8.332c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408 1.408-.631 1.408-1.408-.631-1.408-1.408-1.408z"></path></svg> </a> </div>
                 <div class="footer-legal">
                     <button data-modal-target="privacy-modal" data-lang-key="footerPrivacy"></button>
                     <button data-modal-target="terms-modal" data-lang-key="footerTerms"></button>
@@ -933,7 +960,8 @@
                     introWelcome: "أهلاً بك في عالمي الرقمي", introExpertise: "حيث تتحول الأفكار إلى تجارب إبداعية", introEnter: "انقر للدخول",
                     navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navProcess: "منهجية العمل", navTest: "اختبر موقعك", navFAQ: "أسئلة شائعة", navContact: "اتصل بنا", pricingTitle: "الأسعار",
                     heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
-                    heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", heroCTA: "اطلب استشارة مجانية",
+                    heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", 
+                    heroCTA: "أو أرسل رسالة", heroBookCall: "احجز استشارة مجانية",
                     aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
                     servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
                     processTitle: "منهجية العمل",
@@ -958,6 +986,7 @@
                     testResultBadAutomatedMessage: "مرحباً،\n\nلقد استخدمت أداة اختبار الموقع وظهرت لدي بعض المشاكل، وأهمها:\n- {issues}\n\nأود الحصول على استشارة لتحسين موقعي. شكراً لكم.",
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
+                    contactBookCall: "احجز استشارة مباشرة",
                     formSending: "جاري الإرسال...", formSuccess: "شكراً لك! تم إرسال رسالتك بنجاح.", formError: "عذراً، حدث خطأ.",
                     footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerCredit: "جميع الحقوق محفوظة. © تم تطويره بواسطة Amayas Berkani",
                     privacyTitle: "سياسة الخصوصية", privacyContent: "<h4>جمع المعلومات</h4><p>نقوم بجمع المعلومات التي تقدمها مباشرة عبر نموذج التواصل، مثل الاسم والبريد الإلكتروني، وذلك بهدف الرد على استفساراتك وتقديم خدماتنا.</p><h4>استخدام المعلومات</h4><p>تستخدم المعلومات التي نجمعها فقط للتواصل معك بخصوص طلباتك ولتحسين خدماتنا. نحن لا نشارك بياناتك الشخصية مع أي طرف ثالث دون موافقتك الصريحة.</p>",
@@ -973,7 +1002,8 @@
                     introWelcome: "Welcome to My Digital Realm", introExpertise: "Where Ideas are Forged into Creative Experiences", introEnter: "Click to Enter",
                     navHome: "Home", navAbout: "About", navServices: "Services", navProcess: "Our Process", navTest: "Test Your Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Pricing",
                     heroTitle: ["We Design a Professional Digital Identity", "We Turn Your Ideas Into Reality", "Innovative Web Solutions"],
-                    heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", heroCTA: "Request a Free Consultation",
+                    heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", 
+                    heroCTA: "Or Send a Message", heroBookCall: "Book a Free Consultation",
                     aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas Berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just an interface, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant designs and high-performance code.",
                     servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-Page Websites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolio",
                     processTitle: "Our Process",
@@ -999,6 +1029,7 @@
                     faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.", faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.",
                     faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.", faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
                     contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your message...", formSubmit: "Send Message",
+                    contactBookCall: "Book a Consultation Directly",
                     formSending: "Sending...", formSuccess: "Thank you! Your message has been sent successfully.", formError: "Sorry, an error occurred.",
                     footerPrivacy: "Privacy", footerTerms: "Terms", footerCredit: "All rights reserved. © Developed by Amayas Berkani",
                     privacyTitle: "Privacy Policy", privacyContent: "<h4>Information Collection</h4><p>We collect information you provide directly through the contact form, such as name and email, to respond to your inquiries and provide our services.</p><h4>Use of Information</h4><p>The information we collect is used only to communicate with you regarding your requests and to improve our services. We do not share your personal data with any third party without your explicit consent.</p>",
@@ -1014,7 +1045,8 @@
                     introWelcome: "Bienvenue dans Mon Monde Numérique", introExpertise: "Où les idées se transforment en expériences créatives", introEnter: "Cliquez pour Entrer",
                     navHome: "Accueil", navAbout: "À propos", navServices: "Services", navProcess: "Notre Processus", navTest: "Testez Votre Site", navFAQ: "FAQ", navContact: "Contact", pricingTitle: "Tarifs",
                     heroTitle: ["Nous Créons Votre Identité Numérique Professionnelle", "Nous Transformons Vos Idées en Réalité", "Solutions Web Innovantes"],
-                    heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", heroCTA: "Demander une Consultation Gratuite",
+                    heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", 
+                    heroCTA: "Ou Envoyer un Message", heroBookCall: "Réserver une Consultation Gratuite",
                     aboutTitle: "Solutions Numériques Innovantes Pour Votre Marque", founderName: "Amayas Berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas seulement une interface, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à des designs élégants et un code haute performance.",
                     servicesTitle: "Nos Services", service1: "Pages d'Atterrissage", service2: "Sites Multi-Pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolio",
                     processTitle: "Notre Processus",
@@ -1043,6 +1075,7 @@
                     faqQ4: "Proposez-vous des sites en arabe?", faqA4: "Absolument, nous sommes spécialisés dans la conception de sites web qui supportent pleinement la langue arabe.",
                     faqQ5: "Can I request additional features?", faqA5: "Oui, nous pouvons ajouter toute fonctionnalité dont vous avez besoin pour répondre aux exigences de votre entreprise.",
                     contactTitle: "Contactez-Nous", contactSubtitle: "Ou contactez-moi directement via:", formName: "Nom Complet", formEmail: "Adresse E-mail", formMessage: "Votre message...", formSubmit: "Envoyer le Message",
+                    contactBookCall: "Réserver une Consultation Directement",
                     formSending: "Envoi en cours...", formSuccess: "Merci! Votre message a été envoyé avec succès.", formError: "Désolé, une erreur est survenue.",
                     footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerCredit: "Tous droits réservés. © Développé par Amayas Berkani",
                     privacyTitle: "Politique de Confidentialité", privacyContent: "<h4>Collecte d'Informations</h4><p>Nous collectons les informations que vous fournissez directement via le formulaire de contact, telles que le nom et l'e-mail, afin de répondre à vos demandes et de fournir nos services.</p><h4>Utilisation des Informations</h4><p>Les informations que nous collectons sont utilisées uniquement pour communiquer avec vous concernant vos demandes et pour améliorer nos services. Nous ne partageons pas vos données personnelles avec des tiers sans votre consentement explicite.</p>",
@@ -1175,7 +1208,7 @@
                     });
                     input.addEventListener('input', () => {
                          if (input.style.borderColor !== 'var(--border-color)') {
-                            input.style.borderColor = '';
+                             input.style.borderColor = '';
                          }
                     });
                 });
