@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حجز جلسة استراتيجية - solu_tion.dev</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡️</text></svg>">
+    
+    <!-- Calendly widget assets -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
+    <style>
+        :root {
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-cairo: 'Cairo', var(--font-sans);
+            --transition-speed: 0.4s;
+            --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        body {
+            --bg-color: #0d0d0d;
+            --surface-color: rgba(30, 30, 30, 0.9);
+            --text-color: #E0E0E0;
+            --subtle-text-color: #A0A0A0;
+            --border-color: rgba(70, 70, 70, 0.5);
+            --primary-color: #8B5CF6;
+            --primary-text-color: #FFFFFF;
+            --primary-hover: #A37FF7;
+            --glow-color: rgba(139, 92, 246, 0.7);
+        }
+
+        body.light-mode {
+            --bg-color: #f0f0f0;
+            --surface-color: rgba(255, 255, 255, 0.9);
+            --text-color: #121212;
+            --subtle-text-color: #555555;
+            --border-color: rgba(200, 200, 200, 0.5);
+            --primary-hover: #7C3AED;
+            --glow-color: rgba(139, 92, 246, 0.5);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
+        
+        @keyframes animated-aurora {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: var(--font-sans); 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            line-height: 1.7; 
+            transition: background-color var(--transition-speed), color var(--transition-speed); 
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: ''; position: fixed; top: -50%; left: -50%; width: 200vw; height: 200vh;
+            z-index: -1; pointer-events: none; background-color: #0d0d0d;
+            background-image:
+                radial-gradient(circle at 10% 20%, #8B5CF6 0%, rgba(139, 92, 246, 0) 30%),
+                radial-gradient(circle at 90% 80%, #4a23a0 0%, rgba(74, 35, 160, 0) 35%);
+            filter: blur(40px); animation: animated-aurora 30s linear infinite;
+            transition: background-image var(--transition-speed);
+        }
+
+        body.light-mode::before {
+            background-color: #ffffff;
+            background-image:
+                radial-gradient(circle at 15% 85%, #c084fc 0%, rgba(192, 132, 252, 0) 30%),
+                radial-gradient(circle at 85% 25%, #f3e8ff 0%, rgba(243, 232, 255, 0) 40%);
+        }
+
+        html[lang="ar"] body { font-family: var(--font-cairo); }
+        html[lang="fr"] body { font-family: var(--font-sans); }
+
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .booking-header {
+            padding: 1.5rem 5%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .home-link {
+            color: var(--subtle-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .home-link:hover {
+            color: var(--primary-text-color);
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .booking-main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 5%;
+        }
+
+        .booking-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            width: 100%;
+            max-width: 1200px;
+            align-items: center;
+        }
+
+        .text-content {
+            animation: fadeInUp 0.8s 0.2s var(--ease-out-quart) forwards;
+            opacity: 0;
+        }
+        
+        .text-content > * {
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out-quart) forwards;
+        }
+        
+        .text-content h1 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            animation-delay: 0.3s;
+        }
+        
+        .text-content .subtitle {
+            font-size: 1.2rem;
+            color: var(--subtle-text-color);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            animation-delay: 0.5s;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2.5rem;
+        }
+        
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+            animation-delay: calc(0.7s + (var(--i) * 0.15s));
+        }
+
+        .benefits-list li svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            color: var(--primary-color);
+        }
+
+        .final-word {
+            font-style: italic;
+            color: var(--subtle-text-color);
+            border-inline-start: 3px solid var(--primary-color);
+            padding-inline-start: 1.5rem;
+            animation-delay: 1.2s;
+        }
+
+        .calendly-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            opacity: 0;
+            transform: scale(0.95);
+            animation: fadeInUp 1s 0.6s var(--ease-out-quart) forwards;
+            animation-name: scaleUp;
+        }
+        
+        @keyframes scaleUp {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .calendly-inline-widget {
+            height: 700px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .booking-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            .text-content {
+                order: 1;
+            }
+            .calendly-container {
+                order: 2;
+            }
+            .text-content .subtitle, .final-word {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .benefits-list {
+                display: inline-block;
+                text-align: start;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .booking-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .calendly-inline-widget {
+                height: 650px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <header class="booking-header">
+            <a href="index.html" class="logo">solu_tion.dev</a>
+            <a href="index.html" class="home-link" data-lang-key="backToHome"></a>
+        </header>
+
+        <main class="booking-main">
+            <div class="booking-content">
+                <div class="text-content">
+                    <h1 data-lang-key="bookingTitle"></h1>
+                    <p class="subtitle" data-lang-key="bookingSubtitle"></p>
+                    
+                    <ul class="benefits-list">
+                        <li style="--i: 1;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+                            <span data-lang-key="benefit1"></span>
+                        </li>
+                        <li style="--i: 2;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                            <span data-lang-key="benefit2"></span>
+                        </li>
+                        <li style="--i: 3;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <span data-lang-key="benefit3"></span>
+                        </li>
+                    </ul>
+
+                    <p class="final-word" data-lang-key="finalWord"></p>
+                </div>
+
+                <div class="calendly-container">
+                    <!-- Calendly inline widget begin -->
+                    <div class="calendly-inline-widget" data-url="https://calendly.com/solutiondev000/30min?hide_event_type_details=1&hide_gdpr_banner=1" ></div>
+                    <!-- Calendly inline widget end -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const translations = {
+                ar: {
+                    backToHome: "← العودة للرئيسية",
+                    bookingTitle: "احجز جلستك الاستراتيجية الأولية",
+                    bookingSubtitle: "هذه الجلسة المجانية (15 دقيقة) هي خطوتك الأولى نحو مشروع رقمي ناجح ومبني على أسس صحيحة.",
+                    benefit1: "تحليل سريع لأهدافك ومتطلباتك.",
+                    benefit2: "مناقشة التحديات والفرص المتاحة.",
+                    benefit3: "توصيات أولية واضحة وقابلة للتنفيذ.",
+                    finalWord: "هذه الجلسة ليست مجرد مكالمة، بل هي استثمار أولي في رؤيتك."
+                },
+                en: {
+                    backToHome: "← Back to Home",
+                    bookingTitle: "Book Your Initial Strategy Session",
+                    bookingSubtitle: "This free 15-minute session is your first step towards a successful and well-founded digital project.",
+                    benefit1: "A quick analysis of your goals and requirements.",
+                    benefit2: "Discussion of challenges and available opportunities.",
+                    benefit3: "Clear and actionable initial recommendations.",
+                    finalWord: "This session isn't just a call; it's an initial investment in your vision."
+                },
+                fr: {
+                    backToHome: "← Retour à l'accueil",
+                    bookingTitle: "Réservez votre session stratégique initiale",
+                    bookingSubtitle: "Cette session gratuite de 15 minutes est votre premier pas vers un projet numérique réussi et bien fondé.",
+                    benefit1: "Analyse rapide de vos objectifs et de vos besoins.",
+                    benefit2: "Discussion des défis et des opportunités disponibles.",
+                    benefit3: "Recommandations initiales claires et exploitables.",
+                    finalWord: "Cette session n'est pas un simple appel ; c'est un investissement initial dans votre vision."
+                }
+            };
+
+            const langCycle = ['ar', 'en', 'fr'];
+
+            function updateLanguage(langCode) {
+                const langData = translations[langCode];
+                if (!langData) return;
+
+                document.documentElement.lang = langCode;
+                document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
+
+                document.querySelectorAll('[data-lang-key]').forEach(el => {
+                    const key = el.getAttribute('data-lang-key');
+                    if (langData[key]) {
+                        el.textContent = langData[key];
+                    }
+                });
+            }
+
+            function setInitialLanguage() {
+                const savedLang = localStorage.getItem('siteLang');
+                let initialLang = 'ar';
+                 if (savedLang && langCycle.includes(savedLang)) {
+                    initialLang = savedLang;
+                } else {
+                    const browserLang = navigator.language.split('-')[0];
+                    if (langCycle.includes(browserLang)) {
+                        initialLang = browserLang;
+                    }
+                }
+                updateLanguage(initialLang);
+            }
+            
+            function applyTheme() {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                document.body.classList.toggle('light-mode', savedTheme === 'light');
+                
+                // Pass theme parameters to Calendly
+                const calendlyWidget = document.querySelector('.calendly-inline-widget');
+                if (calendlyWidget) {
+                    const url = new URL(calendlyWidget.dataset.url);
+                    if (savedTheme === 'light') {
+                        url.searchParams.set('background_color', 'f0f0f0');
+                        url.searchParams.set('text_color', '121212');
+                        url.searchParams.set('primary_color', '8B5CF6');
+                    } else {
+                        url.searchParams.set('background_color', '0d0d0d');
+                        url.searchParams.set('text_color', 'e0e0e0');
+                        url.searchParams.set('primary_color', '8B5CF6');
+                    }
+                    calendlyWidget.dataset.url = url.toString();
+                }
+            }
+
+            // Initial setup
+            applyTheme();
+            setInitialLanguage();
+        });
+    </script>
+</body>
+</html>
