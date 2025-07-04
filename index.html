@@ -442,6 +442,8 @@
         .pricing-card.popular.is-active { border: 2px solid var(--primary-color); box-shadow: 0 0 30px -5px var(--glow-color); }
         .popular-badge { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); background-color: var(--primary-color); color: var(--primary-text-color); padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
         .pricing-card h3 { font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; }
+        /* Style for new pricing description */
+        .plan-description { color: var(--subtle-text-color); font-size: 0.9rem; min-height: 3.5em; /* Prevents layout shifts */ margin: -0.5rem auto 1.5rem; max-width: 90%; }
         .pricing-card .price { font-size: 2.8rem; font-weight: 700; color: var(--primary-color); margin-bottom: 2rem; }
         .pricing-card .price small { font-size: 1rem; font-weight: 400; color: var(--subtle-text-color); margin-inline-start: 0.5rem; }
         .features-list { list-style: none; text-align: start; margin-bottom: 2.5rem; }
@@ -866,9 +868,9 @@
                 <h2 class="section-title shiny-title" data-lang-key="pricingTitle"></h2>
                 <div class="pricing-carousel-container">
                     <div class="pricing-grid" id="pricing-carousel">
-                        <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
-                        <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
-                        <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                        <div class="pricing-card"> <h3 data-lang-key="plan1Name"></h3> <p class="plan-description" data-lang-key="plan1Desc"></p> <div class="price"> <span data-lang-key="plan1Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan1Feat2"></li> <li data-lang-key="plan1Feat3"></li> <li data-lang-key="plan1Feat4"></li> <li class="disabled" data-lang-key="plan1Feat5"></li> <li class="disabled" data-lang-key="plan1Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                        <div class="pricing-card popular"> <div class="popular-badge" data-lang-key="planPopularBadge"></div> <h3 data-lang-key="plan2Name"></h3> <p class="plan-description" data-lang-key="plan2Desc"></p> <div class="price"> <span data-lang-key="plan2Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan2Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan2Feat3"></li> <li data-lang-key="plan2Feat4"></li> <li data-lang-key="plan2Feat5"></li> <li class="disabled" data-lang-key="plan2Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
+                        <div class="pricing-card"> <h3 data-lang-key="plan3Name"></h3> <p class="plan-description" data-lang-key="plan3Desc"></p> <div class="price"> <span data-lang-key="plan3Price"></span> <small data-lang-key="currencySuffix"></small> </div> <ul class="features-list"> <li data-lang-key="plan1Feat1"></li> <li data-lang-key="plan2Feat2"></li> <li data-lang-key="plan3Feat3"></li> <li data-lang-key="plan3Feat4"></li> <li data-lang-key="plan3Feat5"></li> <li data-lang-key="plan3Feat6"></li> </ul> <a href="#contact" class="btn" data-lang-key="planCTA"></a> </div>
                     </div>
                     <button class="carousel-nav-btn prev" aria-label="Previous Plan">
                         <svg fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path></svg>
@@ -970,19 +972,13 @@
                     process3Title: "التطوير والبرمجة", process3Desc: "نبدأ بتحويل التصميمات إلى كود برمجي نظيف وفعّال، مع ضمان أعلى مستويات الجودة والأداء.",
                     process4Title: "الإطلاق والدعم", process4Desc: "بعد اختبار شامل، نطلق موقعك ونوفر الدعم الفني المستمر لضمان عمله بكفاءة دون توقف.",
                     planPopularBadge: "الأكثر طلباً", currencySuffix: "د.ج", planCTA: "ابدأ الآن",
-                    plan1Name: "الباقة الأساسية", plan1Price: "3500", plan1Feat1: "صفحة ويب واحدة (Landing Page)", plan1Feat2: "تصميم متجاوب مع كل الشاشات", plan1Feat3: "نموذج تواصل فعال", plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)", plan1Feat5: "نظام إدارة المحتوى", plan1Feat6: "متجر إلكتروني متكامل",
-                    plan2Name: "الباقة الاحترافية", plan2Price: "5000", plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)", plan2Feat2: "تصميم متجاوب ومخصص", plan2Feat3: "ربط بلوحة تحكم (CMS)", plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)", plan2Feat5: "دعم فني لمدة شهر", plan2Feat6: "متجر إلكتروني متكامل",
-                    plan3Name: "الباقة المتكاملة", plan3Price: "9500", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
+                    plan1Name: "الباقة الأساسية", plan1Price: "3500", plan1Desc: "مثالية للمشاريع الشخصية والشركات الناشئة التي تحتاج إلى تواجد أولي على الإنترنت.", plan1Feat1: "صفحة ويب واحدة (Landing Page)", plan1Feat2: "تصميم متجاوب مع كل الشاشات", plan1Feat3: "نموذج تواصل فعال", plan1Feat4: "تهيئة أساسية لمحركات البحث (SEO)", plan1Feat5: "نظام إدارة المحتوى", plan1Feat6: "متجر إلكتروني متكامل",
+                    plan2Name: "الباقة الاحترافية", plan2Price: "5000", plan2Desc: "مثالية للشركات الراسخة التي ترغب في عرض خدماتها بشكل كامل.", plan2Feat1: "موقع متعدد الصفحات (حتى 5 صفحات)", plan2Feat2: "تصميم متجاوب ومخصص", plan2Feat3: "ربط بلوحة تحكم (CMS)", plan2Feat4: "تحسين متقدم لمحركات البحث (SEO)", plan2Feat5: "دعم فني لمدة شهر", plan2Feat6: "متجر إلكتروني متكامل",
+                    plan3Name: "الباقة المتكاملة", plan3Price: "9500", plan3Desc: "مثالية للمتاجر الإلكترونية والمشاريع الكبيرة التي تتطلب ميزات متقدمة.", plan3Feat1: "موقع متعدد الصفحات غير محدود", plan3Feat2: "تصميم فريد وعصري", plan3Feat3: "ربط بلوحة تحكم (CMS)", plan3Feat4: "تحسين احترافي لمحركات البحث (SEO)", plan3Feat5: "دعم فني لمدة 3 أشهر", plan3Feat6: "متجر إلكتروني مع بوابات دفع",
                     calculatorTitle: "لست متأكدًا أي باقة تختار؟", calculatorCTA: "جرّب الحاسبة التفاعلية",
                     testTitle: "هل موقعك الحالي جيد؟", testQ1: "هل موقعك متجاوب مع الهاتف؟", testQ2: "هل يتم تحميل موقعك بسرعة؟", testQ3: "هل محتوى موقعك سهل التصفح؟", testQ4: "هل يبدو تصميم موقعك احترافيًا؟", testQ5: "هل معلومات الاتصال الخاصة بك واضحة؟",
                     testYes: "نعم", testNo: "لا", testResultGood: "رائع! يبدو أن موقعك يعمل بشكل جيد.", testResultBad: "موقعك بحاجة لبعض التحسينات. دعنا نساعدك!", testRetake: "أعد الاختبار", testFixIssues: "ساعدوني في حل المشاكل",
-                    testIssues: {
-                        testQ1: "عدم تجاوب الموقع مع الهاتف",
-                        testQ2: "بطء تحميل الموقع",
-                        testQ3: "صعوبة تصفح المحتوى",
-                        testQ4: "تصميم غير احترافي",
-                        testQ5: "معلومات الاتصال غير واضحة"
-                    },
+                    testIssues: { testQ1: "عدم تجاوب الموقع مع الهاتف", testQ2: "بطء تحميل الموقع", testQ3: "صعوبة تصفح المحتوى", testQ4: "تصميم غير احترافي", testQ5: "معلومات الاتصال غير واضحة" },
                     testResultBadAutomatedMessage: "مرحباً،\n\nلقد استخدمت أداة اختبار الموقع وظهرت لدي بعض المشاكل، وأهمها:\n- {issues}\n\nأود الحصول على استشارة لتحسين موقعي. شكراً لكم.",
                     faqTitle: "أسئلة شائعة", faqQ1: "كم من الوقت يستغرق إنشاء موقع؟", faqA1: "يعتمد ذلك على حجم المشروع، لكن الموقع البسيط يستغرق عادة من أسبوع إلى أسبوعين.", faqQ2: "هل تقدمون الدعم بعد التسليم؟", faqA2: "نعم، نقدم فترة دعم مجانية بعد تسليم الموقع لضمان عمل كل شيء بشكل صحيح.", faqQ3: "هل يمكنني الدفع بعد الاستلام؟", faqA3: "نعتمد نظام دفع مرن، دفعة أولى عند البدء والباقي عند التسليم النهائي.", faqQ4: "هل تقدمون مواقع باللغة العربية؟", faqA4: "بالتأكيد، نحن متخصصون في تصميم مواقع تدعم اللغة العربية بشكل كامل.", faqQ5: "هل يمكنني طلب ميزات إضافية؟", faqA5: "نعم، يمكننا إضافة أي ميزة تحتاجها لتلبية متطلبات عملك.",
                     contactTitle: "تواصل معنا", contactSubtitle: "أو تواصل معي مباشرة عبر:", formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMessage: "رسالتك...", formSubmit: "إرسال الرسالة",
@@ -1012,22 +1008,19 @@
                     process3Title: "Development & Coding", process3Desc: "We start transforming designs into clean, efficient code, ensuring the highest levels of quality and performance.",
                     process4Title: "Launch & Support", process4Desc: "After thorough testing, we launch your site and provide continuous technical support to ensure it operates efficiently without interruption.",
                     planPopularBadge: "Most Popular", currencySuffix: "DZD", planCTA: "Get Started",
-                    plan1Name: "Basic Plan", plan1Price: "3500", plan1Feat1: "Single Web Page (Landing Page)", plan1Feat2: "Responsive on all devices", plan1Feat3: "Effective contact form", plan1Feat4: "Basic SEO setup", plan1Feat5: "Content Management System", plan1Feat6: "Full E-commerce store",
-                    plan2Name: "Professional Plan", plan2Price: "5000", plan2Feat1: "Multi-page site (up to 5 pages)", plan2Feat2: "Custom responsive design", plan2Feat3: "CMS Integration", plan2Feat4: "Advanced SEO optimization", plan2Feat5: "1-month technical support", plan2Feat6: "Full E-commerce store",
-                    plan3Name: "Premium Plan", plan3Price: "9500", plan3Feat1: "Unlimited multi-page site", plan3Feat2: "Unique and modern design", plan3Feat3: "CMS Integration", plan3Feat4: "Professional SEO optimization", plan3Feat5: "3-months technical support", plan3Feat6: "E-commerce with payment gateways",
+                    plan1Name: "Basic Plan", plan1Price: "3500", plan1Desc: "Ideal for personal projects and startups needing an initial online presence.", plan1Feat1: "Single Web Page (Landing Page)", plan1Feat2: "Responsive on all devices", plan1Feat3: "Effective contact form", plan1Feat4: "Basic SEO setup", plan1Feat5: "Content Management System", plan1Feat6: "Full E-commerce store",
+                    plan2Name: "Professional Plan", plan2Price: "5000", plan2Desc: "Ideal for established companies wanting to fully showcase their services.", plan2Feat1: "Multi-page site (up to 5 pages)", plan2Feat2: "Custom responsive design", plan2Feat3: "CMS Integration", plan2Feat4: "Advanced SEO optimization", plan2Feat5: "1-month technical support", plan2Feat6: "Full E-commerce store",
+                    plan3Name: "Premium Plan", plan3Price: "9500", plan3Desc: "Ideal for e-commerce stores and large projects requiring advanced features.", plan3Feat1: "Unlimited multi-page site", plan3Feat2: "Unique and modern design", plan3Feat3: "CMS Integration", plan3Feat4: "Professional SEO optimization", plan3Feat5: "3-months technical support", plan3Feat6: "E-commerce with payment gateways",
                     calculatorTitle: "Not Sure Which Plan to Choose?", calculatorCTA: "Try the Interactive Calculator",
                     testTitle: "Is Your Current Website Good?", testQ1: "Is your site mobile-responsive?", testQ2: "Does your site load quickly?", testQ3: "Is your content easy to navigate?", testQ4: "Does your design look professional?", testQ5: "Is your contact information clear?",
                     testYes: "Yes", testNo: "No", testResultGood: "Great! It seems your website is performing well.", testResultBad: "Your site could use some improvements. Let us help!", testRetake: "Retake Test", testFixIssues: "Help Me Fix These Issues",
-                    testIssues: {
-                        testQ1: "Site is not mobile-responsive",
-                        testQ2: "Site loads slowly",
-                        testQ3: "Content is difficult to navigate",
-                        testQ4: "Design looks unprofessional",
-                        testQ5: "Contact information is not clear"
-                    },
+                    testIssues: { testQ1: "Site is not mobile-responsive", testQ2: "Site loads slowly", testQ3: "Content is difficult to navigate", testQ4: "Design looks unprofessional", testQ5: "Contact information is not clear" },
                     testResultBadAutomatedMessage: "Hello,\n\nI used your site testing tool and identified a few issues, including:\n- {issues}\n\nI'd like a consultation to improve my site. Thank you.",
-                    faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.", faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.",
-                    faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.", faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.", faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
+                    faqTitle: "Frequently Asked Questions", faqQ1: "How long does it take to build a site?", faqA1: "It depends on the project's scope, but a simple site usually takes one to two weeks.",
+                    faqQ2: "Do you offer support after launch?", faqA2: "Yes, we provide a free support period after the site is delivered to ensure everything works correctly.",
+                    faqQ3: "Can I pay after delivery?", faqA3: "We use a flexible payment system: a down payment to start and the rest upon final delivery.",
+                    faqQ4: "Do you offer sites in Arabic?", faqA4: "Absolutely, we specialize in designing websites that fully support the Arabic language.",
+                    faqQ5: "Can I request additional features?", faqA5: "Yes, we can add any feature you need to meet your business requirements.",
                     contactTitle: "Contact Us", contactSubtitle: "Or contact me directly via:", formName: "Full Name", formEmail: "Email Address", formMessage: "Your message...", formSubmit: "Send Message",
                     contactBookCall: "Book a Consultation Directly",
                     formSending: "Sending...", formSuccess: "Thank you! Your message has been sent successfully.", formError: "Sorry, an error occurred.",
@@ -1055,19 +1048,13 @@
                     process3Title: "Développement et Codage", process3Desc: "Nous commençons à transformer les maquettes en un code propre et efficace, garantissant les plus hauts niveaux de qualité et de performance.",
                     process4Title: "Lancement et Support", process4Desc: "Après des tests approfondis, nous lançons votre site et fournissons un support technique continu pour assurer son fonctionnement efficace sans interruption.",
                     planPopularBadge: "Le plus populaire", currencySuffix: "DZD", planCTA: "Commencer",
-                    plan1Name: "Forfait Essentiel", plan1Price: "3500", plan1Feat1: "Page web unique (Landing Page)", plan1Feat2: "Responsive sur tous les écrans", plan1Feat3: "Formulaire de contact efficace", plan1Feat4: "Configuration SEO de base", plan1Feat5: "Système de gestion de contenu", plan1Feat6: "Boutique e-commerce complète",
-                    plan2Name: "Forfait Professionnel", plan2Price: "5000", plan2Feat1: "Site multi-pages (jusqu'à 5 pages)", plan2Feat2: "Design responsive personnalisé", plan2Feat3: "Intégration CMS", plan2Feat4: "Optimisation SEO avancée", plan2Feat5: "1 mois de support technique", plan2Feat6: "Boutique e-commerce complète",
-                    plan3Name: "Forfait Premium", plan3Price: "9500", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
+                    plan1Name: "Forfait Essentiel", plan1Price: "3500", plan1Desc: "Idéal pour les projets personnels et les startups nécessitant une première présence en ligne.", plan1Feat1: "Page web unique (Landing Page)", plan1Feat2: "Responsive sur tous les écrans", plan1Feat3: "Formulaire de contact efficace", plan1Feat4: "Configuration SEO de base", plan1Feat5: "Système de gestion de contenu", plan1Feat6: "Boutique e-commerce complète",
+                    plan2Name: "Forfait Professionnel", plan2Price: "5000", plan2Desc: "Idéal pour les entreprises établies souhaitant présenter pleinement leurs services.", plan2Feat1: "Site multi-pages (jusqu'à 5 pages)", plan2Feat2: "Design responsive personnalisé", plan2Feat3: "Intégration CMS", plan2Feat4: "Optimisation SEO avancée", plan2Feat5: "1 mois de support technique", plan2Feat6: "Boutique e-commerce complète",
+                    plan3Name: "Forfait Premium", plan3Price: "9500", plan3Desc: "Idéal pour les boutiques en ligne et les grands projets nécessitant des fonctionnalités avancées.", plan3Feat1: "Site multi-pages illimité", plan3Feat2: "Design unique et moderne", plan3Feat3: "Intégration CMS", plan3Feat4: "Optimisation SEO professionnelle", plan3Feat5: "3 mois de support technique", plan3Feat6: "E-commerce avec passerelles de paiement",
                     calculatorTitle: "Pas Sûr Quel Forfait Choisir?", calculatorCTA: "Essayez le Calculateur Interactif",
                     testTitle: "Votre Site Actuel Est-il Bon?", testQ1: "Votre site est-il responsive sur mobile?", testQ2: "Votre site se charge-t-il rapidement?", testQ3: "Le contenu est-il facile à parcourir?", testQ4: "Votre design semble-t-il professionnel?", testQ5: "Vos informations de contact sont-elles claires?",
                     testYes: "Oui", testNo: "Non", testResultGood: "Excellent! Il semble que votre site fonctionne bien.", testResultBad: "Votre site a besoin d'améliorations. Laissez-nous vous aider!", testRetake: "Refaire le test", testFixIssues: "Aidez-moi à résoudre ces problèmes",
-                    testIssues: {
-                        testQ1: "Le site n'est pas responsive sur mobile",
-                        testQ2: "Le site se charge lentement",
-                        testQ3: "Le contenu est difficile à naviguer",
-                        testQ4: "Le design semble non professionnel",
-                        testQ5: "Les informations de contact ne sont pas claires"
-                    },
+                    testIssues: { testQ1: "Le site n'est pas responsive sur mobile", testQ2: "Le site se charge lentement", testQ3: "Le contenu est difficile à naviguer", testQ4: "Le design semble non professionnel", testQ5: "Les informations de contact ne sont pas claires" },
                     testResultBadAutomatedMessage: "Bonjour,\n\nJ'ai utilisé votre outil de test de site et j'ai identifié quelques problèmes, notamment:\n- {issues}\n\nJ'aimerais une consultation pour améliorer mon site. Merci.",
                     faqTitle: "Questions Fréquemment Posées", faqQ1: "Combien de temps faut-il pour créer un site?", faqA1: "Cela dépend de l'envergure du projet, mais un site simple prend généralement une à deux semaines.",
                     faqQ2: "Offrez-vous du support après le lancement?", faqA2: "Oui, nous offrons une période de support gratuite après la livraison pour garantir que tout fonctionne correctement.",
@@ -1145,15 +1132,13 @@
             }
             // --- END CUSTOM CURSOR LOGIC ---
 
-            // --- NEW: SOUND ENGINE ---
+            // --- SOUND ENGINE ---
             let soundEnabled = false;
             let synths = {};
 
             function initSoundEngine() {
-                // Initialize sound only once after the first user interaction (e.g., clicking the intro)
                 if (soundEnabled || typeof Tone === 'undefined') return;
                 Tone.start();
-                // Define various synths for different interactions
                 synths.click = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 0.1 }, volume: -18 }).toDestination();
                 synths.hover = new Tone.MembraneSynth({ pitchDecay: 0.008, octaves: 2, envelope: { attack: 0.0006, decay: 0.2, sustain: 0 }, volume: -24 }).toDestination();
                 synths.toggleOn = new Tone.Synth({ oscillator: { type: 'triangle' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.01, release: 0.1 }, volume: -18 }).toDestination();
@@ -1170,18 +1155,16 @@
                 }
             };
             
-            // --- NEW: MICRO-INTERACTIONS WITH SOUND ---
+            // --- MICRO-INTERACTIONS WITH SOUND ---
             function applyMicroInteractions() {
                 const interactiveElements = document.querySelectorAll('.btn, .theme-toggle, .lang-toggle, .main-nav a, .faq-question, .carousel-nav-btn, .footer-legal button, .scroll-indicator-nav li a, .service-card, .process-step, .contact-direct-links a, .modal-close');
                 interactiveElements.forEach(el => {
                     el.addEventListener('mouseenter', () => playSound('hover', 'C3', '32n'));
                     el.addEventListener('mousedown', () => {
                         playSound('click', 'C5', '8n');
-                        // Add a subtle visual press effect
                         el.style.transition = 'transform 0.1s ease';
                         el.style.transform += ' scale(0.95)';
                     });
-                    // Reset the visual effect on mouse up or leave
                     el.addEventListener('mouseup', () => el.style.transform = el.style.transform.replace(' scale(0.95)', ''));
                     el.addEventListener('mouseleave', () => el.style.transform = el.style.transform.replace(' scale(0.95)', ''));
                 });
@@ -1189,7 +1172,6 @@
                 const formInputs = document.querySelectorAll('#contact-form input, #contact-form textarea');
                 formInputs.forEach(input => {
                     input.addEventListener('focus', () => playSound('formFocus', 'C4'));
-                    // Add validation sound feedback
                     input.addEventListener('blur', () => {
                         const isValid = input.checkValidity();
                         if (input.value.length > 0) {
@@ -1203,7 +1185,7 @@
                                 setTimeout(() => input.classList.remove('shake-error'), 500);
                             }
                         } else {
-                            input.style.borderColor = ''; // Reset border
+                            input.style.borderColor = '';
                         }
                     });
                     input.addEventListener('input', () => {
@@ -1311,7 +1293,6 @@
                     scrollTopBtn.title = titles[langCode];
                 }
                 
-                // Defer main site animations until after intro
                 if (!mainContent.classList.contains('hidden')) {
                     startTypingEffect();
                     createFAQ();
@@ -1446,7 +1427,6 @@
                 const faqContainer = document.querySelector('.faq-container');
                 if (!faqContainer) return;
 
-                // Re-create the container to clear old event listeners
                 const newContainer = faqContainer.cloneNode(false);
                 faqContainer.parentNode.replaceChild(newContainer, faqContainer);
 
@@ -1476,7 +1456,6 @@
                     const answer = currentItem.querySelector('.faq-answer');
                     const isOpening = !currentItem.classList.contains('active');
 
-                    // Close other items
                     newContainer.querySelectorAll('.faq-item').forEach(item => {
                         if (item !== currentItem) {
                             item.classList.remove('active');
@@ -1485,7 +1464,6 @@
                         }
                     });
 
-                    // Toggle current item
                     if (isOpening) {
                         currentItem.classList.add('active');
                         question.setAttribute('aria-expanded', 'true');
@@ -1507,7 +1485,6 @@
                     }
                 });
                 
-                // Re-apply hover effects for the new elements
                 setupCursorHoverEffects();
             }
             
@@ -1760,16 +1737,23 @@
             }
 
             function initMainSite() {
-                // This function initializes all features of the main site
                 const logo = document.querySelector('.logo');
                 if (logo) {
-                    // Activate glitch animation after a short delay for better effect
                     setTimeout(() => {
                         logo.classList.add('glitch-active');
                     }, 500);
                 }
+                
+                // FIX: Add mouse move listener for spotlight effect
+                document.addEventListener('mousemove', e => {
+                    // Use requestAnimationFrame for performance
+                    requestAnimationFrame(() => {
+                        document.body.style.setProperty('--mouse-x', e.clientX + 'px');
+                        document.body.style.setProperty('--mouse-y', e.clientY + 'px');
+                    });
+                });
 
-                // *** FIX: Initialize VanillaTilt.js here ***
+                // Initialize VanillaTilt.js for service cards
                 if (typeof VanillaTilt !== 'undefined') {
                     VanillaTilt.init(document.querySelectorAll(".service-card"), {
                         max: 15, speed: 400, glare: true, "max-glare": 0.4, perspective: 1000
@@ -1859,7 +1843,6 @@
                     founderAvatar.style.backgroundImage = `url('https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg')`;
                 }
 
-                // Call updateLanguage again to trigger animations that depend on it
                 updateLanguage(langCycle[currentLangIndex]);
             }
 
@@ -1904,18 +1887,15 @@
                 const introAnimationInterval = setInterval(draw, 33);
 
                 introOverlay.addEventListener('click', () => {
-                    // Initialize the sound engine on the first user interaction
                     initSoundEngine(); 
                     playSound('click', 'E5');
                     introOverlay.classList.add('hidden');
                     mainContent.classList.remove('hidden');
                     
-                    // Stop intro animation and clean up
                     clearInterval(introAnimationInterval);
                     
                     setTimeout(() => {
                         introOverlay.style.display = 'none';
-                        // Initialize the main site's functionality
                         initMainSite();
                     }, 800); // Match transition duration
                 }, { once: true });
@@ -1937,7 +1917,6 @@
             }
             currentLangIndex = langCycle.indexOf(initialLang);
             
-            // Set intro text before showing it
             const langData = translations[initialLang];
             document.querySelector('.intro-content h1').textContent = langData.introWelcome;
             document.querySelector('.intro-content p:not(.intro-enter-prompt)').textContent = langData.introExpertise;
