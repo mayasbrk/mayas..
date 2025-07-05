@@ -368,13 +368,80 @@
         }
         /* --- END SHINY TEXT ANIMATION --- */
 
+        /* --- ABOUT SECTION STYLES (UPDATED) --- */
         #about { background-color: var(--surface-color); border-radius: 16px; padding: 4rem 2rem; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 0 20px -8px var(--glow-color); transition-property: box-shadow, border-color, opacity, transform; }
         #about:hover { box-shadow: 0 0 25px -5px var(--glow-color); }
-        .founder-content { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
-        .founder-avatar { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid var(--primary-color); }
-        .founder-bio { flex-basis: 60%; min-width: 300px; text-align: center; }
-        .founder-bio h3 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
-        .founder-avatar, .founder-bio { will-change: transform; transition: transform 0.3s ease-out; }
+        .about-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+        @media (min-width: 768px) {
+            .about-grid { grid-template-columns: 150px 1fr; text-align: start; align-items: center; gap: 2.5rem; }
+        }
+        .founder-avatar { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid var(--primary-color); margin: 0 auto; }
+        .founder-bio p { margin-bottom: 1.5rem; color: var(--subtle-text-color); }
+        .founder-bio h3 { font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600; color: var(--text-color); }
+        .founder-bio h4 { font-size: 1.2rem; margin-bottom: 0.75rem; font-weight: 600; color: var(--primary-color); }
+        
+        .skills-container { margin-top: 2.5rem; }
+        .skills-title { font-size: 1.3rem; font-weight: 600; text-align: center; margin-bottom: 1.5rem; color: var(--text-color); }
+        .skills-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
+        
+        .skill-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s var(--ease-out-quart), transform 0.5s var(--ease-out-quart);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: none;
+        }
+        .skill-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .skill-icon-container {
+            width: 64px;
+            height: 64px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden; /* Important for ripple effect */
+        }
+        .skill-icon-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        .skill-item:hover .skill-icon-container {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px -2px var(--glow-color);
+        }
+        .skill-item:hover .skill-icon-container img {
+            transform: scale(0.9);
+        }
+        .skill-name { font-size: 0.9rem; color: var(--subtle-text-color); font-weight: 500; }
+
+        /* Ripple animation for skill icons */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(139, 92, 246, 0.7);
+            transform: scale(0);
+            animation: ripple-effect 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple-effect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        /* --- END ABOUT SECTION STYLES --- */
 
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         
@@ -601,7 +668,7 @@
         }
         #test-result-card .btn.retake:hover {
              background-color: var(--primary-color);
-              color: var(--primary-text-color);
+               color: var(--primary-text-color);
         }
         /* --- END OF TEST TOOL STYLES --- */
 
@@ -739,7 +806,7 @@
             body {
                 cursor: default;
             }
-            .btn, .theme-toggle, .lang-toggle, .service-card[data-modal-target], .carousel-nav-btn, .faq-question, .modal-close, .footer-legal button, #scrollTopBtn {
+            .btn, .theme-toggle, .lang-toggle, .service-card[data-modal-target], .carousel-nav-btn, .faq-question, .modal-close, .footer-legal button, #scrollTopBtn, .skill-item {
                 cursor: pointer;
             }
         }
@@ -806,17 +873,31 @@
                 </div>
             </section>
 
+            <!-- ==================================================== -->
+            <!-- ========= START: UPDATED ABOUT ME SECTION ========== -->
+            <!-- ==================================================== -->
             <section id="about" class="container" data-section-name="من نحن" data-section-name-en="About" data-section-name-fr="À propos">
                 <h2 class="section-title shiny-title" data-lang-key="aboutTitle"></h2>
-                <div class="founder-content">
-                    <!-- OPTIMIZATION: Switched to img tag for lazy loading and better semantics -->
+                <div class="about-grid">
                     <img id="founder-avatar" class="founder-avatar" loading="lazy" src="https://i.postimg.cc/BQpqQ7dG/Picsart-24-10-31-17-52-02-020.jpg" alt="Amayas Berkani, مطور ويب">
                     <div class="founder-bio">
-                        <h3 data-lang-key="founderName" data-animate="blur-in" data-animate-by="words" data-animate-delay="80"></h3>
-                        <p data-lang-key="founderText" data-animate="blur-in" data-animate-by="words" data-animate-delay="50"></p>
+                        <h3 data-lang-key="founderName"></h3>
+                        <p data-lang-key="founderIntro"></p>
+                        
+                        <h4 data-lang-key="founderPhilosophyTitle"></h4>
+                        <p data-lang-key="founderPhilosophy"></p>
+                    </div>
+                </div>
+                <div class="skills-container">
+                    <h3 class="skills-title" data-lang-key="techSkillsTitle"></h3>
+                    <div class="skills-grid" id="skills-grid">
+                        <!-- Skill items will be injected by JavaScript -->
                     </div>
                 </div>
             </section>
+            <!-- ==================================================== -->
+            <!-- ========== END: UPDATED ABOUT ME SECTION =========== -->
+            <!-- ==================================================== -->
 
             <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
                 <h2 class="section-title shiny-title" data-lang-key="servicesTitle"></h2>
@@ -887,19 +968,19 @@
 
             <section id="cost-calculator" class="container" data-section-name="حاسبة التكلفة" data-section-name-en="Cost Calculator" data-section-name-fr="Calculateur de Coût">
                  <div class="container" style="padding-top: 2rem; padding-bottom: 2rem; text-align: center;">
-                     <h2 class="section-title shiny-title" data-lang-key="calculatorTitle" style="margin-bottom: 1.5rem;"></h2>
-                     <a href="calculator.html" class="btn" data-lang-key="calculatorCTA" style="font-size: 1.1rem; padding: 1rem 2.5rem;"></a>
+                      <h2 class="section-title shiny-title" data-lang-key="calculatorTitle" style="margin-bottom: 1.5rem;"></h2>
+                      <a href="calculator.html" class="btn" data-lang-key="calculatorCTA" style="font-size: 1.1rem; padding: 1rem 2.5rem;"></a>
                  </div>
             </section>
 
             <section id="website-test" class="container" data-section-name="اختبر موقعك" data-section-name-en="Test Your Site" data-section-name-fr="Testez Votre Site">
                  <h2 class="section-title shiny-title" data-lang-key="testTitle"></h2>
                  <div class="website-test-tool">
-                     <div id="test-card-container">
-                     </div>
-                     <div id="test-progress-container">
-                             <div id="test-progress-bar"></div>
-                     </div>
+                      <div id="test-card-container">
+                      </div>
+                      <div id="test-progress-container">
+                                <div id="test-progress-bar"></div>
+                      </div>
                  </div>
             </section>
 
@@ -968,7 +1049,12 @@
                     heroTitle: ["نصمم لك هوية رقمية احترافية", "نحول أفكارك إلى واقع", "حلول ويب مبتكرة"],
                     heroSubtitle: "في الجزائر، نساعد الشركات الناشئة والمستقلين على بناء حضور قوي على الإنترنت.", 
                     heroCTA: "أو أرسل رسالة", heroBookCall: "احجز استشارة مجانية",
-                    aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", founderName: "Amayas berkani", founderText: "مطور ويب مستقل متخصص في بناء تجارب رقمية فريدة. أؤمن بأن الموقع الإلكتروني ليس مجرد واجهة، بل هو أداة قوية للنمو. مهمتي هي تحويل أفكارك إلى حقيقة رقمية من خلال تصميمات أنيقة وبرمجة عالية الأداء.",
+                    aboutTitle: "حلول رقمية مبتكرة لعلامتك التجارية", 
+                    founderName: "أمياس بركاني", 
+                    founderIntro: "مهندس تجارب رقمية، أصنع الحلول التي تسد الفجوة بين الطموح والواقع. لا أرى المواقع مجرد صفحات، بل هي أصول استراتيجية تنبض بالحياة، مصممة لتحقيق النمو وبناء علاقات دائمة.",
+                    founderPhilosophyTitle: "فلسفتي في العمل",
+                    founderPhilosophy: "فلسفتي تتجاوز كتابة الأكواد؛ إنها فن صياغة الحلول. كل مشروع هو رحلة استراتيجية تبدأ بفهم عميق لرؤيتك وتنتهي بتجربة رقمية لا تُنسى، تجمع بين الجمال البصري والأداء الهندسي الدقيق.",
+                    techSkillsTitle: "المهارات التقنية",
                     servicesTitle: "خدماتنا", service1: "صفحات الهبوط", service2: "مواقع متعددة الصفحات", service3: "متاجر إلكترونية", service4: "إضافة مدونة", service5: "أنظمة الحجز", service6: "معرض أعمال",
                     processTitle: "منهجية العمل",
                     process1Title: "الاستشارة والتحليل", process1Desc: "نبني أساسًا متينًا لمشروعك من خلال فهم عميق لأهدافك ومتطلباتك، ونقدم لك حلولًا مخصصة.",
@@ -1004,7 +1090,12 @@
                     heroTitle: ["We Design a Professional Digital Identity", "We Turn Your Ideas Into Reality", "Innovative Web Solutions"],
                     heroSubtitle: "In Algeria, we help startups and freelancers build a strong online presence.", 
                     heroCTA: "Or Send a Message", heroBookCall: "Book a Free Consultation",
-                    aboutTitle: "Innovative Digital Solutions for Your Brand", founderName: "Amayas Berkani", founderText: "A freelance web developer specializing in building unique digital experiences. I believe a website isn't just an interface, but a powerful tool for growth. My mission is to turn your ideas into a digital reality through elegant designs and high-performance code.",
+                    aboutTitle: "Innovative Digital Solutions for Your Brand", 
+                    founderName: "Amayas Berkani", 
+                    founderIntro: "A digital experience architect, I craft solutions that bridge the gap between ambition and reality. I don't see websites as mere pages, but as living, strategic assets designed to drive growth and build lasting relationships.",
+                    founderPhilosophyTitle: "My Work Philosophy",
+                    founderPhilosophy: "My philosophy extends beyond writing code; it's the art of crafting solutions. Every project is a strategic journey that begins with a deep understanding of your vision and ends with an unforgettable digital experience, combining visual beauty with precise engineering performance.",
+                    techSkillsTitle: "Technical Skills",
                     servicesTitle: "Our Services", service1: "Landing Pages", service2: "Multi-Page Websites", service3: "E-commerce Stores", service4: "Blog Integration", service5: "Booking Systems", service6: "Portfolio",
                     processTitle: "Our Process",
                     process1Title: "Consultation & Analysis", process1Desc: "We build a solid foundation for your project by deeply understanding your goals and requirements, offering tailored solutions.",
@@ -1044,7 +1135,12 @@
                     heroTitle: ["Nous Créons Votre Identité Numérique Professionnelle", "Nous Transformons Vos Idées en Réalité", "Solutions Web Innovantes"],
                     heroSubtitle: "En Algérie, nous aidons les startups et les indépendants à bâtir une forte présence en ligne.", 
                     heroCTA: "Ou Envoyer un Message", heroBookCall: "Réserver une Consultation Gratuite",
-                    aboutTitle: "Solutions Numériques Innovantes Pour Votre Marque", founderName: "Amayas Berkani", founderText: "Développeur web freelance spécialisé dans la création d'expériences numériques uniques. Je crois qu'un site web n'est pas seulement une interface, mais un puissant outil de croissance. Ma mission est de transformer vos idées en réalité numérique grâce à des designs élégants et un code haute performance.",
+                    aboutTitle: "Solutions Numériques Innovantes Pour Votre Marque", 
+                    founderName: "Amayas Berkani", 
+                    founderIntro: "Architecte d'expériences numériques, je crée des solutions qui comblent le fossé entre l'ambition et la réalité. Je ne vois pas les sites web comme de simples pages, mais comme des actifs stratégiques vivants, conçus pour stimuler la croissance et bâtir des relations durables.",
+                    founderPhilosophyTitle: "Ma Philosophie de Travail",
+                    founderPhilosophy: "Ma philosophie va au-delà de l'écriture de code ; c'est l'art de concevoir des solutions. Chaque projet est un voyage stratégique qui commence par une compréhension profonde de votre vision et se termine par une expérience numérique inoubliable, alliant beauté visuelle et performance d'ingénierie précise.",
+                    techSkillsTitle: "Compétences Techniques",
                     servicesTitle: "Nos Services", service1: "Pages d'Atterrissage", service2: "Sites Multi-Pages", service3: "Boutiques E-commerce", service4: "Intégration de Blog", service5: "Systèmes de Réservation", service6: "Portfolio",
                     processTitle: "Notre Processus",
                     process1Title: "Consultation et Analyse", process1Desc: "Nous établissons une base solide pour votre projet en comprenant en profondeur vos objectifs et vos besoins, en vous offrant des solutions sur mesure.",
@@ -1130,7 +1226,7 @@
 
             function setupCursorHoverEffects() {
                 const interactiveElements = document.querySelectorAll(
-                    'a, button, input, textarea, .service-card[data-modal-target], .faq-question, .carousel-nav-btn, .footer-legal button, .modal-close, #scrollTopBtn'
+                    'a, button, input, textarea, .service-card[data-modal-target], .faq-question, .carousel-nav-btn, .footer-legal button, .modal-close, #scrollTopBtn, .skill-item'
                 );
                 
                 interactiveElements.forEach(el => {
@@ -1171,11 +1267,14 @@
             
             // --- MICRO-INTERACTIONS WITH SOUND ---
             function applyMicroInteractions() {
-                const interactiveElements = document.querySelectorAll('.btn, .theme-toggle, .lang-toggle, .main-nav a, .faq-question, .carousel-nav-btn, .footer-legal button, .scroll-indicator-nav li a, .service-card, .process-step, .contact-direct-links a, .modal-close');
+                const interactiveElements = document.querySelectorAll('.btn, .theme-toggle, .lang-toggle, .main-nav a, .faq-question, .carousel-nav-btn, .footer-legal button, .scroll-indicator-nav li a, .service-card, .process-step, .contact-direct-links a, .modal-close, .skill-item');
                 interactiveElements.forEach(el => {
                     el.addEventListener('mouseenter', () => playSound('hover', 'C3', '32n'));
-                    el.addEventListener('mousedown', () => {
-                        playSound('click', 'C5', '8n');
+                    el.addEventListener('mousedown', (e) => {
+                        // Don't play default click sound for skill-items as they have a custom one
+                        if (!e.target.closest('.skill-item')) {
+                            playSound('click', 'C5', '8n');
+                        }
                         el.style.transition = 'transform 0.1s ease';
                         el.style.transform += ' scale(0.95)';
                     });
@@ -1204,7 +1303,7 @@
                     });
                     input.addEventListener('input', () => {
                          if (input.style.borderColor !== 'var(--border-color)') {
-                             input.style.borderColor = '';
+                               input.style.borderColor = '';
                          }
                     });
                 });
@@ -1279,8 +1378,8 @@
                     li.classList.toggle('active', li.dataset.section === currentSectionId);
                 });
 
-                // Parallax effect
-                requestAnimationFrame(handleParallaxEffect);
+                // Parallax effect is disabled for performance, can be re-enabled if needed
+                // requestAnimationFrame(handleParallaxEffect);
             }
 
             // OPTIMIZATION: This function now only updates text, not the entire DOM.
@@ -1293,7 +1392,7 @@
                 document.querySelectorAll('[data-lang-key]').forEach(el => {
                     const key = el.getAttribute('data-lang-key');
                     if (langData && langData[key] && !Array.isArray(langData[key])) {
-                         el.innerHTML = langData[key];
+                        el.innerHTML = langData[key];
                     }
                 });
 
@@ -1496,8 +1595,8 @@
             let testToolInitialized = false;
             function initWebsiteTestTool() {
                  if (testToolInitialized) {
-                    updateTestToolText(langCycle[currentLangIndex]);
-                    return;
+                     updateTestToolText(langCycle[currentLangIndex]);
+                     return;
                  }
                 const container = document.getElementById('test-card-container');
                 if (!container) return;
@@ -1694,25 +1793,20 @@
                     step.dataset.delay = index * 120;
                     stepObserver.observe(step);
                 });
-            }
 
-            function handleParallaxEffect() {
-                const aboutSection = document.querySelector('#about');
-                if (!aboutSection) return;
-                const rect = aboutSection.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    const avatar = document.querySelector('.founder-avatar');
-                    const bio = document.querySelector('.founder-bio');
-                    const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-                    if (avatar) {
-                        const avatarY = scrollPercent * -80;
-                        avatar.style.transform = `translateY(${avatarY}px)`;
-                    }
-                    if (bio) {
-                        const bioY = scrollPercent * -40;
-                        bio.style.transform = `translateY(${bioY}px)`;
-                    }
-                }
+                // Staggered fade-in for skill items
+                const skillObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                document.querySelectorAll('.skill-item').forEach((item, index) => {
+                    item.style.transitionDelay = `${index * 80}ms`;
+                    skillObserver.observe(item);
+                });
             }
 
             let currentPricingCardIndex = 1;
@@ -1760,6 +1854,63 @@
                 });
             }
 
+            // --- UPDATED: Function to create and inject skill icons using the CORRECT URLs ---
+            function createSkillIcons() {
+                const skills = [
+                    { name: 'HTML5', iconUrl: 'https://i.postimg.cc/50WYYFmg/HTML5-logo-and-wordmark-svg.png' },
+                    { name: 'CSS3', iconUrl: 'https://i.postimg.cc/sDgBhz5k/CSS3-logo-and-wordmark-svg.png' },
+                    { name: 'JavaScript', iconUrl: 'https://i.postimg.cc/Hn2yCsX2/javascript.png' },
+                    { name: 'React', iconUrl: 'https://i.postimg.cc/SNRsKrhq/1631110818-logo-react-js.png' },
+                    { name: 'Node.js', iconUrl: 'https://i.postimg.cc/Y98rr4Dh/Node-js-logo-svg.png' },
+                    { name: 'Firebase', iconUrl: 'https://i.postimg.cc/xC5LP7W4/touchicon-180.png' },
+                ];
+
+                const skillsGrid = document.getElementById('skills-grid');
+                if (!skillsGrid) return;
+                skillsGrid.innerHTML = ''; // Clear existing skills
+
+                skills.forEach(skill => {
+                    const skillItem = document.createElement('div');
+                    skillItem.className = 'skill-item';
+                    skillItem.innerHTML = `
+                        <div class="skill-icon-container">
+                            <img src="${skill.iconUrl}" alt="${skill.name} logo" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                        <span class="skill-name">${skill.name}</span>
+                    `;
+                    skillsGrid.appendChild(skillItem);
+                });
+                
+                // Add ripple effect listener to the grid
+                skillsGrid.addEventListener('click', function(e) {
+                    const iconContainer = e.target.closest('.skill-icon-container');
+                    if (!iconContainer) return;
+
+                    playSound('click', 'G4', '16n');
+
+                    // Create ripple element
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple';
+                    
+                    // Calculate position
+                    const rect = iconContainer.getBoundingClientRect();
+                    const size = iconContainer.offsetWidth;
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    ripple.style.width = ripple.style.height = `${size}px`;
+                    ripple.style.left = `${x - size / 2}px`;
+                    ripple.style.top = `${y - size / 2}px`;
+                    
+                    iconContainer.appendChild(ripple);
+
+                    // Remove ripple after animation
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            }
+
             function initMainSite() {
                 const logo = document.querySelector('.logo');
                 if (logo) {
@@ -1773,6 +1924,7 @@
                 }
                 
                 // Initialize all functionalities
+                createSkillIcons(); // Uses new image URLs
                 applyMicroInteractions();
                 init3DHero();
                 initIntersectionObservers();
