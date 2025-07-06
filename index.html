@@ -28,6 +28,10 @@
             --glow-color: rgba(139, 92, 246, 0.7); /* Default: Purple Neon Glow */
             --spotlight-color: rgba(139, 92, 246, 0.1); /* Default: Purple Spotlight */
             --primary-text-color: #FFFFFF; /* White text on accent */
+            
+            /* NEW: Light mode aurora colors */
+            --light-mode-glow-color: #c084fc;
+            --light-mode-aura-color: #f3e8ff;
         }
 
         body {
@@ -48,10 +52,9 @@
             --text-color: #121212;
             --subtle-text-color: #555555;
             --border-color: rgba(200, 200, 200, 0.5);
-            --primary-hover: #7C3AED; /* Darker Purple for hover */
+            --primary-hover: #7C3AED; 
             --overlay-color: rgba(0, 0, 0, 0.6);
             --header-bg: rgba(245, 245, 245, 0.7);
-            --spotlight-color: rgba(139, 92, 246, 0.08);
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
@@ -78,17 +81,18 @@
             content: ''; position: fixed; top: -50%; left: -50%; width: 200vw; height: 200vh;
             z-index: -1; pointer-events: none; background-color: #0d0d0d;
             background-image:
-                radial-gradient(circle at 25% 25%, var(--primary-color) 0%, rgba(139, 92, 246, 0) 30%),
-                radial-gradient(circle at 75% 75%, var(--primary-hover) 0%, rgba(74, 35, 160, 0) 35%);
+                radial-gradient(circle at 25% 25%, var(--primary-color) 0%, transparent 30%),
+                radial-gradient(circle at 75% 75%, var(--primary-hover) 0%, transparent 35%);
             filter: blur(40px); animation: animated-aurora 30s linear infinite;
             transition: background-image var(--transition-speed);
         }
 
+        /* FIXED: Light mode aurora now uses CSS variables */
         body.light-mode::before {
             background-color: #ffffff;
             background-image:
-                radial-gradient(circle at 20% 80%, var(--primary-hover) 0%, rgba(192, 132, 252, 0) 30%),
-                radial-gradient(circle at 80% 30%, #f3e8ff 0%, rgba(243, 232, 255, 0) 40%);
+                radial-gradient(circle at 20% 80%, var(--light-mode-glow-color) 0%, transparent 30%),
+                radial-gradient(circle at 80% 30%, var(--light-mode-aura-color) 0%, transparent 40%);
         }
 
         /* --- INTRO OVERLAY --- */
@@ -720,12 +724,10 @@
             <div class="header-actions">
                 <button class="lang-toggle" id="header-lang-toggle" aria-label="Change language">AR</button>
                 <button class="theme-toggle" id="header-theme-toggle" aria-label="Toggle theme"></button>
-                <!-- NEW: Color Palette Toggle Button -->
                 <button class="palette-toggle" id="palette-toggle" aria-label="Change accent color">🎨</button>
             </div>
         </header>
 
-        <!-- NEW: Color Palette Container -->
         <div class="color-palette" id="color-palette">
             <!-- Color swatches will be injected by JavaScript -->
         </div>
@@ -743,9 +745,6 @@
                 </div>
             </section>
 
-            <!-- ==================================================== -->
-            <!-- ========= START: UPDATED ABOUT ME SECTION ========== -->
-            <!-- ==================================================== -->
             <section id="about" class="container" data-section-name="من نحن" data-section-name-en="About" data-section-name-fr="À propos">
                 <h2 class="section-title shiny-title" data-lang-key="aboutTitle"></h2>
                 <div class="about-grid">
@@ -753,21 +752,15 @@
                     <div class="founder-bio">
                         <h3 data-lang-key="founderName"></h3>
                         <p data-lang-key="founderIntro"></p>
-                        
                         <h4 data-lang-key="founderPhilosophyTitle"></h4>
                         <p data-lang-key="founderPhilosophy"></p>
                     </div>
                 </div>
                 <div class="skills-container">
                     <h3 class="skills-title" data-lang-key="techSkillsTitle"></h3>
-                    <div class="skills-grid" id="skills-grid">
-                        <!-- Skill items will be injected by JavaScript -->
-                    </div>
+                    <div class="skills-grid" id="skills-grid"></div>
                 </div>
             </section>
-            <!-- ==================================================== -->
-            <!-- ========== END: UPDATED ABOUT ME SECTION =========== -->
-            <!-- ==================================================== -->
 
             <section id="services" class="container" data-section-name="خدماتنا" data-section-name-en="Services" data-section-name-fr="Services">
                 <h2 class="section-title shiny-title" data-lang-key="servicesTitle"></h2>
@@ -1046,13 +1039,13 @@
                 }
             };
 
-            // --- NEW: Color Schemes Definition ---
+            // FIXED: Added specific light mode colors to each scheme
             const colorSchemes = {
-                purple: { primary: '#8B5CF6', hover: '#A37FF7', glow: 'rgba(139, 92, 246, 0.7)', spotlight: 'rgba(139, 92, 246, 0.1)' },
-                blue: { primary: '#3B82F6', hover: '#60A5FA', glow: 'rgba(59, 130, 246, 0.7)', spotlight: 'rgba(59, 130, 246, 0.1)' },
-                green: { primary: '#10B981', hover: '#34D399', glow: 'rgba(16, 185, 129, 0.7)', spotlight: 'rgba(16, 185, 129, 0.1)' },
-                orange: { primary: '#F59E0B', hover: '#FBBF24', glow: 'rgba(245, 158, 11, 0.7)', spotlight: 'rgba(245, 158, 11, 0.1)' },
-                pink: { primary: '#EC4899', hover: '#F472B6', glow: 'rgba(236, 72, 153, 0.7)', spotlight: 'rgba(236, 72, 153, 0.1)' }
+                purple: { primary: '#8B5CF6', hover: '#A37FF7', glow: 'rgba(139, 92, 246, 0.7)', spotlight: 'rgba(139, 92, 246, 0.1)', lightGlow: '#c084fc', lightAura: '#f3e8ff' },
+                blue:   { primary: '#3B82F6', hover: '#60A5FA', glow: 'rgba(59, 130, 246, 0.7)', spotlight: 'rgba(59, 130, 246, 0.1)', lightGlow: '#A5B4FC', lightAura: '#E0E7FF' },
+                green:  { primary: '#10B981', hover: '#34D399', glow: 'rgba(16, 185, 129, 0.7)', spotlight: 'rgba(16, 185, 129, 0.1)', lightGlow: '#6EE7B7', lightAura: '#D1FAE5' },
+                orange: { primary: '#F59E0B', hover: '#FBBF24', glow: 'rgba(245, 158, 11, 0.7)', spotlight: 'rgba(245, 158, 11, 0.1)', lightGlow: '#FCD34D', lightAura: '#FEF3C7' },
+                pink:   { primary: '#EC4899', hover: '#F472B6', glow: 'rgba(236, 72, 153, 0.7)', spotlight: 'rgba(236, 72, 153, 0.1)', lightGlow: '#F9A8D4', lightAura: '#FCE7F3' }
             };
             
             // --- Global Variables & State ---
@@ -1080,8 +1073,8 @@
             const cursorDot = document.querySelector('.custom-cursor-dot');
             const cursorOutline = document.querySelector('.custom-cursor-outline');
             const spotlight = document.querySelector('.spotlight-effect');
-            const paletteToggle = document.getElementById('palette-toggle'); // New
-            const colorPalette = document.getElementById('color-palette'); // New
+            const paletteToggle = document.getElementById('palette-toggle');
+            const colorPalette = document.getElementById('color-palette');
 
             // --- OPTIMIZATION: Mouse move handler using requestAnimationFrame ---
             function onMouseMove(e) {
@@ -1094,14 +1087,10 @@
             }
 
             function updateMouseEffects() {
-                // Update spotlight
                 spotlight.style.setProperty('--mouse-x', mousePos.x + 'px');
                 spotlight.style.setProperty('--mouse-y', mousePos.y + 'px');
-
-                // Update custom cursor
                 cursorDot.style.transform = `translate(${mousePos.x}px, ${mousePos.y}px) translate(-50%, -50%)`;
                 cursorOutline.style.transform = `translate(${mousePos.x}px, ${mousePos.y}px) translate(-50%, -50%)`;
-                
                 isRAFScheduled = false;
             }
 
@@ -1152,7 +1141,6 @@
                 interactiveElements.forEach(el => {
                     el.addEventListener('mouseenter', () => playSound('hover', 'C3', '32n'));
                     el.addEventListener('mousedown', (e) => {
-                        // Don't play default click sound for skill-items as they have a custom one
                         if (!e.target.closest('.skill-item')) {
                             playSound('click', 'C5', '8n');
                         }
@@ -1208,7 +1196,7 @@
                 let targetX = 0, targetY = 0;
                 
                 const animate = () => {
-                    targetX = mousePos.x * .001; // Reduced sensitivity
+                    targetX = mousePos.x * .001;
                     targetY = mousePos.y * .001;
                     shape.rotation.y += .002 + (targetX - shape.rotation.y) * .05;
                     shape.rotation.x += .002 + (targetY - shape.rotation.x) * .05;
@@ -1226,7 +1214,6 @@
             }
 
             function handleScroll() {
-                // Scroll indicator logic
                 if (window.pageYOffset > 200) {
                     scrollIndicator.classList.remove('hidden');
                     scrollIndicator.classList.add('visible');
@@ -1240,10 +1227,8 @@
                     scrollIndicator.classList.add('hidden');
                 }
                 
-                // Scroll-to-top button logic
                 scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
                 
-                // Active nav link logic
                 let currentSectionId = '';
                 const headerOffset = document.querySelector('.header').offsetHeight;
                 const scrollPosition = window.pageYOffset + headerOffset + window.innerHeight / 2;
@@ -1260,7 +1245,7 @@
                 });
             }
 
-            // --- NEW: COLOR PALETTE LOGIC ---
+            // --- COLOR PALETTE LOGIC (FIXED) ---
             function applyColorScheme(schemeName) {
                 const scheme = colorSchemes[schemeName];
                 if (!scheme) return;
@@ -1270,8 +1255,11 @@
                 root.style.setProperty('--primary-hover', scheme.hover);
                 root.style.setProperty('--glow-color', scheme.glow);
                 root.style.setProperty('--spotlight-color', scheme.spotlight);
+                
+                // FIXED: Set light mode specific colors
+                root.style.setProperty('--light-mode-glow-color', scheme.lightGlow);
+                root.style.setProperty('--light-mode-aura-color', scheme.lightAura);
 
-                // Update active swatch
                 colorPalette.querySelectorAll('.color-swatch').forEach(swatch => {
                     swatch.classList.toggle('active', swatch.dataset.scheme === schemeName);
                 });
@@ -1280,7 +1268,6 @@
             }
 
             function initColorPalette() {
-                // Populate palette with swatches
                 Object.keys(colorSchemes).forEach(name => {
                     const scheme = colorSchemes[name];
                     const swatch = document.createElement('button');
@@ -1291,9 +1278,8 @@
                     colorPalette.appendChild(swatch);
                 });
 
-                // Add event listeners
                 paletteToggle.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent document click from closing it immediately
+                    e.stopPropagation();
                     colorPalette.classList.toggle('active');
                     playSound('toggleOn', 'D5');
                 });
@@ -1306,7 +1292,6 @@
                     }
                 });
                 
-                // Close palette when clicking outside
                 document.addEventListener('click', (e) => {
                     if (!colorPalette.contains(e.target) && !paletteToggle.contains(e.target)) {
                         colorPalette.classList.remove('active');
@@ -1429,12 +1414,10 @@
                 }
             }
             
-            // --- OPTIMIZED DYNAMIC CONTENT FUNCTIONS ---
-
             function createFAQ() {
                 const faqContainer = document.querySelector('.faq-container');
                 if (!faqContainer) return;
-                faqContainer.innerHTML = ''; // Clear once
+                faqContainer.innerHTML = '';
 
                 ['Q1','Q2','Q3','Q4','Q5'].forEach(key => {
                     const faqItem = document.createElement('div');
@@ -1457,7 +1440,6 @@
                     const currentItem = question.parentElement;
                     const answer = currentItem.querySelector('.faq-answer');
                     const isOpening = !currentItem.classList.contains('active');
-                    // Close others
                     faqContainer.querySelectorAll('.faq-item.active').forEach(item => {
                         if (item !== currentItem) {
                             item.classList.remove('active');
@@ -1465,7 +1447,6 @@
                             item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
                         }
                     });
-                    // Toggle current
                     currentItem.classList.toggle('active');
                     question.setAttribute('aria-expanded', isOpening);
                     answer.style.maxHeight = isOpening ? answer.scrollHeight + 'px' : null;
@@ -1527,7 +1508,7 @@
                  }
                 const container = document.getElementById('test-card-container');
                 if (!container) return;
-                container.innerHTML = ''; // Clear it
+                container.innerHTML = '';
                 let card = document.createElement('div');
                 card.id = "test-start-card";
                 card.className = 'test-card active';
@@ -1544,7 +1525,7 @@
                 const startCard = document.getElementById('test-start-card');
                 if (startCard) {
                     startCard.querySelector('h3').textContent = langData.testTitle;
-                    startCard.querySelector('button').textContent = langData.planCTA; // "Get Started" or similar
+                    startCard.querySelector('button').textContent = langData.planCTA;
                 }
             }
             
@@ -1643,7 +1624,6 @@
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const container = entry.target;
-                            // Ensure the text content is up-to-date before splitting
                             const key = container.getAttribute('data-lang-key');
                             const lang = langCycle[currentLangIndex];
                             if (key && translations[lang] && translations[lang][key]) {
@@ -1681,7 +1661,6 @@
             }
 
             function initIntersectionObservers() {
-                // Generic fade-in-up for sections
                 const sectionObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1692,7 +1671,6 @@
                 }, { threshold: 0.15 });
                 pageSections.forEach(section => sectionObserver.observe(section));
 
-                // Staggered fade-in for service cards
                 const cardObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1706,7 +1684,6 @@
                     cardObserver.observe(card);
                 });
 
-                // Staggered fade-in for process steps
                 const stepObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1721,7 +1698,6 @@
                     stepObserver.observe(step);
                 });
 
-                // Staggered fade-in for skill items
                 const skillObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1793,7 +1769,7 @@
 
                 const skillsGrid = document.getElementById('skills-grid');
                 if (!skillsGrid) return;
-                skillsGrid.innerHTML = ''; // Clear existing skills
+                skillsGrid.innerHTML = '';
 
                 skills.forEach(skill => {
                     const skillItem = document.createElement('div');
@@ -1807,18 +1783,15 @@
                     skillsGrid.appendChild(skillItem);
                 });
                 
-                // Add ripple effect listener to the grid
                 skillsGrid.addEventListener('click', function(e) {
                     const iconContainer = e.target.closest('.skill-icon-container');
                     if (!iconContainer) return;
 
                     playSound('click', 'G4', '16n');
 
-                    // Create ripple element
                     const ripple = document.createElement('span');
                     ripple.className = 'ripple';
                     
-                    // Calculate position
                     const rect = iconContainer.getBoundingClientRect();
                     const size = iconContainer.offsetWidth;
                     const x = e.clientX - rect.left;
@@ -1830,7 +1803,6 @@
                     
                     iconContainer.appendChild(ripple);
 
-                    // Remove ripple after animation
                     setTimeout(() => {
                         ripple.remove();
                     }, 600);
@@ -1849,7 +1821,6 @@
                     });
                 }
                 
-                // Initialize all functionalities
                 createSkillIcons();
                 applyMicroInteractions();
                 init3DHero();
@@ -1858,12 +1829,10 @@
                 createScrollIndicator();
                 initWebsiteTestTool();
                 initPricingCarousel();
-                initColorPalette(); // New
+                initColorPalette();
                 
-                // Set initial language and text content
                 updateLanguage(langCycle[currentLangIndex]);
 
-                // Add event listeners
                 document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
                 document.querySelectorAll('.lang-toggle').forEach(toggle => toggle.addEventListener('click', handleLangToggle));
                 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
@@ -1871,7 +1840,6 @@
                 window.addEventListener('mousemove', onMouseMove, { passive: true });
                 if (contactForm) contactForm.addEventListener("submit", handleFormSubmit);
                 
-                // Modal listeners
                 document.body.addEventListener('click', function(e) {
                     const modalTrigger = e.target.closest('[data-modal-target]');
                     if (modalTrigger) {
@@ -1893,7 +1861,6 @@
                     }
                 });
 
-                // Pricing CTA listener
                 pricingCarousel.addEventListener('click', function(e) {
                     const planButton = e.target.closest('.pricing-card .btn');
                     if (planButton) {
@@ -1922,7 +1889,6 @@
                     }
                 });
 
-                // Smooth scroll for internal links
                 document.querySelectorAll('.main-nav a, .footer-links a, .logo').forEach(link => {
                     link.addEventListener('click', function(e) {
                         const href = this.getAttribute('href');
@@ -1998,7 +1964,6 @@
             }
             currentLangIndex = langCycle.indexOf(initialLang);
 
-            // NEW: Apply saved color scheme on load
             const savedScheme = localStorage.getItem('colorScheme') || 'purple';
             applyColorScheme(savedScheme);
             
